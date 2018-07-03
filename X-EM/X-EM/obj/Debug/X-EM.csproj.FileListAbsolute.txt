@@ -1,1 +1,2 @@
 H:\C#\X-EM\X-EM\bin\Debug\X-EM.exe.config
+C:\Users\koehlerc\Documents\NotenmanagerGr4\X-EM\X-EM\bin\Debug\X-EM.exe.config
