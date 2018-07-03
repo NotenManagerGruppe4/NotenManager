@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="Model1TargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="KlasseSet" EntityType="Model1.Klasse" />
+          <EntitySet Name="SchuleSet" EntityType="Model1.Schule" />
+          <AssociationSet Name="SchuleKlasse" Association="Model1.SchuleKlasse">
+            <End Role="Schule" EntitySet="SchuleSet" />
+            <End Role="Klasse" EntitySet="KlasseSet" />
+          </AssociationSet>
+          <EntitySet Name="ZeugnisfachSet1" EntityType="Model1.Zeugnisfach" />
+          <AssociationSet Name="KlasseFach" Association="Model1.KlasseFach">
+            <End Role="Klasse" EntitySet="KlasseSet" />
+            <End Role="Fach" EntitySet="ZeugnisfachSet1" />
+          </AssociationSet>
+          <EntitySet Name="UnterrichtsfachSet" EntityType="Model1.Unterrichtsfach" />
+          <AssociationSet Name="ZeugnisfachUnterrichtsfach" Association="Model1.ZeugnisfachUnterrichtsfach">
+            <End Role="Zeugnisfach" EntitySet="ZeugnisfachSet1" />
+            <End Role="Unterrichtsfach" EntitySet="UnterrichtsfachSet" />
+          </AssociationSet>
+          <EntitySet Name="LehrerSet" EntityType="Model1.Lehrer" />
+          <EntitySet Name="UFachLehrerSet" EntityType="Model1.UFachLehrer" />
+          <AssociationSet Name="UnterrichtsfachUFachLehrer" Association="Model1.UnterrichtsfachUFachLehrer">
+            <End Role="Unterrichtsfach" EntitySet="UnterrichtsfachSet" />
+            <End Role="UFachLehrer" EntitySet="UFachLehrerSet" />
+          </AssociationSet>
+          <AssociationSet Name="UFachLehrerLehrer" Association="Model1.UFachLehrerLehrer">
+            <End Role="UFachLehrer" EntitySet="UFachLehrerSet" />
+            <End Role="Lehrer" EntitySet="LehrerSet" />
+          </AssociationSet>
+          <EntitySet Name="SchuelerKlasseSet" EntityType="Model1.SchuelerKlasse" />
+          <EntitySet Name="SchuelerSet" EntityType="Model1.Schueler" />
+          <AssociationSet Name="SchuelerSchuelerKlasse" Association="Model1.SchuelerSchuelerKlasse">
+            <End Role="Schueler" EntitySet="SchuelerSet" />
+            <End Role="SchuelerKlasse" EntitySet="SchuelerKlasseSet" />
+          </AssociationSet>
+          <AssociationSet Name="KlasseSchuelerKlasse" Association="Model1.KlasseSchuelerKlasse">
+            <End Role="Klasse" EntitySet="KlasseSet" />
+            <End Role="SchuelerKlasse" EntitySet="SchuelerKlasseSet" />
+          </AssociationSet>
+          <EntitySet Name="LeistungSet" EntityType="Model1.Leistung" />
+          <EntitySet Name="LeistungsartSet" EntityType="Model1.Leistungsart" />
+          <EntitySet Name="LeistungsgruppeSet" EntityType="Model1.Leistungsgruppe" />
+          <AssociationSet Name="LeistungsartLeistungsgruppe" Association="Model1.LeistungsartLeistungsgruppe">
+            <End Role="Leistungsart" EntitySet="LeistungsartSet" />
+            <End Role="Leistungsgruppe" EntitySet="LeistungsgruppeSet" />
+          </AssociationSet>
+          <AssociationSet Name="LeistungUFachLehrer" Association="Model1.LeistungUFachLehrer">
+            <End Role="Leistung" EntitySet="LeistungSet" />
+            <End Role="UFachLehrer" EntitySet="UFachLehrerSet" />
+          </AssociationSet>
+          <AssociationSet Name="LehrerKlasse" Association="Model1.LehrerKlasse">
+            <End Role="Lehrer" EntitySet="LehrerSet" />
+            <End Role="Klasse" EntitySet="KlasseSet" />
+          </AssociationSet>
+          <AssociationSet Name="LehrerKlasse1" Association="Model1.LehrerKlasse1">
+            <End Role="Lehrer" EntitySet="LehrerSet" />
+            <End Role="Klasse" EntitySet="KlasseSet" />
+          </AssociationSet>
+          <AssociationSet Name="LeistungSchuelerKlasse" Association="Model1.LeistungSchuelerKlasse">
+            <End Role="Leistung" EntitySet="LeistungSet" />
+            <End Role="SchuelerKlasse" EntitySet="SchuelerKlasseSet" />
+          </AssociationSet>
+          <AssociationSet Name="LeistungsartLeistung" Association="Model1.LeistungsartLeistung">
+            <End Role="Leistungsart" EntitySet="LeistungsartSet" />
+            <End Role="Leistung" EntitySet="LeistungSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Klasse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bez" Type="String" Nullable="false" MaxLength="45" />
+          <Property Name="SJ" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Schule" Relationship="Model1.SchuleKlasse" FromRole="Klasse" ToRole="Schule" />
+          <Property Name="IdSchule" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Fach" Relationship="Model1.KlasseFach" FromRole="Klasse" ToRole="Fach" />
+          <NavigationProperty Name="SchuelerKlasse" Relationship="Model1.KlasseSchuelerKlasse" FromRole="Klasse" ToRole="SchuelerKlasse" />
+          <NavigationProperty Name="Lehrer" Relationship="Model1.LehrerKlasse" FromRole="Klasse" ToRole="Lehrer" />
+          <Property Name="IdKlassenleiter" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Lehrer1" Relationship="Model1.LehrerKlasse1" FromRole="Klasse" ToRole="Lehrer" />
+          <Property Name="IdStvKlassenleiter" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bez" Type="String" Nullable="false" MaxLength="45" />
+          <NavigationProperty Name="Klasse" Relationship="Model1.SchuleKlasse" FromRole="Schule" ToRole="Klasse" />
+        </EntityType>
+        <Association Name="SchuleKlasse">
+          <End Type="Model1.Schule" Role="Schule" Multiplicity="1" />
+          <End Type="Model1.Klasse" Role="Klasse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Klasse">
+              <PropertyRef Name="IdSchule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Zeugnisfach">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bez" Type="String" Nullable="false" MaxLength="45" />
+          <Property Name="Pos" Type="Int32" Nullable="false" />
+          <Property Name="AbschliessendesFach" Type="Boolean" Nullable="false" />
+          <Property Name="Fachart" Type="String" Nullable="false" MaxLength="45" />
+          <Property Name="Vorrueckungsfach" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Klasse" Relationship="Model1.KlasseFach" FromRole="Fach" ToRole="Klasse" />
+          <Property Name="IdKlasse" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Unterrichtsfach" Relationship="Model1.ZeugnisfachUnterrichtsfach" FromRole="Zeugnisfach" ToRole="Unterrichtsfach" />
+        </EntityType>
+        <Association Name="KlasseFach">
+          <End Type="Model1.Klasse" Role="Klasse" Multiplicity="1" />
+          <End Type="Model1.Zeugnisfach" Role="Fach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klasse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fach">
+              <PropertyRef Name="IdKlasse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Unterrichtsfach">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bez" Type="String" Nullable="false" MaxLength="45" />
+          <Property Name="Stunden" Type="Int32" Nullable="false" />
+          <Property Name="Pos" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Zeugnisfach" Relationship="Model1.ZeugnisfachUnterrichtsfach" FromRole="Unterrichtsfach" ToRole="Zeugnisfach" />
+          <Property Name="IdZeugnisfach" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UFachLehrer" Relationship="Model1.UnterrichtsfachUFachLehrer" FromRole="Unterrichtsfach" ToRole="UFachLehrer" />
+        </EntityType>
+        <Association Name="ZeugnisfachUnterrichtsfach">
+          <End Type="Model1.Zeugnisfach" Role="Zeugnisfach" Multiplicity="1" />
+          <End Type="Model1.Unterrichtsfach" Role="Unterrichtsfach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zeugnisfach">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Unterrichtsfach">
+              <PropertyRef Name="IdZeugnisfach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Lehrer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kürzel" Type="String" Nullable="false" MaxLength="5" />
+          <Property Name="Nachname" Type="String" Nullable="false" MaxLength="45" />
+          <Property Name="Vorname" Type="String" Nullable="false" MaxLength="45" />
+          <Property Name="Dienstbezeichnung" Type="String" Nullable="true" MaxLength="45" DefaultValue="NULL" />
+          <NavigationProperty Name="UFachLehrer" Relationship="Model1.UFachLehrerLehrer" FromRole="Lehrer" ToRole="UFachLehrer" />
+          <NavigationProperty Name="Klasse" Relationship="Model1.LehrerKlasse" FromRole="Lehrer" ToRole="Klasse" />
+          <NavigationProperty Name="Klasse1" Relationship="Model1.LehrerKlasse1" FromRole="Lehrer" ToRole="Klasse" />
+        </EntityType>
+        <EntityType Name="UFachLehrer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Stunden" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Unterrichtsfach" Relationship="Model1.UnterrichtsfachUFachLehrer" FromRole="UFachLehrer" ToRole="Unterrichtsfach" />
+          <Property Name="IdUnterrichtsfach" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Lehrer" Relationship="Model1.UFachLehrerLehrer" FromRole="UFachLehrer" ToRole="Lehrer" />
+          <Property Name="IdLehrer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Leistung" Relationship="Model1.LeistungUFachLehrer" FromRole="UFachLehrer" ToRole="Leistung" />
+          <Property Name="EDatum" Type="DateTime" Nullable="false" />
+          <Property Name="ADatum" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <Association Name="UnterrichtsfachUFachLehrer">
+          <End Type="Model1.Unterrichtsfach" Role="Unterrichtsfach" Multiplicity="1" />
+          <End Type="Model1.UFachLehrer" Role="UFachLehrer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unterrichtsfach">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UFachLehrer">
+              <PropertyRef Name="IdUnterrichtsfach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UFachLehrerLehrer">
+          <End Type="Model1.UFachLehrer" Role="UFachLehrer" Multiplicity="*" />
+          <End Type="Model1.Lehrer" Role="Lehrer" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Lehrer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UFachLehrer">
+              <PropertyRef Name="IdLehrer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SchuelerKlasse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Schueler" Relationship="Model1.SchuelerSchuelerKlasse" FromRole="SchuelerKlasse" ToRole="Schueler" />
+          <Property Name="IdSchueler" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Klasse" Relationship="Model1.KlasseSchuelerKlasse" FromRole="SchuelerKlasse" ToRole="Klasse" />
+          <Property Name="IdKlasse" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Leistung" Relationship="Model1.LeistungSchuelerKlasse" FromRole="SchuelerKlasse" ToRole="Leistung" />
+        </EntityType>
+        <EntityType Name="Schueler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nachname" Type="String" Nullable="false" MaxLength="45" />
+          <Property Name="Vorname" Type="String" Nullable="false" MaxLength="45" />
+          <Property Name="Geburtsdatum" Type="DateTime" Nullable="false" />
+          <Property Name="Geschlecht" Type="String" Nullable="false" FixedLength="true" MaxLength="1" />
+          <Property Name="Konfession" Type="String" Nullable="false" FixedLength="true" MaxLength="1" />
+          <NavigationProperty Name="SchuelerKlasse" Relationship="Model1.SchuelerSchuelerKlasse" FromRole="Schueler" ToRole="SchuelerKlasse" />
+        </EntityType>
+        <Association Name="SchuelerSchuelerKlasse">
+          <End Type="Model1.Schueler" Role="Schueler" Multiplicity="1" />
+          <End Type="Model1.SchuelerKlasse" Role="SchuelerKlasse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schueler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SchuelerKlasse">
+              <PropertyRef Name="IdSchueler" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KlasseSchuelerKlasse">
+          <End Type="Model1.Klasse" Role="Klasse" Multiplicity="1" />
+          <End Type="Model1.SchuelerKlasse" Role="SchuelerKlasse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klasse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SchuelerKlasse">
+              <PropertyRef Name="IdKlasse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Leistung">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Erhebungsdatum" Type="DateTime" Nullable="false" />
+          <Property Name="Notenstufe" Type="Int32" Nullable="false" />
+          <Property Name="Tendenz" Type="String" Nullable="true" FixedLength="true" MaxLength="1" DefaultValue="NULL" />
+          <NavigationProperty Name="UFachLehrer" Relationship="Model1.LeistungUFachLehrer" FromRole="Leistung" ToRole="UFachLehrer" />
+          <Property Name="IdFachLehrer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SchuelerKlasse" Relationship="Model1.LeistungSchuelerKlasse" FromRole="Leistung" ToRole="SchuelerKlasse" />
+          <Property Name="IdSchülerKlasse" Type="Int32" Nullable="false" />
+          <Property Name="LetzteÄnderung" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Leistungsart" Relationship="Model1.LeistungsartLeistung" FromRole="Leistung" ToRole="Leistungsart" />
+          <Property Name="IdArt" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Leistungsart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bez" Type="String" Nullable="false" MaxLength="45" />
+          <Property Name="Gewichtung" Type="Double" Nullable="false" />
+          <Property Name="Gruppe" Type="String" Nullable="false" FixedLength="true" MaxLength="1" />
+          <NavigationProperty Name="Leistungsgruppe" Relationship="Model1.LeistungsartLeistungsgruppe" FromRole="Leistungsart" ToRole="Leistungsgruppe" />
+          <NavigationProperty Name="Leistung" Relationship="Model1.LeistungsartLeistung" FromRole="Leistungsart" ToRole="Leistung" />
+        </EntityType>
+        <EntityType Name="Leistungsgruppe">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bez" Type="String" Nullable="false" MaxLength="45" />
+          <Property Name="Gewicht" Type="String" Nullable="false" MaxLength="45" />
+          <NavigationProperty Name="Leistungsart" Relationship="Model1.LeistungsartLeistungsgruppe" FromRole="Leistungsgruppe" ToRole="Leistungsart" />
+          <Property Name="IdLeistungsart" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="LeistungsartLeistungsgruppe">
+          <End Type="Model1.Leistungsart" Role="Leistungsart" Multiplicity="1" />
+          <End Type="Model1.Leistungsgruppe" Role="Leistungsgruppe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leistungsart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Leistungsgruppe">
+              <PropertyRef Name="IdLeistungsart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LeistungUFachLehrer">
+          <End Type="Model1.Leistung" Role="Leistung" Multiplicity="*" />
+          <End Type="Model1.UFachLehrer" Role="UFachLehrer" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="UFachLehrer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Leistung">
+              <PropertyRef Name="IdFachLehrer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LehrerKlasse">
+          <End Type="Model1.Lehrer" Role="Lehrer" Multiplicity="1" />
+          <End Type="Model1.Klasse" Role="Klasse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lehrer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Klasse">
+              <PropertyRef Name="IdKlassenleiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LehrerKlasse1">
+          <End Type="Model1.Lehrer" Role="Lehrer" Multiplicity="1" />
+          <End Type="Model1.Klasse" Role="Klasse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lehrer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Klasse">
+              <PropertyRef Name="IdStvKlassenleiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LeistungSchuelerKlasse">
+          <End Type="Model1.Leistung" Role="Leistung" Multiplicity="*" />
+          <End Type="Model1.SchuelerKlasse" Role="SchuelerKlasse" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="SchuelerKlasse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Leistung">
+              <PropertyRef Name="IdSchülerKlasse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LeistungsartLeistung">
+          <End Type="Model1.Leistungsart" Role="Leistungsart" Multiplicity="1" />
+          <End Type="Model1.Leistung" Role="Leistung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leistungsart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Leistung">
+              <PropertyRef Name="IdArt" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Model1" />
+        <Alias Key="Target" Value="Model1.Store" />
+        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1TargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

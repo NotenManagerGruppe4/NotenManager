@@ -1,0 +1,1 @@
+H:\C#\X-EM\X-EM\bin\Debug\X-EM.exe.config
