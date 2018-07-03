@@ -2,6 +2,7 @@
 //Im Projektmappenexplorer: Verweise -> Verweis hinzufügen -> COM -> Microsoft HTML Object Library.
 using mshtml
 
+//WICHTIG: Hier wird nicht geprüft ob unser Webbrowser (wbrMain) nicht NULL ist.
 
 private void wbrMain_LoadCompleted(object sender, NavigationEventArgs e)
 {
