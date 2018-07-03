@@ -7,32 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-namespace X_EM
-=======
 namespace X_EM.Model
->>>>>>> ffd4214d6df6defe5bd5aa74435e6e17bd2b3e58
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Leistungsart
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Leistungsart()
-        {
-            this.Leistungsgruppe = new HashSet<Leistungsgruppe>();
-            this.Leistung = new HashSet<Leistung>();
-        }
-    
-        public int Id { get; set; }
-        public string Bez { get; set; }
-        public double Gewichtung { get; set; }
-        public string Gruppe { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Leistungsgruppe> Leistungsgruppe { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Leistung> Leistung { get; set; }
-    }
+   using System;
+   using System.Collections.Generic;
+
+   public class Leistungsart
+   {
+      public Leistungsart()
+      {
+      }
+
+      public int Id { get; set; }
+      public string Bez { get; set; }
+      public double Gewichtung { get; set; }
+      public string Gruppe { get; set; }
+
+      public List<Leistungsgruppe> Leistungsgruppe { get; set; } = new List<Model.Leistungsgruppe>();
+      public List<Leistung> Leistung { get; set; } = new List<Model.Leistung>();
+   }
 }

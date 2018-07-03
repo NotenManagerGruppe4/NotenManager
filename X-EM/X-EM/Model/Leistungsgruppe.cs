@@ -7,22 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-namespace X_EM
-=======
 namespace X_EM.Model
->>>>>>> ffd4214d6df6defe5bd5aa74435e6e17bd2b3e58
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Leistungsgruppe
-    {
-        public int Id { get; set; }
-        public string Bez { get; set; }
-        public string Gewicht { get; set; }
-        public int IdLeistungsart { get; set; }
-    
-        public virtual Leistungsart Leistungsart { get; set; }
-    }
+   using System;
+   using System.Collections.Generic;
+
+   public class Leistungsgruppe
+   {
+      public int Id { get; set; }
+      public string Bez { get; set; }
+      public string Gewicht { get; set; }
+      //public int IdLeistungsart { get; set; }
+
+      public Leistungsart Leistungsart { get; set; }
+   }
 }

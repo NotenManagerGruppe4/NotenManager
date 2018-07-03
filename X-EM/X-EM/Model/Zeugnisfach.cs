@@ -7,21 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-namespace X_EM
-=======
 namespace X_EM.Model
->>>>>>> ffd4214d6df6defe5bd5aa74435e6e17bd2b3e58
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Zeugnisfach
+    public class Zeugnisfach
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Zeugnisfach()
         {
-            this.Unterrichtsfach = new HashSet<Unterrichtsfach>();
         }
     
         public int Id { get; set; }
@@ -30,10 +24,10 @@ namespace X_EM.Model
         public bool AbschliessendesFach { get; set; }
         public string Fachart { get; set; }
         public bool Vorrueckungsfach { get; set; }
-        public int IdKlasse { get; set; }
+        //public int IdKlasse { get; set; }
     
-        public virtual Klasse Klasse { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Unterrichtsfach> Unterrichtsfach { get; set; }
+        public Klasse Klasse { get; set; }
+
+      public List<Unterrichtsfach> Unterrichtsfach { get; set; } = new List<Model.Unterrichtsfach>();
     }
 }

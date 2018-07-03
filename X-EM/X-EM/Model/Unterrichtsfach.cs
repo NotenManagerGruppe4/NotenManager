@@ -7,31 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-namespace X_EM
-=======
 namespace X_EM.Model
->>>>>>> ffd4214d6df6defe5bd5aa74435e6e17bd2b3e58
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Unterrichtsfach
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Unterrichtsfach()
-        {
-            this.UFachLehrer = new HashSet<UFachLehrer>();
-        }
-    
-        public int Id { get; set; }
-        public string Bez { get; set; }
-        public int Stunden { get; set; }
-        public int Pos { get; set; }
-        public int IdZeugnisfach { get; set; }
-    
-        public virtual Zeugnisfach Zeugnisfach { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UFachLehrer> UFachLehrer { get; set; }
-    }
+   using System;
+   using System.Collections.Generic;
+
+   public class Unterrichtsfach
+   {
+
+      public Unterrichtsfach()
+      {
+      }
+
+      public int Id { get; set; }
+      public string Bez { get; set; }
+      public int Stunden { get; set; }
+      public int Pos { get; set; }
+      //public int IdZeugnisfach { get; set; }
+
+      public Zeugnisfach Zeugnisfach { get; set; }
+
+      public List<UFachLehrer> UFachLehrer { get; set; } = new List<Model.UFachLehrer>();
+   }
 }

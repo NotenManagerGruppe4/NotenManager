@@ -7,37 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-namespace X_EM
-=======
 namespace X_EM.Model
->>>>>>> ffd4214d6df6defe5bd5aa74435e6e17bd2b3e58
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Lehrer
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Lehrer()
-        {
-            this.Dienstbezeichnung = "NULL";
-            this.UFachLehrer = new HashSet<UFachLehrer>();
-            this.Klasse = new HashSet<Klasse>();
-            this.Klasse1 = new HashSet<Klasse>();
-        }
-    
-        public int Id { get; set; }
-        public string Kürzel { get; set; }
-        public string Nachname { get; set; }
-        public string Vorname { get; set; }
-        public string Dienstbezeichnung { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UFachLehrer> UFachLehrer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Klasse> Klasse { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Klasse> Klasse1 { get; set; }
-    }
+   using System;
+   using System.Collections.Generic;
+
+   public class Lehrer
+   {
+      public Lehrer()
+      {
+      }
+
+      public int Id { get; set; }
+      public string Kürzel { get; set; }
+      public string Nachname { get; set; }
+      public string Vorname { get; set; }
+      public string Dienstbezeichnung { get; set; } = null;
+
+      public List<UFachLehrer> UFachLehrer { get; set; } = new List<UFachLehrer>();
+      public List<Klasse> Klassenleiter { get; set; } = new List<Klasse>();
+      public List<Klasse> StellvertretenderKlassenleiter { get; set; } = new List<Klasse>();
+   }
 }

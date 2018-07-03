@@ -16,7 +16,7 @@ namespace X_EM.Model
     public partial class Model1Container : DbContext
     {
         public Model1Container()
-            : base("name=Model1Container")
+            : base("name=MySQLSchuleNoma4")
         {
         }
     
@@ -27,7 +27,7 @@ namespace X_EM.Model
     
         public virtual DbSet<Klasse> KlasseSet { get; set; }
         public virtual DbSet<Schule> SchuleSet { get; set; }
-        public virtual DbSet<Zeugnisfach> ZeugnisfachSet1 { get; set; }
+        public virtual DbSet<Zeugnisfach> ZeugnisfachSet { get; set; }
         public virtual DbSet<Unterrichtsfach> UnterrichtsfachSet { get; set; }
         public virtual DbSet<Lehrer> LehrerSet { get; set; }
         public virtual DbSet<UFachLehrer> UFachLehrerSet { get; set; }
