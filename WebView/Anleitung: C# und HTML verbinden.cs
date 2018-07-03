@@ -8,7 +8,7 @@ private void wbrMain_LoadCompleted(object sender, NavigationEventArgs e)
 {
     //HTMLDocument "doc" erstellen. Dies ist die aktuell geladene seite des Webbrowsers (hier wbrMain).
     mshtml.HTMLDocument doc = (mshtml.HTMLDocument)wbrMain.Document;
-
+    
     //Nun wird ein Button aus dem HTML code ausgelesen. Dieser hat die id & den Namen "testknopf".
     HTMLButtonElement myButton = (HTMLButtonElement)doc.all.item("testknopf");
 
