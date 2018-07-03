@@ -1,0 +1,16 @@
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\bin\Debug\NOMACreator.exe.config
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\obj\Debug\NOMACreator.csprojResolveAssemblyReference.cache
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\bin\Debug\NOMACreator.exe
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\bin\Debug\NOMACreator.pdb
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\bin\Debug\EntityFramework.dll
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\bin\Debug\MySql.Data.dll
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\bin\Debug\MySql.Data.Entity.EF6.dll
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\bin\Debug\EntityFramework.xml
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\bin\Debug\MySql.Data.xml
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\bin\Debug\MySql.Data.Entity.EF6.xml
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\obj\Debug\NOMACreator.exe
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\obj\Debug\NOMACreator.pdb
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\obj\Debug\NOMACreator.Migrations.GenerateNoma.resources
+C:\Users\bierlera\Desktop\TEST\NOMACreator\NOMACreator\obj\Debug\NOMACreator.csproj.GenerateResource.Cache
