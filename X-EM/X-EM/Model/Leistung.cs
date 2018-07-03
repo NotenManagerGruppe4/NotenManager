@@ -7,34 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-namespace X_EM
-=======
 namespace X_EM.Model
->>>>>>> ffd4214d6df6defe5bd5aa74435e6e17bd2b3e58
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Leistung
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Leistung()
-        {
-            this.Tendenz = "NULL";
-        }
-    
-        public int Id { get; set; }
-        public System.DateTime Erhebungsdatum { get; set; }
-        public int Notenstufe { get; set; }
-        public string Tendenz { get; set; }
-        public int IdFachLehrer { get; set; }
-        public int IdSchülerKlasse { get; set; }
-        public System.DateTime LetzteÄnderung { get; set; }
-        public int IdArt { get; set; }
-    
-        public virtual UFachLehrer UFachLehrer { get; set; }
-        public virtual SchuelerKlasse SchuelerKlasse { get; set; }
-        public virtual Leistungsart Leistungsart { get; set; }
-    }
+   using System;
+   using System.Collections.Generic;
+
+   public class Leistung
+   {
+      public Leistung()
+      {
+      }
+
+      public int Id { get; set; }
+      public DateTime Erhebungsdatum { get; set; }
+      public int Notenstufe { get; set; }
+      public string Tendenz { get; set; } = null;
+      public DateTime LetzteÄnderung { get; set; } = DateTime.MinValue;
+
+      //public int IdArt { get; set; }
+      //public int IdFachLehrer { get; set; }
+      //public int IdSchülerKlasse { get; set; }
+
+      public UFachLehrer UFachLehrer { get; set; }
+      public SchuelerKlasse SchuelerKlasse { get; set; }
+      public Leistungsart Leistungsart { get; set; }
+   }
 }

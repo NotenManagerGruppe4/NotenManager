@@ -7,27 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-namespace X_EM
-=======
 namespace X_EM.Model
->>>>>>> ffd4214d6df6defe5bd5aa74435e6e17bd2b3e58
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Schule
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Schule()
-        {
-            this.Klasse = new HashSet<Klasse>();
-        }
-    
-        public int Id { get; set; }
-        public string Bez { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Klasse> Klasse { get; set; }
-    }
+   using System;
+   using System.Collections.Generic;
+
+   public class Schule
+   {
+      public Schule()
+      {
+      }
+
+      public int Id { get; set; }
+      public string Bez { get; set; }
+
+      public List<Klasse> Klasse { get; set; } = new List<Model.Klasse>();
+   }
 }

@@ -7,30 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-namespace X_EM
-=======
 namespace X_EM.Model
->>>>>>> ffd4214d6df6defe5bd5aa74435e6e17bd2b3e58
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class SchuelerKlasse
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SchuelerKlasse()
-        {
-            this.Leistung = new HashSet<Leistung>();
-        }
-    
-        public int Id { get; set; }
-        public int IdSchueler { get; set; }
-        public int IdKlasse { get; set; }
-    
-        public virtual Schueler Schueler { get; set; }
-        public virtual Klasse Klasse { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Leistung> Leistung { get; set; }
-    }
+   using System;
+   using System.Collections.Generic;
+
+   public class SchuelerKlasse
+   {
+      public SchuelerKlasse()
+      {
+      }
+
+      public int Id { get; set; }
+      //public int IdSchueler { get; set; }
+      //public int IdKlasse { get; set; }
+
+      public Schueler Schueler { get; set; }
+      public Klasse Klasse { get; set; }
+      public List<Leistung> Leistung { get; set; } = new List<Model.Leistung>();
+   }
 }
