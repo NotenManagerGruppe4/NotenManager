@@ -7,7 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 namespace X_EM
+=======
+namespace X_EM.Model
+>>>>>>> ffd4214d6df6defe5bd5aa74435e6e17bd2b3e58
 {
     using System;
     using System.Collections.Generic;
