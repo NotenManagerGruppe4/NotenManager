@@ -1,0 +1,13 @@
+1. Datenbankfunktion testen und mit Testdaten befüllen -> Bierler
+
+2. UI: 
+	- Datei-Import-Screen-> Buttons für jede Art von CSV-Datei (Schueler, Klase,...)
+	- Infotext auf Screen einfügen welchen Aufbau die CSV-Dateien haben müssen(-> Lehrer nach Aufbau fragen)
+3. Importfunktion
+	- KLasse, Schueler, Lehrer => Individuelle Verarbeitung der jeweiligen CSV-Dateien
+	  nur Unterschiede oder immer ganze CSV importieren?
+	- Klasse DateiZugriff => Ducheck	
+		# ImportKlassen(string pfad) -> Klassen-Objekt erstellen und in Datenbank abspeichern => Sabrina
+		# ImportSchueler(string pfad) -> s. Import Klassen => Christoph
+		# ImportLehrer(string pfad) -> s. Import Klassen => Ducheck
+		# LeseDatei(string pfad) : string[] zeilen => Christoph 

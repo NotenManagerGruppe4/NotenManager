@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Persistenz\DateiZugriff.cs" />
     <Compile Include="Schueler.cs" />
     <Compile Include="SchuelerKlasse.cs" />
     <Compile Include="Schule.cs" />
