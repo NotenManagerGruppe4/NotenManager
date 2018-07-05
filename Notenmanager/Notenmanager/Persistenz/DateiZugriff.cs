@@ -38,7 +38,11 @@ namespace Notenmanager.Persistenz
 
             }
         }
-
+        
+        /// <summary>
+        /// Importiert die Klassen aus einer CSV-Datei --> erstellt daraus die Klassenobjekte--> speichert diese in der Datenbank
+        /// </summary>
+        /// <param name="pfad">Pfad der Klassendatei</param>
         public static void ImportKlassen(string pfad)
         {
             string[] klassen = LeseDatei(pfad);
