@@ -9,6 +9,9 @@
 	margin-top: 38px;
 	fill: white;
 }
+h1{
+	margin-bottom:20px;
+}
 body{
 	margin:0px;
 	padding:0px;
@@ -73,6 +76,7 @@ h1{
     color: white;
     text-align: center;
     vertical-align: middle;
+	border-radius:3px;
 }
 .menubutton-text{
 	text-align: center;
@@ -88,6 +92,9 @@ h1{
     -webkit-transition: all .2s ease-in;
     -o-transition: all .2s ease-in;
     transition: all .2s ease-in;
+}
+.auflistung a{
+	text-decoration:none;
 }
 .i-mitte{
 	margin-top: 47px;
@@ -110,4 +117,43 @@ h1{
 }
 .logo{
 	width: 366px;
+}
+/* Dateiimport */
+.dataimport{
+	opacity: 0;
+	width:0px;
+	height:0px;
+}
+#notendatei + label{
+	border: 3px solid #038ec5;
+	padding: 15px 60px;
+	background-color: #dddddd;
+	font-size: 17px;
+	cursor:pointer;
+	transition: all .3s ease-in;
+	display: inline-block;
+	margin-top:10px;
+	width:250px;
+}
+#notendatei + label:hover{
+	background-color:#97cbe0;
+	color:white;
+	width:300px;
+}
+.upload-svg{
+	width:20px;
+	vertical-align: bottom;
+}
+#submitbutton{
+	margin-top: 30px;
+	width: 200px;
+	height: 30px;
+	background-color: #038ec5;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+#submitbutton:disabled{
+	background-color:grey;
+	color:lightgrey;
 }
