@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NOMACreator.Model
 {
-   public class Leistung
+   [Table("leistung")]
+   public class Leistung : IDBable
    {
       public Leistung()
       {
@@ -22,5 +24,16 @@ namespace NOMACreator.Model
       public UFachLehrer UFachLehrer { get; set; }
       public SchuelerKlasse SchuelerKlasse { get; set; }
       public Leistungsart Leistungsart { get; set; }
+
+      public bool Speichern()
+      {
+         return DBZugriff.Current.Speichern(this);
+      }
+
+      public bool Loeschen()
+      {
+         return DBZugriff.Current.Loeschen(this);
+      }
+
    }
 }

@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NOMACreator.Model
 {
-   public class Leistungsart
+   [Table("leistungsart")]
+   public class Leistungsart : IDBable
    {
       public Leistungsart()
       {
@@ -16,5 +18,16 @@ namespace NOMACreator.Model
 
       public List<Leistungsgruppe> Leistungsgruppe { get; set; } = new List<Model.Leistungsgruppe>();
       public List<Leistung> Leistung { get; set; } = new List<Model.Leistung>();
+
+      public bool Speichern()
+      {
+         return DBZugriff.Current.Speichern(this);
+      }
+
+      public bool Loeschen()
+      {
+         return DBZugriff.Current.Loeschen(this);
+      }
+
    }
 }

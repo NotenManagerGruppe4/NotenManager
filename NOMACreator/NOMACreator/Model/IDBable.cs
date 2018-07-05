@@ -9,8 +9,10 @@ namespace NOMACreator.Model
    ///<summary>
    ///Interface für Standardmethoden einer datenbankfähigen Fachklasse
    ///</summary>
-   public interface DBable
+   public interface IDBable
    {
+      int Id { get; set; }
+
       bool Speichern();
       bool Loeschen();
    }
