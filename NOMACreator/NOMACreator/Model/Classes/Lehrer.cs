@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NOMACreator.Model
 {
-   public class Lehrer
+   [Table("lehrer")]
+   public class Lehrer : IDBable
    {
       public Lehrer()
       {
@@ -18,5 +21,16 @@ namespace NOMACreator.Model
       public List<UFachLehrer> UFachLehrer { get; set; } = new List<UFachLehrer>();
       public List<Klasse> Klassenleiter { get; set; } = new List<Klasse>();
       public List<Klasse> StellvertretenderKlassenleiter { get; set; } = new List<Klasse>();
+
+      public bool Speichern()
+      {
+         return DBZugriff.Current.Speichern(this);
+      }
+
+      public bool Loeschen()
+      {
+         return DBZugriff.Current.Loeschen(this);
+      }
+
    }
 }

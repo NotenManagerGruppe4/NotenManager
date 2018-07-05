@@ -1,0 +1,5 @@
+Enable-Migrations
+
+Add-Migration GenerateNoma
+
+Update-Database -Verbose
