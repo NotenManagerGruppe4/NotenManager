@@ -5,14 +5,14 @@ namespace NOMACreator.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<NOMACreator.Model.ModelContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<NOMACreator.Model.Context>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(NOMACreator.Model.ModelContext context)
+        protected override void Seed(NOMACreator.Model.Context context)
         {
             //  This method will be called after migrating to the latest version.
 

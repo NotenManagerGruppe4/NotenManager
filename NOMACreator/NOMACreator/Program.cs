@@ -13,18 +13,23 @@ namespace NOMACreator
    {
       static void Main(string[] args)
       {
-         DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
-
-
-         using (var context = new ModelContext())
+         AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
          {
-            Schule s = new Schule()
-            {
-               Bez = "TestSchule",
-            };
-            context.SchuleSet.Add(s);
-            context.SaveChanges();
-         }
+            DBZugriff.CloseDB();
+         };
+
+
+         DBZugriff.InitDB();
+
+
+         //CODE
+         Schule s = new Schule()
+         {
+            Bez = "TestSchule",
+         };
+         s.Speichern();
+
+         DBZugriff.CloseDB();
 
 
       }
