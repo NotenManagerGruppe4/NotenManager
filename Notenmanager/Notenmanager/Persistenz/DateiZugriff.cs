@@ -31,11 +31,19 @@ namespace Notenmanager.Persistenz
         public static void ImportSchueler(string pfad)
         {
             string[] zeilen = LeseDatei(pfad);
+            string[] schuel;
 
             foreach(string s in zeilen)
             {
                 var schueler = new Schueler();
+                schuel = s.Split(',');
+                schueler.Nachname = schuel[1];
+                schueler.Vorname = schuel[2];
+                schueler.Geburtsdatum = Convert.ToDateTime(schuel[3]);
+                //Konfession?
+                //Geschlecht?
 
+            //schueler.speichern();
             }
         }
         
@@ -51,15 +59,35 @@ namespace Notenmanager.Persistenz
 
             foreach(string klasse in klassen)
             {
+                string[] sjahr;
                 Klasse k = new Klasse();
-                kl = klasse.Split(';');
-                //k.Bez = kl[0];
-                //k.SJ = Convert.ToInt32(kl[1]);
-                //k.IdSchule = Convert.ToInt32(kl[2]);
-                //k.IdKlassenleiter = Convert.ToInt32(kl[3]);
-                //k.IdStvKlassenleiter = Convert.ToInt32(kl[4]);
+                kl = klasse.Split(',');
+                sjahr = kl[2].Split('/');
+                k.Bez = kl[1];
+                k.SJ = Convert.ToInt32(sjahr[0]);
 
                 //k.speichern();
+            }
+        }
+
+        /// <summary>
+        /// Importiert die Lehrer aus einer CSV-Datei --> erstellt daraus die Lehrerobjekte--> speichert diese in der Datenbank
+        /// </summary>
+        /// <param name="pfad">Pfad der Lehrerdatei</param>
+        public static void ImportLehrer(string pfad)
+        {
+            string[] lehrer = LeseDatei(pfad);
+            string[] le;
+
+            foreach(string lehr in lehrer)
+            {
+                Lehrer l = new Lehrer();
+                le = lehr.Split(',');
+                l.Kürzel = le[3];
+                l.Nachname = le[1];
+                l.Vorname = le[2];
+
+                //l.speichern();
             }
         }
     }
