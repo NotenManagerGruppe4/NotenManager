@@ -64,6 +64,7 @@
     <Compile Include="Model\Zeugnisfach.cs" />
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\DateiImportPageVM.cs" />
     <Compile Include="ViewModel\MainPageVM.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
