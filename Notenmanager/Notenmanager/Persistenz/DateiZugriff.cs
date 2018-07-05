@@ -56,7 +56,6 @@ namespace Notenmanager.Persistenz
             string[] klassen = LeseDatei(pfad);
             string[] kl;
 
-
             foreach(string klasse in klassen)
             {
                 string[] sjahr;
@@ -89,9 +88,10 @@ namespace Notenmanager.Persistenz
                 l.Nachname = le[1];
                 l.Vorname = le[2];
 
-
                 //l.speichern();
             }
         }
+
+
     }
 }
