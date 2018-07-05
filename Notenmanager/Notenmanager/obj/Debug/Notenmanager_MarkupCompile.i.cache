@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\koehlerc\Documents\NotenManager\Notenmanager\Notenmanager\obj\Debug\
+C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\
 Notenmanager
 none
 false
 DEBUG;TRACE
-C:\Users\koehlerc\Documents\NotenManager\Notenmanager\Notenmanager\App.xaml
-11151548125
+C:\NotenManager\Notenmanager\Notenmanager\App.xaml
+3-1786242765
 
-21-522487832
+23-583254716
 13738642453
-MainWindow.xaml;
+View\DateiImportPage.xaml;View\MainPage.xaml;View\MainWindow.xaml;
 
 False
 
