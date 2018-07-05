@@ -68,9 +68,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201807050814421_GenerateNoma.cs" />
-    <Compile Include="Migrations\201807050814421_GenerateNoma.Designer.cs">
-      <DependentUpon>201807050814421_GenerateNoma.cs</DependentUpon>
+    <Compile Include="Migrations\201807051336041_GenerateNoma.cs" />
+    <Compile Include="Migrations\201807051336041_GenerateNoma.Designer.cs">
+      <DependentUpon>201807051336041_GenerateNoma.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\DBZugriff.cs" />
@@ -95,8 +95,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807050814421_GenerateNoma.resx">
-      <DependentUpon>201807050814421_GenerateNoma.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807051336041_GenerateNoma.resx">
+      <DependentUpon>201807051336041_GenerateNoma.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

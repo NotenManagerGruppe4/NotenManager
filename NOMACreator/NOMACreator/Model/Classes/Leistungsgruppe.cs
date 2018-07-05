@@ -7,8 +7,9 @@ namespace NOMACreator.Model
    [Table("leistungsgruppe")]
    public class Leistungsgruppe : IDBable
    {
-      public int Id { get; set; }
+      public int Id { get; private set; } 
       public string Bez { get; set; }
+      [Obsolete("STRING?!?")]
       public string Gewicht { get; set; }
       //public int IdLeistungsart { get; set; }
 

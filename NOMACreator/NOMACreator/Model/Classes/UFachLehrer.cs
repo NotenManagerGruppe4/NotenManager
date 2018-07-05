@@ -11,7 +11,7 @@ namespace NOMACreator.Model
       {
       }
 
-      public int Id { get; set; }
+      public int Id { get; private set; } 
       public int Stunden { get; set; }
       public DateTime? EDatum { get; set; } = null;
       public DateTime? ADatum { get; set; } = null;
