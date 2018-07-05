@@ -12,7 +12,7 @@ namespace NOMACreator.Model
       {
       }
 
-      public int Id { get; set; }
+      public int Id { get; private set; } 
       public string Kürzel { get; set; }
       public string Nachname { get; set; }
       public string Vorname { get; set; }

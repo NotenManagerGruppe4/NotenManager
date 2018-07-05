@@ -11,7 +11,7 @@ namespace NOMACreator.Model
       {
       }
 
-      public int Id { get; set; }
+      public int Id { get; private set; } 
       //public int IdSchueler { get; set; }
       //public int IdKlasse { get; set; }
 

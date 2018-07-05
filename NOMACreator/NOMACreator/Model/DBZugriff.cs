@@ -28,7 +28,7 @@ namespace NOMACreator.Model
       }
 
       /// <summary>
-      /// Speichert (Hinzufügen oder Ändern) ein Objekt in die Datenbank
+      /// Speichert (Hinzufügen oder Ändern) ein Objekt in die Datenbank (auch refernezierte Objekte)
       /// </summary>
       /// <typeparam name="T">Der Typ des Objekt</typeparam>
       /// <param name="obj">Das neue Objekt</param>
@@ -103,18 +103,27 @@ namespace NOMACreator.Model
          if (Current != null)
             throw new Exception("Already opened a session!");
          Current = new DBZugriff();
+
+         Trace.WriteLine("Inited DB!");
       }
 
       public static void CloseDB()
       {
          try
          {
+            if (Current == null)
+               return;
+
             Current.Dispose();
             Current = null;
          }
          catch(Exception e)
          {
             Trace.WriteLine(e.ToString());
+         }
+         finally
+         {
+            Trace.WriteLine("Closed DB!");
          }
       }
 

@@ -5,7 +5,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace NOMACreator.Model
 {
-   
+
    [DbConfigurationType(typeof(MySqlEFConfiguration))]
    public partial class Context : DbContext
    {
@@ -57,5 +57,23 @@ namespace NOMACreator.Model
          return re.Cast<T>();
       }
 
+      protected override void OnModelCreating(DbModelBuilder modelBuilder)
+      {
+         base.OnModelCreating(modelBuilder);
+
+         modelBuilder.Entity<Klasse>()
+            .HasRequired<Lehrer>(k => k.Klassenleiter)
+            .WithMany(l => l.Klassenleiter)
+            .HasForeignKey<int>(k => k.IdKlassenleiter)
+            .WillCascadeOnDelete(false);
+
+         modelBuilder.Entity<Klasse>()
+            .HasRequired<Lehrer>(k => k.StellvertretenderKlassenleiter)
+            .WithMany(l => l.StellvertretenderKlassenleiter)
+            .HasForeignKey<int>(k => k.IdStvKlassenleiter)
+            .WillCascadeOnDelete(false);
+      }
    }
+
+
 }
