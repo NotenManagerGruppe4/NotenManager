@@ -1,3 +1,4 @@
 H:\C#\11.Klasse\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
 C:\Users\koehlerc\Documents\NotenmanagerGr4\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
 C:\Users\bierlera\Documents\GIT_Repositories\Projekt\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
+C:\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
