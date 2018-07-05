@@ -62,5 +62,29 @@ namespace Notenmanager.Persistenz
                 //k.speichern();
             }
         }
+
+
+        /// <summary>
+        /// Importiert die Lehrer aus einer CSV-Datei --> erstellt daraus die Lehrerobjekte--> speichert diese in der Datenbank
+        /// </summary>
+        /// <param name="pfad">Pfad der Lehrerdatei</param>
+        public static void ImportLehrer(string pfad)
+        {
+            string[] lehrers = LeseDatei(pfad);
+            string[] le;
+
+            foreach (string lehrer in lehrers)
+            {
+                Lehrer l = new Lehrer();
+                le = lehrer.Split(';');
+
+                //l.Kürzel = le[0];
+                //l.Nachname = le[1];
+                //l.Vorname = le[2];
+                //l.Dienstbezeichnung = le[3];
+
+                //l.speichern();
+            }
+        }
     }
 }
