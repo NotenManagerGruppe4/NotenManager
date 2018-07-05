@@ -5,14 +5,24 @@ winexe
 C#
 .cs
 <<<<<<< HEAD
+C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\
+=======
+<<<<<<< HEAD
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\
 =======
 C:\Users\koehlerc\Documents\NotenmanagerGr4\Notenmanager\Notenmanager\obj\Debug\
 >>>>>>> 49b68f173eac2ee5e96d85473bb417252b968231
+>>>>>>> bdd7b3ea4d0c28d7870e5221b179c6077c6989a4
 Notenmanager
 none
 false
 DEBUG;TRACE
+<<<<<<< HEAD
+C:\NotenManager\Notenmanager\Notenmanager\App.xaml
+11151548125
+
+22-1405754278
+=======
 <<<<<<< HEAD
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\App.xaml
 11151548125
@@ -24,8 +34,9 @@ C:\Users\koehlerc\Documents\NotenmanagerGr4\Notenmanager\Notenmanager\App.xaml
 
 22-508173805
 >>>>>>> 49b68f173eac2ee5e96d85473bb417252b968231
+>>>>>>> bdd7b3ea4d0c28d7870e5221b179c6077c6989a4
 13738642453
 MainWindow.xaml;
 
-False
+True
 
