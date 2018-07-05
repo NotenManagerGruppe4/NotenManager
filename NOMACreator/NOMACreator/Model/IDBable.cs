@@ -11,7 +11,7 @@ namespace NOMACreator.Model
    ///</summary>
    public interface IDBable
    {
-      int Id { get; set; }
+      int Id { get; }
 
       bool Speichern();
       bool Loeschen();
