@@ -78,7 +78,6 @@ namespace Notenmanager.Persistenz
         public static void ImportLehrer(string pfad)
         {
 
-
             string[] lehrer = LeseDatei(pfad);
             string[] le;
 
