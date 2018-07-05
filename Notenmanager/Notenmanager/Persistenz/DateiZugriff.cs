@@ -21,7 +21,7 @@ namespace Notenmanager.Persistenz
             if (File.Exists(pfad))
                 return File.ReadAllLines(pfad);
             else
-                throw new FileNotFoundException("Die angegebene Datei konnet nicht gefunden werden!");
+                throw new FileNotFoundException("Die angegebene Datei konnte nicht gefunden werden!");
         }
 
         /// <summary>
