@@ -89,6 +89,7 @@ namespace Notenmanager.Persistenz
                 l.Nachname = le[1];
                 l.Vorname = le[2];
 
+
                 //l.speichern();
             }
         }
