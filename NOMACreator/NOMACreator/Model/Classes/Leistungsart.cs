@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NOMACreator.Model
@@ -11,9 +12,10 @@ namespace NOMACreator.Model
       {
       }
 
-      public int Id { get; set; }
+      public int Id { get; private set; } 
       public string Bez { get; set; }
       public double Gewichtung { get; set; }
+      [MaxLength(1)]
       public string Gruppe { get; set; }
 
       public List<Leistungsgruppe> Leistungsgruppe { get; set; } = new List<Model.Leistungsgruppe>();
