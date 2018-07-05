@@ -4,28 +4,17 @@
 winexe
 C#
 .cs
-<<<<<<< HEAD
-C:\Users\czechs\Desktop\GIT\Notenmanager\Notenmanager\obj\Debug\
-=======
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\
->>>>>>> remotes/origin/master
 Notenmanager
 none
 false
 DEBUG;TRACE
-<<<<<<< HEAD
-C:\Users\czechs\Desktop\GIT\Notenmanager\Notenmanager\App.xaml
-11151548125
-
-23-1565532926
-=======
 C:\NotenManager\Notenmanager\Notenmanager\App.xaml
 11151548125
 
-22-1405754278
->>>>>>> remotes/origin/master
+23-1689862375
 13738642453
 MainWindow.xaml;
 
-False
+True
 
