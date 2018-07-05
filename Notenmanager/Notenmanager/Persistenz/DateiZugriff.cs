@@ -13,7 +13,6 @@ namespace Notenmanager.Persistenz
         {
             return File.ReadAllLines(pfad);
         }
-
         public static void ImportSchueler(string pfad)
         {
 
