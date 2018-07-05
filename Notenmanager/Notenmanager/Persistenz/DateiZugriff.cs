@@ -16,7 +16,7 @@ namespace Notenmanager.Persistenz
         /// <param name="pfad">Pfad der Datei, die gelesen werden soll.</param>
         /// <returns>string[] mit den gelesenen Zeilen falls die Datei existiert. Jeder Index entspricht einer Zeile.
         ///         Existiert keine Datei wird eine Exception geworfen.</returns>
-        public static string[] LeseDatei(string pfad)
+        private static string[] LeseDatei(string pfad)
         {
             if (File.Exists(pfad))
                 return File.ReadAllLines(pfad);
@@ -24,6 +24,10 @@ namespace Notenmanager.Persistenz
                 throw new FileNotFoundException("Die angegebene Datei konnet nicht gefunden werden!");
         }
 
+        /// <summary>
+        /// Importiert eine CSV-Datei mit Schülern und speichert diese in die Datenbank
+        /// </summary>
+        /// <param name="pfad">Pfad der Schülerdatei</param>
         public static void ImportSchueler(string pfad)
         {
             string[] zeilen = LeseDatei(pfad);
