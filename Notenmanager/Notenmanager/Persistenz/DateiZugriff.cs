@@ -24,6 +24,10 @@ namespace Notenmanager.Persistenz
                 throw new FileNotFoundException("Die angegebene Datei konnet nicht gefunden werden!");
         }
 
+        /// <summary>
+        /// Importiert eine CSV-Datei mit Schülern und speichert diese in die Datenbank
+        /// </summary>
+        /// <param name="pfad">Pfad der Schülerdatei</param>
         public static void ImportSchueler(string pfad)
         {
             string[] zeilen = LeseDatei(pfad);
