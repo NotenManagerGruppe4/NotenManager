@@ -7,7 +7,7 @@
 	- KLasse, Schueler, Lehrer => Individuelle Verarbeitung der jeweiligen CSV-Dateien
 	  nur Unterschiede oder immer ganze CSV importieren?
 	- Klasse DateiZugriff => Ducheck	
-		# ImportKlassen() -> Klassen-Objekt erstellen und in Datenbank abspeichern => Sabrina
-		# ImportSchueler() -> s. Import Klassen => Christoph
-		# ImportLehrer() -> s. Import Klassen => Ducheck
+		# ImportKlassen(string pfad) -> Klassen-Objekt erstellen und in Datenbank abspeichern => Sabrina
+		# ImportSchueler(string pfad) -> s. Import Klassen => Christoph
+		# ImportLehrer(string pfad) -> s. Import Klassen => Ducheck
 		# LeseDatei(string pfad) : string[] zeilen => Christoph 
