@@ -60,9 +60,7 @@ namespace Notenmanager.Persistenz
                 //k.IdStvKlassenleiter = Convert.ToInt32(kl[4]);
 
                 //k.speichern();
-
             }
-
         }
     }
 }
