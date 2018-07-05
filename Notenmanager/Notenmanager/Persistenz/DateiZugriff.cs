@@ -70,15 +70,23 @@ namespace Notenmanager.Persistenz
             }
         }
 
+<<<<<<< HEAD
 
 
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4fbb57ccc62660c8d91a90975631ee541059cede
+>>>>>>> 1f713736011748ada5deebf233e6cb450b3fca41
         /// <summary>
         /// Importiert die Lehrer aus einer CSV-Datei --> erstellt daraus die Lehrerobjekte--> speichert diese in der Datenbank
         /// </summary>
         /// <param name="pfad">Pfad der Lehrerdatei</param>
         public static void ImportLehrer(string pfad)
         {
+<<<<<<< HEAD
 
             string[] lehrer = LeseDatei(pfad);
             string[] le;
@@ -90,6 +98,33 @@ namespace Notenmanager.Persistenz
                 l.Kürzel = le[3];
                 l.Nachname = le[1];
                 l.Vorname = le[2];
+=======
+<<<<<<< HEAD
+            string[] lehrer = LeseDatei(pfad);
+            string[] le;
+
+            foreach(string lehr in lehrer)
+            {
+                Lehrer l = new Lehrer();
+                le = lehr.Split(',');
+                l.Kürzel = le[3];
+                l.Nachname = le[1];
+                l.Vorname = le[2];
+=======
+            string[] lehrers = LeseDatei(pfad);
+            string[] le;
+
+            foreach (string lehrer in lehrers)
+            {
+                Lehrer l = new Lehrer();
+                le = lehrer.Split(';');
+
+                //l.Kürzel = le[0];
+                //l.Nachname = le[1];
+                //l.Vorname = le[2];
+                //l.Dienstbezeichnung = le[3];
+>>>>>>> 4fbb57ccc62660c8d91a90975631ee541059cede
+>>>>>>> 1f713736011748ada5deebf233e6cb450b3fca41
 
                 //l.speichern();
             }
