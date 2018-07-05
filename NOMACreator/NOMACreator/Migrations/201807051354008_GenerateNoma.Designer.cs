@@ -13,7 +13,7 @@ namespace NOMACreator.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201807051336041_GenerateNoma"; }
+            get { return "201807051354008_GenerateNoma"; }
         }
         
         string IMigrationMetadata.Source

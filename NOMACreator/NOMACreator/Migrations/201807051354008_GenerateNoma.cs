@@ -92,7 +92,7 @@ namespace NOMACreator.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Erhebungsdatum = c.DateTime(nullable: false, precision: 0),
                         Notenstufe = c.Int(nullable: false),
-                        Tendenz = c.String(maxLength: 1, storeType: "nvarchar"),
+                        Tendenz = c.Int(),
                         LetzteÄnderung = c.DateTime(precision: 0),
                         Leistungsart_Id = c.Int(),
                         SchuelerKlasse_Id = c.Int(),
@@ -152,8 +152,8 @@ namespace NOMACreator.Migrations
                         Nachname = c.String(unicode: false),
                         Vorname = c.String(unicode: false),
                         Geburtsdatum = c.DateTime(nullable: false, precision: 0),
-                        Geschlecht = c.String(maxLength: 1, storeType: "nvarchar"),
-                        Konfession = c.String(maxLength: 1, storeType: "nvarchar"),
+                        Geschlecht = c.Int(nullable: false),
+                        Konfession = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
