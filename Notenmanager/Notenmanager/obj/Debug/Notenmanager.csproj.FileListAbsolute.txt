@@ -3,3 +3,5 @@ C:\Users\koehlerc\Documents\NotenmanagerGr4\Notenmanager\Notenmanager\bin\Debug\
 C:\Users\bierlera\Documents\GIT_Repositories\Projekt\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
 C:\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
+C:\Users\czechs\Desktop\GIT\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
+C:\Users\koehlerc\Documents\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config

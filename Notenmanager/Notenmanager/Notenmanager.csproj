@@ -56,12 +56,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Persistenz\DateiZugriff.cs" />
-    <Compile Include="Schueler.cs" />
-    <Compile Include="SchuelerKlasse.cs" />
-    <Compile Include="Schule.cs" />
-    <Compile Include="UFachLehrer.cs" />
-    <Compile Include="Unterrichtsfach.cs" />
-    <Compile Include="Zeugnisfach.cs" />
+    <Compile Include="Model\Schueler.cs" />
+    <Compile Include="Model\SchuelerKlasse.cs" />
+    <Compile Include="Model\Schule.cs" />
+    <Compile Include="Model\UFachLehrer.cs" />
+    <Compile Include="Model\Unterrichtsfach.cs" />
+    <Compile Include="Model\Zeugnisfach.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,18 +70,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Klasse.cs" />
-    <Compile Include="Lehrer.cs" />
-    <Compile Include="Leistung.cs" />
-    <Compile Include="Leistungsart.cs" />
-    <Compile Include="Leistungsgruppe.cs" />
+    <Compile Include="Model\Klasse.cs" />
+    <Compile Include="Model\Lehrer.cs" />
+    <Compile Include="Model\Leistung.cs" />
+    <Compile Include="Model\Leistungsart.cs" />
+    <Compile Include="Model\Leistungsgruppe.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model2.Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -107,6 +106,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
+    <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
