@@ -93,8 +93,8 @@ namespace NOMACreator
                Vorname = "VorTestS",
                Nachname = "NachTestS",
                Geburtsdatum = new DateTime(2000, 1, 1),
-               Geschlecht = "M",
-               Konfession = "K",
+               Geschlecht = Geschlecht.M,
+               Konfession = Konfession.NONE,
             };
             s.Speichern();
 
@@ -126,7 +126,7 @@ namespace NOMACreator
             {
                Erhebungsdatum = DateTime.Now,
                Notenstufe = 1,
-               Tendenz = "+",
+               Tendenz = Tendenz.UP,
                LetzteÄnderung = DateTime.Now,
                Leistungsart = la,
                SchuelerKlasse = sk,
