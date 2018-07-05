@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NOMACreator.Model
 {
-   public class Schueler
+   [Table("schueler")]
+   public class Schueler : IDBable
    {
       public Schueler()
       {
@@ -17,5 +19,17 @@ namespace NOMACreator.Model
       public string Konfession { get; set; }
 
       public List<SchuelerKlasse> SchuelerKlasse { get; set; } = new List<Model.SchuelerKlasse>();
+
+      public bool Speichern()
+      {
+         return DBZugriff.Current.Speichern(this);
+      }
+
+      public bool Loeschen()
+      {
+         return DBZugriff.Current.Loeschen(this);
+      }
+
+
    }
 }

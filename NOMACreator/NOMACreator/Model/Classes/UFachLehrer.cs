@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NOMACreator.Model
 {
-
-   public class UFachLehrer
+   [Table("ufachlehrer")]
+   public class UFachLehrer : IDBable
    {
       public UFachLehrer()
       {
@@ -22,5 +23,16 @@ namespace NOMACreator.Model
       public Lehrer Lehrer { get; set; }
 
       public List<Leistung> Leistung { get; set; } = new List<Model.Leistung>();
+
+      public bool Speichern()
+      {
+         return DBZugriff.Current.Speichern(this);
+      }
+
+      public bool Loeschen()
+      {
+         return DBZugriff.Current.Loeschen(this);
+      }
+
    }
 }
