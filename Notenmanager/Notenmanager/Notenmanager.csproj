@@ -65,6 +65,7 @@
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainPageVM.cs" />
+    <Compile Include="ViewModel\NavigationEventArgs.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
