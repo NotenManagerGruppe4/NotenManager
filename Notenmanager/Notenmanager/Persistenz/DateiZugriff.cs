@@ -33,15 +33,15 @@ namespace Notenmanager.Persistenz
             string[] zeilen = LeseDatei(pfad);
             string[] schuel;
 
-            foreach(string s in zeilen)
+            foreach (string s in zeilen)
             {
                 var schueler = new Schueler();
                 schuel = s.Split(',');
                 schueler.Nachname = schuel[1];
                 schueler.Vorname = schuel[2];
                 schueler.Geburtsdatum = Convert.ToDateTime(schuel[3]);
-                //Konfession?
-                //Geschlecht?
+                schueler.Geschlecht = schuel[7];
+                schueler.Konfession = schuel[8];
 
             //schueler.speichern();
             }

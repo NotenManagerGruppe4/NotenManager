@@ -62,6 +62,15 @@
     <Compile Include="Model\UFachLehrer.cs" />
     <Compile Include="Model\Unterrichtsfach.cs" />
     <Compile Include="Model\Zeugnisfach.cs" />
+    <Page Include="View\DateiImportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DateiImportPageVM.cs" />
@@ -81,7 +90,13 @@
     <Compile Include="Model\Leistung.cs" />
     <Compile Include="Model\Leistungsart.cs" />
     <Compile Include="Model\Leistungsgruppe.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="View\DateiImportPage.xaml.cs">
+      <DependentUpon>DateiImportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -114,6 +129,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ViewModel\" />
     <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
