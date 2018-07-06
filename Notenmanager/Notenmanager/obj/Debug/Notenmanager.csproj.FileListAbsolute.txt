@@ -21,3 +21,4 @@ C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.csproj.Generate
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.exe
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.pdb
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.g.cs
+C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.baml
