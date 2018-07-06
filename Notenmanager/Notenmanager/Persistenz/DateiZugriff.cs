@@ -21,7 +21,7 @@ namespace Notenmanager.Persistenz
             if (File.Exists(pfad))
                 return File.ReadAllLines(pfad);
             else
-                throw new FileNotFoundException("Die angegebene Datei konnet nicht gefunden werden!");
+                throw new FileNotFoundException("Die angegebene Datei konnte nicht gefunden werden!");
         }
 
         /// <summary>
@@ -33,15 +33,15 @@ namespace Notenmanager.Persistenz
             string[] zeilen = LeseDatei(pfad);
             string[] schuel;
 
-            foreach(string s in zeilen)
+            foreach (string s in zeilen)
             {
                 var schueler = new Schueler();
                 schuel = s.Split(',');
                 schueler.Nachname = schuel[1];
                 schueler.Vorname = schuel[2];
                 schueler.Geburtsdatum = Convert.ToDateTime(schuel[3]);
-                //Konfession?
-                //Geschlecht?
+                schueler.Geschlecht = schuel[7];
+                schueler.Konfession = schuel[8];
 
             //schueler.speichern();
             }
@@ -55,7 +55,6 @@ namespace Notenmanager.Persistenz
         {
             string[] klassen = LeseDatei(pfad);
             string[] kl;
-
 
             foreach(string klasse in klassen)
             {
@@ -89,9 +88,10 @@ namespace Notenmanager.Persistenz
                 l.Nachname = le[1];
                 l.Vorname = le[2];
 
-
                 //l.speichern();
             }
         }
+
+
     }
 }

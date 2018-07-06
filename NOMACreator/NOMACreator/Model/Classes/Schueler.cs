@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NOMACreator.Model
 {
+   public enum Geschlecht { M, W };
+
+   public enum Konfession { NONE, RHK, EV, ISL, SONST };
+
    [Table("schueler")]
    public class Schueler : IDBable
    {
@@ -11,12 +16,14 @@ namespace NOMACreator.Model
       {
       }
 
-      public int Id { get; set; }
+      public int Id { get; private set; }
       public string Nachname { get; set; }
       public string Vorname { get; set; }
       public DateTime Geburtsdatum { get; set; }
-      public string Geschlecht { get; set; }
-      public string Konfession { get; set; }
+
+      public Geschlecht Geschlecht { get; set; }
+      
+      public Konfession Konfession { get; set; }
 
       public List<SchuelerKlasse> SchuelerKlasse { get; set; } = new List<Model.SchuelerKlasse>();
 

@@ -11,7 +11,7 @@ namespace NOMACreator.Model
       {
       }
 
-      public int Id { get; set; }
+      public int Id { get; private set; } 
       public string Bez { get; set; }
 
       public List<Klasse> Klasse { get; set; } = new List<Model.Klasse>();

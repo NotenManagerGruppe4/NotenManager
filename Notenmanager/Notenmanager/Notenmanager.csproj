@@ -62,6 +62,7 @@
     <Compile Include="Model\UFachLehrer.cs" />
     <Compile Include="Model\Unterrichtsfach.cs" />
     <Compile Include="Model\Zeugnisfach.cs" />
+<<<<<<< HEAD
     <Page Include="View\DateiImportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -71,6 +72,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainWindow.xaml">
+=======
+    <Compile Include="ViewModel\ActionCommand.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\MainPageVM.cs" />
+    <Page Include="MainWindow.xaml">
+>>>>>>> c927ad6ac204df6f12d06b6428cdf377c3b0b74f
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -122,7 +129,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="ViewModel\" />
+=======
+    <Folder Include="View\" />
+>>>>>>> c927ad6ac204df6f12d06b6428cdf377c3b0b74f
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

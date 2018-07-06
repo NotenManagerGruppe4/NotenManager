@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NOMACreator.Model
 {
+   public enum Tendenz { UP, DOWN }
+
    [Table("leistung")]
    public class Leistung : IDBable
    {
@@ -11,10 +14,10 @@ namespace NOMACreator.Model
       {
       }
 
-      public int Id { get; set; }
+      public int Id { get; private set; } 
       public DateTime Erhebungsdatum { get; set; }
       public int Notenstufe { get; set; }
-      public string Tendenz { get; set; } = null;
+      public Tendenz? Tendenz { get; set; } = null;
       public DateTime? LetzteÄnderung { get; set; } = null;
 
       //public int IdArt { get; set; }

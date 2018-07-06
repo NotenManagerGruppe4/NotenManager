@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NOMACreator.Model
@@ -11,16 +12,18 @@ namespace NOMACreator.Model
       {
       }
 
-      public int Id { get; set; }
+      public int Id { get; private set; } 
       public string Bez { get; set; }
       public int SJ { get; set; }
       //public int IdSchule { get; set; }
-      //public int IdKlassenleiter { get; set; }
-      //public int IdStvKlassenleiter { get; set; }
-
+      
       public Schule Schule { get; set; }
       public List<Zeugnisfach> Fach { get; set; } = new List<Zeugnisfach>();
       public List<SchuelerKlasse> SchuelerKlasse { get; set; } = new List<SchuelerKlasse>();
+
+      public int IdKlassenleiter { get; set; }
+      public int IdStvKlassenleiter { get; set; }
+
       public Lehrer Klassenleiter { get; set; }
       public Lehrer StellvertretenderKlassenleiter { get; set; }
 
