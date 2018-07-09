@@ -8,13 +8,9 @@ C:\Users\koehlerc\Documents\NotenManager\Notenmanager\Notenmanager\bin\Debug\Not
 C:\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe
 C:\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.pdb
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.csprojResolveAssemblyReference.cache
-C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\MainPage.g.cs
-C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\MainWindow.g.cs
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\App.g.cs
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager_MarkupCompile.cache
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager_MarkupCompile.lref
-C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\MainPage.baml
-C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\MainWindow.baml
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.g.resources
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.Properties.Resources.resources
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.csproj.GenerateResource.Cache
@@ -22,3 +18,5 @@ C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.exe
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.pdb
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.g.cs
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.baml
+C:\Notenmanager\Notenmanager\Notenmanager\obj\Debug\View\FachAnlegenPage.g.cs
+C:\Notenmanager\Notenmanager\Notenmanager\obj\Debug\View\FachAnlegenPage.baml
