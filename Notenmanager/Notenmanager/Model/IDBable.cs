@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NOMACreator.Model
+namespace Notenmanager.Model
 {
    ///<summary>
    ///Interface für Standardmethoden einer datenbankfähigen Fachklasse

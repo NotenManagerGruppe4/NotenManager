@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NOMACreator.Model
+namespace Notenmanager.Model
 {
   
    public class DBZugriff : IDisposable
