@@ -31,6 +31,11 @@ namespace Notenmanager.View
             
         }
 
+        private void test()
+        {
+            //TEST2
+        }
+
         private void btnImport_Click(object sender, RoutedEventArgs e)
         {
 

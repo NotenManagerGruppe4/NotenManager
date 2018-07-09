@@ -9,7 +9,7 @@
       Title="DateiImportPage">
 
     <Grid x:Name="DateiImportGrid" Background="White">
-        <Button x:Name="btnFileSelect" Content="Datei Auswählen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,10,0,0" Height="60" Click="btnFileSelect_Click"/>
+        <Button x:Name="btnFileSelect" Content="Datei Auswählen" VerticalAlignment="Top" Margin="10,10,10,0" Click="btnFileSelect_Click"/>
         <TextBox x:Name="tboxFilename" HorizontalAlignment="Left" Height="23" Margin="10,107,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="280" IsReadOnly="True"/>
         <ComboBox x:Name="cBoxDateiart" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,135,0,0"/>
         <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,76,0,0" Width="280"/>

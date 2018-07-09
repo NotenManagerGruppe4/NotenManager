@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Notenmanager.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,12 +19,12 @@ namespace Notenmanager.ViewModel
         {
             NavigateToPageRequest?.Invoke(this, new NavigationEventArgs()
             {
-                
+                ZielPage = new DateiImportPage()
             });            
         }
 
         #region Events
-        public event EventHandler<EventArgs> NavigateToPageRequest;
+        public event EventHandler<NavigationEventArgs> NavigateToPageRequest;
         #endregion
 
         #region Public Properties
