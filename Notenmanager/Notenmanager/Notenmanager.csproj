@@ -110,6 +110,7 @@
     <Compile Include="View\FachAnlegenPage.xaml.cs">
       <DependentUpon>FachAnlegenPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainWindow.xaml.cs" />
     <Compile Include="View\UnterrichtsfachAnlegen.xaml.cs">
       <DependentUpon>UnterrichtsfachAnlegen.xaml</DependentUpon>
     </Compile>
@@ -144,11 +145,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\UnterrichtsfachAnlegen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-	</Page>
+    </Page>
     <Page Include="View\DateiImportPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

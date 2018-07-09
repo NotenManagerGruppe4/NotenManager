@@ -30,3 +30,4 @@ C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager_Ma
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager_MarkupCompile.lref
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.g.cs
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\MainWindow.g.cs
