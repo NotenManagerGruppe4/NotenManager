@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using X_EM;
+using Notenmanager.Model;
 
 namespace Notenmanager.ViewModel
 {
