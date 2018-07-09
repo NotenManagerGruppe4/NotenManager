@@ -22,3 +22,10 @@ C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.exe
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.pdb
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.g.cs
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.baml
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.csprojResolveAssemblyReference.cache
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\FachAnlegenPage.g.cs
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\UnterrichtsfachAnlegen.g.cs
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\App.g.cs
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager_MarkupCompile.cache
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager_MarkupCompile.lref
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\GeneratedInternalTypeHelper.g.cs

@@ -64,6 +64,7 @@
     <Compile Include="Model\Zeugnisfach.cs" />
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\FachAnlegenPageVM.cs" />
     <Compile Include="ViewModel\MainPageVM.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -74,6 +75,12 @@
     <Compile Include="Model\Leistung.cs" />
     <Compile Include="Model\Leistungsart.cs" />
     <Compile Include="Model\Leistungsgruppe.cs" />
+    <Compile Include="View\FachAnlegenPage.xaml.cs">
+      <DependentUpon>FachAnlegenPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UnterrichtsfachAnlegen.xaml.cs">
+      <DependentUpon>UnterrichtsfachAnlegen.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -102,8 +109,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="View\" />
+    <Page Include="View\FachAnlegenPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UnterrichtsfachAnlegen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

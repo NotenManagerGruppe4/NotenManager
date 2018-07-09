@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Notenmanager"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-         
+        <local:FachAnlegenPageVM x:Key="FAnlegenVM"/>
     </Application.Resources>
 </Application>
