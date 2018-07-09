@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Notenmanager.ViewModel
 {
-    class MainPageVM : BaseViewModel
+    public class MainPageVM : BaseViewModel
     {
         public MainPageVM()
         {

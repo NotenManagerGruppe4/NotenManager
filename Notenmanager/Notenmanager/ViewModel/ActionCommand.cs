@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Notenmanager.ViewModel
 {
-    class ActionCommand : ICommand
+    public class ActionCommand : ICommand
     {
         private readonly Action<object> _executeHandler;
         private readonly Func<object, bool> _canExecuteHandler;

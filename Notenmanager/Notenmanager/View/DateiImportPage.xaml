@@ -1,0 +1,20 @@
+﻿<Page x:Class="Notenmanager.View.DateiImportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Notenmanager.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="DateiImportPage">
+
+    <Grid x:Name="DateiImportGrid" Background="White">
+        <Button x:Name="btnFileSelect" Content="Datei Auswählen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,10,0,0" Height="60" Click="btnFileSelect_Click"/>
+        <TextBox x:Name="tboxFilename" HorizontalAlignment="Left" Height="23" Margin="10,107,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="280" IsReadOnly="True"/>
+        <ComboBox x:Name="cBoxDateiart" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,135,0,0"/>
+        <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,76,0,0" Width="280"/>
+        <Button x:Name="btnImport" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,0,0" Click="btnImport_Click"/>
+        <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,270,0,0" Click="btnAbbrechen_Click"/>
+
+    </Grid>
+</Page>
