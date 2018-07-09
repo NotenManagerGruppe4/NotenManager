@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Notenmanager.Model
 {
-  
+
    public class DBZugriff : IDisposable
    {
       public const int STRING_MAXLENGTH = 45;
@@ -98,7 +98,7 @@ namespace Notenmanager.Model
       /// <param name="pred">Die Vorlage zum Selektieren z.B. (x => x.Id == 1)</param>
       /// <returns>Objekt vom Typ T, default(T) (meistens null) falls nichts gefunden</returns>
       /// <exception cref="InvalidOperationException">Mehrer Elemente gefunden</exception>
-      public T SelectSingleOrDefault<T>(Func<T,bool> pred) where T : class, IDBable
+      public T SelectSingleOrDefault<T>(Func<T, bool> pred) where T : class, IDBable
       {
          return GetDbSetFromContext<T>().SingleOrDefault(pred);
       }
@@ -114,6 +114,28 @@ namespace Notenmanager.Model
       {
          return GetDbSetFromContext<T>().SingleOrDefault(pred);
       }
+
+
+      /// <summary>
+      /// Selektiert ALLES aus der Tabelle von T
+      /// </summary>
+      /// <typeparam name="T">Der Typ der genutzt werden soll</typeparam>
+      /// <returns>Liste mit Elementen</returns>
+      public List<T> Select<T>() where T : class, IDBable
+      {
+         return GetDbSetFromContext<T>().ToList();
+      }
+
+      /// <summary>
+      /// Selektiert nach Kriterium aus der Tabelle von T
+      /// </summary>
+      /// <typeparam name="T">Der Typ der genutzt werden soll</typeparam>
+      /// <returns>Liste mit Elementen</returns>
+      public List<T> Select<T>(Func<T,bool> pred) where T : class, IDBable
+      {
+         return GetDbSetFromContext<T>().Where(pred).ToList();
+      }
+
 
       public DbSet<T> GetDbSetFromContext<T>() where T : class, IDBable
       {
@@ -155,7 +177,7 @@ namespace Notenmanager.Model
             Current.Dispose();
             Current = null;
          }
-         catch(Exception e)
+         catch (Exception e)
          {
             Trace.WriteLine(e.ToString());
          }
