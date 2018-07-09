@@ -1,3 +1,4 @@
 .vs
 *.suo
 /Notenmanager/.vs/Notenmanager/v14/.suo
+.cache
