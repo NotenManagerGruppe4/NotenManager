@@ -35,8 +35,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.10.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.10.7\lib\net452\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.10.7\lib\net452\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,13 +80,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Classes\Klasse.cs" />
+    <Compile Include="Model\Classes\Lehrer.cs" />
+    <Compile Include="Model\Classes\Leistung.cs" />
+    <Compile Include="Model\Classes\Leistungsart.cs" />
+    <Compile Include="Model\Classes\Leistungsgruppe.cs" />
+    <Compile Include="Model\Classes\Schueler.cs" />
+    <Compile Include="Model\Classes\SchuelerKlasse.cs" />
+    <Compile Include="Model\Classes\Schule.cs" />
+    <Compile Include="Model\Classes\UFachLehrer.cs" />
+    <Compile Include="Model\Classes\Unterrichtsfach.cs" />
+    <Compile Include="Model\Classes\Zeugnisfach.cs" />
+    <Compile Include="Model\Context.cs" />
+    <Compile Include="Model\DBZugriff.cs" />
+    <Compile Include="Model\IDBable.cs" />
     <Compile Include="Persistenz\DateiZugriff.cs" />
-    <Compile Include="Model\Schueler.cs" />
-    <Compile Include="Model\SchuelerKlasse.cs" />
-    <Compile Include="Model\Schule.cs" />
-    <Compile Include="Model\UFachLehrer.cs" />
-    <Compile Include="Model\Unterrichtsfach.cs" />
-    <Compile Include="Model\Zeugnisfach.cs" />
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainPageVM.cs" />
@@ -69,11 +102,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\Klasse.cs" />
-    <Compile Include="Model\Lehrer.cs" />
-    <Compile Include="Model\Leistung.cs" />
-    <Compile Include="Model\Leistungsart.cs" />
-    <Compile Include="Model\Leistungsgruppe.cs" />
     <Compile Include="ViewModel\NavigationEventArgs.cs" />
     <Compile Include="View\DateiImportPage.xaml.cs">
       <DependentUpon>DateiImportPage.xaml</DependentUpon>
@@ -100,6 +128,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

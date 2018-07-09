@@ -22,3 +22,9 @@ C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.exe
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.pdb
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.g.cs
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.baml
+C:\Users\bierlera\Documents\GIT_Repositories\Projekt\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.csprojResolveAssemblyReference.cache
+C:\Users\bierlera\Documents\GIT_Repositories\Projekt\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.g.cs
+C:\Users\bierlera\Documents\GIT_Repositories\Projekt\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\FachAnlegenPage.g.cs
+C:\Users\bierlera\Documents\GIT_Repositories\Projekt\NotenManager\Notenmanager\Notenmanager\obj\Debug\App.g.cs
+C:\Users\bierlera\Documents\GIT_Repositories\Projekt\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager_MarkupCompile.cache
+C:\Users\bierlera\Documents\GIT_Repositories\Projekt\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager_MarkupCompile.lref
