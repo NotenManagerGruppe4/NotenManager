@@ -2,9 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Notenmanager"
+             xmlns:vm="clr-namespace:Notenmanager.ViewModel"
              StartupUri="View/MainWindow.xaml"
              Exit="Application_Exit">
     <Application.Resources>
-        <local:FachAnlegenPageVM x:Key="FAnlegenVM"/>
+        <vm:FachAnlegenPageVM x:Key="FAnlegenVM"/>
     </Application.Resources>
 </Application>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Notenmanager.Model;
+using Notenmanager.ViewModel;
 
 namespace Notenmanager.ViewModel
 {

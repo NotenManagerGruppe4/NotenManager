@@ -80,6 +80,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Migrations\201807090913526_GenerateNoma.cs" />
+    <Compile Include="Migrations\201807090913526_GenerateNoma.Designer.cs">
+      <DependentUpon>201807090913526_GenerateNoma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Classes\Klasse.cs" />
     <Compile Include="Model\Classes\Lehrer.cs" />
     <Compile Include="Model\Classes\Leistung.cs" />
@@ -110,6 +115,7 @@
     <Compile Include="View\FachAnlegenPage.xaml.cs">
       <DependentUpon>FachAnlegenPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainWindow.xaml.cs" />
     <Compile Include="View\UnterrichtsfachAnlegen.xaml.cs">
       <DependentUpon>UnterrichtsfachAnlegen.xaml</DependentUpon>
     </Compile>
@@ -128,6 +134,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201807090913526_GenerateNoma.resx">
+      <DependentUpon>201807090913526_GenerateNoma.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -144,11 +153,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\UnterrichtsfachAnlegen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-	</Page>
+    </Page>
     <Page Include="View\DateiImportPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

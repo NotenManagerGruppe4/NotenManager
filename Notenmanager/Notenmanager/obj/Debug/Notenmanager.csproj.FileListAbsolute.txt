@@ -1,10 +1,5 @@
-H:\C#\11.Klasse\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
-C:\Users\koehlerc\Documents\NotenmanagerGr4\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
-C:\Users\bierlera\Documents\GIT_Repositories\Projekt\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
 C:\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
-C:\Users\czechs\Desktop\GIT\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
-C:\Users\koehlerc\Documents\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
 C:\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe
 C:\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.pdb
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.csprojResolveAssemblyReference.cache
@@ -30,4 +25,25 @@ C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager_Ma
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager_MarkupCompile.lref
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.g.cs
->>>>>>> 024550adb9bcaadd23fd53d7c816e53da30b96ab
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\MainWindow.g.cs
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\MainWindow.baml
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\UnterrichtsfachAnlegen.baml
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.baml
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\FachAnlegenPage.baml
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.exe
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.pdb
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.pdb
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\EntityFramework.dll
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\EntityFramework.SqlServer.dll
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\MySql.Data.dll
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\MySql.Data.Entity.EF6.dll
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\EntityFramework.xml
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\EntityFramework.SqlServer.xml
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\MySql.Data.xml
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\MySql.Data.Entity.EF6.xml
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\App.baml
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.g.resources
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.Properties.Resources.resources
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.csproj.GenerateResource.Cache
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.Migrations.GenerateNoma.resources
