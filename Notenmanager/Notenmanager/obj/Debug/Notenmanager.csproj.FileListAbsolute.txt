@@ -1,10 +1,5 @@
-H:\C#\11.Klasse\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
-C:\Users\koehlerc\Documents\NotenmanagerGr4\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
-C:\Users\bierlera\Documents\GIT_Repositories\Projekt\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
 C:\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
-C:\Users\czechs\Desktop\GIT\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
-C:\Users\koehlerc\Documents\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe.config
 C:\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.exe
 C:\NotenManager\Notenmanager\Notenmanager\bin\Debug\Notenmanager.pdb
 C:\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.csprojResolveAssemblyReference.cache
@@ -51,3 +46,4 @@ C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\App.baml
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.g.resources
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.Properties.Resources.resources
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.csproj.GenerateResource.Cache
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager.Migrations.GenerateNoma.resources
