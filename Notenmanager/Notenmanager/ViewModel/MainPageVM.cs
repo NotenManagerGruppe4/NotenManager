@@ -23,7 +23,7 @@ namespace Notenmanager.ViewModel
         }
 
         #region Events
-        public event EventHandler<EventArgs> NavigateToPageRequest;
+        public event EventHandler<NavigationEventArgs> NavigateToPageRequest;
         #endregion
 
         #region Public Properties

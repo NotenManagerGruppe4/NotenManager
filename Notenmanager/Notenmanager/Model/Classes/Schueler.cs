@@ -7,7 +7,7 @@ namespace Notenmanager.Model
 {
    public enum Geschlecht { M, W };
 
-   public enum Konfession { NONE, RHK, EV, ISL, SONST };
+   public enum Konfession { BL, RK, EV, ISL, SONST };
 
    [Table("schueler")]
    public class Schueler : IDBable

@@ -40,8 +40,21 @@ namespace Notenmanager.Persistenz
                 schueler.Nachname = schuel[1];
                 schueler.Vorname = schuel[2];
                 schueler.Geburtsdatum = Convert.ToDateTime(schuel[3]);
-                schueler.Geschlecht = schuel[7];
-                schueler.Konfession = schuel[8];
+                schueler.Geschlecht = schuel[7]=="m" ? Geschlecht.M : Geschlecht.W;
+
+                string readedkonfession = schuel[8].Trim();
+                Konfession k;
+
+                if (readedkonfession == "bl")
+                    k = Konfession.BL;
+                if (readedkonfession == "ev")
+                    k = Konfession.EV;
+                else if (readedkonfession == "rk")
+                    k = Konfession.RK;
+                else
+                    k = Konfession.SONST;
+
+                schueler.Konfession = k;
 
             //schueler.speichern();
             }
