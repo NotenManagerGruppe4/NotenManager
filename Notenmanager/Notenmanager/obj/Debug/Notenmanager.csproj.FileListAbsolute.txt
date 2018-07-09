@@ -29,3 +29,5 @@ C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\App.g.cs
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager_MarkupCompile.cache
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\Notenmanager_MarkupCompile.lref
 C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\View\DateiImportPage.g.cs
+
