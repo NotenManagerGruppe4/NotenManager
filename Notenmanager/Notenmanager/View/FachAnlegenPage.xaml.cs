@@ -24,5 +24,35 @@ namespace Notenmanager.View
         {
             InitializeComponent();
         }
+
+        private void btnHinzufuegen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnEntfernen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAnlegen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAendern_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnSpeichern_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAbbrechen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

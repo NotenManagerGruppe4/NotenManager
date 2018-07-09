@@ -4,17 +4,26 @@
 winexe
 C#
 .cs
+<<<<<<< HEAD
 C:\Notenmanager\Notenmanager\Notenmanager\obj\Debug\
+=======
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\obj\Debug\
+>>>>>>> 024550adb9bcaadd23fd53d7c816e53da30b96ab
 Notenmanager
 none
 false
 DEBUG;TRACE
+<<<<<<< HEAD
 C:\Notenmanager\Notenmanager\Notenmanager\App.xaml
 2-1862721614
+=======
+C:\Notenmanager\NotenManager\Notenmanager\Notenmanager\App.xaml
+3-838638650
+>>>>>>> 024550adb9bcaadd23fd53d7c816e53da30b96ab
 
-261562094008
-13738642453
-View\DateiImportPage.xaml;View\FachAnlegenPage.xaml;
+31-1057971759
+26-812705923
+View\UnterrichtsfachAnlegen.xaml;View\DateiImportPage.xaml;View\FachAnlegenPage.xaml;
 
-True
+False
 
