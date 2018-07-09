@@ -75,6 +75,12 @@
     <Compile Include="Model\Leistungsart.cs" />
     <Compile Include="Model\Leistungsgruppe.cs" />
     <Compile Include="ViewModel\NavigationEventArgs.cs" />
+    <Compile Include="View\DateiImportPage.xaml.cs">
+      <DependentUpon>DateiImportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FachAnlegenPage.xaml.cs">
+      <DependentUpon>FachAnlegenPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -103,8 +109,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="View\" />
+    <Page Include="View\DateiImportPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\FachAnlegenPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
