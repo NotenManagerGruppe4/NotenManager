@@ -33,7 +33,7 @@ namespace Notenmanager.View
 
         private void test()
         {
-            //TEST
+            //TEST2
         }
 
         private void btnImport_Click(object sender, RoutedEventArgs e)
