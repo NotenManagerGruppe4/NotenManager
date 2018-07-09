@@ -7,8 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="500">
     <Grid>
-        <Frame x:Name="frMainFrame" Content="" HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="500"/>
-        <Button x:Name="button" Command="{Binding NavigateToDateiImportCmd}" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
-
+        <Frame x:Name="frMainFrame" Source="DateiImportPage.xaml" HorizontalAlignment="Left" Height="500" NavigationUIVisibility="Hidden" VerticalAlignment="Top" Width="500"/>
     </Grid>
 </Window>
