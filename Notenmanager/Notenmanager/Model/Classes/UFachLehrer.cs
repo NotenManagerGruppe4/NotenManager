@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace NOMACreator.Model
+namespace Notenmanager.Model
 {
    [Table("ufachlehrer")]
    public class UFachLehrer : IDBable

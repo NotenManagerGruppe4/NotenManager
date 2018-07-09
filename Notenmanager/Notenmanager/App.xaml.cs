@@ -1,4 +1,4 @@
-﻿using NOMACreator.Model;
+﻿using Notenmanager.Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

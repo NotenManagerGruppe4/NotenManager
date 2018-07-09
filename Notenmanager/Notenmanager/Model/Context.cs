@@ -3,7 +3,7 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
-namespace NOMACreator.Model
+namespace Notenmanager.Model
 {
 
    [DbConfigurationType(typeof(MySqlEFConfiguration))]
