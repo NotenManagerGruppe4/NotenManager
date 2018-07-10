@@ -35,7 +35,7 @@ namespace Notenmanager.View
 
         private void OnDialogRequest(object sender, DialogEventArgs e)
         {
-            UnterrichtsfachAnlegenWindow dlg = new UnterrichtsfachAnlegenWindow(e.dm);
+            UnterrichtsfachAnlegen dlg = new UnterrichtsfachAnlegen(e.dm);
 
             if (e.ResultAction != null)
                 e.ResultAction(dlg.ShowDialog());

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Notenmanager.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace Notenmanager.View
     /// </summary>
     public partial class MainPage : Page
     {
+        private MainPageVM _viewModel;
+
         public MainPage()
         {
             InitializeComponent();
+            _viewModel = DataContext as MainPageVM;
         }
 
         public void MethodeFuerPush()
