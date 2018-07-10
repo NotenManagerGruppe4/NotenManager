@@ -43,7 +43,7 @@
                 <DataGridTextColumn Binding="{Binding Pos}" Header="Position" util:GridViewSort.PropertyName="Pos"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="btnAnlegen" Content="Anlegen" HorizontalAlignment="Left" Height="21" Margin="41,409,0,0" VerticalAlignment="Top" Width="91" Click="btnAnlegen_Click"/>
+        <Button x:Name="btnAnlegen" Command="{Binding OnBtnAnlegenCmd}" Content="Anlegen" HorizontalAlignment="Left" Height="21" Margin="41,409,0,0" VerticalAlignment="Top" Width="91" Click="btnAnlegen_Click"/>
         <Button x:Name="btnAendern" Content="Ändern" HorizontalAlignment="Left" Height="21" Margin="161,409,0,0" VerticalAlignment="Top" Width="100" Click="btnAendern_Click"/>
 
     </Grid>

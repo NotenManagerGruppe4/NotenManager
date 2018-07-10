@@ -6,6 +6,7 @@
              StartupUri="View/MainWindow.xaml"
              Exit="Application_Exit">
     <Application.Resources>
+        <vm:MainPageVM x:Key="MainPageVM"/>
         <vm:FachAnlegenPageVM x:Key="FAnlegenVM"/>
     </Application.Resources>
 </Application>

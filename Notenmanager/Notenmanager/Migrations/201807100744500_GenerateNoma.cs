@@ -12,6 +12,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
                         Bez = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         SJ = c.Int(nullable: false),
                         IdKlassenleiter = c.Int(nullable: false),
@@ -31,6 +32,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
                         Bez = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         Pos = c.Int(nullable: false),
                         AbschliessendesFach = c.Boolean(nullable: false),
@@ -47,6 +49,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
                         Bez = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         Stunden = c.Int(nullable: false),
                         Pos = c.Int(nullable: false),
@@ -61,6 +64,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
                         Stunden = c.Int(nullable: false),
                         EDatum = c.DateTime(precision: 0),
                         ADatum = c.DateTime(precision: 0),
@@ -78,6 +82,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
                         Kürzel = c.String(nullable: false, maxLength: 5, storeType: "nvarchar"),
                         Nachname = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         Vorname = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
@@ -90,6 +95,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
                         Erhebungsdatum = c.DateTime(nullable: false, precision: 0),
                         Notenstufe = c.Int(nullable: false),
                         Tendenz = c.Int(),
@@ -111,6 +117,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
                         Bez = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         Gewichtung = c.Double(nullable: false),
                         Gruppe_Id = c.Int(nullable: false),
@@ -124,6 +131,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
                         Bez = c.String(nullable: false, unicode: false),
                         Gewicht = c.Double(nullable: false),
                     })
@@ -134,6 +142,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
                         Klasse_Id = c.Int(nullable: false),
                         Schueler_Id = c.Int(nullable: false),
                     })
@@ -148,6 +157,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
                         Nachname = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         Vorname = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         Geburtsdatum = c.DateTime(nullable: false, precision: 0),
@@ -161,6 +171,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
                         Bez = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => t.Id);

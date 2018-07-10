@@ -80,9 +80,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Migrations\201807090913526_GenerateNoma.cs" />
-    <Compile Include="Migrations\201807090913526_GenerateNoma.Designer.cs">
-      <DependentUpon>201807090913526_GenerateNoma.cs</DependentUpon>
+    <Compile Include="Migrations\201807100744500_GenerateNoma.cs" />
+    <Compile Include="Migrations\201807100744500_GenerateNoma.Designer.cs">
+      <DependentUpon>201807100744500_GenerateNoma.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Classes\Klasse.cs" />
@@ -102,6 +102,7 @@
     <Compile Include="Persistenz\DateiZugriff.cs" />
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\DateiImportPageVM.cs" />
     <Compile Include="ViewModel\DialogEventArgs.cs" />
     <Compile Include="ViewModel\FachAnlegenPageVM.cs" />
     <Compile Include="ViewModel\MainPageVM.cs" />
@@ -116,8 +117,14 @@
     <Compile Include="View\FachAnlegenPage.xaml.cs">
       <DependentUpon>FachAnlegenPage.xaml</DependentUpon>
     </Compile>
+
+    <Compile Include="View\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow.xaml.cs">
+	 <DependentUpon>MainWindow.xaml</DependentUpon>
+	</Compile>
     <Compile Include="View\Util\GridViewSort.cs" />
-    <Compile Include="View\MainWindow.xaml.cs" />
     <Compile Include="View\UnterrichtsfachAnlegen.xaml.cs">
       <DependentUpon>UnterrichtsfachAnlegen.xaml</DependentUpon>
     </Compile>
@@ -136,8 +143,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201807090913526_GenerateNoma.resx">
-      <DependentUpon>201807090913526_GenerateNoma.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807100744500_GenerateNoma.resx">
+      <DependentUpon>201807100744500_GenerateNoma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -155,6 +162,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="View\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

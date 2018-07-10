@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Notenmanager.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="500">
+        Title="MainWindow" Height="500" Width="500"
+        DataContext="{StaticResource MainPageVM}">
     <Grid>
-        <Frame x:Name="frMainFrame" Source="DateiImportPage.xaml" HorizontalAlignment="Left" Height="500" NavigationUIVisibility="Hidden" VerticalAlignment="Top" Width="500"/>
+        <Frame x:Name="frMainFrame" Source="MainPage.xaml" HorizontalAlignment="Left" Height="500" NavigationUIVisibility="Hidden" VerticalAlignment="Top" Width="500"/>
     </Grid>
 </Window>
