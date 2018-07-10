@@ -8,5 +8,6 @@ namespace Notenmanager.ViewModel
 {
     public class DateiImportPageVM
     {
+        // Import Add
     }
 }
