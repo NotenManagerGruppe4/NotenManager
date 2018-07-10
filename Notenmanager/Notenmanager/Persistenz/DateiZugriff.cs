@@ -8,103 +8,113 @@ using Notenmanager.Model;
 
 namespace Notenmanager.Persistenz
 {
-    public static class DateiZugriff
-    {
-        /// <summary>
-        /// Liest eine Datei falls diese vorhanden ist und gibt deren Inhalt als Zeilen zurück.
-        /// </summary>
-        /// <param name="pfad">Pfad der Datei, die gelesen werden soll.</param>
-        /// <returns>string[] mit den gelesenen Zeilen falls die Datei existiert. Jeder Index entspricht einer Zeile.
-        ///         Existiert keine Datei wird eine Exception geworfen.</returns>
-        private static string[] LeseDatei(string pfad)
-        {
-            if (File.Exists(pfad))
-                return File.ReadAllLines(pfad);
+   public static class DateiZugriff
+   {
+      ///// <summary>
+      ///// Liest eine Datei falls diese vorhanden ist und gibt deren Inhalt als Zeilen zurück.
+      ///// </summary>
+      ///// <param name="pfad">Pfad der Datei, die gelesen werden soll.</param>
+      ///// <returns>string[] mit den gelesenen Zeilen falls die Datei existiert. Jeder Index entspricht einer Zeile.
+      /////         Existiert keine Datei wird eine Exception geworfen.</returns>
+      //private static string[] LeseDatei(string pfad)
+      //{
+      //   if (File.Exists(pfad))
+      //      return File.ReadAllLines(pfad);
+      //   else
+      //      throw new FileNotFoundException("Die angegebene Datei konnte nicht gefunden werden!");
+      //}
+
+      /// <summary>
+      /// Importiert eine CSV-Datei mit Schülern und speichert diese in die Datenbank
+      /// </summary>
+      /// <param name="pfad">Pfad der Schülerdatei</param>
+      public static void ImportSchueler(string pfad)
+      {
+         string[] tmp;
+
+         foreach (string s in File.ReadAllLines(pfad))
+         {
+            tmp = s.Split(',');
+
+            string readedkonfession = tmp[8].Trim().ToLower();
+            Konfession k;
+
+            if (readedkonfession == "bl")
+               k = Konfession.BL;
+            if (readedkonfession == "ev")
+               k = Konfession.EV;
+            else if (readedkonfession == "rk")
+               k = Konfession.RK;
             else
-                throw new FileNotFoundException("Die angegebene Datei konnte nicht gefunden werden!");
-        }
+               k = Konfession.SONST;
 
-        /// <summary>
-        /// Importiert eine CSV-Datei mit Schülern und speichert diese in die Datenbank
-        /// </summary>
-        /// <param name="pfad">Pfad der Schülerdatei</param>
-        public static void ImportSchueler(string pfad)
-        {
-            string[] zeilen = LeseDatei(pfad);
-            string[] schuel;
-
-            foreach (string s in zeilen)
+            Schueler schueler = new Schueler()
             {
-                var schueler = new Schueler();
-                schuel = s.Split(',');
-                schueler.Nachname = schuel[1];
-                schueler.Vorname = schuel[2];
-                schueler.Geburtsdatum = Convert.ToDateTime(schuel[3]);
-                schueler.Geschlecht = schuel[7]=="m" ? Geschlecht.M : Geschlecht.W;
+               Nachname = tmp[1],
+               Vorname = tmp[2],
+               Geburtsdatum = Convert.ToDateTime(tmp[3]),
+               Geschlecht = tmp[7] == "m" ? Geschlecht.M : Geschlecht.W,
+               Konfession = k,
+            };
 
-                string readedkonfession = schuel[8].Trim().ToLower();
-                Konfession k;
+            DBZugriff.Current.Speichern(schueler, false);
+         }
 
-                if (readedkonfession == "bl")
-                    k = Konfession.BL;
-                if (readedkonfession == "ev")
-                    k = Konfession.EV;
-                else if (readedkonfession == "rk")
-                    k = Konfession.RK;
-                else
-                    k = Konfession.SONST;
+         DBZugriff.Current.Save();
+      }
 
-                schueler.Konfession = k;
+      /// <summary>
+      /// Importiert die Klassen aus einer CSV-Datei --> erstellt daraus die Klassenobjekte--> speichert diese in die Datenbank
+      /// </summary>
+      /// <param name="pfad">Pfad der Klassendatei</param>
+      /// <param name="schule">Zugehörige Schule</param>
+      public static void ImportKlassen(string pfad, Schule schule)
+      {
+         string[] tmp;
 
-            //schueler.speichern();
-            }
-        }
-        
-        /// <summary>
-        /// Importiert die Klassen aus einer CSV-Datei --> erstellt daraus die Klassenobjekte--> speichert diese in der Datenbank
-        /// </summary>
-        /// <param name="pfad">Pfad der Klassendatei</param>
-        public static void ImportKlassen(string pfad)
-        {
-            string[] klassen = LeseDatei(pfad);
-            string[] kl;
+         foreach (string s in File.ReadAllLines(pfad))
+         {
+            tmp = s.Split(',');
 
-            foreach(string klasse in klassen)
+            Klasse klasse = new Klasse()
             {
-                string[] sjahr;
-                Klasse k = new Klasse();
-                kl = klasse.Split(',');
-                sjahr = kl[2].Split('/');
-                k.Bez = kl[1];
-                k.SJ = Convert.ToInt32(sjahr[0]);
+               Bez = tmp[1],
+               SJ = Convert.ToInt32(tmp[2].Split('/')[0]),
+               Schule = schule,
+            };
 
-                //k.speichern();
-            }
-        }
+            DBZugriff.Current.Speichern(klasse, false);
+         }
+         DBZugriff.Current.Save();
+      }
 
 
-        /// <summary>
-        /// Importiert die Lehrer aus einer CSV-Datei --> erstellt daraus die Lehrerobjekte--> speichert diese in der Datenbank
-        /// </summary>
-        /// <param name="pfad">Pfad der Lehrerdatei</param>
-        public static void ImportLehrer(string pfad)
-        {
+      /// <summary>
+      /// Importiert die Lehrer aus einer CSV-Datei --> erstellt daraus die Lehrerobjekte--> speichert diese in die Datenbank
+      /// </summary>
+      /// <param name="pfad">Pfad der Lehrerdatei</param>
+      public static void ImportLehrer(string pfad)
+      {
+         string[] tmp;
 
-            string[] lehrer = LeseDatei(pfad);
-            string[] le;
+         foreach (string s in File.ReadAllLines(pfad))
+         {
 
-            foreach(string lehr in lehrer)
+            tmp = s.Split(',');
+
+            Lehrer lehrer = new Lehrer()
             {
-                Lehrer l = new Lehrer();
-                le = lehr.Split(',');
-                l.Kürzel = le[3];
-                l.Nachname = le[1];
-                l.Vorname = le[2];
+               Kürzel = tmp[3],
+               Nachname = tmp[1],
+               Vorname = tmp[2],
+            };
 
-                //l.speichern();
-            }
-        }
+            DBZugriff.Current.Speichern(lehrer, false);
+         }
+
+         DBZugriff.Current.Save();
+      }
 
 
-    }
+   }
 }
