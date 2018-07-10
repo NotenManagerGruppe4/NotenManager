@@ -39,7 +39,7 @@ namespace Notenmanager.Model
       /// <typeparam name="T">Der Typ des Objekt</typeparam>
       /// <param name="obj">Das Objekt</param>
       /// <returns>true = OK, false = Fehler</returns>
-      public bool Speichern<T>(T obj) where T : class, IDBable
+      public bool Speichern<T>(T obj, bool autoSyncDb = true) where T : class, IDBable
       {
          try
          {
@@ -155,7 +155,7 @@ namespace Notenmanager.Model
       }
 
 
-      private void Save(bool async = true)
+      public void Save(bool async = true)
       {
          if (async)
             Context.SaveChangesAsync();
