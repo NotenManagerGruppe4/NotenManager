@@ -71,5 +71,10 @@ namespace Notenmanager.ViewModel
         {
             DialogRequest?.Invoke(this, new DialogEventArgs(DoAnlegen, DialogMode.Neu));
         }
+
+        private void DoAnlegen(bool? obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

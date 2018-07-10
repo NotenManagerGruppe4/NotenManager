@@ -9,6 +9,7 @@
       Title="MainPage">
 
     <Grid Background="White">
-        
+        <Button x:Name="btnButton" Content="Button" HorizontalAlignment="Left" Margin="98,97,0,0" VerticalAlignment="Top" Width="75"/>
+
     </Grid>
 </Page>
