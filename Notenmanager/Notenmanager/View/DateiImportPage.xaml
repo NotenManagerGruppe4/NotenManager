@@ -8,13 +8,28 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="DateiImportPage">
 
-    <Grid x:Name="DateiImportGrid" Background="White">
-        <Button x:Name="btnFileSelect" Content="Datei Auswählen" VerticalAlignment="Top" Margin="10,10,10,0" Click="btnFileSelect_Click"/>
-        <TextBox x:Name="tboxFilename" HorizontalAlignment="Left" Height="23" Margin="10,107,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="280" IsReadOnly="True"/>
-        <ComboBox x:Name="cBoxDateiart" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,135,0,0"/>
-        <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,76,0,0" Width="280"/>
-        <Button x:Name="btnImport" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,0,0" Click="btnImport_Click"/>
-        <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,270,0,0" Click="btnAbbrechen_Click"/>
+    <Grid x:Name="DateiImportGrid" Background="White" >
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2" Grid.RowSpan="3">
+            <Button x:Name="btnFileSelect" Grid.Column="1" Grid.Row="1" Content="Datei Auswählen" Margin="10,10,10,0" Click="btnFileSelect_Click" VerticalAlignment="Top"/>
+            <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,42,0,0" Width="280"/>
+            <Button x:Name="btnImport" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,0,0" Click="btnImport_Click"/>
+            <Button x:Name="btnAbbrechen" Grid.Row="3" Grid.Column="1" Content="Abbrechen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,270,0,0" Click="btnAbbrechen_Click"/>
+            <TextBox x:Name="tboxFilename" HorizontalAlignment="Left" Height="23" Margin="10,68,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="280" IsReadOnly="True" Background="White"/>
+            <ComboBox x:Name="cBoxDateiart" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,224,0,0" Grid.ColumnSpan="2"/>
+        </Grid>
+
 
     </Grid>
 </Page>
