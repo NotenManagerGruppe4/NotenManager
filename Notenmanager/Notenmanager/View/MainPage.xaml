@@ -6,11 +6,12 @@
       xmlns:local="clr-namespace:Notenmanager.View"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="MainPage">
+      Title="MainPage"
+      DataContext="{StaticResource MainPageVM}">
 
     <Grid Background="White">
-        <Button x:Name="btnButton" Content="Button" HorizontalAlignment="Left" Margin="98,97,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnMeeensch" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="98,72,0,0"/>
+        <Button x:Name="btnButton" Command="{Binding NavigateToDateiImportCmd}"  Content="Button" HorizontalAlignment="Left" Margin="98,97,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnMeeensch" Command="{Binding NavigateToFachAnlegenCmd}" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="98,72,0,0"/>
 
     </Grid>
 </Page>

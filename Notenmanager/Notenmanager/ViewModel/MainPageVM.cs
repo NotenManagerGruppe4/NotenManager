@@ -13,7 +13,7 @@ namespace Notenmanager.ViewModel
         public MainPageVM()
         {
             NavigateToDateiImportCmd = new ActionCommand(OnNavigateToDateiImport);
-            NavigateToDateiImportCmd = new ActionCommand(OnNavigateToFachAnlegen);
+            NavigateToFachAnlegenCmd = new ActionCommand(OnNavigateToFachAnlegen);
         }
 
 
@@ -24,7 +24,7 @@ namespace Notenmanager.ViewModel
         #region Public Properties
         #region Commands
         public ICommand NavigateToDateiImportCmd { get; set; }
-        public ICommand NavigateToFachAnlegenPageCmd { get; set; }
+        public ICommand NavigateToFachAnlegenCmd { get; set; }
         #endregion
         #endregion
 

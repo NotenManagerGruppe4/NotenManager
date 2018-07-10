@@ -21,21 +21,18 @@ namespace Notenmanager.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainPageVM _viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainPageVM();
-            (DataContext as MainPageVM).NavigateToPageRequest += DateiImportPage_NavigateToPageRequest;
+            _viewModel = DataContext as MainPageVM;
+            _viewModel.NavigateToPageRequest += OnNavigateToPageRequest;
         }
 
-        private void DateiImportPage_NavigateToPageRequest(object sender, NavigationEventArgs e)
+        private void OnNavigateToPageRequest(object sender, NavigationEventArgs e)
         {
-            frMainFrame.Navigate(new DateiImportPage());
-
-            
-
-            //this.Height = frMainFrame.Height;
-            //this.Width = frMainFrame.Width;
+            frMainFrame.Navigate(e.ZielPage);
         }
     }
 }
