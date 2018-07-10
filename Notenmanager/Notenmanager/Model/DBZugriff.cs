@@ -39,7 +39,7 @@ namespace Notenmanager.Model
       /// <typeparam name="T">Der Typ des Objekt</typeparam>
       /// <param name="obj">Das Objekt</param>
       /// <returns>true = OK, false = Fehler</returns>
-      public bool Speichern<T>(T obj) where T : class, IDBable
+      public bool Speichern<T>(T obj, bool autoSyncDb = true) where T : class, IDBable
       {
          try
          {
@@ -104,7 +104,7 @@ namespace Notenmanager.Model
       }
 
       /// <summary>
-      /// Selektiert ein Element aus der Datenbank, wirf eine Exception falls mehrere gefunden
+      /// Selektiert ein Element aus der Datenbank; wirft eine Exception falls Mehrere gefunden
       /// </summary>
       /// <typeparam name="T">Der Typ der genutzt werden soll</typeparam>
       /// <param name="pred">Die Vorlage zum Selektieren z.B. (x => x.Id == 1)</param>
@@ -116,7 +116,7 @@ namespace Notenmanager.Model
       }
 
       /// <summary>
-      /// Selektiert ein Element aus der Datenbank, erste Element falls mehrere gefunden
+      /// Selektiert ein Element aus der Datenbank; erste Element falls Mehrere gefunden
       /// </summary>
       /// <typeparam name="T">Der Typ der genutzt werden soll</typeparam>
       /// <param name="pred">Die Vorlage zum Selektieren z.B. (x => x.Id == 1)</param>
@@ -143,7 +143,7 @@ namespace Notenmanager.Model
       /// </summary>
       /// <typeparam name="T">Der Typ der genutzt werden soll</typeparam>
       /// <returns>Liste mit Elementen</returns>
-      public List<T> Select<T>(Func<T,bool> pred) where T : class, IDBable
+      public List<T> Select<T>(Func<T, bool> pred) where T : class, IDBable
       {
          return GetDbSetFromContext<T>().Where(pred).ToList();
       }
@@ -154,8 +154,19 @@ namespace Notenmanager.Model
          return Context.GetDbSet<T>();
       }
 
+      /// <summary>
+      /// Beginnt eine Transaktion; Benutzung am Besten in Kombination mit using...
+      /// Abbau mit: Save + Commit || Rollback
+      /// </summary>
+      /// <returns>Transaktions-Objekt</returns>
+      public DbContextTransaction BeginTransaction()
+      {
+         return Context.Database.BeginTransaction();
+      }
 
-      private void Save(bool async = true)
+
+
+      public void Save(bool async = true)
       {
          if (async)
             Context.SaveChangesAsync();
