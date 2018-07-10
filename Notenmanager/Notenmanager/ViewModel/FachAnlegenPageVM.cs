@@ -9,8 +9,8 @@ using System.Windows.Input;
 
 namespace Notenmanager.ViewModel
 {
-    public enum Fachart { Wahlfach = 1, Pflichtfach = 2, Wahlpflichtfach = 3};
-    public enum DialogMode { Neu, Aendern};
+    public enum Fachart { Wahlfach = 1, Pflichtfach = 2, Wahlpflichtfach = 3 };
+    public enum DialogMode { Neu, Aendern };
 
     public class FachAnlegenPageVM : BaseViewModel
     {
@@ -78,13 +78,14 @@ namespace Notenmanager.ViewModel
 
         private void DoAnlegen(bool? obj)
         {
-            if(obj  == true)
-            {
-                uf = new Unterrichtsfach();
-                LstUFachHinz.Add(uf);
-                uf.Speichern();
-                SelFach = uf;
-            }
+            if (obj != true)
+                return;
+
+            uf = new Unterrichtsfach();
+            LstUFachHinz.Add(uf);
+            uf.Speichern();
+            SelFach = uf;
+
         }
         private void OnBtnAendern(object obj)
         {
@@ -93,10 +94,12 @@ namespace Notenmanager.ViewModel
 
         private void DoAendern(bool? obj)
         {
-            if(obj == true)
-            {
+            if (obj != true)
+                return;
 
-            }
+            int index = LstUFachHinz.IndexOf(SelFach);
+            LstUFachHinz.RemoveAt(index);
+            LstUFachHinz.Insert(index, SelFach);   
         }
     }
 }
