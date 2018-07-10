@@ -13,6 +13,7 @@ namespace Notenmanager.Model
       }
 
       public int Id { get; private set; }
+      public bool Active { get; set; } = true;
       //public int IdSchueler { get; set; }
       //public int IdKlasse { get; set; }
 
@@ -32,6 +33,11 @@ namespace Notenmanager.Model
       public bool Loeschen()
       {
          return DBZugriff.Current.Loeschen(this);
+      }
+
+      public void Reload()
+      {
+         DBZugriff.Current.Reload(this);
       }
 
    }

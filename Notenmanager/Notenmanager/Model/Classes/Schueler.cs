@@ -16,6 +16,7 @@ namespace Notenmanager.Model
       { }
 
       public int Id { get; private set; }
+      public bool Active { get; set; } = true;
 
       [Required,MaxLength(DBZugriff.STRING_MAXLENGTH)]
       public string Nachname { get; set; }
@@ -44,6 +45,9 @@ namespace Notenmanager.Model
          return DBZugriff.Current.Loeschen(this);
       }
 
-
+      public void Reload()
+      {
+         DBZugriff.Current.Reload(this);
+      }
    }
 }

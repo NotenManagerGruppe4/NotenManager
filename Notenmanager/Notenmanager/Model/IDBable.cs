@@ -13,7 +13,11 @@ namespace Notenmanager.Model
    {
       int Id { get; }
 
+      bool Active { get; set; }
+
       bool Speichern();
       bool Loeschen();
+
+      void Reload();
    }
 }
