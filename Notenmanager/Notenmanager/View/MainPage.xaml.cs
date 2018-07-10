@@ -24,5 +24,10 @@ namespace Notenmanager.View
         {
             InitializeComponent();
         }
+
+        public void MethodeFuerPush()
+        {
+            throw new Exception();//bullshit 
+        }
     }
 }
