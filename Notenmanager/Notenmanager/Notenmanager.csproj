@@ -102,7 +102,6 @@
     <Compile Include="Persistenz\DateiZugriff.cs" />
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\DateiImportPageVM.cs" />
     <Compile Include="ViewModel\DialogEventArgs.cs" />
     <Compile Include="ViewModel\FachAnlegenPageVM.cs" />
     <Compile Include="ViewModel\MainPageVM.cs" />
