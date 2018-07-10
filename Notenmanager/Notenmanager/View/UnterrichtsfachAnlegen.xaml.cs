@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Notenmanager.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,13 @@ namespace Notenmanager.View
     /// <summary>
     /// Interaktionslogik für UnterrichtsfachAnlegen.xaml
     /// </summary>
-    public partial class UnterrichtsfachAnlegen : Window
+    public partial class UnterrichtsfachAnlegenWindow : Window
     {
-        public UnterrichtsfachAnlegen()
+        DialogMode dm;
+        public UnterrichtsfachAnlegenWindow(DialogMode dm)
         {
             InitializeComponent();
+            this.dm = dm;
         }
     }
 }

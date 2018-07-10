@@ -15,14 +15,6 @@ namespace Notenmanager.ViewModel
             NavigateToDateiImportCmd = new ActionCommand(OnNavigateToDateiImport);
         }
 
-        private void OnNavigateToDateiImport(object obj)
-        {
-            NavigateToPageRequest?.Invoke(this, new NavigationEventArgs()
-            {
-                ZielPage = new DateiImportPage()
-            });            
-        }
-
         #region Events
         public event EventHandler<NavigationEventArgs> NavigateToPageRequest;
         #endregion
@@ -30,6 +22,18 @@ namespace Notenmanager.ViewModel
         #region Public Properties
         #region Commands
         public ICommand NavigateToDateiImportCmd { get; set; }
+        #endregion
+        #endregion
+
+        #region Methoden
+        #region CommandHandler
+        private void OnNavigateToDateiImport(object obj)
+        {
+            NavigateToPageRequest?.Invoke(this, new NavigationEventArgs()
+            {
+                ZielPage = new DateiImportPage()
+            });            
+        }
         #endregion
         #endregion
     }
