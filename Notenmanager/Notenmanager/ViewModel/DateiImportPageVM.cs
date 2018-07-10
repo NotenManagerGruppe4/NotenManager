@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Notenmanager.ViewModel
 {
@@ -16,13 +17,16 @@ namespace Notenmanager.ViewModel
 
         public DateiImportPageVM()
         {
-            
+            DateiImportierenCmd = new ActionCommand(OnDateiImportieren);
         }
 
         #region Events
         #endregion
 
         #region Public Properties
+        #region Commands
+        public ICommand DateiImportierenCmd { get; set; } 
+        #endregion
         public string DateiPfad
         {
             get
@@ -46,6 +50,21 @@ namespace Notenmanager.ViewModel
             set
             {
                 SetValue(ref _dateiTyp, value);
+            }
+        }
+        #endregion
+
+        #region Methoden
+        private void OnDateiImportieren(object obj)
+        {
+            switch(DateiTyp.Name)
+            {
+                case "Klasse":
+                    break;
+                case "Schueler":
+                    break;
+                case "Lehrer":
+                    break;
             }
         }
         #endregion
