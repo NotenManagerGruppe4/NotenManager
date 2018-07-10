@@ -37,7 +37,7 @@ namespace Notenmanager.Model
       /// Speichert (Hinzufügen oder Ändern) ein Objekt in die Datenbank (auch refernezierte Objekte)
       /// </summary>
       /// <typeparam name="T">Der Typ des Objekt</typeparam>
-      /// <param name="obj">Das neue Objekt</param>
+      /// <param name="obj">Das Objekt</param>
       /// <returns>true = OK, false = Fehler</returns>
       public bool Speichern<T>(T obj) where T : class, IDBable
       {
@@ -66,19 +66,21 @@ namespace Notenmanager.Model
       }
 
       /// <summary>
-      /// Löscht ein Objekt aus der Datenbank 
+      /// Löscht ein Objekt (logisch) aus der Datenbank 
       /// </summary>
       /// <typeparam name="T">Der Typ des Objekt</typeparam>
-      /// <param name="obj">Das neue Objekt</param>
+      /// <param name="obj">Das Objekt</param>
       /// <returns>true = OK, false = Fehler</returns>
       public bool Loeschen<T>(T obj) where T : class, IDBable
       {
          try
          {
-            DbSet<T> dbset = GetDbSetFromContext<T>();
+            //DbSet<T> dbset = GetDbSetFromContext<T>();
 
-            //Delete
-            dbset.Remove(obj);
+            ////Delete
+            //dbset.Remove(obj);
+
+            obj.Active = false;
 
             Save();
 
@@ -89,6 +91,16 @@ namespace Notenmanager.Model
             Trace.WriteLine(e.ToString());
          }
          return false;
+      }
+
+      /// <summary>
+      /// Lädt das Objekt neu aus der Datenbank
+      /// </summary>
+      /// <typeparam name="T">Der Typ der genutzt werden soll</typeparam>
+      /// <param name="obj">Das Objekt</param>
+      public void Reload<T>(T obj) where T : class, IDBable
+      {
+         Context.Entry<T>(obj).Reload();
       }
 
       /// <summary>

@@ -11,10 +11,10 @@ namespace Notenmanager.Model
       public const int KUERZEL_MAXLENGTH = 5;
 
       public Lehrer()
-      {
-      }
+      { }
 
-      public int Id { get; private set; } 
+      public int Id { get; private set; }
+      public bool Active { get; set; } = true;
 
       [Required,MaxLength(KUERZEL_MAXLENGTH)]
       public string Kürzel { get; set; }
@@ -41,6 +41,11 @@ namespace Notenmanager.Model
       public bool Loeschen()
       {
          return DBZugriff.Current.Loeschen(this);
+      }
+
+      public void Reload()
+      {
+         DBZugriff.Current.Reload(this);
       }
 
    }

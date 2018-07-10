@@ -9,6 +9,7 @@ namespace Notenmanager.Model
    public class Leistungsgruppe : IDBable
    {
       public int Id { get; private set; }
+      public bool Active { get; set; } = true;
 
       [Required]
       public string Bez { get; set; }
@@ -29,5 +30,9 @@ namespace Notenmanager.Model
          return DBZugriff.Current.Loeschen(this);
       }
 
+      public void Reload()
+      {
+         DBZugriff.Current.Reload(this);
+      }
    }
 }
