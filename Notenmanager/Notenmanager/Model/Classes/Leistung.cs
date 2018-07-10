@@ -11,9 +11,10 @@ namespace Notenmanager.Model
    public class Leistung : IDBable
    {
       public Leistung()
-      {  }
+      { }
 
       public int Id { get; private set; }
+      public bool Active { get; set; } = true;
 
       [Required]
       public DateTime Erhebungsdatum { get; set; }
@@ -46,5 +47,9 @@ namespace Notenmanager.Model
          return DBZugriff.Current.Loeschen(this);
       }
 
+      public void Reload()
+      {
+         DBZugriff.Current.Reload(this);
+      }
    }
 }

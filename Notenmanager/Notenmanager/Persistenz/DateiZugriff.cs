@@ -42,7 +42,7 @@ namespace Notenmanager.Persistenz
                 schueler.Geburtsdatum = Convert.ToDateTime(schuel[3]);
                 schueler.Geschlecht = schuel[7]=="m" ? Geschlecht.M : Geschlecht.W;
 
-                string readedkonfession = schuel[8].Trim();
+                string readedkonfession = schuel[8].Trim().ToLower();
                 Konfession k;
 
                 if (readedkonfession == "bl")
