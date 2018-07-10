@@ -15,7 +15,7 @@ namespace Notenmanager.ViewModel
 
         // OnPropertyChanged will raise the PropertyChanged event passing the
         // source property that is being updated.
-        protected void onPropertyChanged([CallerMemberName]string propertyName = null)
+        protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             if (this.PropertyChanged != null)
             {

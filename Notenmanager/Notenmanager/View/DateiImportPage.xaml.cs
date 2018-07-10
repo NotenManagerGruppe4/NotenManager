@@ -23,7 +23,7 @@ namespace Notenmanager.View
     {
         public DateiImportPage()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         private void btnFileSelect_Click(object sender, RoutedEventArgs e)

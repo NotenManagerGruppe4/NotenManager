@@ -39,7 +39,7 @@ namespace Notenmanager.ViewModel
             set
             {
                 _lstZeugUFach = value;
-                onPropertyChanged("LstZeugUFach");
+                OnPropertyChanged("LstZeugUFach");
             }
         }
 
@@ -53,7 +53,7 @@ namespace Notenmanager.ViewModel
             set
             {
                 _selFach = value;
-                onPropertyChanged("SelFach");
+                OnPropertyChanged("SelFach");
             }
         }
 
@@ -67,7 +67,7 @@ namespace Notenmanager.ViewModel
             set
             {
                 _lstUFachHinz = value;
-                onPropertyChanged("LstUFachHinz");
+                OnPropertyChanged("LstUFachHinz");
             }
         }
 
