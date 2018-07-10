@@ -32,8 +32,7 @@ namespace Notenmanager.ViewModel
 
             set
             {
-                _dateiPfad = value;
-                OnPropertyChanged();
+                SetValue(ref _dateiPfad, value);
             }
         }
 
@@ -46,8 +45,7 @@ namespace Notenmanager.ViewModel
 
             set
             {
-                _dateiTyp = value;
-                OnPropertyChanged();
+                SetValue(ref _dateiTyp, value);
             }
         }
         #endregion
