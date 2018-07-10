@@ -23,7 +23,7 @@ namespace Notenmanager.Model
       [Required]
       public virtual Klasse Klasse { get; set; }
 
-      public virtual List<Leistung> Leistung { get; set; } = new List<Model.Leistung>();
+      public virtual List<Leistung> Leistungen { get; set; } = new List<Model.Leistung>();
 
       public bool Speichern()
       {

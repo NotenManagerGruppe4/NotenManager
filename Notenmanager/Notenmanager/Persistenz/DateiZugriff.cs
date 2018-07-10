@@ -28,7 +28,7 @@ namespace Notenmanager.Persistenz
       /// Importiert eine CSV-Datei mit Schülern und speichert diese in die Datenbank
       /// </summary>
       /// <param name="pfad">Pfad der Schülerdatei</param>
-      public static void ImportSchueler(string pfad)
+      public static void ImportSchueler(string pfad, bool autoGenerateSchuelerKlasse = true)
       {
          string[] tmp;
 
@@ -58,9 +58,35 @@ namespace Notenmanager.Persistenz
             };
 
             DBZugriff.Current.Speichern(schueler, false);
+
+            if(autoGenerateSchuelerKlasse)
+               GeneriereSchuelerKlasse(schueler, tmp);
          }
 
          DBZugriff.Current.Save();
+      }
+
+      //Wünschenswert: Rückgabewerte für AnzSchuelerKlasse OK & Err
+      private static void GeneriereSchuelerKlasse(Schueler schueler, string[] tmp)
+      {
+
+         string kbez = tmp[4];
+         int ksj = 0;
+         if (!Int32.TryParse(tmp[5].Split('/')[0], out ksj)) 
+            return; //Parse Err
+
+         Klasse k = DBZugriff.Current.SelectFirstOrDefault<Klasse>(x => x.Bez == kbez && x.SJ == ksj);
+         //404
+         if (k == null)
+            return;
+
+
+         SchuelerKlasse sk = new SchuelerKlasse()
+         {
+            Schueler = schueler,
+            Klasse = k,
+         };
+         DBZugriff.Current.Speichern(sk, false);
       }
 
       /// <summary>
