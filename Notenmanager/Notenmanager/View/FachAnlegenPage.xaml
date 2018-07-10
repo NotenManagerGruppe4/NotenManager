@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Notenmanager.View"
+      xmlns:util="clr-namespace:Notenmanager.View.Util"
       mc:Ignorable="d"
       Title="FachAnlegenPage" Height="486.437" Width="307.649">
 
@@ -21,7 +22,8 @@
         <TextBox x:Name="txtPos" HorizontalAlignment="Left" Height="22" Margin="135,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" ToolTip="z.B. 1" MaxLength="45"/>
         <Label x:Name="lblUFach" Content="Unterrichtsfächer:" HorizontalAlignment="Left" Height="29" Margin="19,206,0,0" VerticalAlignment="Top" Width="146" FontWeight="Bold"/>
         <DataGrid ItemsSource="{Binding LstZeugUFach}" SelectedItem="{Binding SelFach}" x:Name="VorhandeneFaecherDataGrid" HorizontalAlignment="Left" Margin="24,240,0,0" VerticalAlignment="Top" Height="65" Width="255
-                      " AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Bereits dem Zeugnisfach zugeordnete Ufächer">
+                      " AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Bereits dem Zeugnisfach zugeordnete Ufächer"
+                  >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Bez}" Header="Fachbezeichnung"/>
                 <DataGridTextColumn Binding="{Binding Stunden}" Header="Stunden"/>
@@ -33,11 +35,12 @@
         <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" Height="22" Margin="161,446,0,0" VerticalAlignment="Top" Width="107" Click="btnAbbrechen_Click"/>
         <Button x:Name="btnEntfernen" Content="Entfernen" HorizontalAlignment="Left" Height="22" Margin="161,310,0,0" VerticalAlignment="Top" Width="100" Background="{x:Null}" IsEnabled="False" Click="btnEntfernen_Click"/>
         <DataGrid ItemsSource="{Binding LstUFachHinz}" SelectedItem="{Binding SelFach}" x:Name="AuswahlDataGrid" HorizontalAlignment="Left" Margin="25,339,0,0" VerticalAlignment="Top" Height="65" Width="255
-                      " AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Auswahl an bestehenden Unterrichtsfächern">
+                      " AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Auswahl an bestehenden Unterrichtsfächern"
+                  util:GridViewSort.AutoSort="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Bez}" Header="Fachbezeichnung"/>
-                <DataGridTextColumn Binding="{Binding Stunden}" Header="Stunden"/>
-                <DataGridTextColumn Binding="{Binding Pos}" Header="Position"/>
+                <DataGridTextColumn Binding="{Binding Bez}" Header="Fachbezeichnung" util:GridViewSort.PropertyName="Bez"/>
+                <DataGridTextColumn Binding="{Binding Stunden}" Header="Stunden" util:GridViewSort.PropertyName="Stunden"/>
+                <DataGridTextColumn Binding="{Binding Pos}" Header="Position" util:GridViewSort.PropertyName="Pos"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="btnAnlegen" Content="Anlegen" HorizontalAlignment="Left" Height="21" Margin="41,409,0,0" VerticalAlignment="Top" Width="91" Click="btnAnlegen_Click"/>

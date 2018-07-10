@@ -116,6 +116,7 @@
     <Compile Include="View\FachAnlegenPage.xaml.cs">
       <DependentUpon>FachAnlegenPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Util\GridViewSort.cs" />
     <Compile Include="View\MainWindow.xaml.cs" />
     <Compile Include="View\UnterrichtsfachAnlegen.xaml.cs">
       <DependentUpon>UnterrichtsfachAnlegen.xaml</DependentUpon>
