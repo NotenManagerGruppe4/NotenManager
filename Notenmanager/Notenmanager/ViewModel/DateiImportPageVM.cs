@@ -8,6 +8,19 @@ namespace Notenmanager.ViewModel
 {
     public class DateiImportPageVM
     {
-        // Import Add
+        #region Instanzvariablen
+        private string _dateiPfad;
+        #endregion
+
+        public DateiImportPageVM()
+        {
+
+        }
+
+        #region Events
+        #endregion
+
+        #region Public Properties
+        #endregion
     }
 }

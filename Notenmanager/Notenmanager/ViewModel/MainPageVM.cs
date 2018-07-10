@@ -13,7 +13,9 @@ namespace Notenmanager.ViewModel
         public MainPageVM()
         {
             NavigateToDateiImportCmd = new ActionCommand(OnNavigateToDateiImport);
+            NavigateToDateiImportCmd = new ActionCommand(OnNavigateToFachAnlegen);
         }
+
 
         #region Events
         public event EventHandler<NavigationEventArgs> NavigateToPageRequest;
@@ -22,6 +24,7 @@ namespace Notenmanager.ViewModel
         #region Public Properties
         #region Commands
         public ICommand NavigateToDateiImportCmd { get; set; }
+        public ICommand NavigateToFachAnlegenPageCmd { get; set; }
         #endregion
         #endregion
 
@@ -33,6 +36,13 @@ namespace Notenmanager.ViewModel
             {
                 ZielPage = new DateiImportPage()
             });            
+        }
+        private void OnNavigateToFachAnlegen(object obj)
+        {
+            NavigateToPageRequest?.Invoke(this, new NavigationEventArgs()
+            {
+                ZielPage = new FachAnlegenPage()
+            });    
         }
         #endregion
         #endregion
