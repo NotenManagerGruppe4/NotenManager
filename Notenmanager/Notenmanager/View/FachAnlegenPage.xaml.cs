@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Notenmanager.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,21 @@ namespace Notenmanager.View
     /// </summary>
     public partial class FachAnlegenPage : Page
     {
+        private FachAnlegenPageVM _viewmodel;
         public FachAnlegenPage()
         {
             InitializeComponent();
+        }
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            _viewmodel = FindResource("FAnlegenVM") as FachAnlegenPageVM;
+
+            _viewmodel.DialogRequest += OnDialogRequest;
+        }
+
+        private void OnDialogRequest(object sender, DialogEventArgs e)
+        {
+ 
         }
 
         private void btnHinzufuegen_Click(object sender, RoutedEventArgs e)
