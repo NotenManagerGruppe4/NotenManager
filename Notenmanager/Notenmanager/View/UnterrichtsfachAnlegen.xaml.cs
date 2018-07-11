@@ -26,5 +26,6 @@ namespace Notenmanager.View
             InitializeComponent();
             this.dm = dm;
         }
+
     }
 }

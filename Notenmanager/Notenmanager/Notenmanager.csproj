@@ -111,19 +111,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModel\NavigationEventArgs.cs" />
+    <Compile Include="ViewModel\UnterrichtsfachAnlegenVM.cs" />
     <Compile Include="View\DateiImportPage.xaml.cs">
       <DependentUpon>DateiImportPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FachAnlegenPage.xaml.cs">
       <DependentUpon>FachAnlegenPage.xaml</DependentUpon>
     </Compile>
-
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
-	 <DependentUpon>MainWindow.xaml</DependentUpon>
-	</Compile>
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Util\GridViewSort.cs" />
     <Compile Include="View\UnterrichtsfachAnlegen.xaml.cs">
       <DependentUpon>UnterrichtsfachAnlegen.xaml</DependentUpon>
