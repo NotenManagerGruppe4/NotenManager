@@ -36,7 +36,7 @@
                 </i:Interaction.Triggers>
             </ComboBox>
             <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,76,0,0" Width="280"/>
-            <Button x:Name="btnImport" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,0,0" Click="btnImport_Click"/>
+            <Button x:Name="btnImport" Command="{Binding DateiImportierenCmc}" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,0,0" Click="btnImport_Click"/>
             <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,270,0,0" Click="btnAbbrechen_Click"/>
         </Grid>
         
