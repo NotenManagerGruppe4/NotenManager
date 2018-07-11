@@ -22,21 +22,20 @@
         </Grid.ColumnDefinitions>
         <Grid HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2" Grid.RowSpan="3">    
             <Button x:Name="btnFileSelect" Content="Datei Auswählen" VerticalAlignment="Top" Margin="10,10,10,0" Click="btnFileSelect_Click"/>
-            <TextBox x:Name="tboxFilename" Text="{Binding DateiPfad}" HorizontalAlignment="Left" Height="23" Margin="10,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" IsReadOnly="True"/>
+            <TextBox x:Name="tboxFilename" Text="{Binding DateiPfad}" HorizontalAlignment="Left" Height="23" Margin="10,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" IsReadOnly="False"/>
             <ComboBox x:Name="cBoxDateiart" SelectedItem="{Binding DateiTyp}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,135,0,0">
                 <ComboBoxItem>Klasse</ComboBoxItem>
                 <ComboBoxItem>Schueler</ComboBoxItem>
                 <ComboBoxItem>Lehrer</ComboBoxItem>
-            </ComboBox>
-            <ComboBox ItemsSource="{Binding Schulen}" SelectedItem="{Binding SelektierteSchule}" IsEnabled="{Binding CbSchulenEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,163,0,0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
-                        <i:InvokeCommandAction Command="{Binding CbSchulenSelectionChangedCmd}" />
+                        <i:InvokeCommandAction Command="{Binding CBoxChangedCmd}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
+            <ComboBox ItemsSource="{Binding Schulen}" SelectedItem="{Binding SelektierteSchule}" IsEnabled="{Binding CbSchulenEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,163,0,0"/>
             <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,76,0,0" Width="280"/>
-            <Button x:Name="btnImport" Command="{Binding DateiImportierenCmc}" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,0,0" Click="btnImport_Click"/>
+            <Button x:Name="btnImport" Command="{Binding DateiImportierenCmd}" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,0,0" Click="btnImport_Click"/>
             <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,270,0,0" Click="btnAbbrechen_Click"/>
         </Grid>
         

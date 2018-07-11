@@ -55,6 +55,7 @@ namespace Notenmanager.Persistenz
                Geburtsdatum = Convert.ToDateTime(tmp[3]),
                Geschlecht = tmp[7] == "m" ? Geschlecht.M : Geschlecht.W,
                Konfession = k,
+               
             };
 
             DBZugriff.Current.Speichern(schueler, false);
@@ -98,6 +99,16 @@ namespace Notenmanager.Persistenz
       {
          string[] tmp;
 
+         Lehrer test = new Lehrer()
+         {
+            Vorname = "TestLehrer",
+            Nachname = "TestLehrer",
+            Kürzel = "TL",
+            Dienstbezeichnung = "DUMMY",
+            
+         };
+
+
          foreach (string s in File.ReadAllLines(pfad))
          {
             tmp = s.Split(',');
@@ -107,6 +118,8 @@ namespace Notenmanager.Persistenz
                Bez = tmp[1],
                SJ = Convert.ToInt32(tmp[2].Split('/')[0]),
                Schule = schule,
+               Klassenleiter = test,
+               StellvertretenderKlassenleiter = test
             };
 
             DBZugriff.Current.Speichern(klasse, false);

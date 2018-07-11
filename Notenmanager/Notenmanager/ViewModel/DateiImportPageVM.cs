@@ -40,7 +40,7 @@ namespace Notenmanager.ViewModel
         {
             // Commands initialisieren
             DateiImportierenCmd = new ActionCommand(OnDateiImportieren);
-            CbSchulenSelectionChangedCmd = new ActionCommand(OnCbSchulenSelectionChanged);
+            CBoxChangedCmd = new ActionCommand(OnCBoxSelectionChanged);
 
             // Liste aller Schulen aus der Datenbank befüllen
             Schulen = new ObservableCollection<Schule>(DBZugriff.Current.Select<Schule>());
@@ -52,7 +52,9 @@ namespace Notenmanager.ViewModel
         #region Public Properties
         #region Commands
         public ICommand DateiImportierenCmd { get; set; } 
-        public ICommand CbSchulenSelectionChangedCmd { get; set; }
+        public ICommand CBoxChangedCmd { get; set; }
+      
+
         #endregion
         public string DateiPfad
         {
@@ -123,7 +125,7 @@ namespace Notenmanager.ViewModel
         #region Methoden
         private void OnDateiImportieren(object obj)
         {
-            switch(DateiTyp.Name)
+            switch(DateiTyp.Content.ToString())
             {
                 case "Klasse":
                     DateiZugriff.ImportKlassen(DateiPfad, SelektierteSchule);
@@ -137,9 +139,9 @@ namespace Notenmanager.ViewModel
             }
         }
 
-        private void OnCbSchulenSelectionChanged(object obj)
+        private void OnCBoxSelectionChanged(object obj)
         {
-            CbSchulenEnabled = DateiTyp.Name == "Schule";
+            CbSchulenEnabled = DateiTyp.Content.ToString() == "Klasse";
         }
         #endregion
     }

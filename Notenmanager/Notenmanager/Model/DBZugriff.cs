@@ -175,7 +175,7 @@ namespace Notenmanager.Model
 
 
 
-      public void Save(bool async = true)
+      public void Save(bool async = false)
       {
          if (async)
             Context.SaveChangesAsync();
