@@ -81,9 +81,8 @@ namespace Notenmanager.ViewModel
             if (obj != true)
                 return;
 
-            uf = new Unterrichtsfach();
             LstUFachHinz.Add(uf);
-            uf.Speichern();
+
             SelFach = uf;
 
         }
