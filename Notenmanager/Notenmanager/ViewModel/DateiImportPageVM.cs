@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Notenmanager.Model;
+using Notenmanager.Persistenz;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +16,14 @@ namespace Notenmanager.ViewModel
         #region Instanzvariablen
         private string _dateiPfad;
         private ComboBoxItem _dateiTyp;
+        private ObservableCollection<Schule> _schulen;
+        private Schule _selektierteSchule;
         #endregion
 
         public DateiImportPageVM()
         {
             DateiImportierenCmd = new ActionCommand(OnDateiImportieren);
+            Schulen = new ObservableCollection<Schule>(DBZugriff.Current.Select<Schule>());
         }
 
         #region Events
@@ -52,6 +58,32 @@ namespace Notenmanager.ViewModel
                 SetValue(ref _dateiTyp, value);
             }
         }
+
+        public ObservableCollection<Schule> Schulen
+        {
+            get
+            {
+                return _schulen;
+            }
+
+            set
+            {
+                SetValue(ref _schulen, value);
+            }
+        }
+
+        public Schule SelektierteSchule
+        {
+            get
+            {
+                return _selektierteSchule;
+            }
+
+            set
+            {
+                SetValue(ref _selektierteSchule, value);
+            }
+        }
         #endregion
 
         #region Methoden
@@ -60,10 +92,13 @@ namespace Notenmanager.ViewModel
             switch(DateiTyp.Name)
             {
                 case "Klasse":
+                    DateiZugriff.ImportKlassen(DateiPfad, SelektierteSchule);
                     break;
                 case "Schueler":
+                    DateiZugriff.ImportSchueler(DateiPfad);
                     break;
                 case "Lehrer":
+                    DateiZugriff.ImportLehrer(DateiPfad);
                     break;
             }
         }
