@@ -41,20 +41,21 @@ namespace Notenmanager.ViewModel
             // Commands initialisieren
             DateiImportierenCmd = new ActionCommand(OnDateiImportieren);
             CBoxChangedCmd = new ActionCommand(OnCBoxSelectionChanged);
+            AbbrechenCmd = new ActionCommand(OnAbbrechen);
 
             // Liste aller Schulen aus der Datenbank befüllen
             Schulen = new ObservableCollection<Schule>(DBZugriff.Current.Select<Schule>());
         }
 
         #region Events
+        public event EventHandler<MessageBoxEventArgs> MessageBoxRequest;
         #endregion
 
         #region Public Properties
         #region Commands
         public ICommand DateiImportierenCmd { get; set; } 
         public ICommand CBoxChangedCmd { get; set; }
-      
-
+        public ICommand AbbrechenCmd { get; set; }
         #endregion
         public string DateiPfad
         {
@@ -123,19 +124,46 @@ namespace Notenmanager.ViewModel
         #endregion
 
         #region Methoden
+        #region CommandHandler
         private void OnDateiImportieren(object obj)
         {
-            switch(DateiTyp.Content.ToString())
+            try
             {
-                case "Klasse":
-                    DateiZugriff.ImportKlassen(DateiPfad, SelektierteSchule);
-                    break;
-                case "Schueler":
-                    DateiZugriff.ImportSchueler(DateiPfad);
-                    break;
-                case "Lehrer":
-                    DateiZugriff.ImportLehrer(DateiPfad);
-                    break;
+                // bestimmen um welche Dateiart es sich handelt und diese entsprechend importieren
+                switch(DateiTyp.Content.ToString())
+                {
+                    case "Klasse":
+                        DateiZugriff.ImportKlassen(DateiPfad, SelektierteSchule);
+                        break;
+                    case "Schueler":
+                        DateiZugriff.ImportSchueler(DateiPfad);
+                        break;
+                    case "Lehrer":
+                        DateiZugriff.ImportLehrer(DateiPfad);
+                        break;
+                }
+
+                // Erfolgsmeldung
+                MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs()
+                {
+                    Caption = "Dateiimport abgeschlossen",
+                    MessageBoxText = $"{DateiTyp.Content.ToString()}-Datei erfolgreich importiert!",
+                    MessageBoxImage = System.Windows.MessageBoxImage.Information,
+                    MessageBoxButton = System.Windows.MessageBoxButton.OK,
+                });
+
+                DateiPfad = "";
+            }
+            catch (Exception e)
+            {
+                // Fehlermeldung
+                MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs()
+                {
+                    Caption = "Dateiimport konnte nicht abgeschlossen werden...",
+                    MessageBoxText = e.Message,
+                    MessageBoxImage = System.Windows.MessageBoxImage.Exclamation,
+                    MessageBoxButton = System.Windows.MessageBoxButton.OK
+                });
             }
         }
 
@@ -143,6 +171,12 @@ namespace Notenmanager.ViewModel
         {
             CbSchulenEnabled = DateiTyp.Content.ToString() == "Klasse";
         }
+
+        private void OnAbbrechen(object obj)
+        {
+            
+        }
+        #endregion
         #endregion
     }
 }
