@@ -107,6 +107,7 @@
     <Compile Include="ViewModel\DateiImportPageVM.cs" />
     <Compile Include="ViewModel\DialogEventArgs.cs" />
     <Compile Include="ViewModel\FachAnlegenPageVM.cs" />
+    <Compile Include="ViewModel\KlassenPageVM.cs" />
     <Compile Include="ViewModel\MainPageVM.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -118,6 +119,9 @@
     </Compile>
     <Compile Include="View\FachAnlegenPage.xaml.cs">
       <DependentUpon>FachAnlegenPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KlassenPage.xaml.cs">
+      <DependentUpon>KlassenPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -166,6 +170,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="View\KlassenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
