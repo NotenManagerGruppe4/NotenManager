@@ -23,7 +23,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2" Grid.RowSpan="3">    
-            <Button x:Name="btnFileSelect" Command="{Binding DateiAsuwaehlenCmd}" Content="Datei Auswählen" VerticalAlignment="Top" Margin="10,10,10,0"/>
+            <Button x:Name="btnFileSelect" Command="{Binding DateiAuswaehlenCmd}" Content="Datei Auswählen" VerticalAlignment="Top" Margin="10,10,10,0"/>
             <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,76,0,0" Width="280"/>
             <TextBox x:Name="tboxFilename" Text="{Binding DateiPfad}" HorizontalAlignment="Left" Height="23" Margin="10,107,0,0" VerticalAlignment="Top" Width="280" IsReadOnly="False" TextWrapping="NoWrap"/>
             <Label Content="Dateityp:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"/>
