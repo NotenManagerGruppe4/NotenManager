@@ -13,7 +13,7 @@ namespace Notenmanager.ViewModel
     
     public enum DialogMode { Neu, Aendern };
 
-    public class ZeugnisFachBearbeitenPageVM : BaseViewModel
+    public class ZeugnisFach : BaseViewModel
     {
         private ObservableCollection<Unterrichtsfach> _lstUFach = new ObservableCollection<Unterrichtsfach>();
         private Unterrichtsfach _selFach;
@@ -32,7 +32,7 @@ namespace Notenmanager.ViewModel
         public ICommand OnUFachEditCmd { get; set; }
 
         #endregion Commands
-        public ZeugnisFachBearbeitenPageVM()
+        public ZeugnisFach()
         {
             OnBtnAnlegenCmd = new ActionCommand(OnBtnAnlegen);
             OnBtnAendernCmd = new ActionCommand(OnBtnAendern);
@@ -144,6 +144,8 @@ namespace Notenmanager.ViewModel
             }
         }
 
+
+
         #endregion Properties
 
         private void OnBtnAnlegen(object obj)
@@ -187,6 +189,19 @@ namespace Notenmanager.ViewModel
             SelFach.Speichern();
         }
 
-        
+        public bool ZFachSaveAble
+        {
+            get
+            {
+                if (ZF == null)
+                {
+                    Trace.WriteLine("Unterrichtsfach NULL!");
+                    return false;
+                }
+                bool re = (ZF.Pos > 0 && !string.IsNullOrWhiteSpace(ZF.Bez));
+                return re;
+            }
+        }
+
     }
 }

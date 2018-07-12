@@ -1,4 +1,5 @@
-﻿using Notenmanager.ViewModel;
+﻿using Notenmanager.Model;
+using Notenmanager.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +22,18 @@ namespace Notenmanager.View
     /// </summary>
     public partial class FachAnlegenPage : Page
     {
-        private ZeugnisFachBearbeitenPageVM _viewmodel;
+        private ZeugnisFach _viewmodel;
         public FachAnlegenPage()
         {
             InitializeComponent();
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewmodel = FindResource("ZFBearbeitenVM") as ZeugnisFachBearbeitenPageVM;
+            _viewmodel = FindResource("ZFBearbeitenVM") as ZeugnisFach;
+
+            this.comboxFachart.Items.Clear();
+            foreach (Fachart a in Enum.GetValues(typeof(Fachart)))
+                this.comboxFachart.Items.Add(a);
 
             _viewmodel.UFADialogRequest += OnUFADialogRequest;
         }
