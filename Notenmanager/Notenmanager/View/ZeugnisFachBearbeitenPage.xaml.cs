@@ -21,14 +21,14 @@ namespace Notenmanager.View
     /// </summary>
     public partial class FachAnlegenPage : Page
     {
-        private FachAnlegenPageVM _viewmodel;
+        private ZeugnisFachBearbeitenPageVM _viewmodel;
         public FachAnlegenPage()
         {
             InitializeComponent();
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewmodel = FindResource("FAnlegenVM") as FachAnlegenPageVM;
+            _viewmodel = FindResource("ZFBearbeitenVM") as ZeugnisFachBearbeitenPageVM;
 
             _viewmodel.UFADialogRequest += OnUFADialogRequest;
         }

@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       Title="FachAnlegenPage" Height="486.437" Width="307.649">
 
-    <Grid DataContext="{StaticResource FAnlegenVM}" Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded">
+    <Grid DataContext="{StaticResource ZFBearbeitenVM}" Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded">
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="211" Margin="19,227,0,0" VerticalAlignment="Top" Width="269" Opacity="0.2"/>
 
         <Label x:Name="lblBezeichnung" Content="Fachbezeichnung:" HorizontalAlignment="Left" Height="30" Margin="24,54,0,0" VerticalAlignment="Top" Width="107"/>
