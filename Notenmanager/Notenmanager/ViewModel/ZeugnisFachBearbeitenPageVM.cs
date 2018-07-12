@@ -10,18 +10,20 @@ using System.Diagnostics;
 
 namespace Notenmanager.ViewModel
 {
-    public enum Fachart { Wahlfach = 1, Pflichtfach = 2, Wahlpflichtfach = 3 };
+    
     public enum DialogMode { Neu, Aendern };
 
     public class ZeugnisFachBearbeitenPageVM : BaseViewModel
     {
-        private ObservableCollection<Unterrichtsfach> _lstZeugUFach = new ObservableCollection<Unterrichtsfach>();
+        private ObservableCollection<Unterrichtsfach> _lstUFach = new ObservableCollection<Unterrichtsfach>();
         private Unterrichtsfach _selFach;
-        private ObservableCollection<Unterrichtsfach> _lstUFachHinz = new ObservableCollection<Unterrichtsfach>();
+        private Zeugnisfach _zf;
+
+        private UnterrichtsfachBearbeitenVM ufvm;
+
 
         public event EventHandler<DialogEventArgs> UFADialogRequest;
 
-        public UnterrichtsfachBearbeitenVM ufvm;
 
         #region Commands
         public ICommand OnBtnAnlegenCmd { get; set; }
@@ -39,31 +41,17 @@ namespace Notenmanager.ViewModel
         }
 
         #region Properties
-        public ObservableCollection<Unterrichtsfach> LstZeugUFach
+        public ObservableCollection<Unterrichtsfach> LstUFach
         {
             get
             {
-                return _lstZeugUFach;
+                return _lstUFach;
             }
 
             set
             {
-                _lstZeugUFach = value;
-                OnPropertyChanged("LstZeugUFach");
-            }
-        }
-
-        public ObservableCollection<Unterrichtsfach> LstUFachHinz
-        {
-            get
-            {
-                return _lstUFachHinz;
-            }
-
-            set
-            {
-                _lstUFachHinz = value;
-                OnPropertyChanged("LstUFachHinz");
+                _lstUFach = value;
+                OnPropertyChanged();
             }
         }
 
@@ -77,11 +65,26 @@ namespace Notenmanager.ViewModel
             set
             {
                 _selFach = value;
-                OnPropertyChanged("SelFach");
+                OnPropertyChanged();
             }
         }
 
-       
+        public Zeugnisfach ZF
+        {
+            get
+            {
+                return _zf;
+            }
+
+            set
+            {
+                _zf = value;
+            }
+        }
+
+
+
+
 
 
         #endregion Properties
@@ -103,7 +106,7 @@ namespace Notenmanager.ViewModel
             }
 
             ufvm.UF.Speichern();
-            LstUFachHinz.Add(ufvm.UF);
+            LstUFach.Add(ufvm.UF);
             SelFach = ufvm.UF;
 
         }
