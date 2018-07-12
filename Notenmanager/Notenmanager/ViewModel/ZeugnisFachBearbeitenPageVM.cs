@@ -82,10 +82,67 @@ namespace Notenmanager.ViewModel
             }
         }
 
+        public string Bez
+        {
+            get
+            {
+                return ZF.Bez;
+            }
+            set
+            {
+                ZF.Bez = value;
+                OnPropertyChanged();
+            }
+        }
 
-
-
-
+        public int Pos
+        {
+            get
+            {
+                return ZF.Pos;
+            }
+            set
+            {
+                ZF.Pos = value;
+                OnPropertyChanged();
+            }
+        }
+        public Fachart Fachart
+        {
+            get
+            {
+                return ZF.Fachart;
+            }
+            set
+            {
+                ZF.Fachart = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool AbschliessendesFach
+        {
+            get
+            {
+                return ZF.AbschliessendesFach;
+            }
+            set
+            {
+                ZF.AbschliessendesFach = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool Vorrückungsfach
+        {
+            get
+            {
+                return ZF.Vorrueckungsfach;
+            }
+            set
+            {
+                ZF.Vorrueckungsfach = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion Properties
 
