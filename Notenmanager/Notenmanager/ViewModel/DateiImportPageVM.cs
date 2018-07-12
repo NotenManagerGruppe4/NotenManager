@@ -52,6 +52,7 @@ namespace Notenmanager.ViewModel
 
         #region Events
         public event EventHandler<MessageBoxEventArgs> MessageBoxRequest;
+        public event EventHandler<NavigationEventArgs> NavigationRequest;
         #endregion
 
         #region Public Properties
@@ -186,7 +187,7 @@ namespace Notenmanager.ViewModel
 
         private void OnAbbrechen(object obj)
         {
-            
+            NavigationRequest?.Invoke(this, new NavigationEventArgs());
         }
         #endregion
         #endregion

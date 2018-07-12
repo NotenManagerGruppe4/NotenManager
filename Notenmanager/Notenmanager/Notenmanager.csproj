@@ -100,7 +100,7 @@
     <Compile Include="Model\Context.cs" />
     <Compile Include="Model\DBZugriff.cs" />
     <Compile Include="Model\IDBable.cs" />
-    <Compile Include="Model\MessageBoxEventArgs.cs" />
+    <Compile Include="ViewModel\Tools\MessageBoxEventArgs.cs" />
     <Compile Include="Persistenz\DateiZugriff.cs" />
     <Compile Include="ViewModel\Tools\ActionCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />

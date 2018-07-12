@@ -15,33 +15,19 @@ namespace Notenmanager.View
         {
             InitializeComponent();
             _viewmodel = DataContext as DateiImportPageVM;
+            _viewmodel.NavigationRequest += OnNavigationRequest;
             _viewmodel.MessageBoxRequest += OnMessageBoxRequest; 
+        }
+
+        private void OnNavigationRequest(object sender, NavigationEventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
 
         private void OnMessageBoxRequest(object sender, Model.MessageBoxEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show(e.MessageBoxText, e.Caption, e.MessageBoxButton, e.MessageBoxImage);
             e.ResultAction?.Invoke(result);
-        }
-
-        private void btnFileSelect_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void test()
-        {
-            //TEST2
-        }
-
-        private void btnImport_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAbbrechen_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

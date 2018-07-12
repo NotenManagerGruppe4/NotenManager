@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Notenmanager.View"
+      xmlns:model="clr-namespace:Notenmanager.Model"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       Width="Auto" Height="Auto"
@@ -38,9 +39,15 @@
                 </i:Interaction.Triggers>
             </ComboBox>
             <Label Content="Schule auswählen(bei Klassenimport):" Margin="10,191,10,10"/>
-            <ComboBox ItemsSource="{Binding Schulen}" SelectedItem="{Binding SelektierteSchule}" IsEnabled="{Binding CbSchulenEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,219,0,0"/>
-            <Button x:Name="btnImport" Command="{Binding DateiImportierenCmd}" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,10,10" Click="btnImport_Click"/>
-            <Button x:Name="btnAbbrechen" Command="{Binding AbbrechenCmd}" Content="Abbrechen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,270,10,10" Click="btnAbbrechen_Click"/>
+            <ComboBox ItemsSource="{Binding Schulen}" SelectedItem="{Binding SelektierteSchule}" IsEnabled="{Binding CbSchulenEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,219,0,0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="model:Schule">
+                        <ContentControl Content="{Binding Bez}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button x:Name="btnImport" Command="{Binding DateiImportierenCmd}" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,0,0"/>
+            <Button x:Name="btnAbbrechen" Command="{Binding AbbrechenCmd}" Content="Abbrechen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,270,0,0"/>
         </Grid>
         
         <!--<Grid HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2" Grid.RowSpan="3">
