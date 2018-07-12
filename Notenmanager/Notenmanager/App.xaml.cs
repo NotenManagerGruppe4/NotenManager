@@ -1,4 +1,5 @@
 ﻿using Notenmanager.Model;
+using Notenmanager.View.UIComp;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -27,10 +28,25 @@ namespace Notenmanager
             s.Test2();
          }
 
+         
+
          AppDomain.CurrentDomain.UnhandledException += (sender, e2) =>
          {
-            DBZugriff.CloseDB();
+            try
+            {
+               DBZugriff.CloseDB();
+
+               Exception ex = e2.ExceptionObject as Exception;
+               if (ex != null)
+                  CrashMessage.ShowErrorMessage(ex);
+            }
+            catch(Exception exx)
+            {
+               MessageBox.Show(exx.ToString(), "Fataler Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
          };
+
+         
       }
 
       private void Application_Exit(object sender, ExitEventArgs e)
