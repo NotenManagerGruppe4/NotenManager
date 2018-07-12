@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Notenmanager.View"
         mc:Ignorable="d"
-        Title="Notenmanager" Height="Auto" Width="Auto"
+        Title="Notenmanager" Height="800" Width="600"
+        MinHeight="800"
+        MinWidth="600"
         SizeToContent="WidthAndHeight"
         DataContext="{StaticResource MainPageVM}">
     <Grid>
-        <Frame x:Name="frMainFrame" Source="MainPage.xaml" HorizontalAlignment="Left" Height="500" NavigationUIVisibility="Visible" VerticalAlignment="Top" Width="500"/>
+        <Frame x:Name="frMainFrame" Source="MainPage.xaml" HorizontalAlignment="Stretch" Height="Auto" NavigationUIVisibility="Visible" VerticalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
     </Grid>
 </Window>

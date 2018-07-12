@@ -43,7 +43,7 @@ namespace Notenmanager.ViewModel
             DateiImportierenCmd = new ActionCommand(OnDateiImportieren);
             CBoxChangedCmd = new ActionCommand(OnCBoxSelectionChanged);
             AbbrechenCmd = new ActionCommand(OnAbbrechen);
-            DateiAsuwaehlenCmd = new ActionCommand(OnDateiAuswaehlen);
+            DateiAuswaehlenCmd = new ActionCommand(OnDateiAuswaehlen);
 
             // Liste aller Schulen aus der Datenbank befüllen
             Schulen = new ObservableCollection<Schule>(DBZugriff.Current.Select<Schule>());
@@ -59,7 +59,7 @@ namespace Notenmanager.ViewModel
         public ICommand DateiImportierenCmd { get; set; } 
         public ICommand CBoxChangedCmd { get; set; }
         public ICommand AbbrechenCmd { get; set; }
-        public ICommand DateiAsuwaehlenCmd { get; set; }
+        public ICommand DateiAuswaehlenCmd { get; set; }
         #endregion
         public string DateiPfad
         {
