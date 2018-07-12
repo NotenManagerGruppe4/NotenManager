@@ -16,179 +16,169 @@ namespace Notenmanager
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
+      protected override void OnStartup(StartupEventArgs e)
+      {
+         base.OnStartup(e);
 
-            DBZugriff.InitDB();
+         DBZugriff.InitDB();
 
-            if (Environment.GetCommandLineArgs().Contains("-test"))
-            {
-                Tests s = new Tests();
-                s.Test2();
-            }
+         #if DEBUG
+         if (Environment.GetCommandLineArgs().Contains("-test"))
+         {
+            Tests s = new Tests();
+            s.Test2();
+         }
+         #endif
 
-            Application.Current.Dispatcher.UnhandledException += (s, e2) =>
-            {
-                UnhandledException(e2.Exception);
-            };
-
-            AppDomain.CurrentDomain.UnhandledException += (sender, e2) =>
-            {
-                UnhandledException(e2.ExceptionObject as Exception);
-            };
-
-
-        }
-        private void UnhandledException(Exception ex)
-        {
+         AppDomain.CurrentDomain.UnhandledException += (sender, e2) =>
+         {
             try
             {
-                DBZugriff.CloseDB();
+               DBZugriff.CloseDB();
 
-                if (ex != null)
-                    CrashMessage.ShowErrorMessage(ex);
-                else
-                    MessageBox.Show("Unbekannter Fehler!", "Fataler Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-
-
-               }
-            catch (Exception exx)
-            {
-                MessageBox.Show(exx.ToString(), "Fataler Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+               Exception ex = e2.ExceptionObject as Exception;
+               if (ex != null)
+                  CrashMessage.ShowErrorMessage(ex);
             }
-        }
-
-        private void Application_Exit(object sender, ExitEventArgs e)
-        {
-            DBZugriff.CloseDB();
-        }
-
-        //[TestClass()]
-        public class Tests
-        {
-
-            //[TestMethod()]
-            public void Test2()
+            catch(Exception exx)
             {
-                try
-                {
-                    //DBZugriff.InitDB();
-
-                    InsertTest();
-                }
-                catch (Exception e)
-                {
-                    Trace.WriteLine(e.ToString());
-                    //Assert.Fail();
-                }
-                //DBZugriff.CloseDB();
+               MessageBox.Show(exx.ToString(), "Fataler Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+         };
 
+         
+      }
 
-            private static void InsertTest()
+      private void Application_Exit(object sender, ExitEventArgs e)
+      {
+         DBZugriff.CloseDB();
+      }
+
+      //[TestClass()]
+      public class Tests
+      {
+
+         //[TestMethod()]
+         public void Test2()
+         {
+            try
             {
+               //DBZugriff.InitDB();
 
-                Schule schule = new Schule()
-                {
-                    Bez = "TestSchule",
-                };
-                schule.Speichern();
-
-                Lehrer leh = new Lehrer()
-                {
-                    Vorname = "VorTest",
-                    Nachname = "NachTest",
-                    Kürzel = "TL",
-                };
-                leh.Speichern();
-
-                Klasse kl = new Klasse()
-                {
-                    Bez = "TKL1A",
-                    SJ = 2017,
-                    Schule = schule,
-                    Klassenleiter = leh,
-                    StellvertretenderKlassenleiter = leh,
-                };
-                kl.Speichern();
-
-                Zeugnisfach zf = new Zeugnisfach()
-                {
-                    Bez = "TestAbschlussFach",
-                    Fachart = Fachart.Pflichtfach,
-                    Pos = 1,
-                    Vorrueckungsfach = true,
-                    AbschliessendesFach = true,
-                    Klasse = kl,
-                };
-                zf.Speichern();
-
-                Unterrichtsfach uf = new Unterrichtsfach()
-                {
-                    Bez = "TestUnterichtsFach",
-                    Pos = 1,
-                    Stunden = 6,
-                    Zeugnisfach = zf,
-                };
-                uf.Speichern();
-
-                UFachLehrer ufl = new UFachLehrer()
-                {
-                    Lehrer = leh,
-                    Unterrichtsfach = uf,
-                    Stunden = uf.Stunden
-                };
-                ufl.Speichern();
-
-
-                Schueler s = new Schueler()
-                {
-                    Vorname = "VorTestS",
-                    Nachname = "NachTestS",
-                    Geburtsdatum = new DateTime(2000, 1, 1),
-                    Geschlecht = Geschlecht.M,
-                    Konfession = Konfession.BL,
-                };
-                s.Speichern();
-
-                SchuelerKlasse sk = new SchuelerKlasse()
-                {
-                    Klasse = kl,
-                    Schueler = s,
-                };
-                sk.Speichern();
-
-
-                Leistungsgruppe lg = new Leistungsgruppe()
-                {
-                    Bez = "Schriftlich",
-                    Gewicht = 2,
-                };
-                lg.Speichern();
-
-                Leistungsart la = new Leistungsart()
-                {
-                    Bez = "Schulaufgabe",
-                    Gewichtung = 2,
-                    Gruppe = lg,
-
-                };
-                la.Speichern();
-
-                Leistung lei = new Leistung()
-                {
-                    Erhebungsdatum = DateTime.Now,
-                    Notenstufe = 1,
-                    Tendenz = Tendenz.UP,
-                    LetzteÄnderung = DateTime.Now,
-                    Leistungsart = la,
-                    SchuelerKlasse = sk,
-                    UFachLehrer = ufl
-                };
-                lei.Speichern();
-
+               InsertTest();
             }
-        }
-    }
+            catch (Exception e)
+            {
+               Trace.WriteLine(e.ToString());
+               //Assert.Fail();
+            }
+            //DBZugriff.CloseDB();
+         }
+
+
+         private static void InsertTest()
+         {
+
+            Schule schule = new Schule()
+            {
+               Bez = "TestSchule",
+            };
+            schule.Speichern();
+
+            Lehrer leh = new Lehrer()
+            {
+               Vorname = "VorTest",
+               Nachname = "NachTest",
+               Kürzel = "TL",
+            };
+            leh.Speichern();
+
+            Klasse kl = new Klasse()
+            {
+               Bez = "TKL1A",
+               SJ = 2017,
+               Schule = schule,
+               Klassenleiter = leh,
+               StellvertretenderKlassenleiter = leh,
+            };
+            kl.Speichern();
+
+            Zeugnisfach zf = new Zeugnisfach()
+            {
+               Bez = "TestAbschlussFach",
+               Fachart = Fachart.Pflichtfach,
+               Pos = 1,
+               Vorrueckungsfach = true,
+               AbschliessendesFach = true,
+               Klasse = kl,
+            };
+            zf.Speichern();
+
+            Unterrichtsfach uf = new Unterrichtsfach()
+            {
+               Bez = "TestUnterichtsFach",
+               Pos = 1,
+               Stunden = 6,
+               Zeugnisfach = zf,
+            };
+            uf.Speichern();
+
+            UFachLehrer ufl = new UFachLehrer()
+            {
+               Lehrer = leh,
+               Unterrichtsfach = uf,
+               Stunden = uf.Stunden
+            };
+            ufl.Speichern();
+
+
+            Schueler s = new Schueler()
+            {
+               Vorname = "VorTestS",
+               Nachname = "NachTestS",
+               Geburtsdatum = new DateTime(2000, 1, 1),
+               Geschlecht = Geschlecht.M,
+               Konfession = Konfession.BL,
+            };
+            s.Speichern();
+
+            SchuelerKlasse sk = new SchuelerKlasse()
+            {
+               Klasse = kl,
+               Schueler = s,
+            };
+            sk.Speichern();
+
+
+            Leistungsgruppe lg = new Leistungsgruppe()
+            {
+               Bez = "Schriftlich",
+               Gewicht = 2,
+            };
+            lg.Speichern();
+
+            Leistungsart la = new Leistungsart()
+            {
+               Bez = "Schulaufgabe",
+               Gewichtung = 2,
+               Gruppe = lg,
+
+            };
+            la.Speichern();
+
+            Leistung lei = new Leistung()
+            {
+               Erhebungsdatum = DateTime.Now,
+               Notenstufe = 1,
+               Tendenz = Tendenz.UP,
+               LetzteÄnderung = DateTime.Now,
+               Leistungsart = la,
+               SchuelerKlasse = sk,
+               UFachLehrer = ufl
+            };
+            lei.Speichern();
+
+         }
+      }
+   }
 }
