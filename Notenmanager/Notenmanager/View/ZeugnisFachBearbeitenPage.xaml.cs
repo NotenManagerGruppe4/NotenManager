@@ -22,14 +22,14 @@ namespace Notenmanager.View
     /// </summary>
     public partial class FachAnlegenPage : Page
     {
-        private ZeugnisFach _viewmodel;
+        private ZeugnisFachBearbeitenPageVM _viewmodel;
         public FachAnlegenPage()
         {
             InitializeComponent();
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewmodel = FindResource("ZFBearbeitenVM") as ZeugnisFach;
+            _viewmodel = FindResource("ZFBearbeitenVM") as ZeugnisFachBearbeitenPageVM;
 
             this.comboxFachart.Items.Clear();
             foreach (Fachart a in Enum.GetValues(typeof(Fachart)))

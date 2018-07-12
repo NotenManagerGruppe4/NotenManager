@@ -7,7 +7,7 @@
              Exit="Application_Exit">
     <Application.Resources>
         <vm:MainPageVM x:Key="MainPageVM"/>
-        <vm:ZeugnisFach x:Key="ZFBearbeitenVM"/>
+        <vm:ZeugnisFachBearbeitenPageVM x:Key="ZFBearbeitenVM"/>
         <vm:UnterrichtsfachBearbeitenVM x:Key="UFBearbeitenVM"/>
         <vm:DateiImportPageVM x:Key="DateiImportPageVM"/>
         <vm:KlassenPageVM x:Key="KlassenPageVM"/>
