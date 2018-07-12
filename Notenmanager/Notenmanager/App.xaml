@@ -10,5 +10,6 @@
         <vm:ZeugnisFachBearbeitenPageVM x:Key="ZFBearbeitenVM"/>
         <vm:UnterrichtsfachBearbeitenVM x:Key="UFBearbeitenVM"/>
         <vm:DateiImportPageVM x:Key="DateiImportPageVM"/>
+
     </Application.Resources>
 </Application>
