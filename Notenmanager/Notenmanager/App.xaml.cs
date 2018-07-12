@@ -106,7 +106,7 @@ namespace Notenmanager
             Zeugnisfach zf = new Zeugnisfach()
             {
                Bez = "TestAbschlussFach",
-               Fachart = "TestFachArt",
+               Fachart = Fachart.Pflichtfach,
                Pos = 1,
                Vorrueckungsfach = true,
                AbschliessendesFach = true,

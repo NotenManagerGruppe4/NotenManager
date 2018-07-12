@@ -5,12 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Notenmanager.Model
 {
-   [Table("zeugnisfach")]
+
+    public enum Fachart { Wahlfach = 1, Pflichtfach = 2, Wahlpflichtfach = 3 };
+
+    [Table("zeugnisfach")]
    public class Zeugnisfach : IDBable
    {
       public Zeugnisfach()
-      {
-      }
+      { }
 
       public int Id { get; private set; }
       public bool Active { get; set; } = true;
@@ -24,8 +26,8 @@ namespace Notenmanager.Model
       [Required]
       public bool AbschliessendesFach { get; set; }
 
-      [Required, MaxLength(DBZugriff.STRING_MAXLENGTH)]
-      public string Fachart { get; set; }
+      [Required]
+      public Fachart Fachart { get; set; }
 
       [Required]
       public bool Vorrueckungsfach { get; set; }

@@ -8,8 +8,8 @@
       mc:Ignorable="d"
       Title="FachAnlegenPage" Height="486.437" Width="307.649">
 
-    <Grid DataContext="{StaticResource ZFBearbeitenVM}" Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded">
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="211" Margin="19,227,0,0" VerticalAlignment="Top" Width="269" Opacity="0.2"/>
+    <Grid DataContext="{StaticResource ZFBearbeitenVM}" Background="White" Margin="0,0,-38,10" Loaded="Grid_Loaded">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="211" Margin="19,227,0,0" VerticalAlignment="Top" Width="317" Opacity="0.2"/>
 
         <Label x:Name="lblBezeichnung" Content="Fachbezeichnung:" HorizontalAlignment="Left" Height="30" Margin="24,54,0,0" VerticalAlignment="Top" Width="107"/>
         <Label x:Name="lblPos" Content="Fachposition: " HorizontalAlignment="Left" Height="27" Margin="24,84,0,0" VerticalAlignment="Top" Width="107"/>
@@ -18,33 +18,21 @@
         <CheckBox x:Name="chckBoxVorFach" Content="Vorrückungsfach" HorizontalAlignment="Left" Height="22" Margin="40,182,0,0" VerticalAlignment="Top" Width="146" ToolTip=""/>
         <ComboBox x:Name="comboxFachart" HorizontalAlignment="Left" Height="22" Margin="135,120,0,0" VerticalAlignment="Top" Width="144" ToolTip="Fachart wählen"/>
         <CheckBox x:Name="chckboxAbschlFach" Content="Abschließendes Fach" HorizontalAlignment="Left" Height="22" Margin="40,155,0,0" VerticalAlignment="Top" Width="160"/>
-        <TextBox x:Name="txtBezeichnung" HorizontalAlignment="Left" Height="22" Margin="135,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" RenderTransformOrigin="0.313,0.53" ToolTip="Fachbezeichnung eingeben" MaxLength="45"/>
-        <TextBox x:Name="txtPos" HorizontalAlignment="Left" Height="22" Margin="135,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" ToolTip="z.B. 1" MaxLength="45"/>
+        <TextBox x:Name="txtBezeichnung" HorizontalAlignment="Left" Height="22" Margin="135,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" RenderTransformOrigin="0.313,0.53" ToolTip="Fachbezeichnung eingeben" MaxLength="45"/>
+        <TextBox x:Name="txtPos" HorizontalAlignment="Left" Height="22" Margin="135,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" ToolTip="z.B. 1" MaxLength="45"/>
         <Label x:Name="lblUFach" Content="Unterrichtsfächer:" HorizontalAlignment="Left" Height="29" Margin="19,206,0,0" VerticalAlignment="Top" Width="146" FontWeight="Bold"/>
-        <DataGrid ItemsSource="{Binding LstZeugUFach}" SelectedItem="{Binding SelFach}" x:Name="VorhandeneFaecherDataGrid" HorizontalAlignment="Left" Margin="24,240,0,0" VerticalAlignment="Top" Height="65" Width="255
-                      " AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Bereits dem Zeugnisfach zugeordnete Ufächer"
-                  >
+        <DataGrid ItemsSource="{Binding LstUFach}" SelectedItem="{Binding SelFach}" x:Name="UFDataGrid" HorizontalAlignment="Left" Margin="24,235,0,0" VerticalAlignment="Top" Height="65" Width="301" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Bereits dem Zeugnisfach zugeordnete Ufächer">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Bez}" Header="Fachbezeichnung"/>
                 <DataGridTextColumn Binding="{Binding Stunden}" Header="Stunden"/>
                 <DataGridTextColumn Binding="{Binding Pos}" Header="Position"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="btnHinzufuegen" Content="Hinzufügen" HorizontalAlignment="Left" Height="22" Margin="34,310,0,0" VerticalAlignment="Top" Width="88" Click="btnHinzufuegen_Click"/>
         <Button x:Name="btnSpeichern" Content="Speichern" HorizontalAlignment="Left" Height="22" Margin="25,446,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False" Click="btnSpeichern_Click"/>
         <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" Height="22" Margin="161,446,0,0" VerticalAlignment="Top" Width="107" Click="btnAbbrechen_Click"/>
-        <Button x:Name="btnEntfernen" Content="Entfernen" HorizontalAlignment="Left" Height="22" Margin="161,310,0,0" VerticalAlignment="Top" Width="100" Background="{x:Null}" IsEnabled="False" Click="btnEntfernen_Click"/>
-        <DataGrid ItemsSource="{Binding LstUFachHinz}" SelectedItem="{Binding SelFach}" x:Name="AuswahlDataGrid" HorizontalAlignment="Left" Margin="25,339,0,0" VerticalAlignment="Top" Height="65" Width="255
-                      " AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Auswahl an bestehenden Unterrichtsfächern"
-                  util:GridViewSort.AutoSort="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Bez}" Header="Fachbezeichnung" util:GridViewSort.PropertyName="Bez"/>
-                <DataGridTextColumn Binding="{Binding Stunden}" Header="Stunden" util:GridViewSort.PropertyName="Stunden"/>
-                <DataGridTextColumn Binding="{Binding Pos}" Header="Position" util:GridViewSort.PropertyName="Pos"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button x:Name="btnAnlegen" Command="{Binding OnBtnAnlegenCmd}" Content="Anlegen" HorizontalAlignment="Left" Height="21" Margin="41,409,0,0" VerticalAlignment="Top" Width="91" Click="btnAnlegen_Click"/>
-        <Button x:Name="btnAendern" Command="{Binding OnBtnAendernCmd}" Content="Ändern" HorizontalAlignment="Left" Height="21" Margin="161,409,0,0" VerticalAlignment="Top" Width="100" Click="btnAendern_Click"/>
+        <Button x:Name="btnEntfernen" Content="Entfernen" HorizontalAlignment="Left" Height="22" Margin="225,305,0,0" VerticalAlignment="Top" Width="100" Background="{x:Null}" IsEnabled="False" Click="btnEntfernen_Click"/>
+        <Button x:Name="btnAnlegen" Command="{Binding OnBtnAnlegenCmd}" Content="Anlegen" HorizontalAlignment="Left" Height="21" Margin="25,305,0,0" VerticalAlignment="Top" Width="91" Click="btnAnlegen_Click"/>
+        <Button x:Name="btnAendern" Command="{Binding OnBtnAendernCmd}" Content="Ändern" HorizontalAlignment="Left" Height="21" Margin="121,305,0,0" VerticalAlignment="Top" Width="100" Click="btnAendern_Click"/>
 
     </Grid>
 </Page>
