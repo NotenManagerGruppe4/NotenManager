@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Notenmanager.Model;
+using System.Diagnostics;
 
 namespace Notenmanager.Persistenz
 {
@@ -32,7 +33,7 @@ namespace Notenmanager.Persistenz
       {
          string[] tmp;
 
-         foreach (string s in File.ReadAllLines(pfad))
+         foreach (string s in ReadAllLines(pfad))
          {
             tmp = s.Split(',');
 
@@ -55,11 +56,12 @@ namespace Notenmanager.Persistenz
                Geburtsdatum = Convert.ToDateTime(tmp[3]),
                Geschlecht = tmp[7] == "m" ? Geschlecht.M : Geschlecht.W,
                Konfession = k,
+
             };
 
             DBZugriff.Current.Speichern(schueler, false);
 
-            if(autoGenerateSchuelerKlasse)
+            if (autoGenerateSchuelerKlasse)
                GeneriereSchuelerKlasse(schueler, tmp);
          }
 
@@ -72,7 +74,7 @@ namespace Notenmanager.Persistenz
 
          string kbez = tmp[4];
          int ksj = 0;
-         if (!Int32.TryParse(tmp[5].Split('/')[0], out ksj)) 
+         if (!Int32.TryParse(tmp[5].Split('/')[0], out ksj))
             return; //Parse Err
 
          Klasse k = DBZugriff.Current.SelectFirstOrDefault<Klasse>(x => x.Bez == kbez && x.SJ == ksj);
@@ -98,7 +100,17 @@ namespace Notenmanager.Persistenz
       {
          string[] tmp;
 
-         foreach (string s in File.ReadAllLines(pfad))
+         Lehrer test = new Lehrer()
+         {
+            Vorname = "TestLehrer",
+            Nachname = "TestLehrer",
+            Kürzel = "TL",
+            Dienstbezeichnung = "DUMMY",
+
+         };
+
+
+         foreach (string s in ReadAllLines(pfad))
          {
             tmp = s.Split(',');
 
@@ -107,6 +119,8 @@ namespace Notenmanager.Persistenz
                Bez = tmp[1],
                SJ = Convert.ToInt32(tmp[2].Split('/')[0]),
                Schule = schule,
+               Klassenleiter = test,
+               StellvertretenderKlassenleiter = test
             };
 
             DBZugriff.Current.Speichern(klasse, false);
@@ -123,7 +137,7 @@ namespace Notenmanager.Persistenz
       {
          string[] tmp;
 
-         foreach (string s in File.ReadAllLines(pfad))
+         foreach (string s in ReadAllLines(pfad))
          {
 
             tmp = s.Split(',');
@@ -141,6 +155,41 @@ namespace Notenmanager.Persistenz
          DBZugriff.Current.Save();
       }
 
+      /// <summary>
+      /// Liest alle Zeilen aus einer Datei
+      /// </summary>
+      /// <param name="filepath">Dateipfad</param>
+      private static string[] ReadAllLines(string filepath)
+      {
+         return File.ReadAllLines(filepath, GetEncoding(filepath));
+      }
 
+      /// <summary>
+      /// Holt die Encodierung (z.B. UTF8, ANSI, ...) der angegebenen Datei
+      /// </summary>
+      private static Encoding GetEncoding(string filepath)
+      {
+         // Read the BOM
+         var bom = new byte[4];
+         using (var file = new FileStream(filepath, FileMode.Open, FileAccess.Read))
+         {
+            file.Read(bom, 0, 4);
+         }
+
+         // Analyze the BOM
+         if (bom[0] == 0x2b && bom[1] == 0x2f && bom[2] == 0x76)
+            return Encoding.UTF7;
+         else if (bom[0] == 0xef && bom[1] == 0xbb && bom[2] == 0xbf)
+            return Encoding.UTF8;
+         else if (bom[0] == 0xff && bom[1] == 0xfe)
+            return Encoding.Unicode; //UTF-16LE
+         else if (bom[0] == 0xfe && bom[1] == 0xff)
+            return Encoding.BigEndianUnicode; //UTF-16BE
+         else if (bom[0] == 0 && bom[1] == 0 && bom[2] == 0xfe && bom[3] == 0xff)
+            return Encoding.UTF32;
+
+         //Kein BOM oder etwas anderes
+         return Encoding.Default;
+      }
    }
 }

@@ -33,6 +33,14 @@ namespace Notenmanager.View
         private void OnNavigateToPageRequest(object sender, NavigationEventArgs e)
         {
             frMainFrame.Navigate(e.ZielPage);
+            setMinimumWindowSize(e);
+        }
+
+        private void setMinimumWindowSize(NavigationEventArgs e)
+        {
+            MinHeight = e.ZielPage.MinHeight;
+            MinWidth = e.ZielPage.MinWidth;
         }
     }
+
 }

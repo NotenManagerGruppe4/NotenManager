@@ -59,7 +59,7 @@ namespace Notenmanager.Model
          }
          catch (Exception e)
          {
-            Trace.WriteLine(e.ToString());
+            Trace.WriteLine("Error saving " + obj + "\r\n" + e.ToString());
          }
          return false;
 
@@ -88,7 +88,7 @@ namespace Notenmanager.Model
          }
          catch (Exception e)
          {
-            Trace.WriteLine(e.ToString());
+            Trace.WriteLine("Error deleting " + obj + "\r\n" + e.ToString());
          }
          return false;
       }
@@ -132,20 +132,29 @@ namespace Notenmanager.Model
       /// Selektiert ALLES aus der Tabelle von T
       /// </summary>
       /// <typeparam name="T">Der Typ der genutzt werden soll</typeparam>
+      /// /// <param name="showDeActive">Zeigt die deaktivierten Einträge an</param>
       /// <returns>Liste mit Elementen</returns>
-      public List<T> Select<T>() where T : class, IDBable
+      public List<T> Select<T>(bool showDeActive = false) where T : class, IDBable
       {
-         return GetDbSetFromContext<T>().ToList();
+         if (showDeActive)
+            return GetDbSetFromContext<T>().ToList();
+         else
+            return GetDbSetFromContext<T>().Where(x => x.Active == true).ToList();
       }
 
       /// <summary>
       /// Selektiert nach Kriterium aus der Tabelle von T
       /// </summary>
       /// <typeparam name="T">Der Typ der genutzt werden soll</typeparam>
+      /// <param name="pred">Suchkriterien z.B. x => x.Name == "Test"</param>
+      /// <param name="showDeActive">Zeigt die deaktivierten Einträge an</param>
       /// <returns>Liste mit Elementen</returns>
-      public List<T> Select<T>(Func<T, bool> pred) where T : class, IDBable
+      public List<T> Select<T>(Func<T, bool> pred, bool showDeActive = false) where T : class, IDBable
       {
-         return GetDbSetFromContext<T>().Where(pred).ToList();
+         if (showDeActive)
+            return GetDbSetFromContext<T>().Where(pred).ToList();
+         else
+            return Select<T>(false).Where(pred).ToList();
       }
 
 
@@ -166,7 +175,7 @@ namespace Notenmanager.Model
 
 
 
-      public void Save(bool async = true)
+      public void Save(bool async = false)
       {
          if (async)
             Context.SaveChangesAsync();

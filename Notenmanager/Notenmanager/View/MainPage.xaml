@@ -10,8 +10,8 @@
       DataContext="{StaticResource MainPageVM}">
 
     <Grid Background="White">
-        <Button x:Name="btnButton" Command="{Binding NavigateToDateiImportCmd}"  Content="Button" HorizontalAlignment="Left" Margin="98,97,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnMeeensch" Command="{Binding NavigateToFachAnlegenCmd}" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="98,72,0,0"/>
+        <Button x:Name="btnButton" Command="{Binding NavigateToDateiImportCmd}"  Content="Import Stammdaten" HorizontalAlignment="Left" Margin="98,97,0,0" VerticalAlignment="Top" Width="114"/>
+        <Button x:Name="btnMeeensch" Command="{Binding NavigateToFachAnlegenCmd}" Content="Fach anlegen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" Margin="98,72,0,0"/>
 
     </Grid>
 </Page>

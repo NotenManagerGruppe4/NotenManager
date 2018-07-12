@@ -1,18 +1,6 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Notenmanager.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Notenmanager.View
 {
@@ -21,9 +9,19 @@ namespace Notenmanager.View
     /// </summary>
     public partial class DateiImportPage : Page
     {
+        private DateiImportPageVM _viewmodel;
+
         public DateiImportPage()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+            _viewmodel = DataContext as DateiImportPageVM;
+            _viewmodel.MessageBoxRequest += OnMessageBoxRequest; 
+        }
+
+        private void OnMessageBoxRequest(object sender, Model.MessageBoxEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show(e.MessageBoxText, e.Caption, e.MessageBoxButton, e.MessageBoxImage);
+            e.ResultAction?.Invoke(result);
         }
 
         private void btnFileSelect_Click(object sender, RoutedEventArgs e)

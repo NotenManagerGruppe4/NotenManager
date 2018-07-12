@@ -62,6 +62,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -99,12 +100,14 @@
     <Compile Include="Model\Context.cs" />
     <Compile Include="Model\DBZugriff.cs" />
     <Compile Include="Model\IDBable.cs" />
+    <Compile Include="Model\MessageBoxEventArgs.cs" />
     <Compile Include="Persistenz\DateiZugriff.cs" />
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DateiImportPageVM.cs" />
     <Compile Include="ViewModel\DialogEventArgs.cs" />
     <Compile Include="ViewModel\FachAnlegenPageVM.cs" />
+    <Compile Include="ViewModel\KlassenPageVM.cs" />
     <Compile Include="ViewModel\MainPageVM.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -118,11 +121,17 @@
     <Compile Include="View\FachAnlegenPage.xaml.cs">
       <DependentUpon>FachAnlegenPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\KlassenPage.xaml.cs">
+      <DependentUpon>KlassenPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UIComp\CrashMessage.xaml.cs">
+      <DependentUpon>CrashMessage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Util\GridViewSort.cs" />
     <Compile Include="View\UnterrichtsfachAnlegen.xaml.cs">
@@ -162,11 +171,19 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="View\KlassenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UIComp\CrashMessage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
