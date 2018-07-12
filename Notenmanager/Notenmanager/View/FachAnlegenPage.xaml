@@ -30,7 +30,7 @@
                 <DataGridTextColumn Binding="{Binding Pos}" Header="Position"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="btnHinzufuegen" Content="Hinzufügen" HorizontalAlignment="Left" Height="22" Margin="40,310,0,0" VerticalAlignment="Top" Width="88" Click="btnHinzufuegen_Click"/>
+        <Button x:Name="btnHinzufuegen" Content="Hinzufügen" HorizontalAlignment="Left" Height="22" Margin="34,310,0,0" VerticalAlignment="Top" Width="88" Click="btnHinzufuegen_Click"/>
         <Button x:Name="btnSpeichern" Content="Speichern" HorizontalAlignment="Left" Height="22" Margin="25,446,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False" Click="btnSpeichern_Click"/>
         <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" Height="22" Margin="161,446,0,0" VerticalAlignment="Top" Width="107" Click="btnAbbrechen_Click"/>
         <Button x:Name="btnEntfernen" Content="Entfernen" HorizontalAlignment="Left" Height="22" Margin="161,310,0,0" VerticalAlignment="Top" Width="100" Background="{x:Null}" IsEnabled="False" Click="btnEntfernen_Click"/>

@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:Notenmanager.View"
         mc:Ignorable="d"
         Title="Unterrichtsfach" Height="196.318" Width="300">
-    <Grid DataContext="{StaticResource UFAnlegenVM}" Height="193" VerticalAlignment="Top">
+    <Grid DataContext="{StaticResource FAnlegenVM}" Height="193" VerticalAlignment="Top">
         <Label x:Name="lblBezeichnung" Content="Bezeichnung:" HorizontalAlignment="Left" Height="29" Margin="10,18,0,0" VerticalAlignment="Top" Width="86"/>
         <Label x:Name="lblStunden" Content="Stunden:" HorizontalAlignment="Left" Height="29" Margin="10,52,0,0" VerticalAlignment="Top" Width="86"/>
         <Label x:Name="lblPosition" Content="Fachposition:" HorizontalAlignment="Left" Height="29" Margin="10,84,0,0" VerticalAlignment="Top" Width="86"/>
-        <TextBox x:Name="txtBezeichnung" HorizontalAlignment="Left" Height="21" Margin="96,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" ToolTip="Bezeichnung des Unterrichtsfachs" MaxLength="45"/>
-        <TextBox x:Name="txtStunden" HorizontalAlignment="Left" Height="21" Margin="96,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" ToolTip="z.B. 2 "/>
-        <TextBox x:Name="txtPos" HorizontalAlignment="Left" Height="21" Margin="96,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" RenderTransformOrigin="0.517,-0.907" ToolTip="z.B. 1"/>
-        <Button x:Name="btnSpeichern" Command="{Binding OnBtnSpeichernCmd}" Content="Speichern" HorizontalAlignment="Left" Height="24" Margin="30,129,0,0" VerticalAlignment="Top" Width="104"/>
-        <Button x:Name="btnAbbrechen" Command="{Binding OnBtnAbbrechenCmd}" Content="Abbrechen" HorizontalAlignment="Left" Height="24" Margin="154,129,0,0" VerticalAlignment="Top" Width="104"/>
+        <TextBox x:Name="txtBezeichnung" Text="{Binding TmpFach.Bez}" HorizontalAlignment="Left" Height="21" Margin="96,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" ToolTip="Bezeichnung des Unterrichtsfachs" MaxLength="45"/>
+        <TextBox x:Name="txtStunden" Text="{Binding TmpFach.Stunden}" HorizontalAlignment="Left" Height="21" Margin="96,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" ToolTip="z.B. 2 "/>
+        <TextBox x:Name="txtPos" Text="{Binding TmpFach.Pos}" HorizontalAlignment="Left" Height="21" Margin="96,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" RenderTransformOrigin="0.517,-0.907" ToolTip="z.B. 1"/>
+        <Button x:Name="btnSpeichern" IsEnabled="{Binding TmpFachSaveAble}" Content="Speichern" HorizontalAlignment="Left" Height="24" Margin="30,129,0,0" VerticalAlignment="Top" Width="104"/>
+        <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" Height="24" Margin="154,129,0,0" VerticalAlignment="Top" Width="104"/>
 
     </Grid>
 </Window>

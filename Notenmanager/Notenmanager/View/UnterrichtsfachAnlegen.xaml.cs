@@ -21,7 +21,7 @@ namespace Notenmanager.View
     public partial class UnterrichtsfachAnlegen : Window
     {
         DialogMode dm;
-        private UnterrichtsfachAnlegenVM vm;
+        private FachAnlegenPageVM vm;
         public UnterrichtsfachAnlegen(DialogMode dm)
         {
             InitializeComponent();
@@ -33,13 +33,20 @@ namespace Notenmanager.View
 
         private void UnterrichtsfachAnlegen_Loaded(object sender, RoutedEventArgs e)
         {
-            this.vm = FindResource("UFAnlegenVM") as UnterrichtsfachAnlegenVM;
-
-
-            this.Closing += UnterrichtsfachAnlegen_Closing;
+            this.vm = FindResource("FAnlegenVM") as FachAnlegenPageVM;
 
             this.btnSpeichern.Click += BtnSpeichern_Click;
             this.btnAbbrechen.Click += BtnAbbrechen_Click;
+
+            this.txtBezeichnung.KeyUp += Txt_KeyUp;
+            this.txtPos.KeyUp += Txt_KeyUp;
+            this.txtStunden.KeyUp += Txt_KeyUp;
+        }
+
+        private void Txt_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (vm.OnUFachEditCmd.CanExecute(null))
+                vm.OnUFachEditCmd.Execute(null);
         }
 
         private void BtnAbbrechen_Click(object sender, RoutedEventArgs e)
@@ -54,11 +61,5 @@ namespace Notenmanager.View
             Close();
         }
 
-
-        private void UnterrichtsfachAnlegen_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if(DialogResult != true && vm.OnCancelCmd.CanExecute(null))
-                vm.OnCancelCmd.Execute(null);
-        }
     }
 }

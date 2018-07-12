@@ -30,10 +30,10 @@ namespace Notenmanager.View
         {
             _viewmodel = FindResource("FAnlegenVM") as FachAnlegenPageVM;
 
-            _viewmodel.DialogRequest += OnDialogRequest;
+            _viewmodel.UFADialogRequest += OnUFADialogRequest;
         }
 
-        private void OnDialogRequest(object sender, DialogEventArgs e)
+        private void OnUFADialogRequest(object sender, DialogEventArgs e)
         {
             UnterrichtsfachAnlegen dlg = new UnterrichtsfachAnlegen(e.dm);
 

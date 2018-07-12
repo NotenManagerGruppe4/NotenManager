@@ -111,7 +111,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModel\NavigationEventArgs.cs" />
-    <Compile Include="ViewModel\UnterrichtsfachAnlegenVM.cs" />
+    <Compile Include="ViewModel\UnterrichtsfachBearbeitenVM.cs" />
     <Compile Include="View\DateiImportPage.xaml.cs">
       <DependentUpon>DateiImportPage.xaml</DependentUpon>
     </Compile>

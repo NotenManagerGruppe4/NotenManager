@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Notenmanager.Model;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace Notenmanager.ViewModel
 {
@@ -14,21 +15,29 @@ namespace Notenmanager.ViewModel
 
     public class FachAnlegenPageVM : BaseViewModel
     {
+
         private ObservableCollection<Unterrichtsfach> _lstZeugUFach = new ObservableCollection<Unterrichtsfach>();
         private Unterrichtsfach _selFach;
+        private Unterrichtsfach _tmpFach;
         private ObservableCollection<Unterrichtsfach> _lstUFachHinz = new ObservableCollection<Unterrichtsfach>();
-        private Unterrichtsfach uf;
 
-        public event EventHandler<DialogEventArgs> DialogRequest;
+        public event EventHandler<DialogEventArgs> UFADialogRequest;
+
+        #region Commands
         public ICommand OnBtnAnlegenCmd { get; set; }
         public ICommand OnBtnAendernCmd { get; set; }
 
+        public ICommand OnUFachEditCmd { get; set; }
+
+        #endregion Commands
         public FachAnlegenPageVM()
         {
             OnBtnAnlegenCmd = new ActionCommand(OnBtnAnlegen);
             OnBtnAendernCmd = new ActionCommand(OnBtnAendern);
+            OnUFachEditCmd = new ActionCommand(OnUFachEdit);
         }
 
+        #region Properties
         public ObservableCollection<Unterrichtsfach> LstZeugUFach
         {
             get
@@ -40,20 +49,6 @@ namespace Notenmanager.ViewModel
             {
                 _lstZeugUFach = value;
                 OnPropertyChanged("LstZeugUFach");
-            }
-        }
-
-        public Unterrichtsfach SelFach
-        {
-            get
-            {
-                return _selFach;
-            }
-
-            set
-            {
-                _selFach = value;
-                OnPropertyChanged("SelFach");
             }
         }
 
@@ -71,34 +66,98 @@ namespace Notenmanager.ViewModel
             }
         }
 
+        public Unterrichtsfach SelFach
+        {
+            get
+            {
+                return _selFach;
+            }
+
+            set
+            {
+                _selFach = value;
+                OnPropertyChanged("SelFach");
+            }
+        }
+
+        
+
+        public Unterrichtsfach TmpFach
+        {
+            get
+            {
+                return _tmpFach;
+            }
+
+            set
+            {
+                _tmpFach = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool TmpFachSaveAble
+        {
+            get
+            {
+                if(TmpFach == null)
+                {
+                    Trace.WriteLine("TMPFACH NULL!");
+                    return false;
+                }
+                bool re = (TmpFach.Stunden >= 0 && TmpFach.Pos > 0 && !string.IsNullOrWhiteSpace(TmpFach.Bez));
+                return re;
+            }
+        }
+
+        #endregion Properties
+
+        private void OnUFachEdit(object obj)
+        {
+            OnPropertyChanged("TmpFachSaveAble");
+        }
+
         private void OnBtnAnlegen(object obj)
         {
-            DialogRequest?.Invoke(this, new DialogEventArgs(DoAnlegen, DialogMode.Neu));
+            TmpFach = new Unterrichtsfach();
+            TmpFach.Bez = "";
+
+            UFADialogRequest?.Invoke(this, new DialogEventArgs(DoAnlegen, DialogMode.Neu));
         }
 
         private void DoAnlegen(bool? obj)
         {
             if (obj != true)
+            {
+                TmpFach = null;
                 return;
+            }
 
-            LstUFachHinz.Add(uf);
-
-            SelFach = uf;
+            TmpFach.Speichern();
+            LstUFachHinz.Add(TmpFach);
+            SelFach = TmpFach;
 
         }
         private void OnBtnAendern(object obj)
         {
-            DialogRequest?.Invoke(this, new DialogEventArgs(DoAendern, DialogMode.Aendern));
+            TmpFach = SelFach;
+
+            UFADialogRequest?.Invoke(this, new DialogEventArgs(DoAendern, DialogMode.Aendern));
         }
 
         private void DoAendern(bool? obj)
         {
             if (obj != true)
+            {
+                TmpFach.Reload();
                 return;
+            }
 
-            int index = LstUFachHinz.IndexOf(SelFach);
-            LstUFachHinz.RemoveAt(index);
-            LstUFachHinz.Insert(index, SelFach);   
+            SelFach = TmpFach;
+
+            SelFach.Speichern();
         }
+
+        
     }
 }
