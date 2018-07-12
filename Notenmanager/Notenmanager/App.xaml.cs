@@ -22,13 +22,15 @@ namespace Notenmanager
 
          DBZugriff.InitDB();
 
+         #if DEBUG
          if (Environment.GetCommandLineArgs().Contains("-test"))
          {
             Tests s = new Tests();
             s.Test2();
          }
+         #endif
 
-         
+
 
          AppDomain.CurrentDomain.UnhandledException += (sender, e2) =>
          {
