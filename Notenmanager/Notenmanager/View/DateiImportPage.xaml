@@ -10,7 +10,7 @@
       Width="Auto" Height="Auto"
       MinHeight="300" MinWidth="300"
       Title="DateiImportPage"
-      DataContext="{StaticResource DateiIMportPageVM}">
+      DataContext="{StaticResource DateiImportPageVM}">
     
     <Grid x:Name="DateiImportGrid" Background="White">
         <Grid.RowDefinitions>
