@@ -21,32 +21,20 @@ namespace Notenmanager.View
     public partial class UnterrichtsfachAnlegen : Window
     {
         DialogMode dm;
-        private FachAnlegenPageVM vm;
         public UnterrichtsfachAnlegen(DialogMode dm)
         {
             InitializeComponent();
             this.dm = dm;
+
             this.Loaded += UnterrichtsfachAnlegen_Loaded;
             
-
         }
 
         private void UnterrichtsfachAnlegen_Loaded(object sender, RoutedEventArgs e)
         {
-            this.vm = FindResource("FAnlegenVM") as FachAnlegenPageVM;
 
             this.btnSpeichern.Click += BtnSpeichern_Click;
             this.btnAbbrechen.Click += BtnAbbrechen_Click;
-
-            this.txtBezeichnung.KeyUp += Txt_KeyUp;
-            this.txtPos.KeyUp += Txt_KeyUp;
-            this.txtStunden.KeyUp += Txt_KeyUp;
-        }
-
-        private void Txt_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (vm.OnUFachEditCmd.CanExecute(null))
-                vm.OnUFachEditCmd.Execute(null);
         }
 
         private void BtnAbbrechen_Click(object sender, RoutedEventArgs e)

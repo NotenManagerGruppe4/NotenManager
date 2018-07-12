@@ -13,15 +13,15 @@ namespace Notenmanager.ViewModel
     public enum Fachart { Wahlfach = 1, Pflichtfach = 2, Wahlpflichtfach = 3 };
     public enum DialogMode { Neu, Aendern };
 
-    public class FachAnlegenPageVM : BaseViewModel
+    public class ZeugnisFachBearbeitenPageVM : BaseViewModel
     {
-
         private ObservableCollection<Unterrichtsfach> _lstZeugUFach = new ObservableCollection<Unterrichtsfach>();
         private Unterrichtsfach _selFach;
-        private Unterrichtsfach _tmpFach;
         private ObservableCollection<Unterrichtsfach> _lstUFachHinz = new ObservableCollection<Unterrichtsfach>();
 
         public event EventHandler<DialogEventArgs> UFADialogRequest;
+
+        public UnterrichtsfachBearbeitenVM ufvm;
 
         #region Commands
         public ICommand OnBtnAnlegenCmd { get; set; }
@@ -30,11 +30,12 @@ namespace Notenmanager.ViewModel
         public ICommand OnUFachEditCmd { get; set; }
 
         #endregion Commands
-        public FachAnlegenPageVM()
+        public ZeugnisFachBearbeitenPageVM()
         {
             OnBtnAnlegenCmd = new ActionCommand(OnBtnAnlegen);
             OnBtnAendernCmd = new ActionCommand(OnBtnAendern);
-            OnUFachEditCmd = new ActionCommand(OnUFachEdit);
+
+            ufvm = App.Current.FindResource("UFBearbeitenVM") as UnterrichtsfachBearbeitenVM;
         }
 
         #region Properties
@@ -80,47 +81,15 @@ namespace Notenmanager.ViewModel
             }
         }
 
-        
+       
 
-        public Unterrichtsfach TmpFach
-        {
-            get
-            {
-                return _tmpFach;
-            }
-
-            set
-            {
-                _tmpFach = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool TmpFachSaveAble
-        {
-            get
-            {
-                if(TmpFach == null)
-                {
-                    Trace.WriteLine("TMPFACH NULL!");
-                    return false;
-                }
-                bool re = (TmpFach.Stunden >= 0 && TmpFach.Pos > 0 && !string.IsNullOrWhiteSpace(TmpFach.Bez));
-                return re;
-            }
-        }
 
         #endregion Properties
 
-        private void OnUFachEdit(object obj)
-        {
-            OnPropertyChanged("TmpFachSaveAble");
-        }
-
         private void OnBtnAnlegen(object obj)
         {
-            TmpFach = new Unterrichtsfach();
-            TmpFach.Bez = "";
+            ufvm.UF = new Unterrichtsfach();
+            ufvm.Bez = "";
 
             UFADialogRequest?.Invoke(this, new DialogEventArgs(DoAnlegen, DialogMode.Neu));
         }
@@ -129,18 +98,18 @@ namespace Notenmanager.ViewModel
         {
             if (obj != true)
             {
-                TmpFach = null;
+                ufvm.UF = null;
                 return;
             }
 
-            TmpFach.Speichern();
-            LstUFachHinz.Add(TmpFach);
-            SelFach = TmpFach;
+            ufvm.UF.Speichern();
+            LstUFachHinz.Add(ufvm.UF);
+            SelFach = ufvm.UF;
 
         }
         private void OnBtnAendern(object obj)
         {
-            TmpFach = SelFach;
+            ufvm.UF = SelFach;
 
             UFADialogRequest?.Invoke(this, new DialogEventArgs(DoAendern, DialogMode.Aendern));
         }
@@ -149,11 +118,11 @@ namespace Notenmanager.ViewModel
         {
             if (obj != true)
             {
-                TmpFach.Reload();
+                ufvm.UF.Reload();
                 return;
             }
 
-            SelFach = TmpFach;
+            SelFach = ufvm.UF;
 
             SelFach.Speichern();
         }
