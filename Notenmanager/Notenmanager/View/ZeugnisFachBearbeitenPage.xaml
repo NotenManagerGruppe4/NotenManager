@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       Title="FachAnlegenPage" Height="486.437" Width="307.649">
 
-    <Grid DataContext="{StaticResource FAnlegenVM}" Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded">
+    <Grid DataContext="{StaticResource ZFBearbeitenVM}" Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded">
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="211" Margin="19,227,0,0" VerticalAlignment="Top" Width="269" Opacity="0.2"/>
 
         <Label x:Name="lblBezeichnung" Content="Fachbezeichnung:" HorizontalAlignment="Left" Height="30" Margin="24,54,0,0" VerticalAlignment="Top" Width="107"/>
@@ -30,7 +30,7 @@
                 <DataGridTextColumn Binding="{Binding Pos}" Header="Position"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="btnHinzufuegen" Content="Hinzufügen" HorizontalAlignment="Left" Height="22" Margin="40,310,0,0" VerticalAlignment="Top" Width="88" Click="btnHinzufuegen_Click"/>
+        <Button x:Name="btnHinzufuegen" Content="Hinzufügen" HorizontalAlignment="Left" Height="22" Margin="34,310,0,0" VerticalAlignment="Top" Width="88" Click="btnHinzufuegen_Click"/>
         <Button x:Name="btnSpeichern" Content="Speichern" HorizontalAlignment="Left" Height="22" Margin="25,446,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False" Click="btnSpeichern_Click"/>
         <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" Height="22" Margin="161,446,0,0" VerticalAlignment="Top" Width="107" Click="btnAbbrechen_Click"/>
         <Button x:Name="btnEntfernen" Content="Entfernen" HorizontalAlignment="Left" Height="22" Margin="161,310,0,0" VerticalAlignment="Top" Width="100" Background="{x:Null}" IsEnabled="False" Click="btnEntfernen_Click"/>
@@ -44,7 +44,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="btnAnlegen" Command="{Binding OnBtnAnlegenCmd}" Content="Anlegen" HorizontalAlignment="Left" Height="21" Margin="41,409,0,0" VerticalAlignment="Top" Width="91" Click="btnAnlegen_Click"/>
-        <Button x:Name="btnAendern" Content="Ändern" HorizontalAlignment="Left" Height="21" Margin="161,409,0,0" VerticalAlignment="Top" Width="100" Click="btnAendern_Click"/>
+        <Button x:Name="btnAendern" Command="{Binding OnBtnAendernCmd}" Content="Ändern" HorizontalAlignment="Left" Height="21" Margin="161,409,0,0" VerticalAlignment="Top" Width="100" Click="btnAendern_Click"/>
 
     </Grid>
 </Page>

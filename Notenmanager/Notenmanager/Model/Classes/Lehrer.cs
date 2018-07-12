@@ -14,6 +14,8 @@ namespace Notenmanager.Model
       { }
 
       public int Id { get; private set; }
+      public int SID { get; set; } = 0;
+
       public bool Active { get; set; } = true;
 
       [Required,MaxLength(KUERZEL_MAXLENGTH)]

@@ -6,29 +6,39 @@ using System.Text;
 using System.Threading.Tasks;
 using Notenmanager.Model;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace Notenmanager.ViewModel
 {
     public enum Fachart { Wahlfach = 1, Pflichtfach = 2, Wahlpflichtfach = 3 };
     public enum DialogMode { Neu, Aendern };
 
-    public class FachAnlegenPageVM : BaseViewModel
+    public class ZeugnisFachBearbeitenPageVM : BaseViewModel
     {
         private ObservableCollection<Unterrichtsfach> _lstZeugUFach = new ObservableCollection<Unterrichtsfach>();
         private Unterrichtsfach _selFach;
         private ObservableCollection<Unterrichtsfach> _lstUFachHinz = new ObservableCollection<Unterrichtsfach>();
-        private Unterrichtsfach uf;
 
-        public event EventHandler<DialogEventArgs> DialogRequest;
+        public event EventHandler<DialogEventArgs> UFADialogRequest;
+
+        public UnterrichtsfachBearbeitenVM ufvm;
+
+        #region Commands
         public ICommand OnBtnAnlegenCmd { get; set; }
         public ICommand OnBtnAendernCmd { get; set; }
 
-        public FachAnlegenPageVM()
+        public ICommand OnUFachEditCmd { get; set; }
+
+        #endregion Commands
+        public ZeugnisFachBearbeitenPageVM()
         {
             OnBtnAnlegenCmd = new ActionCommand(OnBtnAnlegen);
             OnBtnAendernCmd = new ActionCommand(OnBtnAendern);
+
+            ufvm = App.Current.FindResource("UFBearbeitenVM") as UnterrichtsfachBearbeitenVM;
         }
 
+        #region Properties
         public ObservableCollection<Unterrichtsfach> LstZeugUFach
         {
             get
@@ -40,20 +50,6 @@ namespace Notenmanager.ViewModel
             {
                 _lstZeugUFach = value;
                 OnPropertyChanged("LstZeugUFach");
-            }
-        }
-
-        public Unterrichtsfach SelFach
-        {
-            get
-            {
-                return _selFach;
-            }
-
-            set
-            {
-                _selFach = value;
-                OnPropertyChanged("SelFach");
             }
         }
 
@@ -71,35 +67,66 @@ namespace Notenmanager.ViewModel
             }
         }
 
+        public Unterrichtsfach SelFach
+        {
+            get
+            {
+                return _selFach;
+            }
+
+            set
+            {
+                _selFach = value;
+                OnPropertyChanged("SelFach");
+            }
+        }
+
+       
+
+
+        #endregion Properties
+
         private void OnBtnAnlegen(object obj)
         {
-            DialogRequest?.Invoke(this, new DialogEventArgs(DoAnlegen, DialogMode.Neu));
+            ufvm.UF = new Unterrichtsfach();
+            ufvm.Bez = "";
+
+            UFADialogRequest?.Invoke(this, new DialogEventArgs(DoAnlegen, DialogMode.Neu));
         }
 
         private void DoAnlegen(bool? obj)
         {
             if (obj != true)
+            {
+                ufvm.UF = null;
                 return;
+            }
 
-            uf = new Unterrichtsfach();
-            LstUFachHinz.Add(uf);
-            uf.Speichern();
-            SelFach = uf;
+            ufvm.UF.Speichern();
+            LstUFachHinz.Add(ufvm.UF);
+            SelFach = ufvm.UF;
 
         }
         private void OnBtnAendern(object obj)
         {
-            DialogRequest?.Invoke(this, new DialogEventArgs(DoAendern, DialogMode.Aendern));
+            ufvm.UF = SelFach;
+
+            UFADialogRequest?.Invoke(this, new DialogEventArgs(DoAendern, DialogMode.Aendern));
         }
 
         private void DoAendern(bool? obj)
         {
             if (obj != true)
+            {
+                ufvm.UF.Reload();
                 return;
+            }
 
-            int index = LstUFachHinz.IndexOf(SelFach);
-            LstUFachHinz.RemoveAt(index);
-            LstUFachHinz.Insert(index, SelFach);   
+            SelFach = ufvm.UF;
+
+            SelFach.Speichern();
         }
+
+        
     }
 }

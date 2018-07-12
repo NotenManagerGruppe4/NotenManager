@@ -100,7 +100,7 @@ namespace Notenmanager.Model
       /// <param name="obj">Das Objekt</param>
       public void Reload<T>(T obj) where T : class, IDBable
       {
-         Context.Entry<T>(obj).Reload();
+         Context.Entry<T>(obj)?.Reload();
       }
 
       /// <summary>
