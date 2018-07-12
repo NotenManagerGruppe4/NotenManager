@@ -29,25 +29,5 @@ namespace Notenmanager.View
             MessageBoxResult result = MessageBox.Show(e.MessageBoxText, e.Caption, e.MessageBoxButton, e.MessageBoxImage);
             e.ResultAction?.Invoke(result);
         }
-
-        private void btnFileSelect_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void test()
-        {
-            //TEST2
-        }
-
-        private void btnImport_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAbbrechen_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

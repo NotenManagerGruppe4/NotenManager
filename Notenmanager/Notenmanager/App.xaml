@@ -9,5 +9,6 @@
         <vm:MainPageVM x:Key="MainPageVM"/>
         <vm:FachAnlegenPageVM x:Key="FAnlegenVM"/>
         <vm:DateiImportPageVM x:Key="DateiIMportPageVM"/>
+        <vm:KlassenPageVM x:Key="KlassenPageVM"/>
     </Application.Resources>
 </Application>
