@@ -8,7 +8,8 @@
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       Width="Auto" Height="Auto"
-      MinHeight="300" MinWidth="300"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Top"
       Title="DateiImportPage"
       DataContext="{StaticResource DateiImportPageVM}">
     
@@ -22,12 +23,12 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Grid HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2" Grid.RowSpan="3">    
-            <Button x:Name="btnFileSelect" Command="{Binding DateiAuswaehlenCmd}" Content="Datei Auswählen" VerticalAlignment="Top" Margin="10,10,10,0"/>
-            <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,76,0,0" Width="280"/>
-            <TextBox x:Name="tboxFilename" Text="{Binding DateiPfad}" HorizontalAlignment="Left" Height="23" Margin="10,107,0,0" VerticalAlignment="Top" Width="280" IsReadOnly="False" TextWrapping="NoWrap"/>
-            <Label Content="Dateityp:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,135,0,0"/>
-            <ComboBox x:Name="cBoxDateiart" SelectedItem="{Binding DateiTyp}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,163,0,0">
+        <Grid HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Top" Width="Auto" Grid.ColumnSpan="2" Grid.RowSpan="3">    
+            <Button x:Name="btnFileSelect" Command="{Binding DateiAuswaehlenCmd}" Content="Datei Auswählen" VerticalAlignment="Top" Margin="10,10,10,10"/>
+            <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,76,10,0"/>
+            <TextBox x:Name="tboxFilename" Text="{Binding DateiPfad}" HorizontalAlignment="Stretch" Height="23" Margin="10,107,10,10" VerticalAlignment="Top" IsReadOnly="False" TextWrapping="NoWrap"/>
+            <Label Content="Dateityp:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,135,10,0"/>
+            <ComboBox x:Name="cBoxDateiart" SelectedItem="{Binding DateiTyp}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,163,10,0">
                 <ComboBoxItem>Klasse</ComboBoxItem>
                 <ComboBoxItem>Schueler</ComboBoxItem>
                 <ComboBoxItem>Lehrer</ComboBoxItem>
@@ -37,7 +38,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
-            <Label Content="Schule auswählen(bei Klassenimport):" Margin="10,191,0,0"/>
+            <Label Content="Schule auswählen(bei Klassenimport):" Margin="10,191,10,10"/>
             <ComboBox ItemsSource="{Binding Schulen}" SelectedItem="{Binding SelektierteSchule}" IsEnabled="{Binding CbSchulenEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,219,0,0">
                 <ComboBox.ItemTemplate>
                     <DataTemplate DataType="model:Schule">
