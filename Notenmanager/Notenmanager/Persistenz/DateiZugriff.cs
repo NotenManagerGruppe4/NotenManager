@@ -52,7 +52,8 @@ namespace Notenmanager.Persistenz
             int sid = Convert.ToInt32(tmp[0]);
 
             Schueler schueler = DBZugriff.Current.SelectFirstOrDefault<Schueler>(x => x.SID == sid);
-            if (schueler == null)
+            bool neu = (schueler == null);
+            if (neu)
                schueler = new Schueler();
 
             schueler.SID = sid;
@@ -64,7 +65,7 @@ namespace Notenmanager.Persistenz
 
             DBZugriff.Current.Speichern(schueler, false);
 
-            if (autoGenerateSchuelerKlasse)
+            if (neu && autoGenerateSchuelerKlasse)
                GeneriereSchuelerKlasse(schueler, tmp);
          }
 
@@ -103,14 +104,20 @@ namespace Notenmanager.Persistenz
       {
          string[] tmp;
 
-         Lehrer test = new Lehrer()
+         Lehrer dummy = new Lehrer()
          {
-            Vorname = "TestLehrer",
-            Nachname = "TestLehrer",
-            Kürzel = "TL",
+            Vorname = "-",
+            Nachname = "-",
+            Kürzel = "-",
             Dienstbezeichnung = "DUMMY",
-
          };
+         dummy = DBZugriff.Current.SelectFirstOrDefault<Lehrer>(x => 
+               x.Vorname == dummy.Vorname
+               && x.Nachname == dummy.Nachname
+               && x.Kürzel == dummy.Kürzel
+               && x.Dienstbezeichnung == dummy.Dienstbezeichnung
+               ) ?? dummy;
+         dummy.Speichern();
 
 
          foreach (string s in ReadAllLines(pfad))
@@ -127,8 +134,8 @@ namespace Notenmanager.Persistenz
             klasse.Bez = tmp[1];
             klasse.SJ = Convert.ToInt32(tmp[2].Split('/')[0]);
             klasse.Schule = schule;
-            klasse.Klassenleiter = test;
-            klasse.StellvertretenderKlassenleiter = test;
+            klasse.Klassenleiter = dummy;
+            klasse.StellvertretenderKlassenleiter = dummy;
 
 
             DBZugriff.Current.Speichern(klasse, false);
@@ -158,7 +165,7 @@ namespace Notenmanager.Persistenz
             lehrer.Nachname = tmp[1];
             lehrer.Vorname = tmp[2];
             lehrer.Kürzel = tmp[3];
-            
+
 
             DBZugriff.Current.Speichern(lehrer, false);
          }
