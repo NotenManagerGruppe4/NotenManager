@@ -45,6 +45,9 @@ namespace Notenmanager.ViewModel
             AbbrechenCmd = new ActionCommand(OnAbbrechen);
             DateiAuswaehlenCmd = new ActionCommand(OnDateiAuswaehlen);
 
+            MainPageVM parentViewModel = App.Current.FindResource("MainPageVM") as MainPageVM;
+            
+
             // Liste aller Schulen aus der Datenbank befüllen
             Schulen = new ObservableCollection<Schule>(DBZugriff.Current.Select<Schule>());
         }

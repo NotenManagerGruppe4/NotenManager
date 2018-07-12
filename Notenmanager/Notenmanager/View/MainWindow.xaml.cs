@@ -38,8 +38,11 @@ namespace Notenmanager.View
 
         private void setMinimumWindowSize(NavigationEventArgs e)
         {
-            MinHeight = e.ZielPage.MinHeight;
-            MinWidth = e.ZielPage.MinWidth;
+            //e.ZielPage.MinHeight = MinHeight;
+            //e.ZielPage.MinWidth = MinWidth;
+
+            //e.ZielPage.Height = Height;
+            //e.ZielPage.Width = Width;
         }
     }
 
