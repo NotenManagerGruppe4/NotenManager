@@ -1,4 +1,5 @@
-﻿using Notenmanager.Model;
+﻿using Microsoft.Win32;
+using Notenmanager.Model;
 using Notenmanager.Persistenz;
 using System;
 using System.Collections.Generic;
@@ -42,10 +43,12 @@ namespace Notenmanager.ViewModel
             DateiImportierenCmd = new ActionCommand(OnDateiImportieren);
             CBoxChangedCmd = new ActionCommand(OnCBoxSelectionChanged);
             AbbrechenCmd = new ActionCommand(OnAbbrechen);
+            DateiAsuwaehlenCmd = new ActionCommand(OnDateiAuswaehlen);
 
             // Liste aller Schulen aus der Datenbank befüllen
             Schulen = new ObservableCollection<Schule>(DBZugriff.Current.Select<Schule>());
         }
+
 
         #region Events
         public event EventHandler<MessageBoxEventArgs> MessageBoxRequest;
@@ -56,6 +59,7 @@ namespace Notenmanager.ViewModel
         public ICommand DateiImportierenCmd { get; set; } 
         public ICommand CBoxChangedCmd { get; set; }
         public ICommand AbbrechenCmd { get; set; }
+        public ICommand DateiAsuwaehlenCmd { get; set; }
         #endregion
         public string DateiPfad
         {
@@ -125,6 +129,14 @@ namespace Notenmanager.ViewModel
 
         #region Methoden
         #region CommandHandler
+        private void OnDateiAuswaehlen(object obj)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "CSV files (*.csv)|*.csv|All files(*.*)|*.*";
+            fileDialog.ShowDialog();
+            DateiPfad = fileDialog.FileName;    
+        }
+
         private void OnDateiImportieren(object obj)
         {
             try
