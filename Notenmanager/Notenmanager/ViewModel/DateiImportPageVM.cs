@@ -4,6 +4,7 @@ using Notenmanager.Persistenz;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -140,44 +141,73 @@ namespace Notenmanager.ViewModel
 
         private void OnDateiImportieren(object obj)
         {
+            bool fileFound = true;
             try
             {
-                // bestimmen um welche Dateiart es sich handelt und diese entsprechend importieren
-                switch(DateiTyp.Content.ToString())
-                {
-                    case "Klasse":
-                        DateiZugriff.ImportKlassen(DateiPfad, SelektierteSchule);
-                        break;
-                    case "Schueler":
-                        DateiZugriff.ImportSchueler(DateiPfad);
-                        break;
-                    case "Lehrer":
-                        DateiZugriff.ImportLehrer(DateiPfad);
-                        break;
-                }
+                DateiPfad.ToString(); 
+            }
 
-                // Erfolgsmeldung
+            catch(Exception e)
+            {
+                // Fehlermeldung, wenn keine Datei gefunden oder falscher Dateipfad angegeben.
                 MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs()
                 {
-                    Caption = "Dateiimport abgeschlossen",
-                    MessageBoxText = $"{DateiTyp.Content.ToString()}-Datei erfolgreich importiert!",
+                    Caption = "Datei nicht gefunden!",
+                    MessageBoxText = "Datei nicht gefunden oder keine Datei ausgewählt!",
                     MessageBoxImage = System.Windows.MessageBoxImage.Information,
                     MessageBoxButton = System.Windows.MessageBoxButton.OK,
                 });
+                fileFound = false;
+            }
 
-                DateiPfad = "";
-            }
-            catch (Exception e)
+            if(fileFound == true)
             {
-                // Fehlermeldung
-                MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs()
+                try
                 {
-                    Caption = "Dateiimport konnte nicht abgeschlossen werden...",
-                    MessageBoxText = e.Message,
-                    MessageBoxImage = System.Windows.MessageBoxImage.Exclamation,
-                    MessageBoxButton = System.Windows.MessageBoxButton.OK
-                });
+                    // bestimmen um welche Dateiart es sich handelt und diese entsprechend importieren
+                    
+                    switch (DateiPfad.ToString())
+                    {
+                        case "Klasse":
+                            DateiZugriff.ImportKlassen(DateiPfad, SelektierteSchule);
+                            break;
+                        case "Schueler":
+                            DateiZugriff.ImportSchueler(DateiPfad);
+                            break;
+                        case "Lehrer":
+                            DateiZugriff.ImportLehrer(DateiPfad);
+                            break;
+                    }
+
+                    // Erfolgsmeldung
+                    MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs()
+                    {
+                        Caption = "Datei-Import abgeschlossen",
+                        MessageBoxText = $"{DateiTyp.Content.ToString()}-Datei erfolgreich importiert!",
+                        MessageBoxImage = System.Windows.MessageBoxImage.Information,
+                        MessageBoxButton = System.Windows.MessageBoxButton.OK,
+                    });
+
+                    DateiPfad = "";
+                }
+                catch (Exception e)
+                {
+                    // Fehlermeldung
+                    MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs()
+                    {
+                        Caption = "Datei-Import konnte nicht abgeschlossen werden...",
+                        MessageBoxText = e.Message,
+                        MessageBoxImage = System.Windows.MessageBoxImage.Exclamation,
+                        MessageBoxButton = System.Windows.MessageBoxButton.OK
+                    });
+                }
             }
+
+            else
+            {
+
+            }
+            
         }
 
         private void OnCBoxSelectionChanged(object obj)
