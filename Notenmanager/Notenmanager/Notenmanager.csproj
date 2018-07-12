@@ -98,24 +98,24 @@
     <Compile Include="Model\IDBable.cs" />
     <Compile Include="Model\MessageBoxEventArgs.cs" />
     <Compile Include="Persistenz\DateiZugriff.cs" />
-    <Compile Include="ViewModel\ActionCommand.cs" />
+    <Compile Include="ViewModel\Tools\ActionCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DateiImportPageVM.cs" />
-    <Compile Include="ViewModel\DialogEventArgs.cs" />
-    <Compile Include="ViewModel\FachAnlegenPageVM.cs" />
+    <Compile Include="ViewModel\Tools\DialogEventArgs.cs" />
+    <Compile Include="ViewModel\ZeugnisFachBearbeitenPageVM.cs" />
     <Compile Include="ViewModel\KlassenPageVM.cs" />
     <Compile Include="ViewModel\MainPageVM.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModel\NavigationEventArgs.cs" />
+    <Compile Include="ViewModel\Tools\NavigationEventArgs.cs" />
     <Compile Include="ViewModel\UnterrichtsfachBearbeitenVM.cs" />
     <Compile Include="View\DateiImportPage.xaml.cs">
       <DependentUpon>DateiImportPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\FachAnlegenPage.xaml.cs">
-      <DependentUpon>FachAnlegenPage.xaml</DependentUpon>
+    <Compile Include="View\ZeugnisFachBearbeitenPage.xaml.cs">
+      <DependentUpon>ZeugnisFachBearbeitenPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\KlassenPage.xaml.cs">
       <DependentUpon>KlassenPage.xaml</DependentUpon>
@@ -130,8 +130,8 @@
       <DependentUpon>CrashMessage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Util\GridViewSort.cs" />
-    <Compile Include="View\UnterrichtsfachAnlegen.xaml.cs">
-      <DependentUpon>UnterrichtsfachAnlegen.xaml</DependentUpon>
+    <Compile Include="View\UnterrichtsfachBearbeiten.xaml.cs">
+      <DependentUpon>UnterrichtsfachBearbeiten.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +180,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\UnterrichtsfachAnlegen.xaml">
+    <Page Include="View\UnterrichtsfachBearbeiten.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,7 +188,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\FachAnlegenPage.xaml">
+    <Page Include="View\ZeugnisFachBearbeitenPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
