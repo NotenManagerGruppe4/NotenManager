@@ -12,6 +12,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        SID = c.Int(nullable: false),
                         Active = c.Boolean(nullable: false),
                         Bez = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         SJ = c.Int(nullable: false),
@@ -82,6 +83,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        SID = c.Int(nullable: false),
                         Active = c.Boolean(nullable: false),
                         Kürzel = c.String(nullable: false, maxLength: 5, storeType: "nvarchar"),
                         Nachname = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
@@ -157,6 +159,7 @@ namespace Notenmanager.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        SID = c.Int(nullable: false),
                         Active = c.Boolean(nullable: false),
                         Nachname = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         Vorname = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),

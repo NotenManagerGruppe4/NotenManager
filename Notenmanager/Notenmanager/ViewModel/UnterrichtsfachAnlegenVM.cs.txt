@@ -1,0 +1,42 @@
+﻿using Notenmanager.Model;
+using Notenmanager.View;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+namespace Notenmanager.ViewModel
+{
+    public class UnterrichtsfachAnlegenVM
+    {
+        private Unterrichtsfach uf = new Unterrichtsfach();
+
+        public ICommand OnBtnSpeichernCmd { get; set; }
+        public ICommand OnBtnAbbrechenCmd { get; set; }
+        public ICommand OnCancelCmd { get; set; }
+
+        public UnterrichtsfachAnlegenVM()
+        {
+            OnBtnSpeichernCmd = new ActionCommand(OnBtnSpeichern);
+            OnBtnAbbrechenCmd = new ActionCommand(OnBtnAbbrechen);
+            OnCancelCmd = new ActionCommand(OnCancel);
+        }
+
+        private void OnBtnSpeichern(object obj)
+        {
+            uf.Speichern();
+        }
+        private void OnBtnAbbrechen(object obj)
+        {
+
+        }
+
+        private void OnCancel(object obj)
+        {
+            uf.Reload();
+        }
+    }
+}

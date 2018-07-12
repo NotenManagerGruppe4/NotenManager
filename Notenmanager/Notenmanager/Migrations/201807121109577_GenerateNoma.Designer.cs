@@ -13,7 +13,7 @@ namespace Notenmanager.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201807100744500_GenerateNoma"; }
+            get { return "201807121109577_GenerateNoma"; }
         }
         
         string IMigrationMetadata.Source

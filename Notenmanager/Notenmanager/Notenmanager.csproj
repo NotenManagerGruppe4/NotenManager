@@ -81,9 +81,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Migrations\201807100744500_GenerateNoma.cs" />
-    <Compile Include="Migrations\201807100744500_GenerateNoma.Designer.cs">
-      <DependentUpon>201807100744500_GenerateNoma.cs</DependentUpon>
+    <Compile Include="Migrations\201807121109577_GenerateNoma.cs" />
+    <Compile Include="Migrations\201807121109577_GenerateNoma.Designer.cs">
+      <DependentUpon>201807121109577_GenerateNoma.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Classes\Klasse.cs" />
@@ -102,23 +102,24 @@
     <Compile Include="Model\IDBable.cs" />
     <Compile Include="Model\MessageBoxEventArgs.cs" />
     <Compile Include="Persistenz\DateiZugriff.cs" />
-    <Compile Include="ViewModel\ActionCommand.cs" />
+    <Compile Include="ViewModel\Tools\ActionCommand.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DateiImportPageVM.cs" />
-    <Compile Include="ViewModel\DialogEventArgs.cs" />
-    <Compile Include="ViewModel\FachAnlegenPageVM.cs" />
+    <Compile Include="ViewModel\Tools\DialogEventArgs.cs" />
+    <Compile Include="ViewModel\ZeugnisFachBearbeitenPageVM.cs" />
     <Compile Include="ViewModel\KlassenPageVM.cs" />
     <Compile Include="ViewModel\MainPageVM.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModel\NavigationEventArgs.cs" />
+    <Compile Include="ViewModel\Tools\NavigationEventArgs.cs" />
+    <Compile Include="ViewModel\UnterrichtsfachBearbeitenVM.cs" />
     <Compile Include="View\DateiImportPage.xaml.cs">
       <DependentUpon>DateiImportPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\FachAnlegenPage.xaml.cs">
-      <DependentUpon>FachAnlegenPage.xaml</DependentUpon>
+    <Compile Include="View\ZeugnisFachBearbeitenPage.xaml.cs">
+      <DependentUpon>ZeugnisFachBearbeitenPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\KlassenPage.xaml.cs">
       <DependentUpon>KlassenPage.xaml</DependentUpon>
@@ -133,8 +134,8 @@
       <DependentUpon>CrashMessage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Util\GridViewSort.cs" />
-    <Compile Include="View\UnterrichtsfachAnlegen.xaml.cs">
-      <DependentUpon>UnterrichtsfachAnlegen.xaml</DependentUpon>
+    <Compile Include="View\UnterrichtsfachBearbeiten.xaml.cs">
+      <DependentUpon>UnterrichtsfachBearbeiten.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -151,8 +152,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201807100744500_GenerateNoma.resx">
-      <DependentUpon>201807100744500_GenerateNoma.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807121109577_GenerateNoma.resx">
+      <DependentUpon>201807121109577_GenerateNoma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -186,7 +187,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\UnterrichtsfachAnlegen.xaml">
+    <Page Include="View\UnterrichtsfachBearbeiten.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -194,7 +195,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\FachAnlegenPage.xaml">
+    <Page Include="View\ZeugnisFachBearbeitenPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

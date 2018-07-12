@@ -8,6 +8,8 @@
     <Application.Resources>
         <vm:MainPageVM x:Key="MainPageVM"/>
         <vm:FachAnlegenPageVM x:Key="FAnlegenVM"/>
+        <vm:ZeugnisFachBearbeitenPageVM x:Key="ZFBearbeitenVM"/>
+        <vm:UnterrichtsfachBearbeitenVM x:Key="UFBearbeitenVM"/>
         <vm:DateiImportPageVM x:Key="DateiImportPageVM"/>
     </Application.Resources>
 </Application>

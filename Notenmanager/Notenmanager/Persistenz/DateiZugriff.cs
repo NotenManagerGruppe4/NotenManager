@@ -49,19 +49,23 @@ namespace Notenmanager.Persistenz
             else
                k = Konfession.SONST;
 
-            Schueler schueler = new Schueler()
-            {
-               Nachname = tmp[1],
-               Vorname = tmp[2],
-               Geburtsdatum = Convert.ToDateTime(tmp[3]),
-               Geschlecht = tmp[7] == "m" ? Geschlecht.M : Geschlecht.W,
-               Konfession = k,
+            int sid = Convert.ToInt32(tmp[0]);
 
-            };
+            Schueler schueler = DBZugriff.Current.SelectFirstOrDefault<Schueler>(x => x.SID == sid);
+            bool neu = (schueler == null);
+            if (neu)
+               schueler = new Schueler();
+
+            schueler.SID = sid;
+            schueler.Nachname = tmp[1];
+            schueler.Vorname = tmp[2];
+            schueler.Geburtsdatum = Convert.ToDateTime(tmp[3]);
+            schueler.Geschlecht = tmp[7] == "m" ? Geschlecht.M : Geschlecht.W;
+            schueler.Konfession = k;
 
             DBZugriff.Current.Speichern(schueler, false);
 
-            if (autoGenerateSchuelerKlasse)
+            if (neu && autoGenerateSchuelerKlasse)
                GeneriereSchuelerKlasse(schueler, tmp);
          }
 
@@ -100,28 +104,39 @@ namespace Notenmanager.Persistenz
       {
          string[] tmp;
 
-         Lehrer test = new Lehrer()
+         Lehrer dummy = new Lehrer()
          {
-            Vorname = "TestLehrer",
-            Nachname = "TestLehrer",
-            Kürzel = "TL",
+            Vorname = "-",
+            Nachname = "-",
+            Kürzel = "-",
             Dienstbezeichnung = "DUMMY",
-
          };
+         dummy = DBZugriff.Current.SelectFirstOrDefault<Lehrer>(x => 
+               x.Vorname == dummy.Vorname
+               && x.Nachname == dummy.Nachname
+               && x.Kürzel == dummy.Kürzel
+               && x.Dienstbezeichnung == dummy.Dienstbezeichnung
+               ) ?? dummy;
+         dummy.Speichern();
 
 
          foreach (string s in ReadAllLines(pfad))
          {
             tmp = s.Split(',');
 
-            Klasse klasse = new Klasse()
-            {
-               Bez = tmp[1],
-               SJ = Convert.ToInt32(tmp[2].Split('/')[0]),
-               Schule = schule,
-               Klassenleiter = test,
-               StellvertretenderKlassenleiter = test
-            };
+            int sid = Convert.ToInt32(tmp[0]);
+            Klasse klasse = DBZugriff.Current.SelectFirstOrDefault<Klasse>(x => x.SID == sid);
+            if (klasse == null)
+               klasse = new Klasse();
+
+
+            klasse.SID = sid;
+            klasse.Bez = tmp[1];
+            klasse.SJ = Convert.ToInt32(tmp[2].Split('/')[0]);
+            klasse.Schule = schule;
+            klasse.Klassenleiter = dummy;
+            klasse.StellvertretenderKlassenleiter = dummy;
+
 
             DBZugriff.Current.Speichern(klasse, false);
          }
@@ -139,15 +154,18 @@ namespace Notenmanager.Persistenz
 
          foreach (string s in ReadAllLines(pfad))
          {
-
             tmp = s.Split(',');
 
-            Lehrer lehrer = new Lehrer()
-            {
-               Kürzel = tmp[3],
-               Nachname = tmp[1],
-               Vorname = tmp[2],
-            };
+            int sid = Convert.ToInt32(tmp[0]);
+            Lehrer lehrer = DBZugriff.Current.SelectFirstOrDefault<Lehrer>(x => x.SID == sid);
+            if (lehrer == null)
+               lehrer = new Lehrer();
+
+            lehrer.SID = Convert.ToInt32(tmp[0]);
+            lehrer.Nachname = tmp[1];
+            lehrer.Vorname = tmp[2];
+            lehrer.Kürzel = tmp[3];
+
 
             DBZugriff.Current.Speichern(lehrer, false);
          }

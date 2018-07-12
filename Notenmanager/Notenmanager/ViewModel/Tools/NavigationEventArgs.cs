@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Notenmanager.ViewModel
@@ -9,5 +10,7 @@ namespace Notenmanager.ViewModel
         /// Seite zu der navigiert werden soll.
         /// </summary>
         public Page ZielPage { get; set; }
+
+        public Window ZielWindow { get; set; }
     }
 }

@@ -25,6 +25,29 @@ namespace Notenmanager.View
         {
             InitializeComponent();
             this.dm = dm;
+
+            this.Loaded += UnterrichtsfachAnlegen_Loaded;
+            
         }
+
+        private void UnterrichtsfachAnlegen_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            this.btnSpeichern.Click += BtnSpeichern_Click;
+            this.btnAbbrechen.Click += BtnAbbrechen_Click;
+        }
+
+        private void BtnAbbrechen_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            Close();
+        }
+
+        private void BtnSpeichern_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+            Close();
+        }
+
     }
 }
