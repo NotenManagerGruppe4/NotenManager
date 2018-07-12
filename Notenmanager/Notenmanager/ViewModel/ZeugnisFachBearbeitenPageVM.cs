@@ -28,16 +28,25 @@ namespace Notenmanager.ViewModel
         #region Commands
         public ICommand OnBtnAnlegenCmd { get; set; }
         public ICommand OnBtnAendernCmd { get; set; }
-
+        public ICommand OnBtnSpeichernCmd { get; set; }
         public ICommand OnUFachEditCmd { get; set; }
-
+        
         #endregion Commands
         public ZeugnisFachBearbeitenPageVM()
         {
+            ZF = DBZugriff.Current.SelectFirstOrDefault<Zeugnisfach>(x => x.Id == 1);
+
             OnBtnAnlegenCmd = new ActionCommand(OnBtnAnlegen);
             OnBtnAendernCmd = new ActionCommand(OnBtnAendern);
+            OnBtnSpeichernCmd = new ActionCommand(OnBtnSpeichern);
 
             ufvm = App.Current.FindResource("UFBearbeitenVM") as UnterrichtsfachBearbeitenVM;
+        }
+
+        private void OnBtnSpeichern(object obj)
+        {
+            ZF.Unterrichtsfaecher = LstUFach.ToList();
+            ZF.Speichern();
         }
 
         #region Properties
@@ -79,11 +88,81 @@ namespace Notenmanager.ViewModel
             set
             {
                 _zf = value;
+                LstUFach = new ObservableCollection<Unterrichtsfach>(ZF.Unterrichtsfaecher);
+
+                OnPropertyChanged();
+                OnPropertyChanged("Bez");
+                OnPropertyChanged("Pos");
+                OnPropertyChanged("Fachart");
+                OnPropertyChanged("AbschliessendesFach");
+                OnPropertyChanged("Vorrueckungsfach");
+                SaveAbleChanged();
             }
         }
 
+        public string Bez
+        {
+            get
+            {
+                return ZF.Bez;
+            }
+            set
+            {
+                ZF.Bez = value;
+                OnPropertyChanged();
+                SaveAbleChanged();
+            }
+        }
 
-
+        public int Pos
+        {
+            get
+            {
+                return ZF.Pos;
+            }
+            set
+            {
+                ZF.Pos = value;
+                OnPropertyChanged();
+                SaveAbleChanged();
+            }
+        }
+        public Fachart Fachart
+        {
+            get
+            {
+                return ZF.Fachart;
+            }
+            set
+            {
+                ZF.Fachart = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool AbschliessendesFach
+        {
+            get
+            {
+                return ZF.AbschliessendesFach;
+            }
+            set
+            {
+                ZF.AbschliessendesFach = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool Vorrueckungsfach
+        {
+            get
+            {
+                return ZF.Vorrueckungsfach;
+            }
+            set
+            {
+                ZF.Vorrueckungsfach = value;
+                OnPropertyChanged();
+            }
+        }
 
 
 
@@ -130,6 +209,23 @@ namespace Notenmanager.ViewModel
             SelFach.Speichern();
         }
 
-        
+        private void SaveAbleChanged()
+        {
+            OnPropertyChanged("ZFachSaveAble");
+        }
+
+        public bool ZFachSaveAble
+        {
+            get
+            {
+                if (ZF == null)
+                {
+                    Trace.WriteLine("Unterrichtsfach NULL!");
+                    return false;
+                }
+                return (ZF.Pos > 0 && !string.IsNullOrWhiteSpace(ZF.Bez));
+            }
+        }
+
     }
 }

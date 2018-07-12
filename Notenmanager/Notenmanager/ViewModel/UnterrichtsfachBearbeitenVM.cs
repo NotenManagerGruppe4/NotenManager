@@ -44,7 +44,7 @@ namespace Notenmanager.ViewModel
             {
                 UF.Bez = value;
                 OnPropertyChanged();
-                OnPropertyChanged("UFachSaveAble");
+                SaveAbleChanged();
             }
         }
         public int Stunden
@@ -57,7 +57,7 @@ namespace Notenmanager.ViewModel
             {
                 UF.Stunden = value;
                 OnPropertyChanged();
-                OnPropertyChanged("UFachSaveAble");
+                SaveAbleChanged();
             }
         }
         public int Pos
@@ -70,12 +70,16 @@ namespace Notenmanager.ViewModel
             {
                 UF.Pos = value;
                 OnPropertyChanged();
-                OnPropertyChanged("UFachSaveAble");
+                SaveAbleChanged();
             }
         }
 
         #endregion Properties
 
+        private void SaveAbleChanged()
+        {
+            OnPropertyChanged("UFachSaveAble");
+        }
         public bool UFachSaveAble
         {
             get
@@ -85,8 +89,7 @@ namespace Notenmanager.ViewModel
                     Trace.WriteLine("Unterrichtsfach NULL!");
                     return false;
                 }
-                bool re = (UF.Stunden >= 0 && UF.Pos > 0 && !string.IsNullOrWhiteSpace(UF.Bez));
-                return re;
+                return (UF.Stunden >= 0 && UF.Pos > 0 && !string.IsNullOrWhiteSpace(UF.Bez));
             }
         }
 

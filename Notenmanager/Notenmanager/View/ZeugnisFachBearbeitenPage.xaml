@@ -15,11 +15,11 @@
         <Label x:Name="lblPos" Content="Fachposition: " HorizontalAlignment="Left" Height="27" Margin="24,84,0,0" VerticalAlignment="Top" Width="107"/>
         <Label x:Name="lblFachArt" Content="Fachart:" HorizontalAlignment="Left" Height="26" Margin="24,116,0,0" VerticalAlignment="Top" Width="98"/>
         <Label x:Name="lblUeberschrift" Content="Zeugnisfach anlegen" HorizontalAlignment="Left" Height="44" Margin="10,10,0,0" VerticalAlignment="Top" Width="168" FontSize="16" FontWeight="Bold"/>
-        <CheckBox x:Name="chckBoxVorFach" Content="Vorrückungsfach" HorizontalAlignment="Left" Height="22" Margin="40,182,0,0" VerticalAlignment="Top" Width="146" ToolTip=""/>
-        <ComboBox x:Name="comboxFachart" HorizontalAlignment="Left" Height="22" Margin="135,120,0,0" VerticalAlignment="Top" Width="144" ToolTip="Fachart wählen"/>
-        <CheckBox x:Name="chckboxAbschlFach" Content="Abschließendes Fach" HorizontalAlignment="Left" Height="22" Margin="40,155,0,0" VerticalAlignment="Top" Width="160"/>
-        <TextBox x:Name="txtBezeichnung" HorizontalAlignment="Left" Height="22" Margin="135,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" RenderTransformOrigin="0.313,0.53" ToolTip="Fachbezeichnung eingeben" MaxLength="45"/>
-        <TextBox x:Name="txtPos" HorizontalAlignment="Left" Height="22" Margin="135,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" ToolTip="z.B. 1" MaxLength="45"/>
+        <CheckBox x:Name="chckBoxVorFach" IsChecked="{Binding Vorrueckungsfach}" Content="Vorrückungsfach" HorizontalAlignment="Left" Height="22" Margin="40,182,0,0" VerticalAlignment="Top" Width="146" ToolTip=""/>
+        <ComboBox x:Name="comboxFachart" ItemsSource="{Binding Fachart}" SelectedValue="{Binding ZF.Fachart}" HorizontalAlignment="Left" Height="22" Margin="135,120,0,0" VerticalAlignment="Top" Width="144" ToolTip="Fachart wählen"/>
+        <CheckBox x:Name="chckboxAbschlFach" IsChecked="{Binding AbschliessendesFach}" Content="Abschließendes Fach" HorizontalAlignment="Left" Height="22" Margin="40,155,0,0" VerticalAlignment="Top" Width="160"/>
+        <TextBox x:Name="txtBezeichnung" Text="{Binding Bez}" HorizontalAlignment="Left" Height="22" Margin="135,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" RenderTransformOrigin="0.313,0.53" ToolTip="Fachbezeichnung eingeben" MaxLength="45"/>
+        <TextBox x:Name="txtPos" Text="{Binding Pos}" HorizontalAlignment="Left" Height="22" Margin="135,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" ToolTip="z.B. 1" MaxLength="45"/>
         <Label x:Name="lblUFach" Content="Unterrichtsfächer:" HorizontalAlignment="Left" Height="29" Margin="19,206,0,0" VerticalAlignment="Top" Width="146" FontWeight="Bold"/>
         <DataGrid ItemsSource="{Binding LstUFach}" SelectedItem="{Binding SelFach}" x:Name="UFDataGrid" HorizontalAlignment="Left" Margin="24,235,0,0" VerticalAlignment="Top" Height="65" Width="301" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Bereits dem Zeugnisfach zugeordnete Ufächer">
             <DataGrid.Columns>
@@ -28,9 +28,9 @@
                 <DataGridTextColumn Binding="{Binding Pos}" Header="Position"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="btnSpeichern" Content="Speichern" HorizontalAlignment="Left" Height="22" Margin="25,446,0,0" VerticalAlignment="Top" Width="107" IsEnabled="False" Click="btnSpeichern_Click"/>
+        <Button x:Name="btnSpeichern" Content="Speichern" IsEnabled="{Binding ZFachSaveAble}"  HorizontalAlignment="Left" Height="22" Margin="25,446,0,0" VerticalAlignment="Top" Width="107" Click="btnSpeichern_Click"/>
         <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" Height="22" Margin="161,446,0,0" VerticalAlignment="Top" Width="107" Click="btnAbbrechen_Click"/>
-        <Button x:Name="btnEntfernen" Content="Entfernen" HorizontalAlignment="Left" Height="22" Margin="225,305,0,0" VerticalAlignment="Top" Width="100" Background="{x:Null}" IsEnabled="False" Click="btnEntfernen_Click"/>
+        <Button x:Name="btnEntfernen" Content="Entfernen" HorizontalAlignment="Left" Height="22" Margin="225,305,0,0" VerticalAlignment="Top" Width="100" Click="btnEntfernen_Click"/>
         <Button x:Name="btnAnlegen" Command="{Binding OnBtnAnlegenCmd}" Content="Anlegen" HorizontalAlignment="Left" Height="21" Margin="25,305,0,0" VerticalAlignment="Top" Width="91" Click="btnAnlegen_Click"/>
         <Button x:Name="btnAendern" Command="{Binding OnBtnAendernCmd}" Content="Ändern" HorizontalAlignment="Left" Height="21" Margin="121,305,0,0" VerticalAlignment="Top" Width="100" Click="btnAendern_Click"/>
 
