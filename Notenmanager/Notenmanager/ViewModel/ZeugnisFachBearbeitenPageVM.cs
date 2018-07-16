@@ -8,6 +8,7 @@ using Notenmanager.Model;
 using System.Windows.Input;
 using System.Diagnostics;
 using System.Windows;
+using Notenmanager.ViewModel.Tools;
 
 namespace Notenmanager.ViewModel
 {
@@ -17,13 +18,16 @@ namespace Notenmanager.ViewModel
     public class ZeugnisFachBearbeitenPageVM : BaseViewModel
     {
         private ObservableCollection<Unterrichtsfach> _lstUFach = new ObservableCollection<Unterrichtsfach>();
+        private ObservableCollection<UFachLehrer> _lstULehrer = new ObservableCollection<UFachLehrer>();
         private Unterrichtsfach _selFach;
+        private UFachLehrer _selULehrer;
         private Zeugnisfach _zf;
 
         private UnterrichtsfachBearbeitenVM ufvm;
 
 
         public event EventHandler<DialogEventArgs> UFADialogRequest;
+        public event EventHandler<DialogEventArgs> LehrerDialogRequest;
         public event EventHandler<MessageBoxEventArgs> MessageBoxRequest;
 
 
@@ -33,6 +37,7 @@ namespace Notenmanager.ViewModel
         public ICommand OnBtnSpeichernCmd { get; set; }
         public ICommand OnBtnEntfernenCmd { get; set; }
         public ICommand OnBtnAbbrechenCmd { get; set; }
+        public ICommand OnBtnHinzufuegenCmd { get; set; }
         public ICommand OnUFachEditCmd { get; set; }
 
         #endregion Commands
@@ -45,6 +50,7 @@ namespace Notenmanager.ViewModel
             OnBtnSpeichernCmd = new ActionCommand(OnBtnSpeichern);
             OnBtnEntfernenCmd = new ActionCommand(OnBtnEntfernen);
             OnBtnAbbrechenCmd = new ActionCommand(OnBtnAbbrechen);
+            OnBtnHinzufuegenCmd = new ActionCommand(OnBtnHinzufuegen);
 
             ufvm = App.Current.FindResource("UFBearbeitenVM") as UnterrichtsfachBearbeitenVM;
         }
@@ -64,6 +70,18 @@ namespace Notenmanager.ViewModel
             }
         }
 
+        public ObservableCollection<UFachLehrer> LstULehrer
+        {
+            get
+            {
+                return _lstULehrer;
+            }
+            set
+            {
+                _lstULehrer = value;
+                OnPropertyChanged();
+            }
+        }
         public Unterrichtsfach SelFach
         {
             get
@@ -74,6 +92,18 @@ namespace Notenmanager.ViewModel
             set
             {
                 _selFach = value;
+                OnPropertyChanged();
+            }
+        }
+        public UFachLehrer SelLehrer
+        {
+            get
+            {
+                return _selULehrer;
+            }
+            set
+            {
+                _selULehrer = value;
                 OnPropertyChanged();
             }
         }
@@ -163,9 +193,6 @@ namespace Notenmanager.ViewModel
                 OnPropertyChanged();
             }
         }
-
-
-
         #endregion Properties
 
         private void OnBtnAnlegen(object obj)
@@ -213,9 +240,12 @@ namespace Notenmanager.ViewModel
             SelFach.Speichern();
         }
         private void OnBtnSpeichern(object obj)
+
         {
             ZF.Unterrichtsfaecher = LstUFach.ToList();
             ZF.Speichern();
+
+            Navigator.Instance.NavigateTo("MainPage");
         }
 
         private void OnBtnEntfernen(object obj)
@@ -234,7 +264,24 @@ namespace Notenmanager.ViewModel
         }
         private void OnBtnAbbrechen(object obj)
         {
-            
+            Navigator.Instance.NavigateTo("MainPage");
+        }
+        private void OnBtnHinzufuegen(object obj)
+        {
+            LehrerDialogRequest?.Invoke(this, new DialogEventArgs(DoHinzufuegen));
+        }
+        private void DoHinzufuegen(bool? obj)
+        {
+            if (obj != true)
+            {
+                //ufvm.UF.Reload();
+                return;
+            }
+
+            //ufvm.UF.Zeugnisfach = ZF;
+            //ufvm.UF.Speichern();
+            //LstULehrer.Add(ulvm);
+            //SelFach = ufvm.UF;
         }
        
 
