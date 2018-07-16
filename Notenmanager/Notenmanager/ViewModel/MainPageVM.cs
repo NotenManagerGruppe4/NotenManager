@@ -13,12 +13,10 @@ namespace Notenmanager.ViewModel
     public class MainPageVM : BaseViewModel
     {
         public MainPageVM()
-        {
-            NavigateToDateiImportCmd = new ActionCommand(OnNavigateToDateiImport);
-            NavigateToFachAnlegenCmd = new ActionCommand(OnNavigateToFachAnlegen);
+        { 
+            // Comamnds initialisieren:
             NavigationCmd = new Command<string>(OnNavigation);
         }
-
 
         #region Events
         public event EventHandler<NavigationEventArgs> NavigateToPageRequest;
@@ -35,25 +33,13 @@ namespace Notenmanager.ViewModel
 
         #region Methoden
         #region CommandHandler
+        /// <summary>
+        /// Navigiert zur angegebenen Seite, deren Ressourcen-Schlüssel man per CommandParameter(in XAML) übergibt
+        /// </summary>
+        /// <param name="key">Schlüssel der Seite zu der navigiert werden soll aus dem ResourceDictionary der App.xaml </param>
         private static void OnNavigation(string key)
         {
             Navigator.Instance.NavigateTo(key);
-        }
-
-
-        private void OnNavigateToDateiImport(object obj)
-        {
-            NavigateToPageRequest?.Invoke(this, new NavigationEventArgs()
-            {
-                ZielPage = new DateiImportPage()
-            });
-        }
-        private void OnNavigateToFachAnlegen(object obj)
-        {
-            NavigateToPageRequest?.Invoke(this, new NavigationEventArgs()
-            {
-                ZielPage = new FachAnlegenPage()
-            });    
         }
         #endregion
         #endregion
