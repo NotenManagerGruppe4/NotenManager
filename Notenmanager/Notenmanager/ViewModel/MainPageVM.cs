@@ -18,8 +18,6 @@ namespace Notenmanager.ViewModel
             NavigationCmd = new Command<string>(OnNavigation);
         }
 
-        
-
         #region Events
         public event EventHandler<NavigationEventArgs> NavigateToPageRequest;
         #endregion
@@ -29,8 +27,6 @@ namespace Notenmanager.ViewModel
         public ICommand NavigateToDateiImportCmd { get; set; }
         public ICommand NavigateToFachAnlegenCmd { get; set; }
         public ICommand NavigationCmd { get; set; }
-        
-
         #endregion
         #endregion
 
