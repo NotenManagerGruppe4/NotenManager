@@ -43,7 +43,7 @@ namespace Notenmanager.ViewModel
             // Commands initialisieren
             DateiImportierenCmd = new ActionCommand(OnDateiImportieren);
             CBoxChangedCmd = new ActionCommand(OnCBoxSelectionChanged);
-            AbbrechenCmd = new ActionCommand(OnAbbrechen);
+            AbbrechenCmd = new Command<string>(OnAbbrechen);
             DateiAuswaehlenCmd = new ActionCommand(OnDateiAuswaehlen);
 
             MainPageVM parentViewModel = App.Current.FindResource("MainPageVM") as MainPageVM;
@@ -218,9 +218,9 @@ namespace Notenmanager.ViewModel
             CbSchulenEnabled = DateiTyp.Content.ToString() == "Klasse";
         }
 
-        private void OnAbbrechen(object obj)
+        private void OnAbbrechen(string key)
         {
-            NavigationRequest?.Invoke(this, new NavigationEventArgs());
+            (App.Current.FindResource("MainWindowVM") as MainWindowVM).CurrentPage = App.Current.FindResource("MainPage") as Page;
         }
         #endregion
         #endregion

@@ -18,10 +18,10 @@ namespace Notenmanager.View
     /// <summary>
     /// Interaktionslogik für UnterrichtsfachAnlegen.xaml
     /// </summary>
-    public partial class UnterrichtsfachAnlegen : Window
+    public partial class UnterrichtsfachBearbeitenWindow : Window
     {
         DialogMode dm;
-        public UnterrichtsfachAnlegen(DialogMode dm)
+        public UnterrichtsfachBearbeitenWindow(DialogMode dm)
         {
             InitializeComponent();
             this.dm = dm;

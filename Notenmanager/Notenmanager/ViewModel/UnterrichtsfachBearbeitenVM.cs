@@ -26,9 +26,12 @@ namespace Notenmanager.ViewModel
             set
             {
                 uf = value;
-                OnPropertyChanged("Pos");
-                OnPropertyChanged("Bez");
-                OnPropertyChanged("Stunden");
+                if (uf != null)
+                {
+                    OnPropertyChanged("Pos");
+                    OnPropertyChanged("Bez");
+                    OnPropertyChanged("Stunden");
+                }
                 OnPropertyChanged("UFachSaveAble");
             }
         }
