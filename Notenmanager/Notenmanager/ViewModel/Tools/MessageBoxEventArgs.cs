@@ -14,5 +14,14 @@ namespace Notenmanager.Model
         public MessageBoxButton MessageBoxButton { get; set; }
         public MessageBoxImage MessageBoxImage { get; set; }
         public Action<MessageBoxResult> ResultAction { get; set; }
+        public MessageBoxEventArgs() { }
+        public MessageBoxEventArgs(Action<MessageBoxResult> resultAction, string text, string caption, MessageBoxButton button, MessageBoxImage image)
+        {
+            MessageBoxText = text;
+            Caption = caption;
+            MessageBoxImage = image;
+            MessageBoxButton = button;
+            ResultAction = resultAction;
+        }
     }
 }

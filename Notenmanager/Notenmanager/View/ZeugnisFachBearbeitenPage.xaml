@@ -30,8 +30,8 @@
         </DataGrid>
         <Button x:Name="btnSpeichern" Content="Speichern" IsEnabled="{Binding ZFachSaveAble}"  HorizontalAlignment="Left" Height="22" Margin="25,446,0,0" VerticalAlignment="Top" Width="107"/>
         <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" Height="22" Margin="161,446,0,0" VerticalAlignment="Top" Width="107"/>
-        <Button x:Name="btnEntfernen" Content="Entfernen" HorizontalAlignment="Left" Height="22" Margin="225,305,0,0" VerticalAlignment="Top" Width="100"/>
-        <Button x:Name="btnAnlegen" Command="{Binding OnBtnAnlegenCmd}" Content="Anlegen" HorizontalAlignment="Left" Height="21" Margin="25,305,0,0" VerticalAlignment="Top" Width="91"/>
+        <Button x:Name="btnEntfernen" Command="{Binding OnBtnEntfernenCmd}" Content="Entfernen" HorizontalAlignment="Left" Height="22" Margin="225,305,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="btnAnlegen" Command="{Binding OnBtnAnlegenCmd}" IsEnabled="{Binding ZFachSaveAble}" Content="Anlegen" HorizontalAlignment="Left" Height="21" Margin="25,305,0,0" VerticalAlignment="Top" Width="91"/>
         <Button x:Name="btnAendern" Command="{Binding OnBtnAendernCmd}" Content="Ändern" HorizontalAlignment="Left" Height="21" Margin="121,305,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
