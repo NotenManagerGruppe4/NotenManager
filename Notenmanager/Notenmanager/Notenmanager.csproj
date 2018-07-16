@@ -108,6 +108,7 @@
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DateiImportPageVM.cs" />
     <Compile Include="ViewModel\Tools\DialogEventArgs.cs" />
+    <Compile Include="ViewModel\Tools\Navigator.cs" />
     <Compile Include="ViewModel\ZeugnisFachBearbeitenPageVM.cs" />
     <Compile Include="ViewModel\KlassenPageVM.cs" />
     <Compile Include="ViewModel\MainPageVM.cs" />

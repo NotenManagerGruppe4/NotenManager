@@ -1,4 +1,5 @@
 ﻿using Notenmanager.View;
+using Notenmanager.ViewModel.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace Notenmanager.ViewModel
         #region CommandHandler
         private static void OnNavigation(string key)
         {
-            (App.Current.FindResource("MainWindowVM") as MainWindowVM).CurrentPage = App.Current.FindResource(key) as Page;
+            Navigator.Instance.NavigateTo(key);
         }
 
 

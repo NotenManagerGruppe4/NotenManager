@@ -11,6 +11,6 @@
         SizeToContent="WidthAndHeight"
         DataContext="{StaticResource MainWindowVM}">
     <Grid>
-        <Frame x:Name="frMainFrame" Content="{Binding CurrentPage}" HorizontalAlignment="Stretch" Height="Auto" NavigationUIVisibility="Visible" VerticalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        <Frame x:Name="frMainFrame" Content="{Binding CurrentPage}" HorizontalAlignment="Stretch" Height="Auto" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
     </Grid>
 </Window>
