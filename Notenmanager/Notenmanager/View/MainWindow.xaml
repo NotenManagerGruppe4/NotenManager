@@ -10,7 +10,20 @@
         MinWidth="600"
         SizeToContent="WidthAndHeight"
         DataContext="{StaticResource MainWindowVM}">
-    <Grid>
-        <Frame x:Name="frMainFrame" Content="{Binding CurrentPage}" HorizontalAlignment="Stretch" Height="Auto" NavigationUIVisibility="Visible" VerticalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+    <Grid x:Name="MainWindowGrid" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="30"></RowDefinition>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        
+        <Grid Grid.Row="0">
+            <Label x:Name="label" Content="Notenmanager der BSZ Wiesau" Width="auto" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+        </Grid>
+        
+        
+        <Grid Grid.Row="1">
+            <Frame x:Name="frMainFrame" Content="{Binding CurrentPage}" HorizontalAlignment="Stretch" Height="Auto" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        </Grid>
     </Grid>
 </Window>
