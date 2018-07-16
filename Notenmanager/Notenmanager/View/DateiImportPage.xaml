@@ -29,8 +29,8 @@
             <TextBox x:Name="tboxFilename" Text="{Binding DateiPfad}" HorizontalAlignment="Stretch" Height="23" Margin="10,107,10,10" VerticalAlignment="Top" TextWrapping="NoWrap" IsReadOnly="True"/>
             <Label Content="Dateityp:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,135,10,0"/>
             <ComboBox x:Name="cBoxDateiart" SelectedIndex="0" SelectedItem="{Binding DateiTyp}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,163,10,0">
-                <ComboBoxItem>Klasse</ComboBoxItem>
                 <ComboBoxItem>Schueler</ComboBoxItem>
+                <ComboBoxItem>Klasse</ComboBoxItem>
                 <ComboBoxItem>Lehrer</ComboBoxItem>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged" >
@@ -38,8 +38,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
-            <Label Content="Schule auswählen(bei Klassenimport):" Margin="10,191,10,10"/>
-            <ComboBox ItemsSource="{Binding Schulen}" SelectedItem="{Binding SelektierteSchule}" IsEnabled="{Binding CbSchulenEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,219,0,0">
+            <Label Content="Schule auswählen(nur bei Klassenimport):" Margin="10,191,10,10"/>
+            <ComboBox ItemsSource="{Binding Schulen}" SelectedIndex="0" SelectedItem="{Binding SelektierteSchule}" IsEnabled="{Binding CbSchulenEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,219,0,0">
                 <ComboBox.ItemTemplate>
                     <DataTemplate DataType="model:Schule">
                         <ContentControl Content="{Binding Bez}"/>

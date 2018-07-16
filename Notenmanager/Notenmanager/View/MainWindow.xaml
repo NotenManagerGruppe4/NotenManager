@@ -12,18 +12,45 @@
         DataContext="{StaticResource MainWindowVM}">
     <Grid x:Name="MainWindowGrid" Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" MinHeight="30"></RowDefinition>
+            <RowDefinition Height="Auto" MinHeight="20"></RowDefinition>
+            <RowDefinition Height="Auto" MinHeight="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
-        
+
+
         <Grid Grid.Row="0">
-            <Label x:Name="label" Content="Notenmanager der BSZ Wiesau" Width="auto" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+            <DockPanel HorizontalAlignment="Stretch"  Height="Auto" LastChildFill="False" VerticalAlignment="Top" Width="Auto" Background="DarkCyan">
+                <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True" Background="DarkCyan" Loaded="ToolBar_Loaded" HorizontalContentAlignment="Stretch">
+                    <Menu Name="Datei" Background="DarkCyan">
+                        <MenuItem Header="Datei" Background="DarkCyan">
+                            <MenuItem Header="Beenden" Command="{Binding BeendenCmd}"></MenuItem>
+                        </MenuItem>
+                        <MenuItem Header="Stammdaten" Width="auto" Background="DarkCyan">
+                            <MenuItem Header="Lehrer"></MenuItem>
+                            <MenuItem Header="Klassen"></MenuItem>
+                            <MenuItem Header="Schüler"></MenuItem>
+                        </MenuItem>
+
+                    </Menu>
+                    
+                    
+                </ToolBar>
+
+            </DockPanel>
+
         </Grid>
-        
-        
+
         <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="19*"/>
+                <ColumnDefinition Width="55*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="label" Content="Notenmanager des BSZ Wiesau" Width="Auto" FontWeight="Bold" HorizontalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
             <Frame x:Name="frMainFrame" Content="{Binding CurrentPage}" HorizontalAlignment="Stretch" Height="Auto" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
         </Grid>
+
     </Grid>
 </Window>
