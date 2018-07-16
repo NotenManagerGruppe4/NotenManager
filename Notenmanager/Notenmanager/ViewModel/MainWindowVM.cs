@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Notenmanager.ViewModel.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,13 +15,18 @@ namespace Notenmanager.ViewModel
 
 
         public ICommand BeendenCmd { get; set; }
+        public ICommand StartCmd { get; set; }
 
         public MainWindowVM()
         {
             CurrentPage = App.Current.FindResource("MainPage") as Page;
             BeendenCmd = new ActionCommand(OnBeenden);
+            StartCmd = new ActionCommand(OnStart);
         }
-
+        private void OnStart(object obj)
+        {
+            Navigator.Instance.NavigateTo("MainPage");
+        }
         private void OnBeenden(object obj)
         {
             App.Current.Shutdown();

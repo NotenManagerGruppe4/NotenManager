@@ -23,6 +23,7 @@
                 <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True" Background="DarkCyan" Loaded="ToolBar_Loaded" HorizontalContentAlignment="Stretch">
                     <Menu Name="Datei" Background="DarkCyan">
                         <MenuItem Header="Datei" Background="DarkCyan">
+                            <MenuItem Header="Start" Command="{Binding StartCmd}"></MenuItem>
                             <MenuItem Header="Beenden" Command="{Binding BeendenCmd}"></MenuItem>
                         </MenuItem>
                         <MenuItem Header="Stammdaten" Width="auto" Background="DarkCyan">
