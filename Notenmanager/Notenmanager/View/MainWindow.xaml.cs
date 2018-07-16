@@ -26,8 +26,8 @@ namespace Notenmanager.View
         public MainWindow()
         {
             InitializeComponent();
-            _viewModel = DataContext as MainPageVM;
-            _viewModel.NavigateToPageRequest += OnNavigateToPageRequest;
+            //_viewModel = DataContext as MainPageVM;
+            //_viewModel.NavigateToPageRequest += OnNavigateToPageRequest;
         }
 
         private void OnNavigateToPageRequest(object sender, NavigationEventArgs e)

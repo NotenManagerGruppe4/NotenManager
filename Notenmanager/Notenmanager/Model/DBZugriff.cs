@@ -185,7 +185,7 @@ namespace Notenmanager.Model
 
       public void Dispose()
       {
-         Save();
+         //Save();
          Context.Dispose();
       }
 

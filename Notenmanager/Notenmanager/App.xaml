@@ -3,13 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Notenmanager"
              xmlns:vm="clr-namespace:Notenmanager.ViewModel"
+             xmlns:view="clr-namespace:Notenmanager.View"
              StartupUri="View/MainWindow.xaml"
              Exit="Application_Exit">
     <Application.Resources>
+        <vm:MainWindowVM x:Key="MainWindowVM"/>
         <vm:MainPageVM x:Key="MainPageVM"/>
         <vm:ZeugnisFachBearbeitenPageVM x:Key="ZFBearbeitenVM"/>
         <vm:UnterrichtsfachBearbeitenVM x:Key="UFBearbeitenVM"/>
         <vm:DateiImportPageVM x:Key="DateiImportPageVM"/>
         <vm:KlassenPageVM x:Key="KlassenPageVM"/>
+        <view:MainPage x:Key="MainPage"/>
+        <view:DateiImportPage x:Key="DateiImportPage"/>
+        <view:FachAnlegenPage x:Key="FachAnlegenPage"/>
     </Application.Resources>
 </Application>
