@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Notenmanager.Model;
 using System.Windows.Input;
 using System.Diagnostics;
+using System.Windows;
 
 namespace Notenmanager.ViewModel
 {
@@ -23,14 +24,17 @@ namespace Notenmanager.ViewModel
 
 
         public event EventHandler<DialogEventArgs> UFADialogRequest;
+        public event EventHandler<MessageBoxEventArgs> MessageBoxRequest;
 
 
         #region Commands
         public ICommand OnBtnAnlegenCmd { get; set; }
         public ICommand OnBtnAendernCmd { get; set; }
         public ICommand OnBtnSpeichernCmd { get; set; }
+        public ICommand OnBtnEntfernenCmd { get; set; }
+        public ICommand OnBtnAbbrechenCmd { get; set; }
         public ICommand OnUFachEditCmd { get; set; }
-        
+
         #endregion Commands
         public ZeugnisFachBearbeitenPageVM()
         {
@@ -39,14 +43,10 @@ namespace Notenmanager.ViewModel
             OnBtnAnlegenCmd = new ActionCommand(OnBtnAnlegen);
             OnBtnAendernCmd = new ActionCommand(OnBtnAendern);
             OnBtnSpeichernCmd = new ActionCommand(OnBtnSpeichern);
+            OnBtnEntfernenCmd = new ActionCommand(OnBtnEntfernen);
+            OnBtnAbbrechenCmd = new ActionCommand(OnBtnAbbrechen);
 
             ufvm = App.Current.FindResource("UFBearbeitenVM") as UnterrichtsfachBearbeitenVM;
-        }
-
-        private void OnBtnSpeichern(object obj)
-        {
-            ZF.Unterrichtsfaecher = LstUFach.ToList();
-            ZF.Speichern();
         }
 
         #region Properties
@@ -184,6 +184,7 @@ namespace Notenmanager.ViewModel
                 return;
             }
 
+            ufvm.UF.Zeugnisfach = ZF;
             ufvm.UF.Speichern();
             LstUFach.Add(ufvm.UF);
             SelFach = ufvm.UF;
@@ -195,7 +196,6 @@ namespace Notenmanager.ViewModel
 
             UFADialogRequest?.Invoke(this, new DialogEventArgs(DoAendern, DialogMode.Aendern));
         }
-
         private void DoAendern(bool? obj)
         {
             if (obj != true)
@@ -204,10 +204,39 @@ namespace Notenmanager.ViewModel
                 return;
             }
 
-            SelFach = ufvm.UF;
+            int index = LstUFach.IndexOf(ufvm.UF);
 
+            LstUFach.RemoveAt(index);
+            LstUFach.Insert(index, ufvm.UF);
+
+            SelFach = ufvm.UF;
             SelFach.Speichern();
         }
+        private void OnBtnSpeichern(object obj)
+        {
+            ZF.Unterrichtsfaecher = LstUFach.ToList();
+            ZF.Speichern();
+        }
+
+        private void OnBtnEntfernen(object obj)
+        {
+            MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(DoEntfernen, "Wirklich löschen?", "Sind Sie sicher?", MessageBoxButton.YesNo, MessageBoxImage.Question));
+        }
+
+        private void DoEntfernen(MessageBoxResult obj)
+        {
+            if (obj == MessageBoxResult.Yes)
+            {
+                this.SelFach.Loeschen();
+                this.LstUFach.Remove(SelFach);
+            }
+            OnPropertyChanged("LstUFach");
+        }
+        private void OnBtnAbbrechen(object obj)
+        {
+            
+        }
+       
 
         private void SaveAbleChanged()
         {
@@ -226,6 +255,5 @@ namespace Notenmanager.ViewModel
                 return (ZF.Pos > 0 && !string.IsNullOrWhiteSpace(ZF.Bez));
             }
         }
-
     }
 }
