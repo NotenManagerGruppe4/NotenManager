@@ -36,6 +36,7 @@ namespace Notenmanager.View
                 this.comboxFachart.Items.Add(a);
 
             _viewmodel.UFADialogRequest += OnUFADialogRequest;
+            _viewmodel.MessageBoxRequest += OnMessageBoxRequest;
         }
 
         private void OnUFADialogRequest(object sender, DialogEventArgs e)
@@ -44,6 +45,13 @@ namespace Notenmanager.View
 
             if (e.ResultAction != null)
                 e.ResultAction(dlg.ShowDialog());
+        }
+        private void OnMessageBoxRequest(object sender, MessageBoxEventArgs e)
+        {
+            MessageBoxResult r = MessageBox.Show(e.MessageBoxText, e.Caption, e.MessageBoxButton, e.MessageBoxImage);
+
+            if (e.ResultAction != null)
+                e.ResultAction(r);
         }
     }
 }
