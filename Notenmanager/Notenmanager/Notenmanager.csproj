@@ -136,8 +136,8 @@
       <DependentUpon>CrashMessage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Util\GridViewSort.cs" />
-    <Compile Include="View\UnterrichtsfachBearbeiten.xaml.cs">
-      <DependentUpon>UnterrichtsfachBearbeiten.xaml</DependentUpon>
+    <Compile Include="View\UnterrichtsfachBearbeitenWindow.xaml.cs">
+      <DependentUpon>UnterrichtsfachBearbeitenWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -189,7 +189,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\UnterrichtsfachBearbeiten.xaml">
+    <Page Include="View\UnterrichtsfachBearbeitenWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
