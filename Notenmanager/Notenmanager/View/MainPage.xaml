@@ -11,7 +11,7 @@
 
     <Grid Background="White">
         <Button x:Name="btnButton" Command="{Binding NavigationCmd}" CommandParameter="DateiImportPage"  Content="Import Stammdaten" HorizontalAlignment="Left" Margin="98,97,0,0" VerticalAlignment="Top" Width="114"/>
-        <Button x:Name="btnMeeensch" Command="{Binding NavigateToFachAnlegenCmd}" Content="Fach anlegen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" Margin="98,72,0,0"/>
+        <Button x:Name="btnMeeensch" Command="{Binding NavigationCmd}" CommandParameter="FachAnlegenPage" Content="Fach anlegen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" Margin="98,72,0,0"/>
 
     </Grid>
 </Page>

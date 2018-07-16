@@ -1,4 +1,5 @@
 ﻿using Notenmanager.ViewModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -21,7 +22,8 @@ namespace Notenmanager.View
 
         private void OnNavigationRequest(object sender, NavigationEventArgs e)
         {
-            this.NavigationService.GoBack();
+            if(this.NavigationService.CanGoBack)
+                this.NavigationService.GoBack();
         }
 
         private void OnMessageBoxRequest(object sender, Model.MessageBoxEventArgs e)

@@ -15,5 +15,6 @@
         <vm:KlassenPageVM x:Key="KlassenPageVM"/>
         <view:MainPage x:Key="MainPage"/>
         <view:DateiImportPage x:Key="DateiImportPage"/>
+        <view:FachAnlegenPage x:Key="FachAnlegenPage"/>
     </Application.Resources>
 </Application>

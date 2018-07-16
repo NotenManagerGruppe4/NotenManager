@@ -28,10 +28,5 @@ namespace Notenmanager.View
             InitializeComponent();
             _viewModel = DataContext as MainPageVM;
         }
-
-        public void MethodeFuerPush()
-        {
-            throw new Exception();//bullshit 
-        }
     }
 }
