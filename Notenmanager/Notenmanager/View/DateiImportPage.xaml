@@ -46,8 +46,8 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button x:Name="btnImport" Command="{Binding DateiImportierenCmd}" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,0,0"/>
-            <Button x:Name="btnAbbrechen" Command="{Binding AbbrechenCmd}" Content="Abbrechen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,270,0,0"/>
+            <Button x:Name="btnImport" Command="{Binding DateiImportierenCmd}" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,0,10"/>
+            <Button x:Name="btnAbbrechen" Command="{Binding AbbrechenCmd}" Content="Abbrechen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,270,0,10"/>
         </Grid>
         
         <!--<Grid HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2" Grid.RowSpan="3">
