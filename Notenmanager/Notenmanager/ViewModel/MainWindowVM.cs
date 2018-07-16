@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Notenmanager.ViewModel
 {
@@ -11,9 +12,18 @@ namespace Notenmanager.ViewModel
     {
         public Page _currentPage;
 
+
+        public ICommand BeendenCmd { get; set; }
+
         public MainWindowVM()
         {
             CurrentPage = App.Current.FindResource("MainPage") as Page;
+            BeendenCmd = new ActionCommand(OnBeenden);
+        }
+
+        private void OnBeenden(object obj)
+        {
+            App.Current.Shutdown();
         }
 
         public Page CurrentPage

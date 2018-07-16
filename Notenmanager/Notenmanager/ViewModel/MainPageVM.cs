@@ -16,13 +16,9 @@ namespace Notenmanager.ViewModel
         { 
             // Comamnds initialisieren:
             NavigationCmd = new Command<string>(OnNavigation);
-            BeendenCmd = new ActionCommand(OnBeenden);
         }
 
-        private void OnBeenden(object obj)
-        {
-            App.Current.Shutdown();
-        }
+        
 
         #region Events
         public event EventHandler<NavigationEventArgs> NavigateToPageRequest;
@@ -33,7 +29,7 @@ namespace Notenmanager.ViewModel
         public ICommand NavigateToDateiImportCmd { get; set; }
         public ICommand NavigateToFachAnlegenCmd { get; set; }
         public ICommand NavigationCmd { get; set; }
-        public ICommand BeendenCmd { get; set; }
+        
 
         #endregion
         #endregion
