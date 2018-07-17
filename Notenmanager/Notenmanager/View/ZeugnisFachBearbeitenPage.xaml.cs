@@ -17,49 +17,49 @@ using System.Windows.Shapes;
 
 namespace Notenmanager.View
 {
-    /// <summary>
-    /// Interaktionslogik für FachAnlegenPage.xaml
-    /// </summary>
-    public partial class FachAnlegenPage : Page
-    {
-        private ZeugnisFachBearbeitenPageVM _viewmodel;
-        public FachAnlegenPage()
-        {
-            InitializeComponent();
-        }
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            _viewmodel = FindResource("ZFBearbeitenVM") as ZeugnisFachBearbeitenPageVM;
+   /// <summary>
+   /// Interaktionslogik für FachAnlegenPage.xaml
+   /// </summary>
+   public partial class FachAnlegenPage : Page
+   {
+      private ZeugnisFachBearbeitenPageVM _viewmodel;
+      public FachAnlegenPage()
+      {
+         InitializeComponent();
+      }
+      private void Grid_Loaded(object sender, RoutedEventArgs e)
+      {
+         _viewmodel = FindResource("ZFBearbeitenVM") as ZeugnisFachBearbeitenPageVM;
 
-            this.comboxFachart.Items.Clear();
-            foreach (Fachart a in Enum.GetValues(typeof(Fachart)))
-                this.comboxFachart.Items.Add(a);
+         this.comboxFachart.Items.Clear();
+         foreach (Fachart a in Enum.GetValues(typeof(Fachart)))
+            this.comboxFachart.Items.Add(a);
 
-            _viewmodel.UFADialogRequest += OnUFADialogRequest;
-            _viewmodel.MessageBoxRequest += OnMessageBoxRequest;
-            _viewmodel.LehrerDialogRequest += OnLehrerDialogRequest;
-        }
+         _viewmodel.UFADialogRequest += OnUFADialogRequest;
+         _viewmodel.MessageBoxRequest += OnMessageBoxRequest;
+         //_viewmodel.LehrerDialogRequest += OnLehrerDialogRequest;
+      }
 
-        private void OnUFADialogRequest(object sender, DialogEventArgs e)
-        {
-            UnterrichtsfachBearbeitenWindow dlg = new UnterrichtsfachBearbeitenWindow(e.dm);
+      private void OnUFADialogRequest(object sender, DialogEventArgs e)
+      {
+         UnterrichtsfachBearbeitenWindow dlg = new UnterrichtsfachBearbeitenWindow(e.dm);
 
-            if (e.ResultAction != null)
-                e.ResultAction(dlg.ShowDialog());
-        }
-        private void OnMessageBoxRequest(object sender, MessageBoxEventArgs e)
-        {
-            MessageBoxResult r = MessageBox.Show(e.MessageBoxText, e.Caption, e.MessageBoxButton, e.MessageBoxImage);
+         if (e.ResultAction != null)
+            e.ResultAction(dlg.ShowDialog());
+      }
+      private void OnMessageBoxRequest(object sender, MessageBoxEventArgs e)
+      {
+         MessageBoxResult r = MessageBox.Show(e.MessageBoxText, e.Caption, e.MessageBoxButton, e.MessageBoxImage);
 
-            if (e.ResultAction != null)
-                e.ResultAction(r);
-        }
-        //private void OnLehrerDialogRequest(object sender, DialogEventArgs e)
-        //{
-        //    UnterrichtsfachBearbeitenWindow dlg = new UnterrichtsfachBearbeitenWindow(e.dm);
+         if (e.ResultAction != null)
+            e.ResultAction(r);
+      }
+      //private void OnLehrerDialogRequest(object sender, DialogEventArgs e)
+      //{
+      //    UnterrichtsfachBearbeitenWindow dlg = new UnterrichtsfachBearbeitenWindow(e.dm);
 
-        //    if (e.ResultAction != null)
-        //        e.ResultAction(dlg.ShowDialog());
-        //}
-    }
+      //    if (e.ResultAction != null)
+      //        e.ResultAction(dlg.ShowDialog());
+      //}
+   }
 }
