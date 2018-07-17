@@ -37,7 +37,7 @@ namespace Notenmanager.View
 
             _viewmodel.UFADialogRequest += OnUFADialogRequest;
             _viewmodel.MessageBoxRequest += OnMessageBoxRequest;
-            //_viewmodel.LehrerDialogRequest += OnLehrerDialogRequest;
+            _viewmodel.LehrerDialogRequest += OnLehrerDialogRequest;
         }
 
         private void OnUFADialogRequest(object sender, DialogEventArgs e)
@@ -55,12 +55,12 @@ namespace Notenmanager.View
                 e.ResultAction(r);
         }
 
-        //private void OnLehrerDialogRequest(object sender, DialogEventArgs e)
-        //{
-        //    UnterrichtsfachBearbeitenWindow dlg = new UnterrichtsfachBearbeitenWindow(e.dm);
+        private void OnLehrerDialogRequest(object sender, DialogEventArgs e)
+        {
+            LehrerAuswahlWindow dlg = new LehrerAuswahlWindow();
 
-        //    if (e.ResultAction != null)
-        //        e.ResultAction(dlg.ShowDialog());
-        //}
+            if (e.ResultAction != null)
+                e.ResultAction(dlg.ShowDialog());
+        }
     }
 }

@@ -22,6 +22,26 @@ namespace Notenmanager.View
         public LehrerAuswahlWindow()
         {
             InitializeComponent();
+
+            this.Loaded += LehrerAuswahlWindow_Loaded;
+        }
+
+        private void LehrerAuswahlWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.btnHinzufuegen.Click += BtnHinzufuegen_Click;
+            this.btnAbbrechen.Click += BtnAbbrechen_Click;
+        }
+
+        private void BtnAbbrechen_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            Close();
+        }
+
+        private void BtnHinzufuegen_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+            Close();
         }
     }
 }
