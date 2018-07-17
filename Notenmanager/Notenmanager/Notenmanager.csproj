@@ -121,6 +121,9 @@
     <Compile Include="View\DateiImportPage.xaml.cs">
       <DependentUpon>DateiImportPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\LehrerAuswahlWindow.xaml.cs">
+      <DependentUpon>LehrerAuswahlWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ZeugnisFachBearbeitenPage.xaml.cs">
       <DependentUpon>ZeugnisFachBearbeitenPage.xaml</DependentUpon>
     </Compile>
@@ -175,6 +178,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="View\KlassenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LehrerAuswahlWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
