@@ -16,5 +16,9 @@ namespace Notenmanager.ViewModel
             this.dm = dm;
             ResultAction = resultAction;
         }
+        public DialogEventArgs(Action<bool?> resultAction)
+        {
+            ResultAction = resultAction;
+        }
     }
 }

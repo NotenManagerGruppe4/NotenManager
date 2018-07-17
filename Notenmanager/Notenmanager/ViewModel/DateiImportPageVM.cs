@@ -169,7 +169,7 @@ namespace Notenmanager.ViewModel
                 {
                     // bestimmen um welche Dateiart es sich handelt und diese entsprechend importieren
                     
-                    switch (DateiPfad.ToString())
+                    switch (DateiTyp.Content.ToString())
                     {
                         case "Klasse":
                             DateiZugriff.ImportKlassen(DateiPfad, SelektierteSchule);
