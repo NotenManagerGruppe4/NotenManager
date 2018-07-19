@@ -131,13 +131,13 @@ namespace Notenmanager.Persistenz
          {
             Vorname = "-",
             Nachname = "-",
-            Kürzel = "-",
+            Kuerzel = "-",
             Dienstbezeichnung = "DUMMY",
          };
          dummy = DBZugriff.Current.SelectFirstOrDefault<Lehrer>(x =>
                x.Vorname == dummy.Vorname
                && x.Nachname == dummy.Nachname
-               && x.Kürzel == dummy.Kürzel
+               && x.Kuerzel == dummy.Kuerzel
                && x.Dienstbezeichnung == dummy.Dienstbezeichnung
                ) ?? dummy;
          dummy.Speichern();
@@ -187,7 +187,7 @@ namespace Notenmanager.Persistenz
             lehrer.SID = Convert.ToInt32(tmp[0]);
             lehrer.Nachname = tmp[1];
             lehrer.Vorname = tmp[2];
-            lehrer.Kürzel = tmp[3];
+            lehrer.Kuerzel = tmp[3];
 
 
             DBZugriff.Current.Speichern(lehrer, false);

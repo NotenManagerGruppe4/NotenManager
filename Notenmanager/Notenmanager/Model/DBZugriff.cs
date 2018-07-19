@@ -53,7 +53,8 @@ namespace Notenmanager.Model
             else
                dbset.Add(obj);
 
-            Save();
+            if(autoSyncDb)
+               Save();
 
             return true;
          }

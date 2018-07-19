@@ -190,7 +190,7 @@ namespace Notenmanager.ViewModel
                         MessageBoxText = $"{DateiTyp.Content.ToString()}-Datei erfolgreich importiert!\r\n\r\n{rueckmeldung}",
                         MessageBoxImage = System.Windows.MessageBoxImage.Information,
                         MessageBoxButton = System.Windows.MessageBoxButton.OK,
-                    });
+                    });    
 
                     DateiPfad = "";
                 }
