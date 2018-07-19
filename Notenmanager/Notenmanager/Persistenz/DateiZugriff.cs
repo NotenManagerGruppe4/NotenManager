@@ -84,15 +84,6 @@ namespace Notenmanager.Persistenz
             Fehler = fehler,
          };
 
-         //return $"Importergebniss:\r\n" + 
-         //   $"{ok}x Schüler ok und gespeichert\r\n" +
-         //   (skfehler.Count > 0 ?
-         //   $"\tdavon konnten bei {skfehler.Count}x keine Schülerklassen erstellt werden:\r\n" +
-         //   string.Join("\r\n\t\t", skfehler) : "") +
-         //   (fehler.Count > 0 ? 
-         //   $"{fehler.Count}x Schüler fehlerhaft und nicht importiert:\r\n" +
-         //   string.Join("\r\n\t\t", fehler) : "");
-
       }
 
       //Wünschenswert: Rückgabewerte für AnzSchuelerKlasse OK & Err
