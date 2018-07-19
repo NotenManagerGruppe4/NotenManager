@@ -81,9 +81,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Migrations\201807121257593_GenerateNoma.cs" />
-    <Compile Include="Migrations\201807121257593_GenerateNoma.Designer.cs">
-      <DependentUpon>201807121257593_GenerateNoma.cs</DependentUpon>
+    <Compile Include="Migrations\201807190633350_GenerateNoma.cs" />
+    <Compile Include="Migrations\201807190633350_GenerateNoma.Designer.cs">
+      <DependentUpon>201807190633350_GenerateNoma.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Classes\Klasse.cs" />
@@ -100,6 +100,8 @@
     <Compile Include="Model\Context.cs" />
     <Compile Include="Model\DBZugriff.cs" />
     <Compile Include="Model\IDBable.cs" />
+    <Compile Include="Persistenz\Importstatistik.cs" />
+    <Compile Include="ViewModel\LehrerAuswahlWindowVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\Tools\Command.cs" />
     <Compile Include="ViewModel\Tools\MessageBoxEventArgs.cs" />
@@ -120,6 +122,9 @@
     <Compile Include="ViewModel\UnterrichtsfachBearbeitenVM.cs" />
     <Compile Include="View\DateiImportPage.xaml.cs">
       <DependentUpon>DateiImportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LehrerAuswahlWindow.xaml.cs">
+      <DependentUpon>LehrerAuswahlWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ZeugnisFachBearbeitenPage.xaml.cs">
       <DependentUpon>ZeugnisFachBearbeitenPage.xaml</DependentUpon>
@@ -155,8 +160,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201807121257593_GenerateNoma.resx">
-      <DependentUpon>201807121257593_GenerateNoma.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807190633350_GenerateNoma.resx">
+      <DependentUpon>201807190633350_GenerateNoma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -175,6 +180,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="View\KlassenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LehrerAuswahlWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
