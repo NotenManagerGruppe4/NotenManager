@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,14 @@ using System.Threading.Tasks;
 
 namespace Notenmanager.Model
 {
+   //Hauptklasse für den Datenbankzugriff
+   //Vorgehensweise bei Erstellen/Ändern des DB-Modells:
+   // 1. falls vorhanden Datenbank zurücksetzen (alle bestehenden Tabellen löschen)
+   // 2. falls vorhanden alle Migrationsberichte im Ordner "Migrations" löschen
+   // 3. falls das Projekt das erste Mal EF nutzt: 
+   //     *NuGet-Manager
+   //     *Paket-Manager-Konsole>Enable-Migrations
+   // 4. 
 
    public class DBZugriff : IDisposable
    {
@@ -53,7 +62,7 @@ namespace Notenmanager.Model
             else
                dbset.Add(obj);
 
-            if(autoSyncDb)
+            if (autoSyncDb)
                Save();
 
             return true;
@@ -152,11 +161,20 @@ namespace Notenmanager.Model
       /// <returns>Liste mit Elementen</returns>
       public List<T> Select<T>(Func<T, bool> pred, bool showDeActive = false) where T : class, IDBable
       {
+
          if (showDeActive)
             return GetDbSetFromContext<T>().Where(pred).ToList();
          else
             return Select<T>(false).Where(pred).ToList();
       }
+
+      ///// <summary>
+      ///// Lädt die gesamte Tabelle neu
+      ///// </summary>
+      //public void ReloadSetTable<T>() where T : class, IDBable
+      //{
+      //   Context.Entry(GetDbSetFromContext<T>()).Reload();
+      //}
 
 
       public DbSet<T> GetDbSetFromContext<T>() where T : class, IDBable
@@ -178,10 +196,34 @@ namespace Notenmanager.Model
       //TEMP: async = false : Bessere Fehlernachvollziehbarkeit
       public void Save(bool async = false)
       {
-         if (async)
-            Context.SaveChangesAsync();
-         else
-            Context.SaveChanges();
+         try
+         {
+            if (async)
+               Context.SaveChangesAsync();
+            else
+               Context.SaveChanges();
+         }
+         catch(DbEntityValidationException e)
+         {
+            foreach (var eve in e.EntityValidationErrors.ToList())
+            {
+               Trace.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
+               foreach (var ve in eve.ValidationErrors)
+                  Trace.WriteLine($"- Property: \"{ ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+
+               Trace.WriteLine("Reloading entity!");
+               //try
+               //{
+                  Context.Entry(eve.Entry).Reload();
+               //}
+               //catch(Exception ex2)
+               //{
+               //   Trace.WriteLine("FATAL: Reloading entity failed:" + ex2.ToString());
+               //}
+            }
+
+            throw e;
+         }
       }
 
       public void Dispose()
