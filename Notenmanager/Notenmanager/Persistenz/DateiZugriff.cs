@@ -11,88 +11,111 @@ namespace Notenmanager.Persistenz
 {
    public static class DateiZugriff
    {
-      ///// <summary>
-      ///// Liest eine Datei falls diese vorhanden ist und gibt deren Inhalt als Zeilen zurück.
-      ///// </summary>
-      ///// <param name="pfad">Pfad der Datei, die gelesen werden soll.</param>
-      ///// <returns>string[] mit den gelesenen Zeilen falls die Datei existiert. Jeder Index entspricht einer Zeile.
-      /////         Existiert keine Datei wird eine Exception geworfen.</returns>
-      //private static string[] LeseDatei(string pfad)
-      //{
-      //   if (File.Exists(pfad))
-      //      return File.ReadAllLines(pfad);
-      //   else
-      //      throw new FileNotFoundException("Die angegebene Datei konnte nicht gefunden werden!");
-      //}
-
       /// <summary>
       /// Importiert eine CSV-Datei mit Schülern und speichert diese in die Datenbank
       /// </summary>
       /// <param name="pfad">Pfad der Schülerdatei</param>
-      public static void ImportSchueler(string pfad, bool autoGenerateSchuelerKlasse = true)
+      /// <returns>Ausgabe-String</returns>
+      public static string ImportSchueler(string pfad, bool autoGenerateSchuelerKlasse = true)
       {
          string[] tmp;
+         List<Exception> skfehler = new List<Exception>();
+         List<Exception> fehler = new List<Exception>();
+         int ok = 0;
 
          foreach (string s in ReadAllLines(pfad))
          {
-            tmp = s.Split(',');
+            try
+            {
+               tmp = s.Split(',');
 
-            string readedkonfession = tmp[8].Trim().ToLower();
-            Konfession k;
+               string readedkonfession = tmp[8].Trim().ToLower();
+               Konfession k;
 
-            if (readedkonfession == "bl")
-               k = Konfession.BL;
-            if (readedkonfession == "ev")
-               k = Konfession.EV;
-            else if (readedkonfession == "rk")
-               k = Konfession.RK;
-            else
-               k = Konfession.SONST;
+               if (readedkonfession == "bl")
+                  k = Konfession.BL;
+               if (readedkonfession == "ev")
+                  k = Konfession.EV;
+               else if (readedkonfession == "rk")
+                  k = Konfession.RK;
+               else
+                  k = Konfession.SONST;
 
-            int sid = Convert.ToInt32(tmp[0]);
+               int sid = Convert.ToInt32(tmp[0]);
 
-            Schueler schueler = DBZugriff.Current.SelectFirstOrDefault<Schueler>(x => x.SID == sid);
-            bool neu = (schueler == null);
-            if (neu)
-               schueler = new Schueler();
+               Schueler schueler = DBZugriff.Current.SelectFirstOrDefault<Schueler>(x => x.SID == sid);
+               bool neu = (schueler == null);
+               if (neu)
+                  schueler = new Schueler();
 
-            schueler.SID = sid;
-            schueler.Nachname = tmp[1];
-            schueler.Vorname = tmp[2];
-            schueler.Geburtsdatum = Convert.ToDateTime(tmp[3]);
-            schueler.Geschlecht = tmp[7] == "m" ? Geschlecht.M : Geschlecht.W;
-            schueler.Konfession = k;
+               schueler.SID = sid;
+               schueler.Nachname = tmp[1];
+               schueler.Vorname = tmp[2];
+               schueler.Geburtsdatum = Convert.ToDateTime(tmp[3]);
+               schueler.Geschlecht = tmp[7] == "m" ? Geschlecht.M : Geschlecht.W;
+               schueler.Konfession = k;
 
-            DBZugriff.Current.Speichern(schueler, false);
+               DBZugriff.Current.Speichern(schueler, false);
 
-            if (neu && autoGenerateSchuelerKlasse)
-               GeneriereSchuelerKlasse(schueler, tmp);
+               try
+               {
+                  if (autoGenerateSchuelerKlasse)
+                     GeneriereSchuelerKlasse(schueler, tmp);
+               }
+               catch (Exception e)
+               {
+                  skfehler.Add(e);
+               }
+
+               ok++;
+            }
+            catch (Exception e)
+            {
+               fehler.Add(e);
+            }
          }
 
          DBZugriff.Current.Save();
+
+         return $"Importergebniss:\r\n" + 
+            $"{ok}x Schüler ok und gespeichert\r\n" +
+            (skfehler.Count > 0 ?
+            $"\tdavon konnten bei {skfehler.Count}x keine Schülerklassen erstellt werden:\r\n" +
+            string.Join("\r\n\t\t", skfehler) : "") +
+            (fehler.Count > 0 ? 
+            $"{fehler.Count}x Schüler fehlerhaft und nicht importiert:\r\n" +
+            string.Join("\r\n\t\t", fehler) : "");
+
       }
 
       //Wünschenswert: Rückgabewerte für AnzSchuelerKlasse OK & Err
       private static void GeneriereSchuelerKlasse(Schueler schueler, string[] tmp)
       {
-
          string kbez = tmp[4];
          int ksj = 0;
          if (!Int32.TryParse(tmp[5].Split('/')[0], out ksj))
-            return; //Parse Err
+            throw new FormatException($"Fehlerhaftes Format bei '{tmp[5]}'");
 
          Klasse k = DBZugriff.Current.SelectFirstOrDefault<Klasse>(x => x.Bez == kbez && x.SJ == ksj);
          //404
          if (k == null)
-            return;
+            throw new NullReferenceException($"Konnte keine passende Klasse für Beschreibung '{kbez}'");
 
-
-         SchuelerKlasse sk = new SchuelerKlasse()
+         SchuelerKlasse sk = DBZugriff.Current.SelectFirstOrDefault<SchuelerKlasse>(x => x.Klasse == k && x.Schueler == schueler);
+         if (sk == null)
          {
-            Schueler = schueler,
-            Klasse = k,
-         };
-         DBZugriff.Current.Speichern(sk, false);
+            //Schueler befindet sich bereits in einer Klasse, die im gleichen SJ war und aktiv ist => Klasse deaktivieren
+            schueler.SchuelerKlassen.Where(x => x.Klasse.SJ == ksj && x.Active == true).ToList().ForEach(x => x.Active = false);
+
+            sk = new SchuelerKlasse();
+
+            sk.Schueler = schueler;
+            sk.Klasse = k;
+
+            DBZugriff.Current.Speichern(sk, false);
+         }
+
+
       }
 
       /// <summary>
@@ -108,13 +131,13 @@ namespace Notenmanager.Persistenz
          {
             Vorname = "-",
             Nachname = "-",
-            Kürzel = "-",
+            Kuerzel = "-",
             Dienstbezeichnung = "DUMMY",
          };
-         dummy = DBZugriff.Current.SelectFirstOrDefault<Lehrer>(x => 
+         dummy = DBZugriff.Current.SelectFirstOrDefault<Lehrer>(x =>
                x.Vorname == dummy.Vorname
                && x.Nachname == dummy.Nachname
-               && x.Kürzel == dummy.Kürzel
+               && x.Kuerzel == dummy.Kuerzel
                && x.Dienstbezeichnung == dummy.Dienstbezeichnung
                ) ?? dummy;
          dummy.Speichern();
@@ -164,7 +187,7 @@ namespace Notenmanager.Persistenz
             lehrer.SID = Convert.ToInt32(tmp[0]);
             lehrer.Nachname = tmp[1];
             lehrer.Vorname = tmp[2];
-            lehrer.Kürzel = tmp[3];
+            lehrer.Kuerzel = tmp[3];
 
 
             DBZugriff.Current.Speichern(lehrer, false);

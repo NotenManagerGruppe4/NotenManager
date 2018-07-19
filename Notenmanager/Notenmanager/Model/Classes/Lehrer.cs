@@ -19,7 +19,7 @@ namespace Notenmanager.Model
       public bool Active { get; set; } = true;
 
       [Required,MaxLength(KUERZEL_MAXLENGTH)]
-      public string Kürzel { get; set; }
+      public string Kuerzel { get; set; }
 
       [Required, MaxLength(DBZugriff.STRING_MAXLENGTH)]
       public string Nachname { get; set; }

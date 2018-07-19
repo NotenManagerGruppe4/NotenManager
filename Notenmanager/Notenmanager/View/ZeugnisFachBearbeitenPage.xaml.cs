@@ -54,7 +54,7 @@ namespace Notenmanager.View
             if (e.ResultAction != null)
                 e.ResultAction(r);
         }
-
+        
         private void OnLehrerDialogRequest(object sender, DialogEventArgs e)
         {
             LehrerAuswahlWindow dlg = new LehrerAuswahlWindow();

@@ -85,7 +85,7 @@ namespace Notenmanager.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         SID = c.Int(nullable: false),
                         Active = c.Boolean(nullable: false),
-                        Kürzel = c.String(nullable: false, maxLength: 5, storeType: "nvarchar"),
+                        Kuerzel = c.String(nullable: false, maxLength: 5, storeType: "nvarchar"),
                         Nachname = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         Vorname = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         Dienstbezeichnung = c.String(maxLength: 45, storeType: "nvarchar"),

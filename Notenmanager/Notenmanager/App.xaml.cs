@@ -89,7 +89,7 @@ namespace Notenmanager
             {
                Vorname = "VorTest",
                Nachname = "NachTest",
-               Kürzel = "TL",
+               Kuerzel = "TL",
             };
             leh.Speichern();
 
