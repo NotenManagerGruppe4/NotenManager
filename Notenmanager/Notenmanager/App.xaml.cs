@@ -46,7 +46,6 @@ namespace Notenmanager
          if (Environment.GetCommandLineArgs().Contains("-valtest"))
             s.Test();
 
-         
          #endif
       }
 

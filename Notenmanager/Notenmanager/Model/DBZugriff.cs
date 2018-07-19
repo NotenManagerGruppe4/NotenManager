@@ -12,12 +12,25 @@ namespace Notenmanager.Model
 {
    //Hauptklasse für den Datenbankzugriff
    //Vorgehensweise bei Erstellen/Ändern des DB-Modells:
+   // 0. falls das Projekt das erste Mal EF nutzt: 
+   //     * NuGet-Manager folgende Pakete installieren:
+   //       - EntityFramewrok
+   //       - MySql.Data.Entity (enthält/benötigt die GLEICHE!!! Version von normalen MySql-Konnektor)
+   //     * App.config konfigurieren
+   //       - <connectionStrings> hinzufügen
+   //     * Context.cs (DB-Darstellung)
+   //       - [DbConfigurationType(typeof(MySqlEFConfiguration))] über die Klasse schreiben
+   //       - : base("name=MySQLSchuleNoma4") am Standardkonstruktor anhängen
+   //     * Main-Methode
+   //       -  DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
+   //     * Paket-Manager-Konsole> Enable-Migrations (falls bereits vorhanden: Enable-Migrations -Force)
    // 1. falls vorhanden Datenbank zurücksetzen (alle bestehenden Tabellen löschen)
    // 2. falls vorhanden alle Migrationsberichte im Ordner "Migrations" löschen
-   // 3. falls das Projekt das erste Mal EF nutzt: 
-   //     *NuGet-Manager
-   //     *Paket-Manager-Konsole>Enable-Migrations
-   // 4. 
+   // 3. Neue Migration via 
+   //       Paket-Manager-Konsole> Add-Migrations <IrgendeinPassenderName>
+   //    erstellen
+   // 4. Datenbank Updaten via
+   //       Paket-Manager-Konsole> Update-Database -Verbose
 
    public class DBZugriff : IDisposable
    {
