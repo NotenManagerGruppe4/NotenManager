@@ -16,7 +16,7 @@ namespace Notenmanager.Persistenz
       /// </summary>
       /// <param name="pfad">Pfad der Schülerdatei</param>
       /// <returns>Ausgabe-String</returns>
-      public static string ImportSchueler(string pfad, bool autoGenerateSchuelerKlasse = true)
+      public static Importstatistik ImportSchueler(string pfad, bool autoGenerateSchuelerKlasse = true)
       {
          string[] tmp;
          List<Exception> skfehler = new List<Exception>();
@@ -77,14 +77,21 @@ namespace Notenmanager.Persistenz
 
          DBZugriff.Current.Save();
 
-         return $"Importergebniss:\r\n" + 
-            $"{ok}x Schüler ok und gespeichert\r\n" +
-            (skfehler.Count > 0 ?
-            $"\tdavon konnten bei {skfehler.Count}x keine Schülerklassen erstellt werden:\r\n" +
-            string.Join("\r\n\t\t", skfehler) : "") +
-            (fehler.Count > 0 ? 
-            $"{fehler.Count}x Schüler fehlerhaft und nicht importiert:\r\n" +
-            string.Join("\r\n\t\t", fehler) : "");
+         return new Importstatistik()
+         {
+            OkCount = ok,
+            SchuelerKlassenFehler = skfehler,
+            Fehler = fehler,
+         };
+
+         //return $"Importergebniss:\r\n" + 
+         //   $"{ok}x Schüler ok und gespeichert\r\n" +
+         //   (skfehler.Count > 0 ?
+         //   $"\tdavon konnten bei {skfehler.Count}x keine Schülerklassen erstellt werden:\r\n" +
+         //   string.Join("\r\n\t\t", skfehler) : "") +
+         //   (fehler.Count > 0 ? 
+         //   $"{fehler.Count}x Schüler fehlerhaft und nicht importiert:\r\n" +
+         //   string.Join("\r\n\t\t", fehler) : "");
 
       }
 
@@ -123,9 +130,11 @@ namespace Notenmanager.Persistenz
       /// </summary>
       /// <param name="pfad">Pfad der Klassendatei</param>
       /// <param name="schule">Zugehörige Schule</param>
-      public static void ImportKlassen(string pfad, Schule schule)
+      public static Importstatistik ImportKlassen(string pfad, Schule schule)
       {
          string[] tmp;
+         int ok = 0;
+         List<Exception> fehler = new List<Exception>();
 
          Lehrer dummy = new Lehrer()
          {
@@ -145,25 +154,41 @@ namespace Notenmanager.Persistenz
 
          foreach (string s in ReadAllLines(pfad))
          {
-            tmp = s.Split(',');
+            try
+            {
+               tmp = s.Split(',');
 
-            int sid = Convert.ToInt32(tmp[0]);
-            Klasse klasse = DBZugriff.Current.SelectFirstOrDefault<Klasse>(x => x.SID == sid);
-            if (klasse == null)
-               klasse = new Klasse();
-
-
-            klasse.SID = sid;
-            klasse.Bez = tmp[1];
-            klasse.SJ = Convert.ToInt32(tmp[2].Split('/')[0]);
-            klasse.Schule = schule;
-            klasse.Klassenleiter = dummy;
-            klasse.StellvertretenderKlassenleiter = dummy;
+               int sid = Convert.ToInt32(tmp[0]);
+               Klasse klasse = DBZugriff.Current.SelectFirstOrDefault<Klasse>(x => x.SID == sid);
+               if (klasse == null)
+                  klasse = new Klasse();
 
 
-            DBZugriff.Current.Speichern(klasse, false);
+               klasse.SID = sid;
+               klasse.Bez = tmp[1];
+               klasse.SJ = Convert.ToInt32(tmp[2].Split('/')[0]);
+               klasse.Schule = schule;
+               klasse.Klassenleiter = dummy;
+               klasse.StellvertretenderKlassenleiter = dummy;
+
+
+               DBZugriff.Current.Speichern(klasse, false);
+
+               ok++;
+            }
+            catch(Exception e)
+            {
+               fehler.Add(e);
+            }
          }
+
          DBZugriff.Current.Save();
+
+         return new Importstatistik()
+         {
+            OkCount = ok,
+            Fehler = fehler,
+         };
       }
 
 
@@ -171,29 +196,46 @@ namespace Notenmanager.Persistenz
       /// Importiert die Lehrer aus einer CSV-Datei --> erstellt daraus die Lehrerobjekte--> speichert diese in die Datenbank
       /// </summary>
       /// <param name="pfad">Pfad der Lehrerdatei</param>
-      public static void ImportLehrer(string pfad)
+      public static Importstatistik ImportLehrer(string pfad)
       {
          string[] tmp;
+         int ok = 0;
+         List<Exception> fehler = new List<Exception>();
 
          foreach (string s in ReadAllLines(pfad))
          {
-            tmp = s.Split(',');
+            try
+            {
+               tmp = s.Split(',');
 
-            int sid = Convert.ToInt32(tmp[0]);
-            Lehrer lehrer = DBZugriff.Current.SelectFirstOrDefault<Lehrer>(x => x.SID == sid);
-            if (lehrer == null)
-               lehrer = new Lehrer();
+               int sid = Convert.ToInt32(tmp[0]);
+               Lehrer lehrer = DBZugriff.Current.SelectFirstOrDefault<Lehrer>(x => x.SID == sid);
+               if (lehrer == null)
+                  lehrer = new Lehrer();
 
-            lehrer.SID = Convert.ToInt32(tmp[0]);
-            lehrer.Nachname = tmp[1];
-            lehrer.Vorname = tmp[2];
-            lehrer.Kuerzel = tmp[3];
+               lehrer.SID = Convert.ToInt32(tmp[0]);
+               lehrer.Nachname = tmp[1];
+               lehrer.Vorname = tmp[2];
+               lehrer.Kuerzel = tmp[3];
 
 
-            DBZugriff.Current.Speichern(lehrer, false);
+               DBZugriff.Current.Speichern(lehrer, false);
+
+               ok++;
+            }
+            catch(Exception e)
+            {
+               fehler.Add(e);
+            }
          }
 
          DBZugriff.Current.Save();
+
+         return new Importstatistik()
+         {
+            OkCount = ok,
+            Fehler = fehler,
+         };
       }
 
       /// <summary>
