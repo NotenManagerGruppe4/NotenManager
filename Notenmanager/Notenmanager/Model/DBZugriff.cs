@@ -45,8 +45,8 @@ namespace Notenmanager.Model
       /// </summary>
       /// <typeparam name="T">Der Typ des Objekt</typeparam>
       /// <param name="obj">Das Objekt</param>
-      /// <returns>true = OK, false = Fehler</returns>
-      public bool Speichern<T>(T obj, bool autoSyncDb = true) where T : class, IDBable
+      /// <exception cref="Exception"></exception>
+      public void Speichern<T>(T obj, bool autoSyncDb = true) where T : class, IDBable
       {
          try
          {
@@ -62,14 +62,12 @@ namespace Notenmanager.Model
 
             if (autoSyncDb)
                Save();
-
-            return true;
          }
          catch (Exception e)
          {
             Trace.WriteLine("Error saving " + obj + "\r\n" + e.ToString());
+            throw e;
          }
-         return false;
 
       }
 
@@ -78,8 +76,8 @@ namespace Notenmanager.Model
       /// </summary>
       /// <typeparam name="T">Der Typ des Objekt</typeparam>
       /// <param name="obj">Das Objekt</param>
-      /// <returns>true = OK, false = Fehler</returns>
-      public bool Loeschen<T>(T obj) where T : class, IDBable
+      /// <exception cref="Exception"></exception>
+      public void Loeschen<T>(T obj) where T : class, IDBable
       {
          try
          {
@@ -92,13 +90,12 @@ namespace Notenmanager.Model
 
             Save();
 
-            return true;
          }
          catch (Exception e)
          {
             Trace.WriteLine("Error deleting " + obj + "\r\n" + e.ToString());
+            throw e;
          }
-         return false;
       }
 
       /// <summary>

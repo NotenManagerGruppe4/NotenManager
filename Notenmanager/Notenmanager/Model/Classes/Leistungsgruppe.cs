@@ -20,14 +20,14 @@ namespace Notenmanager.Model
 
       public virtual List<Leistungsart> Leistungsarten { get; set; } = new List<Leistungsart>();
 
-      public bool Speichern()
+      public void Speichern()
       {
-         return DBZugriff.Current.Speichern(this);
+         DBZugriff.Current.Speichern(this);
       }
 
-      public bool Loeschen()
+      public void Loeschen()
       {
-         return DBZugriff.Current.Loeschen(this);
+         DBZugriff.Current.Loeschen(this);
       }
 
       public void Reload()

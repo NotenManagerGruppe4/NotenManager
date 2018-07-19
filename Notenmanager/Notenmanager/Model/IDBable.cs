@@ -15,8 +15,8 @@ namespace Notenmanager.Model
 
       bool Active { get; set; }
 
-      bool Speichern();
-      bool Loeschen();
+      void Speichern();
+      void Loeschen();
 
       void Reload();
    }

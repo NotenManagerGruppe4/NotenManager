@@ -39,16 +39,15 @@ namespace Notenmanager
          };
 
 
-#if DEBUG
+         #if DEBUG
          Tests s = new Tests();
          if (Environment.GetCommandLineArgs().Contains("-test"))
             s.Test2();
          if (Environment.GetCommandLineArgs().Contains("-valtest"))
             s.Test();
 
-         foreach (Lehrer l in DBZugriff.Current.Context.LehrerSet)
-            Trace.WriteLine(l.Vorname);
-#endif
+         
+         #endif
       }
 
       private void Application_Exit(object sender, ExitEventArgs e)
@@ -62,20 +61,23 @@ namespace Notenmanager
 
          public void Test()
          {
-            Lehrer leh = new Lehrer()
-            {
-               Vorname = "KAPUTT"
-            };
-            leh.Speichern();
+            //Lehrer leh = new Lehrer()
+            //{
+            //   Vorname = "KAPUTT"
+            //};
+            //leh.Speichern();
 
-            Lehrer leh2 = new Lehrer()
-            {
-               Vorname = "TEST",
-               Nachname = "Test",
-               Kuerzel="TTTT",
-            };
-            leh2.Speichern();
+            //Lehrer leh2 = new Lehrer()
+            //{
+            //   Vorname = "TEST",
+            //   Nachname = "Test",
+            //   Kuerzel="TTTT",
+            //};
+            //leh2.Speichern();
 
+
+            //foreach (Lehrer l in DBZugriff.Current.Context.LehrerSet)
+            //   Trace.WriteLine(l.Vorname);
          }
          //[TestMethod()]
          public void Test2()
