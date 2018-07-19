@@ -167,19 +167,19 @@ namespace Notenmanager.ViewModel
             {
                 try
                 {
-                    string rueckmeldung = "";
+                    Importstatistik rueckmeldung = null;
 
                     // bestimmen um welche Dateiart es sich handelt und diese entsprechend importieren
                     switch (DateiTyp.Content.ToString())
                     {
                         case "Klasse":
-                            DateiZugriff.ImportKlassen(DateiPfad, SelektierteSchule);
+                            rueckmeldung = DateiZugriff.ImportKlassen(DateiPfad, SelektierteSchule);
                             break;
                         case "Schueler":
                             rueckmeldung = DateiZugriff.ImportSchueler(DateiPfad);
                             break;
                         case "Lehrer":
-                            DateiZugriff.ImportLehrer(DateiPfad);
+                            rueckmeldung = DateiZugriff.ImportLehrer(DateiPfad);
                             break;
                     }
 
@@ -187,7 +187,7 @@ namespace Notenmanager.ViewModel
                     MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs()
                     {
                         Caption = "Datei-Import abgeschlossen",
-                        MessageBoxText = $"{DateiTyp.Content.ToString()}-Datei erfolgreich importiert!\r\n\r\n{rueckmeldung}",
+                        MessageBoxText = $"{DateiTyp.Content.ToString()}-Datei erfolgreich importiert!\r\n\r\n{rueckmeldung?.ToString()}",
                         MessageBoxImage = System.Windows.MessageBoxImage.Information,
                         MessageBoxButton = System.Windows.MessageBoxButton.OK,
                     });    
