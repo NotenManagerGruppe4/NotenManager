@@ -33,13 +33,11 @@ namespace Notenmanager.Model
       public DBZugriff()
       {
          Init();
+         DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
       }
       private void Init()
       {
-         DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
-
          Context = new Context();
-         Context.Configuration.LazyLoadingEnabled = true;
       }
 
       /// <summary>
@@ -203,32 +201,54 @@ namespace Notenmanager.Model
             else
                Context.SaveChanges();
          }
-         catch(DbEntityValidationException e)
+         catch (DbEntityValidationException ex)
          {
-            foreach (var eve in e.EntityValidationErrors.ToList())
+            foreach (var eve in ex.EntityValidationErrors.ToList())
             {
                Trace.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
                foreach (var ve in eve.ValidationErrors)
                   Trace.WriteLine($"- Property: \"{ ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
 
-               Trace.WriteLine("Reloading entity!");
+               //Trace.WriteLine("Reloading entity!");
+
                //try
                //{
-                  Context.Entry(eve.Entry).Reload();
+               //   if (eve.Entry.State == EntityState.Added)
+               //   {
+               //      if (!(eve.Entry.Entity is IDBable))
+               //         throw new Exception("Nicht löschbar: Unbekannter Objekttyp für Datenbank!");
+
+               //      eve.Entry.State = EntityState.Deleted;
+               //   }
+               //   else if (eve.Entry.State == EntityState.Modified)
+               //      eve.Entry.Reload();
+               //   else
+               //      throw new Exception("Unbehandelbarer Status");
+
+                  
                //}
-               //catch(Exception ex2)
+               //catch (Exception ex2)
                //{
-               //   Trace.WriteLine("FATAL: Reloading entity failed:" + ex2.ToString());
+               //   Trace.WriteLine("Fatal: " + ex2.ToString());
+
+               //   Trace.WriteLine("Lade Context KOMPLETT neu!");
+
+                  
                //}
+               //Trace.WriteLine("Repariert!");
+
             }
 
-            throw e;
+            Trace.WriteLine("Reloading from DB!");
+            Dispose();
+            Init();
+
+            throw ex;
          }
       }
 
       public void Dispose()
       {
-         //Save();
          Context.Dispose();
       }
 
