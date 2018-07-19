@@ -22,18 +22,21 @@ namespace Notenmanager.View
     public partial class MainWindow : Window
     {
         private MainPageVM _viewModel;
+        private MainWindowVM _mwVM;
 
         public MainWindow()
         {
             InitializeComponent();
             //_viewModel = DataContext as MainPageVM;
             //_viewModel.NavigateToPageRequest += OnNavigateToPageRequest;
+            _mwVM = DataContext as MainWindowVM;
         }
 
         private void OnNavigateToPageRequest(object sender, NavigationEventArgs e)
         {
             frMainFrame.Navigate(e.ZielPage);
             setMinimumWindowSize(e);
+            AdjustPageToMainFrame();
         }
 
         private void setMinimumWindowSize(NavigationEventArgs e)
@@ -58,6 +61,16 @@ namespace Notenmanager.View
             {
                 mainPanelBorder.Margin = new Thickness();
             }
+        }
+
+        public void AdjustPageToMainFrame()
+        {
+            _mwVM.CurrentPage.Height = this.frMainFrame.ActualHeight;
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            AdjustPageToMainFrame();
         }
     }
 

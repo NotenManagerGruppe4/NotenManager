@@ -8,8 +8,8 @@
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       Width="Auto" Height="Auto"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Top"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch"
       Title="DateiImportPage"
       DataContext="{StaticResource DateiImportPageVM}">
     
@@ -23,7 +23,7 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Grid HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Top" Width="Auto" Grid.ColumnSpan="2" Grid.RowSpan="3">    
+        <Grid HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="2" Grid.RowSpan="3">    
             <Button x:Name="btnFileSelect" Command="{Binding DateiAuswaehlenCmd}" Content="Datei Auswählen" VerticalAlignment="Top" Margin="10,10,10,10"/>
             <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,76,10,0"/>
             <TextBox x:Name="tboxFilename" Text="{Binding DateiPfad}" HorizontalAlignment="Stretch" Height="23" Margin="10,107,10,10" VerticalAlignment="Top" TextWrapping="NoWrap" IsReadOnly="True"/>

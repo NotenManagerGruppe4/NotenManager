@@ -54,12 +54,12 @@ namespace Notenmanager.View
             if (e.ResultAction != null)
                 e.ResultAction(r);
         }
-        //private void OnLehrerDialogRequest(object sender, DialogEventArgs e)
-        //{
-        //    UnterrichtsfachBearbeitenWindow dlg = new UnterrichtsfachBearbeitenWindow(e.dm);
+        private void OnLehrerDialogRequest(object sender, DialogEventArgs e)
+        {
+            UnterrichtsfachBearbeitenWindow dlg = new UnterrichtsfachBearbeitenWindow(e.dm);
 
-        //    if (e.ResultAction != null)
-        //        e.ResultAction(dlg.ShowDialog());
-        //}
+            if (e.ResultAction != null)
+                e.ResultAction(dlg.ShowDialog());
+        }
     }
 }

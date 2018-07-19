@@ -9,8 +9,12 @@
         MinHeight="800"
         MinWidth="600"
         SizeToContent="WidthAndHeight"
-        DataContext="{StaticResource MainWindowVM}">
+        DataContext="{StaticResource MainWindowVM}" SizeChanged="Window_SizeChanged">
     <Grid x:Name="MainWindowGrid" Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="191*"/>
+            <ColumnDefinition Width="401*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="20"></RowDefinition>
             <RowDefinition Height="Auto" MinHeight="30"/>
@@ -18,7 +22,7 @@
         </Grid.RowDefinitions>
 
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
             <DockPanel HorizontalAlignment="Stretch"  Height="Auto" LastChildFill="False" VerticalAlignment="Top" Width="Auto" Background="DarkCyan">
                 <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True" Background="DarkCyan" Loaded="ToolBar_Loaded" HorizontalContentAlignment="Stretch">
                     <Menu Name="Datei" Background="DarkCyan">
@@ -33,15 +37,15 @@
                         </MenuItem>
 
                     </Menu>
-                    
-                    
+
+
                 </ToolBar>
 
             </DockPanel>
 
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="19*"/>
                 <ColumnDefinition Width="55*"/>
@@ -49,7 +53,7 @@
             <Label x:Name="label" Content="Notenmanager des BSZ Wiesau" Width="Auto" FontWeight="Bold" HorizontalContentAlignment="Center" Grid.ColumnSpan="2"/>
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
             <Frame x:Name="frMainFrame" Content="{Binding CurrentPage}" HorizontalAlignment="Stretch" Height="Auto" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
         </Grid>
 
