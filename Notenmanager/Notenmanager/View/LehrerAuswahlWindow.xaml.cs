@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Notenmanager.Model;
+using Notenmanager.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +21,22 @@ namespace Notenmanager.View
     /// </summary>
     public partial class LehrerAuswahlWindow : Window
     {
-        public LehrerAuswahlWindow()
+        private Unterrichtsfach _selFach;
+        private Lehrer _selLehrer;
+        private LehrerAuswahlWindowVM _viewmodel;
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            _viewmodel = FindResource("LehrerAuswahlWindowVM") as LehrerAuswahlWindowVM;
+
+            _selLehrer = _viewmodel.SelectedLehrer;
+        }
+
+        public LehrerAuswahlWindow(Unterrichtsfach selFach)
         {
             InitializeComponent();
 
+            this._selFach = selFach;
             this.Loaded += LehrerAuswahlWindow_Loaded;
         }
 
@@ -40,6 +54,11 @@ namespace Notenmanager.View
 
         private void BtnHinzufuegen_Click(object sender, RoutedEventArgs e)
         {
+            UFachLehrer ufl = new UFachLehrer();
+            ufl.Lehrer = _selLehrer;
+            ufl.Unterrichtsfach = _selFach;
+            ufl.Speichern();
+
             this.DialogResult = true;
             Close();
         }

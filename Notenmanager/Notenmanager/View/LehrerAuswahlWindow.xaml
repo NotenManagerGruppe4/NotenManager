@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:Notenmanager.View"
         mc:Ignorable="d"
         Title="LehrerAuswahlWindow" Height="288.952" Width="300">
-    <Grid Height="269" VerticalAlignment="Top">
+    <Grid  DataContext="{StaticResource LehrerAuswahlVM}" Height="269" VerticalAlignment="Top">
         <Label x:Name="lblLehrerauswahl" Content="Auswahl aller Lehrer:" HorizontalAlignment="Left" Height="24" Margin="9,7,0,0" VerticalAlignment="Top" Width="130" FontWeight="Bold"/>
         <Button x:Name="btnHinzufuegen" Content="Hinzufügen " HorizontalAlignment="Left" Height="21" Margin="10,229,0,0" VerticalAlignment="Top" Width="101"/>
-        <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" Height="21" Margin="181,229,0,0" VerticalAlignment="Top" Width="101"/>
-        <DataGrid x:Name="LehrerAuswahlDataGrid" HorizontalAlignment="Left" Height="178" Margin="10,39,0,0" VerticalAlignment="Top" Width="272">
+        <Button x:Name="btnAbbrechen" Command="{Binding OnBtnAbbrechenCmd}" Content="Abbrechen" HorizontalAlignment="Left" Height="21" Margin="181,229,0,0" VerticalAlignment="Top" Width="101"/>
+        <DataGrid x:Name="LehrerAuswahlDataGrid" ItemsSource="{Binding LehrerListe}" HorizontalAlignment="Left" Height="178" Margin="10,39,0,0" VerticalAlignment="Top" Width="272" AutoGenerateColumns="False">
         <DataGrid.Columns>
-            <DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
+            <DataGridTextColumn Binding="{Binding Nachname}" Header="Nachname"/>
             <DataGridTextColumn Binding="{Binding Vorname}" Header="Vorname"/>
-            <DataGridTextColumn Binding="{Binding Kürzel}" Header="Kürzel"/>
+            <DataGridTextColumn Binding="{Binding Kuerzel}" Header="Kürzel"/>
         </DataGrid.Columns>
         </DataGrid>
     </Grid>

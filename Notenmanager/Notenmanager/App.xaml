@@ -20,6 +20,7 @@
         <vm:UnterrichtsfachBearbeitenVM x:Key="UFBearbeitenVM"/>
         <vm:DateiImportPageVM x:Key="DateiImportPageVM"/>
         <vm:KlassenPageVM x:Key="KlassenPageVM"/>
+        <vm:LehrerAuswahlWindowVM x:Key="LehrerAuswahlVM"/>
         <view:MainPage x:Key="MainPage"/>
         <view:DateiImportPage x:Key="DateiImportPage"/>
         <view:FachAnlegenPage x:Key="FachAnlegenPage"/>

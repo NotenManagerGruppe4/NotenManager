@@ -20,11 +20,11 @@ namespace Notenmanager.View
     /// </summary>
     public partial class UnterrichtsfachBearbeitenWindow : Window
     {
-        DialogMode dm;
+        private DialogMode _dm;
         public UnterrichtsfachBearbeitenWindow(DialogMode dm)
         {
             InitializeComponent();
-            this.dm = dm;
+            this._dm = dm;
 
             this.Loaded += UnterrichtsfachAnlegen_Loaded;
             
