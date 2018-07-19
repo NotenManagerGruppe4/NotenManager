@@ -132,6 +132,79 @@ namespace Notenmanager.Persistenz
             List<Exception> fehler = new List<Exception>();
 
             Lehrer dummy = new Lehrer()
+         }
+
+         DBZugriff.Current.Save();
+
+         return new Importstatistik()
+         {
+            OkCount = ok,
+            SchuelerKlassenFehler = skfehler,
+            Fehler = fehler,
+         };
+
+      }
+
+      //Wünschenswert: Rückgabewerte für AnzSchuelerKlasse OK & Err
+      private static void GeneriereSchuelerKlasse(Schueler schueler, string[] tmp)
+      {
+         string kbez = tmp[4];
+         int ksj = 0;
+         if (!Int32.TryParse(tmp[5].Split('/')[0], out ksj))
+            throw new FormatException($"Fehlerhaftes Format bei '{tmp[5]}'");
+
+         Klasse k = DBZugriff.Current.SelectFirstOrDefault<Klasse>(x => x.Bez == kbez && x.SJ == ksj);
+         //404
+         if (k == null)
+            throw new NullReferenceException($"Konnte keine passende Klasse für Beschreibung '{kbez}'");
+
+         SchuelerKlasse sk = DBZugriff.Current.SelectFirstOrDefault<SchuelerKlasse>(x => x.Klasse == k && x.Schueler == schueler);
+         if (sk == null)
+         {
+            //Schueler befindet sich bereits in einer Klasse, die im gleichen SJ war und aktiv ist => Klasse deaktivieren
+            schueler.SchuelerKlassen.Where(x => x.Klasse.SJ == ksj && x.Active == true).ToList().ForEach(x => x.Active = false);
+
+            sk = new SchuelerKlasse();
+
+            sk.Schueler = schueler;
+            sk.Klasse = k;
+
+            DBZugriff.Current.Speichern(sk, false);
+         }
+
+
+      }
+
+      /// <summary>
+      /// Importiert die Klassen aus einer CSV-Datei --> erstellt daraus die Klassenobjekte--> speichert diese in die Datenbank
+      /// </summary>
+      /// <param name="pfad">Pfad der Klassendatei</param>
+      /// <param name="schule">Zugehörige Schule</param>
+      public static Importstatistik ImportKlassen(string pfad, Schule schule)
+      {
+         string[] tmp;
+         int ok = 0;
+         List<Exception> fehler = new List<Exception>();
+
+         Lehrer dummy = new Lehrer()
+         {
+            Vorname = "-",
+            Nachname = "-",
+            Kuerzel = "-",
+            Dienstbezeichnung = "DUMMY",
+         };
+         dummy = DBZugriff.Current.SelectFirstOrDefault<Lehrer>(x =>
+               x.Vorname == dummy.Vorname
+               && x.Nachname == dummy.Nachname
+               && x.Kuerzel == dummy.Kuerzel
+               && x.Dienstbezeichnung == dummy.Dienstbezeichnung
+               ) ?? dummy;
+         dummy.Speichern();
+
+
+         foreach (string s in ReadAllLines(pfad))
+         {
+            try
             {
                 Vorname = "-",
                 Nachname = "-",
@@ -282,3 +355,4 @@ namespace Notenmanager.Persistenz
         }
     }
 }
+

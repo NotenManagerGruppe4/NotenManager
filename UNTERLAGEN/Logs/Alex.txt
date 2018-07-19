@@ -1,0 +1,7 @@
+2.7: Projektstart Besprechung (Namenskonventionen, eingesetzte Technik)
+3.5-5.7: DB-Bank(EF) eingerichtete und Basistest durchführen
+9.7: Git-Reparatur
+10.7: Besprechung neuer GUI-Aufbau
+10.7-13.7: Verbesserung von Dateizugriff; Mithelfen bei GUI; kleinere Datenbankänderungen
+17.7-19.7: Dateizugriff optimiert
+

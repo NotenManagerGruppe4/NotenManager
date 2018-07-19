@@ -1,0 +1,10 @@
+http://192.168.101.3/Bonobo.Git.Server/Projekt_NoMa_Gr_1.git
+http://192.168.101.3/Bonobo.Git.Server/Projekt_NoMa_Gr_2.git
+http://192.168.101.3/Bonobo.Git.Server/Projekt_NoMa_Gr_3.git
+http://192.168.101.3/Bonobo.Git.Server/Projekt_NoMa_Gr_4.git
+
+Von außen:
+http://bszw.selfhost.bz:8888/Bonobo.Git.Server/Projekt_NoMa_Gr_1.git
+http://bszw.selfhost.bz:8888/Bonobo.Git.Server/Projekt_NoMa_Gr_2.git
+http://bszw.selfhost.bz:8888/Bonobo.Git.Server/Projekt_NoMa_Gr_3.git
+http://bszw.selfhost.bz:8888/Bonobo.Git.Server/Projekt_NoMa_Gr_4.git
