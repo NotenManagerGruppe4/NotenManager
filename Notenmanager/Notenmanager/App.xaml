@@ -7,6 +7,13 @@
              StartupUri="View/MainWindow.xaml"
              Exit="Application_Exit">
     <Application.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#5e6066"/>
+            <Setter Property="BorderBrush" Value="#5e6066"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
         <vm:MainWindowVM x:Key="MainWindowVM"/>
         <vm:MainPageVM x:Key="MainPageVM"/>
         <vm:ZeugnisFachBearbeitenPageVM x:Key="ZFBearbeitenVM"/>

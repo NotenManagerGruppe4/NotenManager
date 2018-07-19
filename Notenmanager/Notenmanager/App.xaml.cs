@@ -11,24 +11,16 @@ using System.Windows;
 
 namespace Notenmanager
 {
-    /// <summary>
-    /// Interaktionslogik für "App.xaml"
-    /// </summary>
-    public partial class App : Application
-    {
+   /// <summary>
+   /// Interaktionslogik für "App.xaml"
+   /// </summary>
+   public partial class App : Application
+   {
       protected override void OnStartup(StartupEventArgs e)
       {
          base.OnStartup(e);
 
          DBZugriff.InitDB();
-
-         #if DEBUG
-         if (Environment.GetCommandLineArgs().Contains("-test"))
-         {
-            Tests s = new Tests();
-            s.Test2();
-         }
-         #endif
 
          AppDomain.CurrentDomain.UnhandledException += (sender, e2) =>
          {
@@ -40,13 +32,22 @@ namespace Notenmanager
                if (ex != null)
                   CrashMessage.ShowErrorMessage(ex);
             }
-            catch(Exception exx)
+            catch (Exception exx)
             {
                MessageBox.Show(exx.ToString(), "Fataler Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
          };
 
+
+         #if DEBUG
+         Tests s = new Tests();
+         if (Environment.GetCommandLineArgs().Contains("-test"))
+            s.Test2();
+         if (Environment.GetCommandLineArgs().Contains("-valtest"))
+            s.Test();
+
          
+         #endif
       }
 
       private void Application_Exit(object sender, ExitEventArgs e)
@@ -58,6 +59,26 @@ namespace Notenmanager
       public class Tests
       {
 
+         public void Test()
+         {
+            //Lehrer leh = new Lehrer()
+            //{
+            //   Vorname = "KAPUTT"
+            //};
+            //leh.Speichern();
+
+            //Lehrer leh2 = new Lehrer()
+            //{
+            //   Vorname = "TEST",
+            //   Nachname = "Test",
+            //   Kuerzel="TTTT",
+            //};
+            //leh2.Speichern();
+
+
+            //foreach (Lehrer l in DBZugriff.Current.Context.LehrerSet)
+            //   Trace.WriteLine(l.Vorname);
+         }
          //[TestMethod()]
          public void Test2()
          {
