@@ -87,11 +87,11 @@ namespace Notenmanager.ViewModel
         {
             get
             {
-                if (UF == null)
-                {
-                    Trace.WriteLine("Unterrichtsfach NULL!");
-                    return false;
-                }
+                //if (UF == null)
+                //{
+                //    Trace.WriteLine("Unterrichtsfach NULL!");
+                //    return false;
+                //}
                 return (UF.Stunden >= 0 && UF.Pos > 0 && !string.IsNullOrWhiteSpace(UF.Bez));
             }
         }

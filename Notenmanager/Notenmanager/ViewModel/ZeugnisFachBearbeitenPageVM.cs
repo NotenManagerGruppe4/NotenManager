@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Diagnostics;
 using System.Windows;
 using Notenmanager.ViewModel.Tools;
+using Notenmanager.View;
 
 namespace Notenmanager.ViewModel
 {
@@ -207,7 +208,7 @@ namespace Notenmanager.ViewModel
         {
             if (obj != true)
             {
-                ufvm.UF = null;
+                //ufvm.UF = null;
                 return;
             }
 
@@ -268,7 +269,9 @@ namespace Notenmanager.ViewModel
         }
         private void OnBtnHinzufuegen(object obj)
         {
-            LehrerDialogRequest?.Invoke(this, new DialogEventArgs(DoHinzufuegen));
+            LehrerAuswahlWindow dlg = new LehrerAuswahlWindow(_selFach);
+            dlg.ShowDialog();
+            //LehrerDialogRequest?.Invoke(this, new DialogEventArgs(DoHinzufuegen, SelFach));
         }
         private void DoHinzufuegen(bool? obj)
         {
