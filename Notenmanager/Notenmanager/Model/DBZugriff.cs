@@ -29,7 +29,7 @@ namespace Notenmanager.Model
    // 1. falls vorhanden, Datenbank zurücksetzen (alle bestehenden Tabellen löschen)
    // 2. falls vorhanden, alle Migrationsberichte im Ordner "Migrations" löschen
    // 3. Neue Migration via 
-   //       Paket-Manager-Konsole> Add-Migrations <IrgendeinPassenderName>
+   //       Paket-Manager-Konsole> Add-Migration <IrgendeinPassenderName>
    //    erstellen und ggf auf Fehler prüfen
    // 4. Datenbank Updaten via
    //       Paket-Manager-Konsole> Update-Database -Verbose
