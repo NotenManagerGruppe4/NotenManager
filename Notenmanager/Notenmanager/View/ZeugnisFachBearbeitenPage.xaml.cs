@@ -31,9 +31,9 @@ namespace Notenmanager.View
         {
             _viewmodel = FindResource("ZFBearbeitenVM") as ZeugnisFachBearbeitenPageVM;
 
-            this.comboxFachart.Items.Clear();
-            foreach (Fachart a in Enum.GetValues(typeof(Fachart)))
-                this.comboxFachart.Items.Add(a);
+            //Ansonsten geht das Binding verloren!
+            if(comboxFachart.ItemsSource == null)
+                comboxFachart.ItemsSource = Enum.GetValues(typeof(Fachart));
 
             _viewmodel.UFADialogRequest += OnUFADialogRequest;
             _viewmodel.MessageBoxRequest += OnMessageBoxRequest;
@@ -63,5 +63,9 @@ namespace Notenmanager.View
                 e.ResultAction(dlg.ShowDialog());
         }
 
+        private void Grid_Unloaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
