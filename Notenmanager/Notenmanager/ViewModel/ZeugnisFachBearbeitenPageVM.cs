@@ -53,7 +53,6 @@ namespace Notenmanager.ViewModel
             OnBtnAbbrechenCmd = new ActionCommand(OnBtnAbbrechen);
             OnBtnHinzufuegenCmd = new ActionCommand(OnBtnHinzufuegen);
 
-
             ufvm = App.Current.FindResource("UFBearbeitenVM") as UnterrichtsfachBearbeitenVM;
         }
 
