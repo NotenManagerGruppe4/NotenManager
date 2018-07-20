@@ -41,8 +41,8 @@ namespace Notenmanager.View
         
         private void SetSizeProperties(Page p)
         {
-            MinHeight = p.MinHeight;
-            MinWidth = p.MinWidth;
+            MinHeight = p.MinHeight+120;
+            MinWidth = p.MinWidth+20;
             MaxWidth = p.MaxWidth;
             MaxHeight = p.MaxHeight;
         }
