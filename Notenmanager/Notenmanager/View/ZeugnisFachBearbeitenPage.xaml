@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       Title="FachAnlegenPage" Height="486.437" Width="359.649">
 
-    <Grid DataContext="{StaticResource ZFBearbeitenVM}" Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded">
+    <Grid DataContext="{StaticResource ZFBearbeitenVM}" Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded" Unloaded="Grid_Unloaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

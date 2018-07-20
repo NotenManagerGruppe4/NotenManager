@@ -241,7 +241,6 @@ namespace Notenmanager.ViewModel
             SelFach.Speichern();
         }
         private void OnBtnSpeichern(object obj)
-
         {
             ZF.Unterrichtsfaecher = LstUFach.ToList();
             ZF.Speichern();
