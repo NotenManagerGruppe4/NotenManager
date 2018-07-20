@@ -20,6 +20,8 @@ namespace Notenmanager.ViewModel.Tools
 
         private Navigator() { }
 
+        public event EventHandler PageChanged; 
+
         public static Navigator Instance
         {
             get
@@ -40,6 +42,7 @@ namespace Notenmanager.ViewModel.Tools
         public void NavigateTo(string resourceKey)
         {
             (App.Current.FindResource("MainWindowVM") as MainWindowVM).CurrentPage = App.Current.FindResource(resourceKey) as Page;
+            PageChanged?.Invoke(this, new EventArgs());
         }
     }
 }

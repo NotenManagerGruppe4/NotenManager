@@ -1,4 +1,5 @@
 ﻿using Notenmanager.ViewModel;
+using Notenmanager.ViewModel.Tools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,27 +23,28 @@ namespace Notenmanager.View
     public partial class MainWindow : Window
     {
         private MainPageVM _viewModel;
+        private MainWindowVM _mwVM;
 
         public MainWindow()
         {
             InitializeComponent();
             //_viewModel = DataContext as MainPageVM;
             //_viewModel.NavigateToPageRequest += OnNavigateToPageRequest;
+            _mwVM = DataContext as MainWindowVM;
+            Navigator.Instance.PageChanged += Instance_PageChanged;
         }
 
-        private void OnNavigateToPageRequest(object sender, NavigationEventArgs e)
+        private void Instance_PageChanged(object sender, EventArgs e)
         {
-            frMainFrame.Navigate(e.ZielPage);
-            setMinimumWindowSize(e);
+            SetSizeProperties((App.Current.FindResource("MainWindowVM") as MainWindowVM).CurrentPage);
         }
-
-        private void setMinimumWindowSize(NavigationEventArgs e)
+        
+        private void SetSizeProperties(Page p)
         {
-            //e.ZielPage.MinHeight = MinHeight;
-            //e.ZielPage.MinWidth = MinWidth;
-
-            //e.ZielPage.Height = Height;
-            //e.ZielPage.Width = Width;
+            MinHeight = p.MinHeight;
+            MinWidth = p.MinWidth;
+            MaxWidth = p.MaxWidth;
+            MaxHeight = p.MaxHeight;
         }
 
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)
@@ -59,6 +61,7 @@ namespace Notenmanager.View
                 mainPanelBorder.Margin = new Thickness();
             }
         }
+        
     }
 
 }
