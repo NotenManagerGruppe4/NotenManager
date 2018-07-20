@@ -7,50 +7,53 @@
       xmlns:model="clr-namespace:Notenmanager.Model"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
-      Width="Auto" Height="Auto"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Top"
+      Width="Auto" Height="Auto" MaxWidth="400" MaxHeight="600" MinWidth="350" MinHeight="400"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch"
       Title="DateiImportPage"
       DataContext="{StaticResource DateiImportPageVM}">
-    
-    <Grid x:Name="DateiImportGrid" Background="White">
+
+    <Grid x:Name="DateiImportGrid" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="190*"/>
+            <RowDefinition Height="300*"/>
+            <RowDefinition Height="300*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Top" Width="Auto" Grid.ColumnSpan="2" Grid.RowSpan="3">    
-            <Button x:Name="btnFileSelect" Command="{Binding DateiAuswaehlenCmd}" Content="Datei Auswählen" VerticalAlignment="Top" Margin="10,10,10,10"/>
-            <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,76,10,0"/>
-            <TextBox x:Name="tboxFilename" Text="{Binding DateiPfad}" HorizontalAlignment="Stretch" Height="23" Margin="10,107,10,10" VerticalAlignment="Top" TextWrapping="NoWrap" IsReadOnly="True"/>
-            <Label Content="Dateityp:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,135,10,0"/>
-            <ComboBox x:Name="cBoxDateiart" SelectedIndex="0" SelectedItem="{Binding DateiTyp}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,163,10,0">
-                <ComboBoxItem>Schueler</ComboBoxItem>
-                <ComboBoxItem>Klasse</ComboBoxItem>
-                <ComboBoxItem>Lehrer</ComboBoxItem>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged" >
-                        <i:InvokeCommandAction Command="{Binding CBoxChangedCmd}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ComboBox>
-            <Label Content="Schule auswählen(nur bei Klassenimport):" Margin="10,191,10,10"/>
-            <ComboBox ItemsSource="{Binding Schulen}" SelectedIndex="0" SelectedItem="{Binding SelektierteSchule}" IsEnabled="{Binding CbSchulenEnabled}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280" Margin="10,219,0,0">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate DataType="model:Schule">
-                        <ContentControl Content="{Binding Bez}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <Button x:Name="btnImport" Command="{Binding DateiImportierenCmd}" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,0,10"/>
-            <Button x:Name="btnAbbrechen" Command="{Binding AbbrechenCmd}" Content="Abbrechen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,270,0,10"/>
-        </Grid>
+
+        <Button x:Name="btnFileSelect" Command="{Binding DateiAuswaehlenCmd}" Content="Datei Auswählen" VerticalAlignment="Top" Margin="10,10,10,0" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Height="22"/>
+        <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="10,0,10,30" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Height="28"/>
+        <Label x:Name="lblHinweis" Content="{Binding Hinweis}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="24" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="10, 10, 10, 0"/>
+        <TextBox x:Name="tboxFilename" Text="{Binding DateiPfad}" HorizontalAlignment="Stretch" Height="24" Margin="10,7,10,0" VerticalAlignment="Top" TextWrapping="NoWrap" IsReadOnly="True" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Label Content="Dateityp:" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,35,10,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="26"/>
+        <ComboBox x:Name="cBoxDateiart" SelectedIndex="0" SelectedItem="{Binding DateiTyp}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,6,10,0" Grid.ColumnSpan="2" Height="24" Grid.Row="1" Grid.Column="0">
+            <ComboBoxItem>Schueler</ComboBoxItem>
+            <ComboBoxItem>Klasse</ComboBoxItem>
+            <ComboBoxItem>Lehrer</ComboBoxItem>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged" >
+                    <i:InvokeCommandAction Command="{Binding CBoxChangedCmd}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        <Label Content="Schule auswählen (nur bei Klassenimport):" Margin="10,91,10,9" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"/>
+        <ComboBox ItemsSource="{Binding Schulen}" SelectedIndex="0" SelectedItem="{Binding SelektierteSchule}" IsEnabled="{Binding CbSchulenEnabled}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,19,10,10" Grid.Column="0" Grid.ColumnSpan="2" Height="24" Grid.Row="2">
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="model:Schule">
+                    <ContentControl Content="{Binding Bez}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button x:Name="btnImport" Command="{Binding DateiImportierenCmd}" Content="Importiere..." HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Margin="25,70,10,10" Grid.Column="1" Height="24" Grid.Row="2"/>
+        <Button x:Name="btnAbbrechen" Command="{Binding AbbrechenCmd}" Content="Abbrechen" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Margin="10,70,10,10" Height="24" Grid.Row="2"/>
         
-        <!--<Grid HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2" Grid.RowSpan="3">
+    </Grid>
+
+    <!--<Grid HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2" Grid.RowSpan="3">
             <Button x:Name="btnFileSelect" Grid.Column="1" Grid.Row="1" Content="Datei Auswählen" Margin="10,10,10,0" Click="btnFileSelect_Click" VerticalAlignment="Top"/>
             <Label x:Name="lblDateiname" Content="Ausgewählte Datei:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,42,0,0" Width="280"/>
             <Button x:Name="btnImport" Content="Importiere..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="215,270,0,0" Click="btnImport_Click"/>
@@ -60,5 +63,5 @@
         </Grid>-->
 
 
-    </Grid>
+
 </Page>
