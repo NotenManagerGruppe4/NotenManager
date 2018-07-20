@@ -11,24 +11,26 @@ using System.Threading.Tasks;
 namespace Notenmanager.Model
 {
    //Hauptklasse für den Datenbankzugriff
-   //Vorgehensweise bei Erstellen/Ändern des DB-Modells:
+   //
+   // !- Falls etwas hier nicht beschrieben sein sollte, einfach im Projekt danach suchen ;)
+   // Vorgehensweise bei Erstellen/Ändern des DB-Modells:
    // 0. falls das Projekt das erste Mal EF nutzt: 
    //     * NuGet-Manager folgende Pakete installieren:
    //       - EntityFramewrok
-   //       - MySql.Data.Entity (enthält/benötigt die GLEICHE!!! Version von normalen MySql-Konnektor)
+   //       - MySql.Data.Entity (enthält/benötigt die GLEICHE!!! Version vom normalen MySql-Konnektor)
    //     * App.config konfigurieren
    //       - <connectionStrings> hinzufügen
    //     * Context.cs (DB-Darstellung)
    //       - [DbConfigurationType(typeof(MySqlEFConfiguration))] über die Klasse schreiben
-   //       - : base("name=MySQLSchuleNoma4") am Standardkonstruktor anhängen
+   //       - : base("name=<NameEinesConnectionStrings>") am Standardkonstruktor anhängen
    //     * Main-Methode
    //       -  DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
    //     * Paket-Manager-Konsole> Enable-Migrations (falls bereits vorhanden: Enable-Migrations -Force)
-   // 1. falls vorhanden Datenbank zurücksetzen (alle bestehenden Tabellen löschen)
-   // 2. falls vorhanden alle Migrationsberichte im Ordner "Migrations" löschen
+   // 1. falls vorhanden, Datenbank zurücksetzen (alle bestehenden Tabellen löschen)
+   // 2. falls vorhanden, alle Migrationsberichte im Ordner "Migrations" löschen
    // 3. Neue Migration via 
    //       Paket-Manager-Konsole> Add-Migrations <IrgendeinPassenderName>
-   //    erstellen
+   //    erstellen und ggf auf Fehler prüfen
    // 4. Datenbank Updaten via
    //       Paket-Manager-Konsole> Update-Database -Verbose
 
@@ -45,8 +47,9 @@ namespace Notenmanager.Model
 
       public DBZugriff()
       {
-         Init();
          DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
+
+         Init();
       }
       private void Init()
       {
@@ -58,6 +61,7 @@ namespace Notenmanager.Model
       /// </summary>
       /// <typeparam name="T">Der Typ des Objekt</typeparam>
       /// <param name="obj">Das Objekt</param>
+      /// <param name="autoSyncDb">Stellt dar, ob dieDatenbank nach dem Speichern sofort aktualisiert werden soll</param>
       /// <exception cref="Exception"></exception>
       public void Speichern<T>(T obj, bool autoSyncDb = true) where T : class, IDBable
       {
@@ -78,7 +82,7 @@ namespace Notenmanager.Model
          }
          catch (Exception e)
          {
-            Trace.WriteLine("Error saving " + obj + "\r\n" + e.ToString());
+            Trace.WriteLine($"[DBZ] Fehler beim Speichern von '{obj}'\r\n" + e.ToString());
             throw e;
          }
 
@@ -89,8 +93,9 @@ namespace Notenmanager.Model
       /// </summary>
       /// <typeparam name="T">Der Typ des Objekt</typeparam>
       /// <param name="obj">Das Objekt</param>
+      /// <param name="autoSyncDb">Stellt dar, ob dieDatenbank nach dem Speichern sofort aktualisiert werden soll</param>
       /// <exception cref="Exception"></exception>
-      public void Loeschen<T>(T obj) where T : class, IDBable
+      public void Loeschen<T>(T obj, bool autoSyncDb = true) where T : class, IDBable
       {
          try
          {
@@ -99,14 +104,16 @@ namespace Notenmanager.Model
             ////Delete
             //dbset.Remove(obj);
 
+            //Nur logisch löschen
             obj.Active = false;
 
-            Save();
+            if (autoSyncDb)
+               Save();
 
          }
          catch (Exception e)
          {
-            Trace.WriteLine("Error deleting " + obj + "\r\n" + e.ToString());
+            Trace.WriteLine($"[DBZ] Fehler bei Löschen von '{obj}'\r\n" + e.ToString());
             throw e;
          }
       }
@@ -139,10 +146,14 @@ namespace Notenmanager.Model
       /// <typeparam name="T">Der Typ der genutzt werden soll</typeparam>
       /// <param name="pred">Die Vorlage zum Selektieren z.B. (x => x.Id == 1)</param>
       /// <returns>Objekt vom Typ T, default(T) (meistens null) falls nichts gefunden</returns>
-      /// <exception cref=""></exception>
-      public T SelectFirstOrDefault<T>(Func<T, bool> pred) where T : class, IDBable
+      public T SelectFirstOrDefault<T>(Func<T, bool> pred = null) where T : class, IDBable
       {
-         return GetDbSetFromContext<T>().SingleOrDefault(pred);
+         DbSet<T> tmp = GetDbSetFromContext<T>();
+
+         if (pred == null)
+            return tmp.FirstOrDefault();
+         else
+            return tmp.FirstOrDefault(pred);
       }
 
 
@@ -175,14 +186,6 @@ namespace Notenmanager.Model
          else
             return Select<T>(false).Where(pred).ToList();
       }
-
-      ///// <summary>
-      ///// Lädt die gesamte Tabelle neu
-      ///// </summary>
-      //public void ReloadSetTable<T>() where T : class, IDBable
-      //{
-      //   Context.Entry(GetDbSetFromContext<T>()).Reload();
-      //}
 
 
       public DbSet<T> GetDbSetFromContext<T>() where T : class, IDBable
@@ -227,29 +230,25 @@ namespace Notenmanager.Model
                //   {
                //      if (!(eve.Entry.Entity is IDBable))
                //         throw new Exception("Nicht löschbar: Unbekannter Objekttyp für Datenbank!");
-
                //      eve.Entry.State = EntityState.Deleted;
                //   }
                //   else if (eve.Entry.State == EntityState.Modified)
                //      eve.Entry.Reload();
                //   else
                //      throw new Exception("Unbehandelbarer Status");
-
-                  
                //}
                //catch (Exception ex2)
                //{
                //   Trace.WriteLine("Fatal: " + ex2.ToString());
-
                //   Trace.WriteLine("Lade Context KOMPLETT neu!");
-
-                  
                //}
                //Trace.WriteLine("Repariert!");
 
             }
 
-            Trace.WriteLine("Reloading from DB!");
+            Trace.WriteLine("[DBZ] Reloading COMPLETE Context from DB!");
+
+            //Context neu laden
             Dispose();
             Init();
 
