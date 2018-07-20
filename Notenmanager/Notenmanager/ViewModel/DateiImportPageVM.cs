@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using Notenmanager.Model;
 using Notenmanager.Persistenz;
+using Notenmanager.ViewModel.Tools;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -42,6 +43,7 @@ namespace Notenmanager.ViewModel
         private bool _cbSchulenEnabled = false;
         #endregion
 
+        #region Konstruktor
         public DateiImportPageVM()
         {
             // Commands initialisieren
@@ -52,20 +54,22 @@ namespace Notenmanager.ViewModel
 
             MainPageVM parentViewModel = App.Current.FindResource("MainPageVM") as MainPageVM;
             
-
             // Liste aller Schulen aus der Datenbank befüllen
             Schulen = new ObservableCollection<Schule>(DBZugriff.Current.Select<Schule>());
         }
-
+        #endregion
 
         #region Events
+        /// <summary>
+        /// Event dass Abonnenten(va. Fenster oder Pages) informiert, dass eine MessageBox ausgegeben werden soll
+        /// </summary>
         public event EventHandler<MessageBoxEventArgs> MessageBoxRequest;
-        public event EventHandler<NavigationEventArgs> NavigationRequest;
         #endregion
 
         #region Public Properties
         #region Commands
-        public ICommand DateiImportierenCmd { get; set; } 
+        public ICommand DateiImportierenCmd { get; set; }
+        // Wird asugeführt, wenn sich die Auswahl der Dateityp-ComboBox ändert
         public ICommand CBoxChangedCmd { get; set; }
         public ICommand AbbrechenCmd { get; set; }
         public ICommand DateiAuswaehlenCmd { get; set; }
@@ -153,9 +157,13 @@ namespace Notenmanager.ViewModel
         #region CommandHandler
         private void OnDateiAuswaehlen(object obj)
         {
+            // Datei-Auswahl-Dialog initialisieren
             OpenFileDialog fileDialog = new OpenFileDialog();
+            // Filter,damit standardmäßig nur CSV-Dateien angezeigt werden. Ein anderer Filter kann im Dialog ausgewählt werden, der
+            // trotzdem alle Dateiarten anzeigt
             fileDialog.Filter = "CSV files (*.csv)|*.csv|All files(*.*)|*.*";
             fileDialog.ShowDialog();
+            // Dateipfad der ausgewählten Datei anzeigen und zwischenspeichern
             DateiPfad = fileDialog.FileName;    
         }
 
@@ -180,7 +188,7 @@ namespace Notenmanager.ViewModel
                 fileFound = false;
             }
 
-            if(fileFound == true)
+            if(fileFound)
             {
                 try
                 {
@@ -223,12 +231,6 @@ namespace Notenmanager.ViewModel
                     });
                 }
             }
-
-            else
-            {
-
-            }
-            
         }
 
         private void OnCBoxSelectionChanged(object obj)
@@ -246,7 +248,8 @@ namespace Notenmanager.ViewModel
 
         private void OnAbbrechen(string key)
         {
-            (App.Current.FindResource("MainWindowVM") as MainWindowVM).CurrentPage = App.Current.FindResource("MainPage") as Page;
+            // Zur Hauptseite navigieren
+            Navigator.Instance.NavigateTo("MainPage");
         }
         #endregion
         #endregion

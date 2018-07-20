@@ -16,7 +16,6 @@ namespace Notenmanager.View
         {
             InitializeComponent();
             _viewmodel = DataContext as DateiImportPageVM;
-            _viewmodel.NavigationRequest += OnNavigationRequest;
             _viewmodel.MessageBoxRequest += OnMessageBoxRequest; 
         }
 

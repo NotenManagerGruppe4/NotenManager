@@ -11,27 +11,14 @@ namespace Notenmanager.ViewModel
 {
     class MainWindowVM : BaseViewModel
     {
+        #region Instanzvariablen
         public Page _currentPage;
+        #endregion
 
-
-        public ICommand BeendenCmd { get; set; }
-        public ICommand StartCmd { get; set; }
-
-        public MainWindowVM()
-        {
-            CurrentPage = App.Current.FindResource("MainPage") as Page;
-            BeendenCmd = new ActionCommand(OnBeenden);
-            StartCmd = new ActionCommand(OnStart);
-        }
-        private void OnStart(object obj)
-        {
-            Navigator.Instance.NavigateTo("MainPage");
-        }
-        private void OnBeenden(object obj)
-        {
-            App.Current.Shutdown();
-        }
-
+        #region Public Properties
+        /// <summary>
+        /// Enthält die aktuell im Hauptfenster angezeigte Seite
+        /// </summary>
         public Page CurrentPage
         {
             get
@@ -43,5 +30,40 @@ namespace Notenmanager.ViewModel
                 SetValue(ref _currentPage, value);
             }
         }
+
+        #region Commands
+        public ICommand BeendenCmd { get; set; }
+        public ICommand StartCmd { get; set; }
+        #endregion
+        #endregion
+
+        #region Konstruktoren
+        public MainWindowVM()
+        {
+            CurrentPage = App.Current.FindResource("MainPage") as Page;
+            BeendenCmd = new ActionCommand(OnBeenden);
+            StartCmd = new ActionCommand(OnStart);
+        }
+        #endregion
+
+        #region HandlerMethoden
+        /// <summary>
+        /// Navigiert zur Startseite
+        /// </summary>
+        /// <param name="obj"></param>
+        private void OnStart(object obj)
+        {
+            Navigator.Instance.NavigateTo("MainPage");
+        }
+
+        /// <summary>
+        /// Beendet die Anwendung
+        /// </summary>
+        /// <param name="obj">nicht verwendet</param>
+        private void OnBeenden(object obj)
+        {
+            App.Current.Shutdown();
+        }
+        #endregion
     }
 }
