@@ -21,6 +21,10 @@ namespace Notenmanager.ViewModel
         /// </summary>
         private string _dateiPfad;
         /// <summary>
+        /// Hinweistext der ausgegeben wird, wenn man eine Schülerdatei importieren will
+        /// </summary>
+        private string _hinweis;
+        /// <summary>
         /// Legt fest, um welche Art von Stammdatendatei(Schüler-, Lehrer- oder Klassendatei) es sich handelt
         /// </summary>
         private ComboBoxItem _dateiTyp;
@@ -130,6 +134,19 @@ namespace Notenmanager.ViewModel
                 SetValue(ref _cbSchulenEnabled, value);
             }
         }
+
+        public string Hinweis
+        {
+            get
+            {
+                return _hinweis;
+            }
+
+            set
+            {
+                SetValue(ref _hinweis, value);
+            }
+        }
         #endregion
 
         #region Methoden
@@ -216,7 +233,15 @@ namespace Notenmanager.ViewModel
 
         private void OnCBoxSelectionChanged(object obj)
         {
-            CbSchulenEnabled = DateiTyp.Content.ToString() == "Klasse";
+            // ComboBox der Klassenauswahl (de-)aktivieren 
+            CbSchulenEnabled = DateiTyp.Content.ToString() == "Klassen";
+
+            // Hinweis ausgeben, dass erst die Klassen importiert werden sollten, falls eine Schülerdatei importiert werden soll(-> Datenbanktechnische Gründe)
+            if (DateiTyp.Content.ToString() == "Schüler")
+                Hinweis = "Zuerst Klassen importieren!";
+            // Ansonsten Hinweis ausblenden
+            else
+                Hinweis = String.Empty;
         }
 
         private void OnAbbrechen(string key)
