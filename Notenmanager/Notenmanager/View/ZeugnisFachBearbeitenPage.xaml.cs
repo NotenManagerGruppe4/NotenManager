@@ -31,9 +31,9 @@ namespace Notenmanager.View
         {
             _viewmodel = FindResource("ZFBearbeitenVM") as ZeugnisFachBearbeitenPageVM;
 
-            this.comboxFachart.Items.Clear();
-            foreach (Fachart a in Enum.GetValues(typeof(Fachart)))
-                this.comboxFachart.Items.Add(a);
+            comboxFachart.ItemsSource = Enum.GetValues(typeof(Fachart));
+
+            this.comboxFachart.SelectedValue = _viewmodel.Fachart;
 
             _viewmodel.UFADialogRequest += OnUFADialogRequest;
             _viewmodel.MessageBoxRequest += OnMessageBoxRequest;

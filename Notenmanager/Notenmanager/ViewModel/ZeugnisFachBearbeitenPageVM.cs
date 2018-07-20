@@ -53,6 +53,7 @@ namespace Notenmanager.ViewModel
             OnBtnAbbrechenCmd = new ActionCommand(OnBtnAbbrechen);
             OnBtnHinzufuegenCmd = new ActionCommand(OnBtnHinzufuegen);
 
+
             ufvm = App.Current.FindResource("UFBearbeitenVM") as UnterrichtsfachBearbeitenVM;
         }
 
@@ -241,7 +242,6 @@ namespace Notenmanager.ViewModel
             SelFach.Speichern();
         }
         private void OnBtnSpeichern(object obj)
-
         {
             ZF.Unterrichtsfaecher = LstUFach.ToList();
             ZF.Speichern();
