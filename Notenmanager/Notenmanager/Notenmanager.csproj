@@ -103,11 +103,12 @@
     <Compile Include="Persistenz\Importstatistik.cs" />
     <Compile Include="ViewModel\LehrerAuswahlWindowVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
+    <Compile Include="ViewModel\NotenPageVM.cs" />
     <Compile Include="ViewModel\Tools\Command.cs" />
     <Compile Include="ViewModel\Tools\MessageBoxEventArgs.cs" />
     <Compile Include="Persistenz\DateiZugriff.cs" />
     <Compile Include="ViewModel\Tools\ActionCommand.cs" />
-    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Tools\BaseViewModel.cs" />
     <Compile Include="ViewModel\DateiImportPageVM.cs" />
     <Compile Include="ViewModel\Tools\DialogEventArgs.cs" />
     <Compile Include="ViewModel\Tools\Navigator.cs" />
@@ -125,6 +126,9 @@
     </Compile>
     <Compile Include="View\LehrerAuswahlWindow.xaml.cs">
       <DependentUpon>LehrerAuswahlWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NotenPage.xaml.cs">
+      <DependentUpon>NotenPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ZeugnisFachBearbeitenPage.xaml.cs">
       <DependentUpon>ZeugnisFachBearbeitenPage.xaml</DependentUpon>
@@ -192,6 +196,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\NotenPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

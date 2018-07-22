@@ -44,7 +44,7 @@ namespace Notenmanager
          if (Environment.GetCommandLineArgs().Contains("-test"))
             s.Test2();
          if (Environment.GetCommandLineArgs().Contains("-valtest"))
-            s.Test();
+            s.ValTest();
 
          #endif
       }
@@ -58,7 +58,7 @@ namespace Notenmanager
       public class Tests
       {
 
-         public void Test()
+         public void ValTest()
          {
             //Lehrer leh = new Lehrer()
             //{
@@ -77,6 +77,7 @@ namespace Notenmanager
 
             //foreach (Lehrer l in DBZugriff.Current.Context.LehrerSet)
             //   Trace.WriteLine(l.Vorname);
+
          }
          //[TestMethod()]
          public void Test2()
@@ -98,6 +99,8 @@ namespace Notenmanager
 
          private static void InsertTest()
          {
+            
+
 
             Schule schule = new Schule()
             {
@@ -142,6 +145,14 @@ namespace Notenmanager
                Zeugnisfach = zf,
             };
             uf.Speichern();
+            Unterrichtsfach uf2 = new Unterrichtsfach()
+            {
+               Bez = "TestUnterichtsFach2",
+               Pos = 1,
+               Stunden = 4,
+               Zeugnisfach = zf,
+            };
+            uf2.Speichern();
 
             UFachLehrer ufl = new UFachLehrer()
             {
@@ -150,6 +161,13 @@ namespace Notenmanager
                Stunden = uf.Stunden
             };
             ufl.Speichern();
+            UFachLehrer ufl2 = new UFachLehrer()
+            {
+               Lehrer = leh,
+               Unterrichtsfach = uf2,
+               Stunden = uf.Stunden
+            };
+            ufl2.Speichern();
 
 
             Schueler s = new Schueler()
@@ -176,6 +194,12 @@ namespace Notenmanager
                Gewicht = 2,
             };
             lg.Speichern();
+            Leistungsgruppe lg2 = new Leistungsgruppe()
+            {
+               Bez = "Mündlich",
+               Gewicht = 1,
+            };
+            lg2.Speichern();
 
             Leistungsart la = new Leistungsart()
             {
@@ -185,6 +209,22 @@ namespace Notenmanager
 
             };
             la.Speichern();
+            Leistungsart la2 = new Leistungsart()
+            {
+               Bez = "Ex",
+               Gewichtung = 1,
+               Gruppe = lg,
+
+            };
+            la2.Speichern();
+            Leistungsart la3 = new Leistungsart()
+            {
+               Bez = "Abfrage",
+               Gewichtung = 1,
+               Gruppe = lg2,
+
+            };
+            la3.Speichern();
 
             Leistung lei = new Leistung()
             {
@@ -197,6 +237,52 @@ namespace Notenmanager
                UFachLehrer = ufl
             };
             lei.Speichern();
+            Leistung lei2 = new Leistung()
+            {
+               Erhebungsdatum = DateTime.Now,
+               Notenstufe = 3,
+               Tendenz = Tendenz.UP,
+               LetzteÄnderung = DateTime.Now,
+               Leistungsart = la2,
+               SchuelerKlasse = sk,
+               UFachLehrer = ufl
+            };
+            lei2.Speichern();
+            Leistung lei3 = new Leistung()
+            {
+               Erhebungsdatum = DateTime.Now,
+               Notenstufe = 2,
+               Tendenz = Tendenz.UP,
+               LetzteÄnderung = DateTime.Now,
+               Leistungsart = la2,
+               SchuelerKlasse = sk,
+               UFachLehrer = ufl
+            };
+            lei3.Speichern();
+            Leistung lei4 = new Leistung()
+            {
+               Erhebungsdatum = DateTime.Now,
+               Notenstufe = 3,
+               Tendenz = Tendenz.UP,
+               LetzteÄnderung = DateTime.Now,
+               Leistungsart = la3,
+               SchuelerKlasse = sk,
+               UFachLehrer = ufl
+            };
+            lei4.Speichern();
+
+            Leistung leiB = new Leistung()
+            {
+               Erhebungsdatum = DateTime.Now,
+               Notenstufe = 3,
+               Tendenz = Tendenz.UP,
+               LetzteÄnderung = DateTime.Now,
+               Leistungsart = la,
+               SchuelerKlasse = sk,
+               UFachLehrer = ufl2
+            };
+            leiB.Speichern();
+
 
          }
       }
