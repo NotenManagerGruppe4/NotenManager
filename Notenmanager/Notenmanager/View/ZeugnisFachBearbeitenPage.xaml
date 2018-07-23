@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       Title="FachAnlegenPage" MinHeight="500" Width="350">
 
-    <Grid Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded" Unloaded="Grid_Unloaded">
+    <Grid Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="190"/>
             <RowDefinition Height="*"/>
@@ -32,7 +32,7 @@
         <!-- Grid Row 2 (Border mit weiterem Grid) -->
         <Label x:Name="lblUFach" Content="Unterrichtsfächer:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Height="30" Margin="20,0,0,0" VerticalAlignment="Top" Width="146" FontWeight="Bold"/>
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" HorizontalAlignment="Left" Height="Auto" Margin="20,20,20,30" Width="300" Opacity="1" VerticalAlignment="Stretch">
-            <Grid Name="gridInBorder" Background="White" DataContext="{StaticResource ZFBearbeitenVM}" Margin="10,10,10,10" Loaded="Grid_Loaded" Unloaded="Grid_Unloaded">
+            <Grid Name="gridInBorder" Background="White" DataContext="{StaticResource ZFBearbeitenVM}" Margin="10,10,10,10" Loaded="Grid_Loaded">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="40"/>
@@ -58,9 +58,9 @@
                 <!-- Inneres Grid Row 3 (DataGrid Lehrer) -->
                 <DataGrid ItemsSource="{Binding LstULehrer}" SelectedItem="{Binding SelULehrer}" Grid.Row="2" x:Name="LehrerDataGrid" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Height="Auto" Width="Auto" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Zuständige Lehrer">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
-                        <DataGridTextColumn Binding="{Binding Vorname}" Header="Vorname"/>
-                        <DataGridTextColumn Binding="{Binding Kürzel}" Header="Kürzel"/>
+                        <DataGridTextColumn Binding="{Binding Lehrer.Nachname}" Header="Name"/>
+                        <DataGridTextColumn Binding="{Binding Lehrer.Vorname}" Header="Vorname"/>
+                        <DataGridTextColumn Binding="{Binding Lehrer.Kuerzel}" Header="Kürzel"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 
@@ -76,36 +76,6 @@
         <Button x:Name="btnSpeichern" Content="Speichern" Command ="{Binding OnBtnSpeichernCmd}" IsEnabled="{Binding ZFachSaveAble}" Grid.Row="1" HorizontalAlignment="Left" Height="25" Margin="25,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
         <Button x:Name="btnAbbrechen" Content="Abbrechen" Command="{Binding OnBtnAbbrechenCmd}" Grid.Row="1" HorizontalAlignment="Right" Height="25" Margin="0,0,25,0" VerticalAlignment="Bottom" Width="Auto"/>
 
-        <Label x:Name="lblBezeichnung" Content="Fachbezeichnung:" HorizontalAlignment="Left" Height="30" Margin="24,54,0,0" VerticalAlignment="Top" Width="107"/>
-        <Label x:Name="lblPos" Content="Fachposition: " HorizontalAlignment="Left" Height="27" Margin="24,84,0,0" VerticalAlignment="Top" Width="107"/>
-        <Label x:Name="lblFachArt" Content="Fachart:" HorizontalAlignment="Left" Height="26" Margin="24,116,0,0" VerticalAlignment="Top" Width="98"/>
-        <Label x:Name="lblUeberschrift" Content="Zeugnisfach anlegen" HorizontalAlignment="Left" Height="44" Margin="10,10,0,0" VerticalAlignment="Top" Width="168" FontSize="16" FontWeight="Bold"/>
-        <CheckBox x:Name="chckBoxVorFach" IsChecked="{Binding Vorrueckungsfach}" Content="Vorrückungsfach" HorizontalAlignment="Left" Height="22" Margin="40,182,0,0" VerticalAlignment="Top" Width="146" ToolTip=""/>
-        <ComboBox x:Name="comboxFachart" ItemsSource="{Binding Fachart}" SelectedValue="{Binding Path=ZF.Fachart}" HorizontalAlignment="Left" Height="22" Margin="135,120,0,0" VerticalAlignment="Top" Width="144" ToolTip="Fachart wählen" IsSynchronizedWithCurrentItem="True" />
-        <CheckBox x:Name="chckboxAbschlFach" IsChecked="{Binding AbschliessendesFach}" Content="Abschließendes Fach" HorizontalAlignment="Left" Height="22" Margin="40,155,0,0" VerticalAlignment="Top" Width="160"/>
-        <TextBox x:Name="txtBezeichnung" Text="{Binding Bez}" HorizontalAlignment="Left" Height="22" Margin="135,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" RenderTransformOrigin="0.313,0.53" ToolTip="Fachbezeichnung eingeben" MaxLength="45"/>
-        <TextBox x:Name="txtPos" Text="{Binding Pos}" HorizontalAlignment="Left" Height="22" Margin="135,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" ToolTip="z.B. 1" MaxLength="45"/>
-        <Label x:Name="lblUFach" Content="Unterrichtsfächer:" HorizontalAlignment="Left" Height="29" Margin="19,206,0,0" VerticalAlignment="Top" Width="146" FontWeight="Bold"/>
-        <DataGrid ItemsSource="{Binding LstUFach}" SelectedItem="{Binding SelFach}" x:Name="UFDataGrid" HorizontalAlignment="Left" Margin="24,235,0,0" VerticalAlignment="Top" Height="65" Width="301" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Bereits dem Zeugnisfach zugeordnete Ufächer">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Bez}" Header="Fachbezeichnung"/>
-                <DataGridTextColumn Binding="{Binding Stunden}" Header="Stunden"/>
-                <DataGridTextColumn Binding="{Binding Pos}" Header="Position"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button x:Name="btnSpeichern" Content="Speichern" Command ="{Binding OnBtnSpeichernCmd}" IsEnabled="{Binding ZFachSaveAble}"  HorizontalAlignment="Left" Height="22" Margin="25,446,0,0" VerticalAlignment="Top" Width="107"/>
-        <Button x:Name="btnAbbrechen" Content="Abbrechen" Command="{Binding OnBtnAbbrechenCmd}" HorizontalAlignment="Left" Height="22" Margin="161,446,0,0" VerticalAlignment="Top" Width="107"/>
-        <Button x:Name="btnEntfernen" Command="{Binding OnBtnEntfernenCmd}" Content="Entfernen" HorizontalAlignment="Left" Height="22" Margin="225,305,0,0" VerticalAlignment="Top" Width="100"/>
-        <Button x:Name="btnAnlegen" Command="{Binding OnBtnAnlegenCmd}" IsEnabled="{Binding ZFachSaveAble}" Content="Anlegen" HorizontalAlignment="Left" Height="21" Margin="25,305,0,0" VerticalAlignment="Top" Width="91"/>
-        <Button x:Name="btnAendern" Command="{Binding OnBtnAendernCmd}" Content="Ändern" HorizontalAlignment="Left" Height="21" Margin="121,305,0,0" VerticalAlignment="Top" Width="100"/>
-        <DataGrid ItemsSource="{Binding LstULehrer}" SelectedItem="{Binding SelULehrer}" x:Name="LehrerDataGrid" HorizontalAlignment="Left" Margin="24,341,0,0" VerticalAlignment="Top" Height="65" Width="301" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Zuständige Lehrer">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Lehrer.Nachname}" Header="Name"/>
-                <DataGridTextColumn Binding="{Binding Lehrer.Vorname}" Header="Vorname"/>
-                <DataGridTextColumn Binding="{Binding Lehrer.Kuerzel}" Header="Kürzel"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button x:Name="btnHinzufuegen" Command="{Binding OnBtnHinzufuegenCmd}" Content="Hinzufügen" HorizontalAlignment="Left" Height="20" Margin="26,411,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.954,1.412"/>
-        <Button x:Name="btnEntferneLehrer" Command="{Binding OnBtnEntfernenCmd}" Content="Entfernen" HorizontalAlignment="Left" Height="20" Margin="229,411,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.954,1.412"/>
+        
     </Grid>
 </Page>
