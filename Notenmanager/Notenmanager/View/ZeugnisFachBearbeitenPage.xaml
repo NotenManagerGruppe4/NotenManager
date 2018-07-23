@@ -74,8 +74,8 @@
         </Border>
         
         <!-- Buttons für Page-Steuerung am Ende der Page und außerhalb des Borders -->
-        <Button x:Name="btnSpeichern" Content="Speichern" Command ="{Binding OnBtnSpeichernCmd}" CommandParameter="MainPage" IsEnabled="{Binding ZFachSaveAble}" Grid.Row="1" HorizontalAlignment="Left" Height="25" Margin="25,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
-        <Button x:Name="btnAbbrechen" Content="Abbrechen" Command="{Binding OnBtnAbbrechenCmd}" CommandParameter="MainPage" Grid.Row="1" HorizontalAlignment="Right" Height="25" Margin="0,0,25,0" VerticalAlignment="Bottom" Width="Auto"/>
+        <Button x:Name="btnSpeichern" Content="Speichern" Command ="{Binding OnBtnSpeichernCmd}" CommandParameter="FaecherVerwaltenPage" IsEnabled="{Binding ZFachSaveAble}" Grid.Row="1" HorizontalAlignment="Left" Height="25" Margin="25,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
+        <Button x:Name="btnAbbrechen" Content="Abbrechen" Command="{Binding OnBtnAbbrechenCmd}" CommandParameter="FaecherVerwaltenPage" Grid.Row="1" HorizontalAlignment="Right" Height="25" Margin="0,0,25,0" VerticalAlignment="Bottom" Width="Auto"/>
 
         
     </Grid>

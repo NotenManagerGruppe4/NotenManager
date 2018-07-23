@@ -26,9 +26,9 @@
         </Grid.ColumnDefinitions>
         
         
-        <Button x:Name="btnButton" Command="{Binding NavigationCmd}" CommandParameter="DateiImportPage"  Content="Import Stammdaten" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="Auto" FontSize="15"/>
-        <Button x:Name="btnMeeensch" Command="{Binding NavigationCmd}" CommandParameter="FachAnlegenPage" Content="Fach anlegen" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,0,0" FontSize="15"/>
-        <Button x:Name="btnNiten" Command="{Binding NavigationCmd}" CommandParameter="NotenPage" Content="NotenPage" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,0,0" FontSize="15"/>
+        <Button x:Name="btnImport" Command="{Binding NavigationCmd}" CommandParameter="DateiImportPage"  Content="Import Stammdaten" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="Auto" FontSize="15"/>
+        <Button x:Name="btnFaecher" Command="{Binding NavigationCmd}" CommandParameter="FaecherVerwaltenPage" Content="Fach anlegen" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,0,0" FontSize="15"/>
+        <Button x:Name="btnNoten" Command="{Binding NavigationCmd}" CommandParameter="NotenPage" Content="NotenPage" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,0,0" FontSize="15"/>
 
     </Grid>
 </Page>
