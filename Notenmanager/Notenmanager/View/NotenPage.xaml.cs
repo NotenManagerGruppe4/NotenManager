@@ -171,16 +171,17 @@ namespace Notenmanager.View
                            Leistungsart = cs.La,
                            Unterrichtsfach = uf,
                            Klasse = _vm.CurrentKlasse,
-                        },true);
+                        }, true);
                         continue;
                      }
 
-                     AddNotenTextBox(l.Notenstufe, currentrow, cs.ColumnIndex, false, new CellEditorTag() {
+                     AddNotenTextBox(l.Notenstufe, currentrow, cs.ColumnIndex, false, new CellEditorTag()
+                     {
                         Mode = DialogMode.Aendern,
                         Leistung = l,
                         Klasse = _vm.CurrentKlasse,
                      }, true);
-                     
+
 
                      lstleistungenuf.Add(l);
                   }
@@ -264,8 +265,8 @@ namespace Notenmanager.View
                   if (ctag == null)
                      return;
 
-                  if (new LeistungsEditor(ctag.Mode, ctag.Leistung, ctag.Leistungsart, ctag.Unterrichtsfach, ctag.Klasse).ShowDialog() == true)
-                     UpdateNotenGrid();
+                  new LeistungsEditor(ctag.Mode, ctag.Leistung, ctag.Leistungsart, ctag.Unterrichtsfach, ctag.Klasse).ShowDialog();
+                  UpdateNotenGrid();
                };
          }
 
