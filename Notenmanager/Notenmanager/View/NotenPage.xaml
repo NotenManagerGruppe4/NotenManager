@@ -1,0 +1,60 @@
+﻿<Page x:Class="Notenmanager.View.NotenPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:local="clr-namespace:Notenmanager.View"
+      mc:Ignorable="d" d:DesignWidth="700"
+      MinHeight="500" MinWidth="700"
+      
+      Title="Noten"
+      DataContext="{StaticResource NotenPageVM}" Height="585">
+
+    <Grid Background="White" Margin="0,0,-16,0">
+        <ComboBox x:Name="cbSchule" ItemsSource="{Binding LstSchulen}" SelectedItem="{Binding CurrentSchule}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="300">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding Bez}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ComboBox x:Name="cbKlasse" ItemsSource="{Binding LstKlassen}" SelectedItem="{Binding CurrentKlasse}" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="300">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding Bez}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Grid HorizontalAlignment="Left" Height="49" Margin="527,37,0,0" VerticalAlignment="Top" Width="101">
+            <Label x:Name="lblKL" Content="Klassenleiter" VerticalAlignment="Top"/>
+            <Label x:Name="lblStvKL" Content="Stv. Klassenleiter" Margin="0,26,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <ComboBox x:Name="cbKL" ItemsSource="{Binding LstLehrer}" SelectedItem="{Binding CurrentKlasse.Klassenleiter}" HorizontalAlignment="Left" Margin="633,37,0,0" VerticalAlignment="Top" Width="73">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding Kuerzel}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ComboBox x:Name="cbStvKL" ItemsSource="{Binding LstLehrer}" SelectedItem="{Binding CurrentKlasse.StellvertretenderKlassenleiter}" HorizontalAlignment="Left" Margin="633,64,0,0" VerticalAlignment="Top" Width="73">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding Kuerzel}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Button x:Name="btnSchuelerZuweisen" Content="Schüler zuweisen" Command="{Binding SchuelerZuweisenClickCmd}" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="126"/>
+        <Button x:Name="btnZeugnisfaecher" Content="Zeugnisfächer editieren" Command="{Binding ZeugnisFaecherClickCmd}" HorizontalAlignment="Left" Margin="158,88,0,0" VerticalAlignment="Top" Width="152"/>
+        <Button x:Name="btnMassenErfassung" Content="Massenerfassung" Command="{Binding MassenErfassungClickCmd}" HorizontalAlignment="Left" Margin="574,136,0,0" VerticalAlignment="Top" Width="126"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="20,163,16,61">
+            <Grid>
+                <ScrollViewer Margin="10">
+                    <Grid x:Name="gNoten" Height="339" Width="658"/>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Page>

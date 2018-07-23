@@ -11,7 +11,7 @@ namespace Notenmanager.Model
       public int Id { get; private set; }
       public bool Active { get; set; } = true;
 
-      [Required]
+      [Required,MaxLength(DBZugriff.STRING_MAXLENGTH)]
       public string Bez { get; set; }
 
       [Required]

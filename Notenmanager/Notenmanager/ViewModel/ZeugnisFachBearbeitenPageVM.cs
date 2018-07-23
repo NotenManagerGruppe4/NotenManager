@@ -270,7 +270,7 @@ namespace Notenmanager.ViewModel
         {
             LehrerAuswahlWindow dlg = new LehrerAuswahlWindow(_selFach);
             dlg.ShowDialog();
-            //LehrerDialogRequest?.Invoke(this, new DialogEventArgs(DoHinzufuegen, SelFach));
+            LehrerDialogRequest?.Invoke(this, new DialogEventArgs(DoHinzufuegen, SelFach));
         }
         private void DoHinzufuegen(bool? obj)
         {

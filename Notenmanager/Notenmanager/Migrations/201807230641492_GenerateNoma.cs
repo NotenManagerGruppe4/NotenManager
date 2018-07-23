@@ -134,7 +134,7 @@ namespace Notenmanager.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Active = c.Boolean(nullable: false),
-                        Bez = c.String(nullable: false, unicode: false),
+                        Bez = c.String(nullable: false, maxLength: 45, storeType: "nvarchar"),
                         Gewicht = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);

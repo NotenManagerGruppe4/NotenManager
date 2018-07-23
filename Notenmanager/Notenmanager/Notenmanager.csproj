@@ -81,9 +81,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Migrations\201807190633350_GenerateNoma.cs" />
-    <Compile Include="Migrations\201807190633350_GenerateNoma.Designer.cs">
-      <DependentUpon>201807190633350_GenerateNoma.cs</DependentUpon>
+    <Compile Include="Migrations\201807230641492_GenerateNoma.cs" />
+    <Compile Include="Migrations\201807230641492_GenerateNoma.Designer.cs">
+      <DependentUpon>201807230641492_GenerateNoma.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Classes\Klasse.cs" />
@@ -103,11 +103,12 @@
     <Compile Include="Persistenz\Importstatistik.cs" />
     <Compile Include="ViewModel\LehrerAuswahlWindowVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
+    <Compile Include="ViewModel\NotenPageVM.cs" />
     <Compile Include="ViewModel\Tools\Command.cs" />
     <Compile Include="ViewModel\Tools\MessageBoxEventArgs.cs" />
     <Compile Include="Persistenz\DateiZugriff.cs" />
     <Compile Include="ViewModel\Tools\ActionCommand.cs" />
-    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Tools\BaseViewModel.cs" />
     <Compile Include="ViewModel\DateiImportPageVM.cs" />
     <Compile Include="ViewModel\Tools\DialogEventArgs.cs" />
     <Compile Include="ViewModel\Tools\Navigator.cs" />
@@ -125,6 +126,9 @@
     </Compile>
     <Compile Include="View\LehrerAuswahlWindow.xaml.cs">
       <DependentUpon>LehrerAuswahlWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NotenPage.xaml.cs">
+      <DependentUpon>NotenPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ZeugnisFachBearbeitenPage.xaml.cs">
       <DependentUpon>ZeugnisFachBearbeitenPage.xaml</DependentUpon>
@@ -160,8 +164,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201807190633350_GenerateNoma.resx">
-      <DependentUpon>201807190633350_GenerateNoma.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807230641492_GenerateNoma.resx">
+      <DependentUpon>201807230641492_GenerateNoma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -192,6 +196,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\NotenPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

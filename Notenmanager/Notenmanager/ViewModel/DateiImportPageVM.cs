@@ -197,25 +197,28 @@ namespace Notenmanager.ViewModel
                     // bestimmen um welche Dateiart es sich handelt und diese entsprechend importieren
                     switch (DateiTyp.Content.ToString())
                     {
-                        case "Klasse":
+                        case "Klassen":
                             rueckmeldung = DateiZugriff.ImportKlassen(DateiPfad, SelektierteSchule);
                             break;
-                        case "Schueler":
+                        case "Schüler":
                             rueckmeldung = DateiZugriff.ImportSchueler(DateiPfad);
                             break;
                         case "Lehrer":
                             rueckmeldung = DateiZugriff.ImportLehrer(DateiPfad);
                             break;
+                        default:
+                            break;
                     }
 
                     // Erfolgsmeldung
-                    MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs()
-                    {
-                        Caption = "Datei-Import abgeschlossen",
-                        MessageBoxText = $"{DateiTyp.Content.ToString()}-Datei erfolgreich importiert!\r\n\r\n{rueckmeldung?.ToString()}",
-                        MessageBoxImage = System.Windows.MessageBoxImage.Information,
-                        MessageBoxButton = System.Windows.MessageBoxButton.OK,
-                    });    
+                    if(rueckmeldung != null)
+                        MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs()
+                        {
+                            Caption = "Datei-Import abgeschlossen",
+                            MessageBoxText = $"{DateiTyp.Content.ToString()}-Datei erfolgreich importiert!\r\n\r\n{rueckmeldung?.ToString()}",
+                            MessageBoxImage = System.Windows.MessageBoxImage.Information,
+                            MessageBoxButton = System.Windows.MessageBoxButton.OK,
+                        });    
 
                     DateiPfad = "";
                 }
@@ -240,7 +243,7 @@ namespace Notenmanager.ViewModel
 
             // Hinweis ausgeben, dass erst die Klassen importiert werden sollten, falls eine Schülerdatei importiert werden soll(-> Datenbanktechnische Gründe)
             if (DateiTyp.Content.ToString() == "Schüler")
-                Hinweis = "Zuerst Klassen importieren!";
+                Hinweis = "Bitte zuerst passende Klassen importieren!";
             // Ansonsten Hinweis ausblenden
             else
                 Hinweis = String.Empty;
