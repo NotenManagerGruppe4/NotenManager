@@ -5,10 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Notenmanager.View"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
       d:DesignHeight="300" d:DesignWidth="300" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-      MinHeight="300"
-      MinWidth="250"
+      MinHeight="400"
+      MinWidth="350"
       Title="MainPage"
       DataContext="{StaticResource MainPageVM}">
 
@@ -19,15 +18,16 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btnNiten" Command="{Binding NavigationCmd}" CommandParameter="NotenPage" Content="NotenPage" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="98,124,0,0"/>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
         
-        <Button x:Name="btnButton" Command="{Binding NavigationCmd}" CommandParameter="DateiImportPage"  Content="Import Stammdaten" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="Auto"/>
-        <Button x:Name="btnMeeensch" Command="{Binding NavigationCmd}" CommandParameter="FachAnlegenPage" Content="Fach anlegen" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,0,0"/>
+        <Button x:Name="btnButton" Command="{Binding NavigationCmd}" CommandParameter="DateiImportPage"  Content="Import Stammdaten" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="Auto" FontSize="15"/>
+        <Button x:Name="btnMeeensch" Command="{Binding NavigationCmd}" CommandParameter="FachAnlegenPage" Content="Fach anlegen" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,0,0" FontSize="15"/>
+        <Button x:Name="btnNiten" Command="{Binding NavigationCmd}" CommandParameter="NotenPage" Content="NotenPage" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,0,0" FontSize="15"/>
 
     </Grid>
 </Page>
