@@ -5,13 +5,28 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Notenmanager.View"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="300" d:DesignWidth="300" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+      MinHeight="300"
+      MinWidth="250"
       Title="MainPage"
       DataContext="{StaticResource MainPageVM}">
 
     <Grid Background="White">
-        <Button x:Name="btnButton" Command="{Binding NavigationCmd}" CommandParameter="DateiImportPage"  Content="Import Stammdaten" HorizontalAlignment="Left" Margin="98,97,0,0" VerticalAlignment="Top" Width="125"/>
-        <Button x:Name="btnMeeensch" Command="{Binding NavigationCmd}" CommandParameter="FachAnlegenPage" Content="Fach anlegen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="98,72,0,0"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        
+        <Button x:Name="btnButton" Command="{Binding NavigationCmd}" CommandParameter="DateiImportPage"  Content="Import Stammdaten" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="Auto"/>
+        <Button x:Name="btnMeeensch" Command="{Binding NavigationCmd}" CommandParameter="FachAnlegenPage" Content="Fach anlegen" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,0,0"/>
 
     </Grid>
 </Page>
