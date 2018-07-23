@@ -101,6 +101,7 @@
     <Compile Include="Model\DBZugriff.cs" />
     <Compile Include="Model\IDBable.cs" />
     <Compile Include="Persistenz\Importstatistik.cs" />
+    <Compile Include="ViewModel\FaecherVerwaltenPageVM.cs" />
     <Compile Include="ViewModel\LehrerAuswahlWindowVM.cs" />
     <Compile Include="ViewModel\LeistungsEditorVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
@@ -125,6 +126,9 @@
     <Compile Include="ViewModel\UnterrichtsfachBearbeitenVM.cs" />
     <Compile Include="View\DateiImportPage.xaml.cs">
       <DependentUpon>DateiImportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FaecherVerwaltenPage.xaml.cs">
+      <DependentUpon>FaecherVerwaltenPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LehrerAuswahlWindow.xaml.cs">
       <DependentUpon>LehrerAuswahlWindow.xaml</DependentUpon>
@@ -188,6 +192,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="View\FaecherVerwaltenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\KlassenPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

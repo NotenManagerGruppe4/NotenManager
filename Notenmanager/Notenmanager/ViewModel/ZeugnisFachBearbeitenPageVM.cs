@@ -32,9 +32,9 @@ namespace Notenmanager.ViewModel
         #region Commands
         public ICommand OnBtnAnlegenCmd { get; set; }
         public ICommand OnBtnAendernCmd { get; set; }
-        public ICommand OnBtnSpeichernCmd { get; set; }
+        public Command<string> OnBtnSpeichernCmd { get; set; }
         public ICommand OnBtnEntfernenCmd { get; set; }
-        public ICommand OnBtnAbbrechenCmd { get; set; }
+        public Command<string> OnBtnAbbrechenCmd { get; set; }
         public ICommand OnBtnHinzufuegenCmd { get; set; }
         public ICommand OnUFachEditCmd { get; set; }
 
@@ -45,9 +45,9 @@ namespace Notenmanager.ViewModel
 
             OnBtnAnlegenCmd = new ActionCommand(OnBtnAnlegen);
             OnBtnAendernCmd = new ActionCommand(OnBtnAendern);
-            OnBtnSpeichernCmd = new ActionCommand(OnBtnSpeichern);
+            OnBtnSpeichernCmd = new Command<string>(OnBtnSpeichern);
             OnBtnEntfernenCmd = new ActionCommand(OnBtnEntfernen);
-            OnBtnAbbrechenCmd = new ActionCommand(OnBtnAbbrechen);
+            OnBtnAbbrechenCmd = new Command<string>(OnBtnAbbrechen);
             OnBtnHinzufuegenCmd = new ActionCommand(OnBtnHinzufuegen);
 
             ufvm = App.Current.FindResource("UFBearbeitenVM") as UnterrichtsfachBearbeitenVM;
@@ -245,12 +245,12 @@ namespace Notenmanager.ViewModel
             SelFach = ufvm.UF;
             SelFach.Speichern();
         }
-        private void OnBtnSpeichern(object obj)
+        private void OnBtnSpeichern(string obj)
         {
             
             ZF.Speichern();
 
-            Navigator.Instance.NavigateTo("MainPage");
+            Navigator.Instance.NavigateTo(obj);
         }
 
         private void OnBtnEntfernen(object obj)
@@ -267,9 +267,9 @@ namespace Notenmanager.ViewModel
             }
             OnPropertyChanged("LstUFach");
         }
-        private void OnBtnAbbrechen(object obj)
+        private void OnBtnAbbrechen(string obj)
         {
-            Navigator.Instance.NavigateTo("MainPage");
+            Navigator.Instance.NavigateTo(obj);
         }
         private void OnBtnHinzufuegen(object obj)
         {
