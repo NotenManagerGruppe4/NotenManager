@@ -12,20 +12,24 @@ namespace Notenmanager.ViewModel
 {
     public class LehrerAuswahlWindowVM : BaseViewModel
     {
-        private ObservableCollection<Lehrer> _lehrerListe = new ObservableCollection<Lehrer>(DBZugriff.Current.Select<Lehrer>());
+
+
+        public Unterrichtsfach SelUF { get; set; }
+
         private Lehrer _selectedLehrer;
 
         #region Properties 
-        public ObservableCollection<Lehrer> LehrerListe
+        public List<Lehrer> LehrerListe
         {
             get
             {
-                return _lehrerListe;
-            }
-            set
-            {
-                _lehrerListe = value;
-                OnPropertyChanged();
+                List<Lehrer> re = new List<Lehrer>();
+                foreach (Lehrer l in DBZugriff.Current.Select<Lehrer>())
+                    foreach (UFachLehrer ufl in l.UFaecherLehrer)
+                        if (ufl.Unterrichtsfach == SelUF)
+                            re.Add(l);
+
+                return re;
             }
         }
 

@@ -32,6 +32,10 @@ namespace Notenmanager.View
 
         private void UnterrichtsfachAnlegen_Loaded(object sender, RoutedEventArgs e)
         {
+            if (_dm == DialogMode.Neu)
+                Title = "Unterrichtsfach anlegen";
+            else
+                Title = "Unterrichtsfach ändern";
 
             this.btnSpeichern.Click += BtnSpeichern_Click;
             this.btnAbbrechen.Click += BtnAbbrechen_Click;
