@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:Notenmanager.View"
       xmlns:util="clr-namespace:Notenmanager.View.Util"
       mc:Ignorable="d"
-      Title="FachAnlegenPage" MinHeight="500" Width="350">
+      Title="FachAnlegenPage" MinHeight="500" Width="350"
+      DataContext="{StaticResource ZFBearbeitenVM}">
 
     <Grid Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded">
         <Grid.RowDefinitions>
@@ -32,7 +33,7 @@
         <!-- Grid Row 2 (Border mit weiterem Grid) -->
         <Label x:Name="lblUFach" Content="Unterrichtsfächer:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Height="30" Margin="20,0,0,0" VerticalAlignment="Top" Width="146" FontWeight="Bold"/>
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" HorizontalAlignment="Left" Height="Auto" Margin="20,20,20,30" Width="300" Opacity="1" VerticalAlignment="Stretch">
-            <Grid Name="gridInBorder" Background="White" DataContext="{StaticResource ZFBearbeitenVM}" Margin="10,10,10,10" Loaded="Grid_Loaded">
+            <Grid Name="gridInBorder" Background="White" Margin="10,10,10,10" Loaded="Grid_Loaded">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="40"/>
@@ -73,8 +74,8 @@
         </Border>
         
         <!-- Buttons für Page-Steuerung am Ende der Page und außerhalb des Borders -->
-        <Button x:Name="btnSpeichern" Content="Speichern" Command ="{Binding OnBtnSpeichernCmd}" IsEnabled="{Binding ZFachSaveAble}" Grid.Row="1" HorizontalAlignment="Left" Height="25" Margin="25,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
-        <Button x:Name="btnAbbrechen" Content="Abbrechen" Command="{Binding OnBtnAbbrechenCmd}" Grid.Row="1" HorizontalAlignment="Right" Height="25" Margin="0,0,25,0" VerticalAlignment="Bottom" Width="Auto"/>
+        <Button x:Name="btnSpeichern" Content="Speichern" Command ="{Binding OnBtnSpeichernCmd}" CommandParameter="MainPage" IsEnabled="{Binding ZFachSaveAble}" Grid.Row="1" HorizontalAlignment="Left" Height="25" Margin="25,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
+        <Button x:Name="btnAbbrechen" Content="Abbrechen" Command="{Binding OnBtnAbbrechenCmd}" CommandParameter="MainPage" Grid.Row="1" HorizontalAlignment="Right" Height="25" Margin="0,0,25,0" VerticalAlignment="Bottom" Width="Auto"/>
 
         
     </Grid>

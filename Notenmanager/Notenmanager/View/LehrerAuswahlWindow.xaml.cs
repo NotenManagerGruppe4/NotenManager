@@ -25,12 +25,14 @@ namespace Notenmanager.View
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewmodel = FindResource("LehrerAuswahlVM") as LehrerAuswahlWindowVM;
+           
         }
 
         public LehrerAuswahlWindow(Unterrichtsfach selFach)
         {
             InitializeComponent();
+
+            _viewmodel = FindResource("LehrerAuswahlVM") as LehrerAuswahlWindowVM;
 
             _viewmodel.SelUF = selFach;
             this.Loaded += LehrerAuswahlWindow_Loaded;
