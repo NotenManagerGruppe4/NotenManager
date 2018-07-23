@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       Title="FachAnlegenPage" Height="486.437" Width="359.649">
 
-    <Grid DataContext="{StaticResource ZFBearbeitenVM}" Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded" Unloaded="Grid_Unloaded">
+    <Grid DataContext="{StaticResource ZFBearbeitenVM}" Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -44,9 +44,9 @@
         <Button x:Name="btnAendern" Command="{Binding OnBtnAendernCmd}" Content="Ändern" HorizontalAlignment="Left" Height="21" Margin="121,305,0,0" VerticalAlignment="Top" Width="100"/>
         <DataGrid ItemsSource="{Binding LstULehrer}" SelectedItem="{Binding SelULehrer}" x:Name="LehrerDataGrid" HorizontalAlignment="Left" Margin="24,341,0,0" VerticalAlignment="Top" Height="65" Width="301" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Zuständige Lehrer">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
-                <DataGridTextColumn Binding="{Binding Vorname}" Header="Vorname"/>
-                <DataGridTextColumn Binding="{Binding Kürzel}" Header="Kürzel"/>
+                <DataGridTextColumn Binding="{Binding Lehrer.Nachname}" Header="Name"/>
+                <DataGridTextColumn Binding="{Binding Lehrer.Vorname}" Header="Vorname"/>
+                <DataGridTextColumn Binding="{Binding Lehrer.Kuerzel}" Header="Kürzel"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="btnHinzufuegen" Command="{Binding OnBtnHinzufuegenCmd}" Content="Hinzufügen" HorizontalAlignment="Left" Height="20" Margin="26,411,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.954,1.412"/>

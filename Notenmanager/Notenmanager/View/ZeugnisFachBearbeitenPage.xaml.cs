@@ -35,17 +35,7 @@ namespace Notenmanager.View
             if(comboxFachart.ItemsSource == null)
                 comboxFachart.ItemsSource = Enum.GetValues(typeof(Fachart));
 
-            _viewmodel.UFADialogRequest += OnUFADialogRequest;
             _viewmodel.MessageBoxRequest += OnMessageBoxRequest;
-            _viewmodel.LehrerDialogRequest += OnLehrerDialogRequest;
-        }
-
-        private void OnUFADialogRequest(object sender, DialogEventArgs e)
-        {
-            UnterrichtsfachBearbeitenWindow dlg = new UnterrichtsfachBearbeitenWindow(e.dm);
-
-            if (e.ResultAction != null)
-                e.ResultAction(dlg.ShowDialog());
         }
         private void OnMessageBoxRequest(object sender, MessageBoxEventArgs e)
         {
@@ -53,19 +43,6 @@ namespace Notenmanager.View
 
             if (e.ResultAction != null)
                 e.ResultAction(r);
-        }
-        
-        private void OnLehrerDialogRequest(object sender, DialogEventArgs e)
-        {
-            LehrerAuswahlWindow dlg = new LehrerAuswahlWindow(e.selFach);
-
-            if (e.ResultAction != null)
-                e.ResultAction(dlg.ShowDialog());
-        }
-
-        private void Grid_Unloaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

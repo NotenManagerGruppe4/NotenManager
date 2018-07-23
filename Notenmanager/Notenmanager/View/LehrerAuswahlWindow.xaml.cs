@@ -21,8 +21,6 @@ namespace Notenmanager.View
     /// </summary>
     public partial class LehrerAuswahlWindow : Window
     {
-        private Unterrichtsfach _selFach;
-        private Lehrer _selLehrer;
         private LehrerAuswahlWindowVM _viewmodel;
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -34,8 +32,7 @@ namespace Notenmanager.View
         {
             InitializeComponent();
 
-            this._selFach = selFach;
-            _selLehrer = _viewmodel.SelectedLehrer;
+            _viewmodel.SelUF = selFach;
             this.Loaded += LehrerAuswahlWindow_Loaded;
         }
 
@@ -54,8 +51,8 @@ namespace Notenmanager.View
         private void BtnHinzufuegen_Click(object sender, RoutedEventArgs e)
         {
             UFachLehrer ufl = new UFachLehrer();
-            ufl.Lehrer = _selLehrer;
-            ufl.Unterrichtsfach = _selFach;
+            ufl.Lehrer = _viewmodel.SelectedLehrer;
+            ufl.Unterrichtsfach = _viewmodel.SelUF;
             ufl.Speichern();
 
             this.DialogResult = true;

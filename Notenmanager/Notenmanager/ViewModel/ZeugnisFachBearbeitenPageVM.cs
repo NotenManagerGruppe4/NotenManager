@@ -25,12 +25,9 @@ namespace Notenmanager.ViewModel
         private Zeugnisfach _zf;
 
         private UnterrichtsfachBearbeitenVM ufvm;
+        private LehrerAuswahlWindowVM lavm;
 
-
-        public event EventHandler<DialogEventArgs> UFADialogRequest;
-        public event EventHandler<DialogEventArgs> LehrerDialogRequest;
         public event EventHandler<MessageBoxEventArgs> MessageBoxRequest;
-
 
         #region Commands
         public ICommand OnBtnAnlegenCmd { get; set; }
@@ -54,6 +51,8 @@ namespace Notenmanager.ViewModel
             OnBtnHinzufuegenCmd = new ActionCommand(OnBtnHinzufuegen);
 
             ufvm = App.Current.FindResource("UFBearbeitenVM") as UnterrichtsfachBearbeitenVM;
+            lavm = App.Current.FindResource("LehrerAuswahlVM") as LehrerAuswahlWindowVM;
+
         }
 
         #region Properties
@@ -93,6 +92,7 @@ namespace Notenmanager.ViewModel
             set
             {
                 _selFach = value;
+                LstULehrer = new ObservableCollection<UFachLehrer>(DBZugriff.Current.Select<UFachLehrer>(x => x.Unterrichtsfach == SelFach));
                 OnPropertyChanged();
             }
         }
@@ -119,7 +119,7 @@ namespace Notenmanager.ViewModel
             set
             {
                 _zf = value;
-                LstUFach = new ObservableCollection<Unterrichtsfach>(ZF.Unterrichtsfaecher);
+                LstUFach = new ObservableCollection<Unterrichtsfach>(DBZugriff.Current.Select<Unterrichtsfach>(x => x.Zeugnisfach == ZF));
 
                 OnPropertyChanged();
                 OnPropertyChanged("Bez");
@@ -201,7 +201,10 @@ namespace Notenmanager.ViewModel
             ufvm.UF = new Unterrichtsfach();
             ufvm.Bez = "";
 
-            UFADialogRequest?.Invoke(this, new DialogEventArgs(DoAnlegen, DialogMode.Neu));
+            UnterrichtsfachBearbeitenWindow dlg = new UnterrichtsfachBearbeitenWindow(DialogMode.Neu);
+            bool? e = dlg.ShowDialog();
+            if (e != null)
+                DoAnlegen(e);
         }
 
         private void DoAnlegen(bool? obj)
@@ -216,13 +219,15 @@ namespace Notenmanager.ViewModel
             ufvm.UF.Speichern();
             LstUFach.Add(ufvm.UF);
             SelFach = ufvm.UF;
-
         }
         private void OnBtnAendern(object obj)
         {
             ufvm.UF = SelFach;
 
-            UFADialogRequest?.Invoke(this, new DialogEventArgs(DoAendern, DialogMode.Aendern));
+            UnterrichtsfachBearbeitenWindow dlg = new UnterrichtsfachBearbeitenWindow(DialogMode.Aendern);
+            bool? e = dlg.ShowDialog();
+            if (e != null)
+                DoAendern(e);
         }
         private void DoAendern(bool? obj)
         {
@@ -242,7 +247,7 @@ namespace Notenmanager.ViewModel
         }
         private void OnBtnSpeichern(object obj)
         {
-            ZF.Unterrichtsfaecher = LstUFach.ToList();
+            
             ZF.Speichern();
 
             Navigator.Instance.NavigateTo("MainPage");
@@ -268,22 +273,17 @@ namespace Notenmanager.ViewModel
         }
         private void OnBtnHinzufuegen(object obj)
         {
-            LehrerAuswahlWindow dlg = new LehrerAuswahlWindow(_selFach);
-            dlg.ShowDialog();
-            LehrerDialogRequest?.Invoke(this, new DialogEventArgs(DoHinzufuegen, SelFach));
+            LehrerAuswahlWindow dlg = new LehrerAuswahlWindow(SelFach);
+            bool? e = dlg.ShowDialog();
+            if (e != null)
+                DoHinzufuegen(e);
         }
         private void DoHinzufuegen(bool? obj)
         {
             if (obj != true)
-            {
-                //ufvm.UF.Reload();
                 return;
-            }
 
-            //ufvm.UF.Zeugnisfach = ZF;
-            //ufvm.UF.Speichern();
-            //LstULehrer.Add(ulvm);
-            //SelFach = ufvm.UF;
+            LstULehrer = new ObservableCollection<UFachLehrer>(DBZugriff.Current.Select<UFachLehrer>(x => x.Unterrichtsfach == SelFach));
         }
        
 
