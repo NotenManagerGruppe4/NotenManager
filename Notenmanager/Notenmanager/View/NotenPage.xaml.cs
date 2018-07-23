@@ -46,7 +46,7 @@ namespace Notenmanager.View
          };
       }
 
-      private  void UpdateNotenGrid()
+      private void UpdateNotenGrid()
       {
          gNoten.Children.Clear();
 
@@ -60,7 +60,7 @@ namespace Notenmanager.View
          gNoten.ColumnDefinitions.Clear();
          gNoten.RowDefinitions.Clear();
          lstcspec.Clear();
-         
+
 
 
          int currentcolumn = 0;
@@ -135,7 +135,7 @@ namespace Notenmanager.View
             currentrow++;
             AddTextBlock(s.Nachname + " " + s.Vorname, currentrow, 0, 1, DESC_COLUMNS);
 
-            
+
             int currentrowschueler = currentrow;
             List<Leistung> schuelerleistungen = _vm.GetNoten(s);
             List<int> zfNoten = new List<int>();
@@ -163,9 +163,24 @@ namespace Notenmanager.View
                      //Einzelne Noten
                      Leistung l = schuelerleistungen.FindAll(x => x.Leistungsart == cs.La && x.UFachLehrer.Unterrichtsfach == uf).
                         OrderBy(x => x.Erhebungsdatum).ToList().ElementAtOrDefault((int)cs.ColumnBez - 1);
-                     if (l == null)
+                     if (l == null) //Neu anlegbar
+                     {
+                        AddNotenTextBox(null, currentrow, cs.ColumnIndex, false, new CellEditorTag()
+                        {
+                           Mode = DialogMode.Neu,
+                           Leistungsart = cs.La,
+                           Unterrichtsfach = uf,
+                           Klasse = _vm.CurrentKlasse,
+                        },true);
                         continue;
-                     AddNotenTextBox(l.Notenstufe, currentrow, cs.ColumnIndex, false, l);
+                     }
+
+                     AddNotenTextBox(l.Notenstufe, currentrow, cs.ColumnIndex, false, new CellEditorTag() {
+                        Mode = DialogMode.Aendern,
+                        Leistung = l,
+                        Klasse = _vm.CurrentKlasse,
+                     }, true);
+                     
 
                      lstleistungenuf.Add(l);
                   }
@@ -182,13 +197,16 @@ namespace Notenmanager.View
                   double ufnote = _vm.CalcNoteDouble(lstleistungenuf);
                   AddNotenTextBox(ufnote, currentrow, gNoten.ColumnDefinitions.Count - 1, true);
 
-                  ufNoten.Add(new Tuple<Unterrichtsfach, double>(uf, ufnote));
+                  if (ufnote != 0)
+                     ufNoten.Add(new Tuple<Unterrichtsfach, double>(uf, ufnote));
                }
 
                //Gesamtnote ZF
                double zfgesnote = _vm.CalcNoteDoubleZF(ufNoten);
                AddNotenTextBox(zfgesnote, currentrowzf, gNoten.ColumnDefinitions.Count - 1, true);
-               zfNoten.Add((int)Math.Round(zfgesnote));
+
+               if (zfgesnote != 0)
+                  zfNoten.Add((int)Math.Round(zfgesnote));
             }
 
             //Ungenau
@@ -220,17 +238,37 @@ namespace Notenmanager.View
          Grid.SetColumnSpan(obj, columnspan);
       }
 
-      private void AddNotenTextBox(int note, int row, int column, bool italic = false, object tag = null)
+      private void AddNotenTextBox(int? note, int row, int column, bool italic = false, CellEditorTag tag = null, bool useeditor = false)
       {
          TextBox tb = new TextBox();
-         tb.Text = note.ToString();
+         if (note == null)
+            tb.Text = "";
+         else
+            tb.Text = note.ToString();
          tb.TextAlignment = TextAlignment.Center;
          tb.VerticalAlignment = VerticalAlignment.Center;
          tb.Margin = new Thickness(1);
          tb.IsReadOnly = true;
-         
+
          if (tag != null)
+         {
             tb.Tag = tag;
+            if (useeditor)
+               tb.MouseDoubleClick += (s, e) =>
+               {
+                  TextBox sender = s as TextBox;
+                  if (sender == null)
+                     return;
+
+                  CellEditorTag ctag = sender.Tag as CellEditorTag;
+                  if (ctag == null)
+                     return;
+
+                  if (new LeistungsEditor(ctag.Mode, ctag.Leistung, ctag.Leistungsart, ctag.Unterrichtsfach, ctag.Klasse).ShowDialog() == true)
+                     UpdateNotenGrid();
+               };
+         }
+
          if (italic)
             tb.FontStyle = FontStyles.Italic;
 
@@ -267,6 +305,17 @@ namespace Notenmanager.View
          public Leistungsart La { get; set; }
 
          public Leistungsgruppe Lg { get; set; }
+      }
+
+      class CellEditorTag
+      {
+         public DialogMode Mode { get; set; }
+
+         public Leistung Leistung { get; set; } = null;
+
+         public Leistungsart Leistungsart { get; set; } = null;
+         public Unterrichtsfach Unterrichtsfach { get; set; } = null;
+         public Klasse Klasse { get; set; } = null;
       }
    }
 }
