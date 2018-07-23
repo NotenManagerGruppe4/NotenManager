@@ -185,7 +185,7 @@ namespace Notenmanager.ViewModel
       {
          List<Schueler> re = new List<Schueler>();
 
-         foreach (SchuelerKlasse sk in CurrentKlasse.SchuelerKlassen.Where(x => x.Active == true).ToList())
+         foreach (SchuelerKlasse sk in CurrentKlasse?.SchuelerKlassen.Where(x => x.Active == true).ToList())
             re.Add(sk.Schueler);
 
 
@@ -207,7 +207,7 @@ namespace Notenmanager.ViewModel
             summe += l.Notenstufe * l.Leistungsart.Gewichtung;
             teiler += l.Leistungsart.Gewichtung;
          }
-         if (teiler == 0)
+         if (teiler == 0 || teiler == 0)
             return 0;
          return summe / teiler;
       }
@@ -220,6 +220,8 @@ namespace Notenmanager.ViewModel
             sum += t.Item2 * t.Item1.Stunden;
             teiler += t.Item1.Stunden;
          }
+         if (sum == 0 || teiler == 0)
+            return 0;
          return sum / teiler;
       }
 

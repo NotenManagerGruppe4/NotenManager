@@ -17,7 +17,7 @@ namespace Notenmanager.Model
       public bool Active { get; set; } = true;
 
       [Required]
-      public DateTime Erhebungsdatum { get; set; }
+      public DateTime Erhebungsdatum { get; set; } = DateTime.Now;
 
       [Required]
       public int Notenstufe { get; set; }

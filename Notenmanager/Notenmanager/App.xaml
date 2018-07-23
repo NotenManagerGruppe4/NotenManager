@@ -22,6 +22,7 @@
         <vm:KlassenPageVM x:Key="KlassenPageVM"/>
         <vm:LehrerAuswahlWindowVM x:Key="LehrerAuswahlVM"/>
         <vm:NotenPageVM x:Key="NotenPageVM"/>
+        <vm:LeistungsEditorVM x:Key="LeistungsEditorVM"/>
         <vm:FaecherVerwaltenPageVM x:Key="FaecherVerwaltenPageVM"/>
         <view:MainPage x:Key="MainPage"/>
         <view:DateiImportPage x:Key="DateiImportPage"/>
