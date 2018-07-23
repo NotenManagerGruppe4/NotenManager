@@ -94,8 +94,6 @@ namespace Notenmanager.ViewModel
       {
          LstSchulen = DBZugriff.Current.Select<Schule>();
 
-         BuildDataGridColumns();
-
          SchuelerZuweisenClickCmd = new ActionCommand(OnSchuelerZuweisenClick);
          ZeugnisFaecherClickCmd = new ActionCommand(OnZeugnisFaecherClick);
       }
@@ -123,22 +121,24 @@ namespace Notenmanager.ViewModel
       #endregion UIMethods
 
       #region Noten
-      public List<Tuple<Leistungsart, int>> BuildDataGridColumns()
+      public List<GridColumHelperClass> BuildGridColumns()
       {
 
          //Endausgabe 
-         List<Tuple<Leistungsart, int>> lstlaanz = new List<Tuple<Leistungsart, int>>();
-         foreach (Leistungsart la in DBZugriff.Current.Select<Leistungsart>())
-            lstlaanz.Add(new Tuple<Leistungsart, int>(la, 0));
+         List<GridColumHelperClass> lstlaanz = new List<GridColumHelperClass>();
 
 
          //alle Kombinationen von UFach, LA, anz
          List<Unterrichtsfach> lstcufs = DBZugriff.Current.Select<Unterrichtsfach>(x => x.Zeugnisfach.Klasse == CurrentKlasse);
          List<Tuple<Unterrichtsfach, Leistungsart, int>> lstufleicount = new List<Tuple<Unterrichtsfach, Leistungsart, int>>();
-         foreach (Tuple<Leistungsart, int> tmp in lstlaanz)
+         foreach (Leistungsart la in DBZugriff.Current.Select<Leistungsart>())
          {
+            lstlaanz.Add(new GridColumHelperClass()
+            {
+               Leistungsart = la,
+            });
             foreach (Unterrichtsfach uf in lstcufs)
-               lstufleicount.Add(new Tuple<Unterrichtsfach, Leistungsart, int>(uf, tmp.Item1, tmp.Item2));
+               lstufleicount.Add(new Tuple<Unterrichtsfach, Leistungsart, int>(uf, la, 0));
          }
 
          //Hauptaufbau
@@ -152,24 +152,21 @@ namespace Notenmanager.ViewModel
             lstufleicount[i] = new Tuple<Unterrichtsfach, Leistungsart, int>(tmp.Item1, tmp.Item2, tmp.Item3 + 1);
          }
 
-         //Extrahieren
+         //Extrahieren und vergleichen
          foreach (Tuple<Unterrichtsfach, Leistungsart, int> t in lstufleicount)
          {
-            Tuple<Leistungsart, int> tmp = lstlaanz.Find(x => x.Item1 == t.Item2);
+            GridColumHelperClass tmp = lstlaanz.Find(x => x.Leistungsart == t.Item2);
             if (tmp == null)
                continue;
 
-
-            if (t.Item3 > tmp.Item2)
-            {
-               int i = lstlaanz.IndexOf(tmp);
-               lstlaanz[i] = new Tuple<Leistungsart, int>(tmp.Item1, t.Item3);
-            }
+            //Vergleichen und ggf vergrößeren
+            if (t.Item3 > tmp.Anz)
+               tmp.Anz = t.Item3;
          }
 
-         lstlaanz.RemoveAll(x => x.Item2 == 0);
+         lstlaanz.ForEach(x => x.Anz += 1);
 
-         return lstlaanz.OrderByDescending(x => x.Item1.Gruppe.Gewicht).ThenBy(x => x.Item1.Gruppe.Id).ThenByDescending(x => x.Item1.Gewichtung).ToList();
+         return lstlaanz.OrderByDescending(x => x.Leistungsart.Gruppe.Gewicht).ThenBy(x => x.Leistungsart.Gruppe.Id).ThenByDescending(x => x.Leistungsart.Gewichtung).ToList();
 
       }
 
@@ -254,6 +251,10 @@ namespace Notenmanager.ViewModel
             return --re;
       }
 
-      
+      public class GridColumHelperClass
+      {
+         public Leistungsart Leistungsart { get; set; }
+         public int Anz { get; set; } = 0;
+      }
    }
 }

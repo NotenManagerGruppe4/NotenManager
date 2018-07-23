@@ -105,6 +105,7 @@
     <Compile Include="ViewModel\LeistungsEditorVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\NotenPageVM.cs" />
+    <Compile Include="ViewModel\Tools\CellEditorTag.cs" />
     <Compile Include="ViewModel\Tools\Command.cs" />
     <Compile Include="ViewModel\Tools\MessageBoxEventArgs.cs" />
     <Compile Include="Persistenz\DateiZugriff.cs" />

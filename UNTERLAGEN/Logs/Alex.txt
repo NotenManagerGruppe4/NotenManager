@@ -4,4 +4,5 @@
 10.7: Besprechung neuer GUI-Aufbau
 10.7-13.7: Verbesserung von Dateizugriff; Mithelfen bei GUI; kleinere Datenbankänderungen
 17.7-19.7: Dateizugriff optimiert & getesetet; Besprechung;
+19.7-23.7: NotenPage+NotenEditor
 

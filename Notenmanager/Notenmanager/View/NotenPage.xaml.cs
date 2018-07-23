@@ -81,49 +81,54 @@ namespace Notenmanager.View
          int lastlgcolumn = currentcolumn;
          Leistungsgruppe lastlg = null;
 
-         foreach (Tuple<Leistungsart, int> t in _vm.BuildDataGridColumns())
+         foreach (NotenPageVM.GridColumHelperClass gchc in _vm.BuildGridColumns())
          {
             lastlacolumn = currentcolumn;
-            if (lastlg != t.Item1.Gruppe)
+            if (lastlg != gchc.Leistungsart.Gruppe)
             {
                if (lastlg != null)
                   AddTextBlock(lastlg.Bez + " (" + lastlg.Gewicht + ")", 0, lastlgcolumn, 1, currentcolumn - lastlgcolumn);
-               lastlg = t.Item1.Gruppe;
+               lastlg = gchc.Leistungsart.Gruppe;
                lastlgcolumn = currentcolumn;
             }
-            for (int i = 0; i < t.Item2; i++)
+            for (int i = 0; i < gchc.Anz; i++)
             {
-               gNoten.ColumnDefinitions.Add(new ColumnDefinition());
+               AddDefaultColumnDef();
                lstcspec.Add(new ColumnSpecification()
                {
                   ColumnBez = i + 1,
                   ColumnIndex = currentcolumn,
                   Lg = lastlg,
-                  La = t.Item1,
+                  La = gchc.Leistungsart,
                });
                AddTextBlock(i + 1, HEADER_ROWS - 1, currentcolumn);
                currentcolumn++;
             }
-            gNoten.ColumnDefinitions.Add(new ColumnDefinition());
+            AddDefaultColumnDef();
             AddTextBlock("G", HEADER_ROWS - 1, currentcolumn);
             lstcspec.Add(new ColumnSpecification()
             {
                ColumnBez = null,
                ColumnIndex = currentcolumn,
                Lg = lastlg,
-               La = t.Item1,
+               La = gchc.Leistungsart,
             });
             currentcolumn++;
 
-            AddTextBlock(t.Item1.Bez + " (" + t.Item1.Gewichtung + ")", 1, lastlacolumn, 1, currentcolumn - lastlacolumn);
+            AddTextBlock(gchc.Leistungsart.Bez + " (" + gchc.Leistungsart.Gewichtung + ")", 1, lastlacolumn, 1, currentcolumn - lastlacolumn);
          }
          if (lastlg != null)
             AddTextBlock(lastlg.Bez + " (" + lastlg.Gewicht + ")", 0, lastlgcolumn, 1, currentcolumn - lastlgcolumn);
 
-         gNoten.ColumnDefinitions.Add(new ColumnDefinition());
+         AddDefaultColumnDef();
          AddTextBlock("G", 0, currentcolumn, HEADER_ROWS);
          currentcolumn++;
       }
+      private void AddDefaultColumnDef()
+      {
+         gNoten.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(10,GridUnitType.Auto) });
+      }
+
       private void BuildContent()
       {
          List<Zeugnisfach> lstzfs = _vm.GetZFs();
@@ -223,7 +228,7 @@ namespace Notenmanager.View
          tb.Text = text.ToString();
          tb.TextAlignment = TextAlignment.Center;
          tb.VerticalAlignment = VerticalAlignment.Center;
-         tb.Margin = new Thickness(1);
+         tb.Margin = new Thickness(2);
 
 
          Border obj = new Border();
@@ -265,8 +270,8 @@ namespace Notenmanager.View
                   if (ctag == null)
                      return;
 
-                  new LeistungsEditor(ctag.Mode, ctag.Leistung, ctag.Leistungsart, ctag.Unterrichtsfach, ctag.Klasse).ShowDialog();
-                  UpdateNotenGrid();
+                  if(new LeistungsEditor(ctag).ShowDialog()==true);
+                     UpdateNotenGrid();
                };
          }
 
@@ -308,15 +313,6 @@ namespace Notenmanager.View
          public Leistungsgruppe Lg { get; set; }
       }
 
-      class CellEditorTag
-      {
-         public DialogMode Mode { get; set; }
-
-         public Leistung Leistung { get; set; } = null;
-
-         public Leistungsart Leistungsart { get; set; } = null;
-         public Unterrichtsfach Unterrichtsfach { get; set; } = null;
-         public Klasse Klasse { get; set; } = null;
-      }
+      
    }
 }

@@ -15,7 +15,7 @@
                 <DataTemplate>
                     <TextBlock>
                         <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} {1} {2}">
+                            <MultiBinding StringFormat="{}{0}: {1} {2}">
                                 <Binding Path="Klasse.Bez"/>
                                 <Binding Path="Schueler.Nachname"/>
                                 <Binding Path="Schueler.Vorname"/>
@@ -36,14 +36,14 @@
         </ComboBox>
 
         <Label x:Name="lblUFA" Content="UnterrichtsfachLehrer" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbUfa" ItemsSource="{Binding LstUnterrichtsfachLehrer}" SelectedItem="{Binding UFachLehrer}" ItemStringFormat="{} {Binding }" HorizontalAlignment="Left" Margin="173,76,0,0" VerticalAlignment="Top" Width="209">
+        <ComboBox x:Name="cbUfa" ItemsSource="{Binding LstUnterrichtsfachLehrer}" SelectedItem="{Binding UFachLehrer}" HorizontalAlignment="Left" Margin="173,76,0,0" VerticalAlignment="Top" Width="209">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
                         <TextBlock.Text>
                             <MultiBinding StringFormat="{}{0} {1}">
-                                <Binding Path="Lehrer.Kuerzel"/>
                                 <Binding Path="Unterrichtsfach.Bez"/>
+                                <Binding Path="Lehrer.Kuerzel"/>
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
