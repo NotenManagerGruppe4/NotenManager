@@ -81,9 +81,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Migrations\201807190633350_GenerateNoma.cs" />
-    <Compile Include="Migrations\201807190633350_GenerateNoma.Designer.cs">
-      <DependentUpon>201807190633350_GenerateNoma.cs</DependentUpon>
+    <Compile Include="Migrations\201807230641492_GenerateNoma.cs" />
+    <Compile Include="Migrations\201807230641492_GenerateNoma.Designer.cs">
+      <DependentUpon>201807230641492_GenerateNoma.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Classes\Klasse.cs" />
@@ -164,8 +164,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201807190633350_GenerateNoma.resx">
-      <DependentUpon>201807190633350_GenerateNoma.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807230641492_GenerateNoma.resx">
+      <DependentUpon>201807230641492_GenerateNoma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
