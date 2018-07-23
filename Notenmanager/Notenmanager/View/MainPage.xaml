@@ -12,6 +12,7 @@
       DataContext="{StaticResource MainPageVM}">
 
     <Grid Background="White">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>

@@ -30,7 +30,14 @@ namespace Notenmanager.ViewModel
             CLeistung.LetzteÄnderung = DateTime.Now;
             CLeistung.Speichern();
 
-            CloseAfterSaveRequesting?.Invoke(this, new EventArgs());
+            try
+            {
+               CloseAfterSaveRequesting?.Invoke(this, new EventArgs());
+            }
+            catch (Exception e)
+            {
+               Trace.WriteLine("[LeiEdit] InvokeFailed: " + e.ToString());
+            }
          }
          catch (Exception e)
          {
@@ -42,7 +49,8 @@ namespace Notenmanager.ViewModel
       {
          try
          {
-            DBZugriff.Current.Reload(CLeistung);
+            if(Mode == DialogMode.Aendern)
+               DBZugriff.Current.Reload(CLeistung);
          }
          catch (Exception e)
          {
@@ -52,24 +60,25 @@ namespace Notenmanager.ViewModel
 
       //Config
       public DialogMode Mode { get; private set; }
-      public void SetMode(DialogMode mode, Leistungsart la, Unterrichtsfach uf, Klasse k)
+      public void SetMode(CellEditorTag tag)
       {
-         CurrentKlasse = k;
-
+         CLeistung = tag.Leistung;
+         Mode = tag.Mode;
+         
          if (Mode == DialogMode.Neu)
          {
-
             CLeistung = new Leistung();
 
-            if (la != null)
-               Leistungsart = la;
+            if (tag.Leistungsart != null)
+               Leistungsart = tag.Leistungsart;
             else
                Leistungsart = LstLeistungsarten.FirstOrDefault();
+
             SchuelerKlasse = LstSchuelerKlassen.FirstOrDefault();
             UFachLehrer = LstUnterrichtsfachLehrer.FirstOrDefault();
-            if (uf != null)
+            if (tag.Unterrichtsfach != null)
             {
-               UFachLehrer ufl = uf.UFaecherLehrer.Where(x => x.Active == true).FirstOrDefault();
+               UFachLehrer ufl = DBZugriff.Current.SelectFirstOrDefault<UFachLehrer>(x => x.Unterrichtsfach == tag.Unterrichtsfach);
                if (ufl != null)
                   UFachLehrer = ufl;
             }
@@ -77,14 +86,11 @@ namespace Notenmanager.ViewModel
             Notenstufe = 1;
             Erhebungsdatum = DateTime.Now;
 
-
-            
-            
+            OnPropertyChanged("LstUnterrichtsfachLehrer");
+            OnPropertyChanged("LstSchuelerKlassen");
          }
+            
       }
-
-
-      public Klasse CurrentKlasse { get; set; } = null;
 
       //Lists
       public List<SchuelerKlasse> LstSchuelerKlassen
@@ -93,10 +99,10 @@ namespace Notenmanager.ViewModel
          {
 
             List<SchuelerKlasse> re = DBZugriff.Current.Select<SchuelerKlasse>();
-            if (CurrentKlasse == null)
+            if (CLeistung?.SchuelerKlasse == null)
                return re;
             else
-               return re.Where(x => x.Klasse == CurrentKlasse).ToList();
+               return re.Where(x => x.Klasse == CLeistung.SchuelerKlasse.Klasse).ToList();
          }
       }
 
@@ -112,7 +118,12 @@ namespace Notenmanager.ViewModel
       {
          get
          {
-            return DBZugriff.Current.Select<UFachLehrer>();
+            List<UFachLehrer> lstuf = DBZugriff.Current.Select<UFachLehrer>();
+
+            if (CLeistung?.UFachLehrer?.Unterrichtsfach?.Zeugnisfach == null)
+               return lstuf;
+
+            return lstuf.Where(x => x.Unterrichtsfach.Zeugnisfach == CLeistung.UFachLehrer.Unterrichtsfach.Zeugnisfach).ToList();
          }
       }
 

@@ -12,14 +12,12 @@ namespace Notenmanager.ViewModel
 {
     public class MainPageVM : BaseViewModel
     {
+        #region Konstruktoren
         public MainPageVM()
         { 
             // Comamnds initialisieren:
             NavigationCmd = new Command<string>(OnNavigation);
         }
-
-        #region Events
-        public event EventHandler<NavigationEventArgs> NavigateToPageRequest;
         #endregion
 
         #region Public Properties

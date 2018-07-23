@@ -23,19 +23,16 @@ namespace Notenmanager.View
    {
 
       private LeistungsEditorVM _vm;
-      public LeistungsEditor(DialogMode mode, Leistung l, Leistungsart la = null, Unterrichtsfach uf = null, Klasse k = null)
+      public LeistungsEditor(CellEditorTag tag)
       {
          InitializeComponent();
 
          _vm = FindResource("LeistungsEditorVM") as LeistungsEditorVM;
-         _vm.SetMode(mode,la,uf,k);
-
-         
-         if(l != null)
-            _vm.CLeistung = l;
+         _vm.SetMode(tag);
 
          _vm.CloseAfterSaveRequesting += (s, e) =>
          {
+            this.DialogResult = true;
             this.Close();
          };
 
