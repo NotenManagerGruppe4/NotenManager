@@ -94,8 +94,7 @@ namespace Notenmanager.ViewModel
                 _selFach = value;
                 LstULehrer = new ObservableCollection<UFachLehrer>(DBZugriff.Current.Select<UFachLehrer>(x => x.Unterrichtsfach == SelFach));
                 OnPropertyChanged();
-
-
+                OnPropertyChanged("EnableButton");
             }
         }
         public UFachLehrer SelLehrer
@@ -287,7 +286,17 @@ namespace Notenmanager.ViewModel
 
             LstULehrer = new ObservableCollection<UFachLehrer>(DBZugriff.Current.Select<UFachLehrer>(x => x.Unterrichtsfach == SelFach));
         }
-       
+        
+        public bool EnableButton
+        {
+            get
+            {
+                if (SelFach != null)
+                    return true;
+
+                return false;
+            }
+        }
 
         private void SaveAbleChanged()
         {
