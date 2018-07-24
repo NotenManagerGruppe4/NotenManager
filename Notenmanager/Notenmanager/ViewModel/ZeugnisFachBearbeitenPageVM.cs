@@ -94,6 +94,8 @@ namespace Notenmanager.ViewModel
                 _selFach = value;
                 LstULehrer = new ObservableCollection<UFachLehrer>(DBZugriff.Current.Select<UFachLehrer>(x => x.Unterrichtsfach == SelFach));
                 OnPropertyChanged();
+
+
             }
         }
         public UFachLehrer SelLehrer
