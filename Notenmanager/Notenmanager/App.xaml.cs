@@ -24,7 +24,7 @@ namespace Notenmanager
       {
          base.OnStartup(e);
 
-         DBZugriff.InitDB();
+         
 
          AppDomain.CurrentDomain.UnhandledException += (sender, e2) =>
          {
@@ -42,16 +42,8 @@ namespace Notenmanager
             }
          };
 
-            //Start EF
-            Thread t = new Thread(() =>
-            {
-                DBZugriff.Current.SelectFirstOrDefault<Schule>();
-                Navigator.Instance.StartUpDone();
-                Trace.WriteLine("DB Verbindung hergestellt und geladen!");
-            });
-            t.IsBackground = false;
-            t.Start();
-
+         //Start EF
+         DBZugriff.InitDB();
 
 #if DEBUG
          Tests s = new Tests();
@@ -113,7 +105,7 @@ namespace Notenmanager
 
          private static void InsertTest()
          {
-            
+
 
 
 

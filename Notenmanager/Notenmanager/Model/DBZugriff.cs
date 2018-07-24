@@ -1,4 +1,5 @@
 ﻿using MySql.Data.Entity;
+using Notenmanager.ViewModel.Tools;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -6,6 +7,7 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Notenmanager.Model
@@ -50,6 +52,8 @@ namespace Notenmanager.Model
          DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
 
          Init();
+
+
       }
       private void Init()
       {
@@ -269,6 +273,21 @@ namespace Notenmanager.Model
          Current = new DBZugriff();
 
          Trace.WriteLine("Inited DB!");
+
+         LoadContext();
+      }
+
+      private static void LoadContext()
+      {
+         Thread t = new Thread(() =>
+         {
+            DBZugriff.Current.SelectFirstOrDefault<Schule>();
+
+            Navigator.Instance.StartUpDone();
+
+            Trace.WriteLine("Startup done!");
+         });
+         t.Start();
       }
 
       public static void CloseDB()
