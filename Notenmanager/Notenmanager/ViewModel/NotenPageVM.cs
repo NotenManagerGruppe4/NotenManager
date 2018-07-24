@@ -2,6 +2,7 @@
 using Notenmanager.ViewModel.Tools;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -86,6 +87,9 @@ namespace Notenmanager.ViewModel
       public ICommand SchuelerZuweisenClickCmd { get; set; }
       public ICommand ZeugnisFaecherClickCmd { get; set; }
       public ICommand MassenErfassungClickCmd { get; set; }
+      public ICommand SaveClickCmd { get; set; }
+      public ICommand BeendenClickCmd { get; set; }
+      public ICommand BeendenCmd { get; set; }
 
       #endregion Commands
 
@@ -96,7 +100,13 @@ namespace Notenmanager.ViewModel
 
          SchuelerZuweisenClickCmd = new ActionCommand(OnSchuelerZuweisenClick);
          ZeugnisFaecherClickCmd = new ActionCommand(OnZeugnisFaecherClick);
+         MassenErfassungClickCmd = new ActionCommand(OnMassenErfassungClick);
+         SaveClickCmd = new ActionCommand(OnSaveClick);
+         BeendenClickCmd = new ActionCommand(OnBeendenClick);
+         BeendenCmd = new ActionCommand(OnBeenden);
       }
+
+
 
 
 
@@ -108,7 +118,7 @@ namespace Notenmanager.ViewModel
 
       private void OnZeugnisFaecherClick(object obj)
       {
-
+         Navigator.Instance.NavigateTo("FaecherVerwaltenPage");
       }
 
       private void OnMassenErfassungClick(object obj)
@@ -116,7 +126,34 @@ namespace Notenmanager.ViewModel
 
       }
 
+      private void OnSaveClick(object obj)
+      {
+         try
+         {
+            CurrentKlasse.Speichern();
+         }
+         catch(Exception e)
+         {
+            Trace.WriteLine("[NotenPage] Speichern: " + e.ToString());
+         }
+      }
 
+      private void OnBeendenClick(object obj)
+      {
+         Navigator.Instance.NavigateTo("MainPage");
+      }
+
+      private void OnBeenden(object obj)
+      {
+         try
+         {
+            DBZugriff.Current.Reload(CurrentKlasse);
+         }
+         catch(Exception e)
+         {
+            Trace.WriteLine("[NotenPage] Reload: " + e.ToString());
+         }
+      }
 
       #endregion UIMethods
 

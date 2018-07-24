@@ -44,6 +44,11 @@ namespace Notenmanager.View
          {
             UpdateNotenGrid();
          };
+         this.Unloaded += (s, e) =>
+         {
+            if (_vm.BeendenCmd.CanExecute(null))
+               _vm.BeendenCmd.Execute(null);
+         };
       }
 
       private void UpdateNotenGrid()
@@ -220,7 +225,7 @@ namespace Notenmanager.View
          }
       }
 
-
+      public const int MARGIN = 3;
 
       private void AddTextBlock(object text, int row, int column, int rowspan = 1, int columnspan = 1)
       {
@@ -228,7 +233,7 @@ namespace Notenmanager.View
          tb.Text = text.ToString();
          tb.TextAlignment = TextAlignment.Center;
          tb.VerticalAlignment = VerticalAlignment.Center;
-         tb.Margin = new Thickness(2);
+         tb.Margin = new Thickness(MARGIN);
 
 
          Border obj = new Border();
@@ -253,7 +258,7 @@ namespace Notenmanager.View
             tb.Text = note.ToString();
          tb.TextAlignment = TextAlignment.Center;
          tb.VerticalAlignment = VerticalAlignment.Center;
-         tb.Margin = new Thickness(1);
+         tb.Margin = new Thickness(MARGIN);
          tb.IsReadOnly = true;
 
          if (tag != null)
