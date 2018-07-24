@@ -30,6 +30,7 @@ namespace Notenmanager.ViewModel
             NavigationCmd = new Command<string>(OnNavigation);
             CBoxSchulenChangedCmd = new ActionCommand(OnCBoxSchulenChanged);
             CBoxKlassenChangedCmd = new ActionCommand(OnCBoxKlassenChanged);
+            LoeschenCmd = new ActionCommand(OnLoeschen);
 
             // Initiales Befüllen der ComboBoxen aus der Datenbank und der Zeugnisfächerliste
             Schulen = new ObservableCollection<Schule>(DBZugriff.Current.Select<Schule>(x => x.Active == true));
@@ -46,6 +47,7 @@ namespace Notenmanager.ViewModel
         public Command<string> NavigationCmd { get; set; }
         public ICommand CBoxKlassenChangedCmd { get; set; }
         public ICommand CBoxSchulenChangedCmd { get; set; }
+        public ICommand LoeschenCmd { get; set; }
         #endregion
 
         /// <summary>
@@ -181,6 +183,10 @@ namespace Notenmanager.ViewModel
         }
         #endregion
 
+        #region Events
+        public event EventHandler<MessageBoxEventArgs> MessageBoxRequest;
+        #endregion
+
         #region Handler Methoden
         /// <summary>
         /// Zeugnisfächerliste aktualisieren, wenn eine neue Klasse in der ComboBox ausgewählt wurde
@@ -201,6 +207,28 @@ namespace Notenmanager.ViewModel
             Klassen = new ObservableCollection<Klasse>(DBZugriff.Current.Select<Klasse>(x => x.Schule == SelectedSchule));
         }
 
+        /// <summary>
+        /// Ein Zeugnisfach löschen und aus der Liste entfernen
+        /// </summary>
+        /// <param name="obj"></param>
+        private void OnLoeschen(object obj)
+        {
+            MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs()
+            {
+                Caption = "Sind Sie sicher?",
+                MessageBoxText = $"Wollen sie das Zeugnisfach {SelectedZFach.Bez} wirklich löschen?",
+                MessageBoxButton = System.Windows.MessageBoxButton.YesNo,
+                MessageBoxImage = System.Windows.MessageBoxImage.Question,
+                ResultAction = (result) =>
+                {
+                    if (result == System.Windows.MessageBoxResult.Yes)
+                    {
+                        SelectedZFach.Loeschen();
+                        Zfaecher.Remove(SelectedZFach);
+                    }
+                }
+            });
+        }
 
         private void OnNavigation(string key)
         {
