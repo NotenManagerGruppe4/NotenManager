@@ -36,6 +36,7 @@ namespace Notenmanager.ViewModel
         public ICommand OnBtnEntfernenCmd { get; set; }
         public Command<string> OnBtnAbbrechenCmd { get; set; }
         public ICommand OnBtnHinzufuegenCmd { get; set; }
+        public ICommand OnBtnLehrerEntfernenCmd { get; set; }
         public ICommand OnUFachEditCmd { get; set; }
 
         #endregion Commands
@@ -49,6 +50,7 @@ namespace Notenmanager.ViewModel
             OnBtnEntfernenCmd = new ActionCommand(OnBtnEntfernen);
             OnBtnAbbrechenCmd = new Command<string>(OnBtnAbbrechen);
             OnBtnHinzufuegenCmd = new ActionCommand(OnBtnHinzufuegen);
+            OnBtnLehrerEntfernenCmd = new ActionCommand(OnBtnLehrerEntfernen);
 
             ufvm = App.Current.FindResource("UFBearbeitenVM") as UnterrichtsfachBearbeitenVM;
             lavm = App.Current.FindResource("LehrerAuswahlVM") as LehrerAuswahlWindowVM;
@@ -256,6 +258,7 @@ namespace Notenmanager.ViewModel
 
         private void OnBtnEntfernen(object obj)
         {
+
             MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(DoEntfernen, "Wirklich löschen?", "Sind Sie sicher?", MessageBoxButton.YesNo, MessageBoxImage.Question));
         }
 
@@ -286,7 +289,10 @@ namespace Notenmanager.ViewModel
 
             LstULehrer = new ObservableCollection<UFachLehrer>(DBZugriff.Current.Select<UFachLehrer>(x => x.Unterrichtsfach == SelFach));
         }
-        
+        private void OnBtnLehrerEntfernen(object obj)
+        {
+            
+        }
         public bool EnableButton
         {
             get
