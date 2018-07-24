@@ -1,4 +1,5 @@
-﻿using Notenmanager.ViewModel;
+﻿using Notenmanager.Model;
+using Notenmanager.ViewModel;
 using Notenmanager.ViewModel.Tools;
 using System;
 using System.Collections.Generic;
@@ -22,14 +23,26 @@ namespace Notenmanager.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ZeugnisFachBearbeitenPageVM _ZFviewmodel;
         private MainWindowVM _mwVM;
 
         public MainWindow()
         {
             InitializeComponent();
-            
+
+            _ZFviewmodel = FindResource("ZFBearbeitenVM") as ZeugnisFachBearbeitenPageVM;
+            //_viewModel = DataContext as MainPageVM;
+            //_viewModel.NavigateToPageRequest += OnNavigateToPageRequest;
             _mwVM = DataContext as MainWindowVM;
             Navigator.Instance.PageChanged += Instance_PageChanged;
+            (FindResource("FaecherVerwaltenPageVM") as FaecherVerwaltenPageVM).MessageBoxRequest += MainWindow_MessageBoxRequest;
+            _ZFviewmodel.MessageBoxRequest += OnMessageBoxRequest;
+        }
+
+        private void MainWindow_MessageBoxRequest(object sender, Model.MessageBoxEventArgs e)
+        {
+            var result = MessageBox.Show(e.MessageBoxText, e.Caption, e.MessageBoxButton, e.MessageBoxImage, MessageBoxResult.No);
+            e.ResultAction?.Invoke(result);
         }
 
         private void Instance_PageChanged(object sender, EventArgs e)
@@ -60,7 +73,15 @@ namespace Notenmanager.View
                 mainPanelBorder.Margin = new Thickness();
             }
         }
-        
+
+        private void OnMessageBoxRequest(object sender, MessageBoxEventArgs e)
+        {
+            MessageBoxResult r = MessageBox.Show(e.MessageBoxText, e.Caption, e.MessageBoxButton, e.MessageBoxImage);
+
+            if (e.ResultAction != null)
+                e.ResultAction(r);
+        }
+
     }
 
 }

@@ -36,6 +36,7 @@ namespace Notenmanager.ViewModel
         public ICommand OnBtnEntfernenCmd { get; set; }
         public Command<string> OnBtnAbbrechenCmd { get; set; }
         public ICommand OnBtnHinzufuegenCmd { get; set; }
+        public ICommand OnBtnLehrerEntfernenCmd { get; set; }
         public ICommand OnUFachEditCmd { get; set; }
 
         #endregion Commands
@@ -49,6 +50,7 @@ namespace Notenmanager.ViewModel
             OnBtnEntfernenCmd = new ActionCommand(OnBtnEntfernen);
             OnBtnAbbrechenCmd = new Command<string>(OnBtnAbbrechen);
             OnBtnHinzufuegenCmd = new ActionCommand(OnBtnHinzufuegen);
+            OnBtnLehrerEntfernenCmd = new ActionCommand(OnBtnLehrerEntfernen);
 
             ufvm = App.Current.FindResource("UFBearbeitenVM") as UnterrichtsfachBearbeitenVM;
             lavm = App.Current.FindResource("LehrerAuswahlVM") as LehrerAuswahlWindowVM;
@@ -97,7 +99,7 @@ namespace Notenmanager.ViewModel
                 OnPropertyChanged("EnableButton");
             }
         }
-        public UFachLehrer SelLehrer
+        public UFachLehrer SelULehrer
         {
             get
             {
@@ -107,6 +109,7 @@ namespace Notenmanager.ViewModel
             {
                 _selULehrer = value;
                 OnPropertyChanged();
+                OnPropertyChanged("EnableLehrerEntfernenButton");
             }
         }
 
@@ -286,12 +289,35 @@ namespace Notenmanager.ViewModel
 
             LstULehrer = new ObservableCollection<UFachLehrer>(DBZugriff.Current.Select<UFachLehrer>(x => x.Unterrichtsfach == SelFach));
         }
-        
+        private void OnBtnLehrerEntfernen(object obj)
+        {
+            MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(DoLehrerEntfernen, "Wirklich entfernen?", "Sind Sie sicher?", MessageBoxButton.YesNo, MessageBoxImage.Question));
+        }
+        private void DoLehrerEntfernen(MessageBoxResult obj)
+        {
+            if(obj == MessageBoxResult.Yes)
+            {
+                UFachLehrer ufl = DBZugriff.Current.SelectFirstOrDefault<UFachLehrer>(x => x.Lehrer == SelULehrer.Lehrer && x.Unterrichtsfach == SelULehrer.Unterrichtsfach);
+                ufl.Loeschen();   
+                this.LstULehrer.Remove(SelULehrer);
+            }
+            OnPropertyChanged("LstULehrer");
+        }
         public bool EnableButton
         {
             get
             {
                 if (SelFach != null)
+                    return true;
+
+                return false;
+            }
+        }
+        public bool EnableLehrerEntfernenButton
+        {
+            get
+            {
+                if (SelULehrer != null)
                     return true;
 
                 return false;
