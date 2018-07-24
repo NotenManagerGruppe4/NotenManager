@@ -41,10 +41,11 @@ namespace Notenmanager.View
         
         private void SetSizeProperties(Page p)
         {
-            MinHeight = p.MinHeight+120;
+            // Sollte die Größe des Fensters auf den Inhalt anpassen
+           /* MinHeight = p.MinHeight+120;
             MinWidth = p.MinWidth+20;
             MaxWidth = p.MaxWidth;
-            MaxHeight = p.MaxHeight;
+            MaxHeight = p.MaxHeight;*/
         }
 
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)
