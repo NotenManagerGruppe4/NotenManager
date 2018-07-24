@@ -102,6 +102,7 @@
     <Compile Include="Model\IDBable.cs" />
     <Compile Include="Persistenz\Importstatistik.cs" />
     <Compile Include="ViewModel\FaecherVerwaltenPageVM.cs" />
+    <Compile Include="ViewModel\CreditsPageVM.cs" />
     <Compile Include="ViewModel\LehrerAuswahlWindowVM.cs" />
     <Compile Include="ViewModel\LeistungsEditorVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
@@ -124,6 +125,9 @@
     </Compile>
     <Compile Include="ViewModel\Tools\NavigationEventArgs.cs" />
     <Compile Include="ViewModel\UnterrichtsfachBearbeitenVM.cs" />
+    <Compile Include="View\CreditsPage.xaml.cs">
+      <DependentUpon>CreditsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DateiImportPage.xaml.cs">
       <DependentUpon>DateiImportPage.xaml</DependentUpon>
     </Compile>
@@ -196,6 +200,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CreditsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\KlassenPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -236,6 +244,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Add_Icon.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

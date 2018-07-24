@@ -11,7 +11,7 @@
 
     <Grid Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded">
         <Grid.RowDefinitions>
-            <RowDefinition Height="190"/>
+            <RowDefinition Height="160"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -19,15 +19,15 @@
         </Grid.ColumnDefinitions>
 
         <!-- Grid Row 1 (Alles über erstem DataGrid) -->
-        <Label x:Name="lblUeberschrift" Content="Zeugnisfach anlegen" Grid.Row="0" HorizontalAlignment="Left" Height="35" Margin="0,0,0,0" VerticalAlignment="Top" Width="Auto" FontSize="16" FontWeight="Bold"/>
-        <Label x:Name="lblBezeichnung" Content="Fachbezeichnung:" Grid.Row="0" HorizontalAlignment="Left" Height="30" Margin="20,40,0,0" VerticalAlignment="Top" Width="105"/>
-        <TextBox x:Name="txtBezeichnung" Text="{Binding Bez}" Grid.Row ="0" HorizontalAlignment="Left" Height="25" Margin="130,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" RenderTransformOrigin="0.313,0.53" ToolTip="Fachbezeichnung eingeben" MaxLength="45"/>
-        <Label x:Name="lblPos" Content="Fachposition:" Grid.Row="0" HorizontalAlignment="Left" Height="30" Margin="20,70,0,0" VerticalAlignment="Top" Width="105"/>
-        <TextBox x:Name="txtPos" Text="{Binding Pos}" Grid.Row="0" HorizontalAlignment="Left" Height="25" Margin="130,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" ToolTip="z.B. 1" MaxLength="45"/>
-        <Label x:Name="lblFachArt" Content="Fachart:" Grid.Row="0" HorizontalAlignment="Left" Height="30" Margin="20,100,0,0" VerticalAlignment="Top" Width="105"/>
-        <ComboBox x:Name="comboxFachart" ItemsSource="{Binding Fachart}" Grid.Row="0" SelectedValue="{Binding Path=ZF.Fachart}" HorizontalAlignment="Left" Height="25" Margin="130,100,0,0" VerticalAlignment="Top" Width="150" ToolTip="Fachart wählen" IsSynchronizedWithCurrentItem="True" />
-        <CheckBox x:Name="chckboxAbschlFach" IsChecked="{Binding AbschliessendesFach}" Grid.Row="0" Content="Abschließendes Fach" HorizontalAlignment="Center" Height="25" Margin="0,140,0,0" VerticalAlignment="Top" Width="150"/>
-        <CheckBox x:Name="chckBoxVorFach" IsChecked="{Binding Vorrueckungsfach}" Grid.Row="0" Content="Vorrückungsfach" HorizontalAlignment="Center" Height="25" Margin="0,165,0,0" VerticalAlignment="Top" Width="150" ToolTip=""/>
+        <Label x:Name="lblUeberschrift" Content="Zeugnisfach anlegen" Grid.Row="0" HorizontalAlignment="Left" Height="30" Margin="0,0,0,0" VerticalAlignment="Top" Width="Auto" FontSize="15" FontWeight="Bold"/>
+        <Label x:Name="lblBezeichnung" Content="Fachbezeichnung:" Grid.Row="0" HorizontalAlignment="Left" Height="30" Margin="20,30,0,0" VerticalAlignment="Top" Width="105"/>
+        <TextBox x:Name="txtBezeichnung" Text="{Binding Bez}" Grid.Row ="0" HorizontalAlignment="Left" Height="25" Margin="130,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" RenderTransformOrigin="0.313,0.53" ToolTip="Fachbezeichnung eingeben" MaxLength="45"/>
+        <Label x:Name="lblPos" Content="Fachposition:" Grid.Row="0" HorizontalAlignment="Left" Height="30" Margin="20,60,0,0" VerticalAlignment="Top" Width="105"/>
+        <TextBox x:Name="txtPos" Text="{Binding Pos}" Grid.Row="0" HorizontalAlignment="Left" Height="25" Margin="130,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" ToolTip="z.B. 1" MaxLength="45"/>
+        <Label x:Name="lblFachArt" Content="Fachart:" Grid.Row="0" HorizontalAlignment="Left" Height="30" Margin="20,90,0,0" VerticalAlignment="Top" Width="105"/>
+        <ComboBox x:Name="comboxFachart" ItemsSource="{Binding Fachart}" Grid.Row="0" SelectedValue="{Binding Path=ZF.Fachart}" HorizontalAlignment="Left" Height="25" Margin="130,90,0,0" VerticalAlignment="Top" Width="150" ToolTip="Fachart wählen" IsSynchronizedWithCurrentItem="True" />
+        <CheckBox x:Name="chckboxAbschlFach" IsChecked="{Binding AbschliessendesFach}" Grid.Row="0" Content="Abschließendes Fach" HorizontalAlignment="Center" Height="25" Margin="0,125,0,0" VerticalAlignment="Top" Width="150"/>
+        <CheckBox x:Name="chckBoxVorFach" IsChecked="{Binding Vorrueckungsfach}" Grid.Row="0" Content="Vorrückungsfach" HorizontalAlignment="Center" Height="25" Margin="0,145,0,0" VerticalAlignment="Top" Width="150" ToolTip=""/>
         
 
         <!-- Grid Row 2 (Border mit weiterem Grid) -->
