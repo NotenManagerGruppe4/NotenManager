@@ -44,20 +44,75 @@ namespace Notenmanager.Model
       public static DBZugriff Current { get; private set; }
 
       //Stellt die DB dar
-      public Context Context { get; private set; }
+      protected Context Context { get; private set; }
 
+      //wenn initizialisiert wird
+      private static bool InitRuns { get; set; } = true;
+      private Thread Initer = new Thread(() =>
+      {
+         try
+         {
+            Trace.WriteLine("[DB] Loading Context...");
+            DateTime start = DateTime.Now;
+
+            //Manuell
+            DBZugriff.Current.Context.GetDbSet<Klasse>().SingleOrDefault();
+
+            Navigator.Instance.StartUpDone();
+
+            Trace.WriteLine($"[DB] Loaded Context ({(DateTime.Now - start).TotalSeconds.ToString("#0.00")}s)");
+         }
+         catch (Exception e)
+         {
+            Trace.WriteLine("ERROR: LOADING CONTEXT: " + e.ToString());
+         }
+         finally
+         {
+            InitRuns = false;
+         }
+      });
+      private object _key = new object();
 
       public DBZugriff()
       {
          DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
 
          Init();
+         Trace.WriteLine("[DB] Inited Context");
 
-
+         LoadContext();
       }
       private void Init()
       {
          Context = new Context();
+
+      }
+
+      //Lädt eine
+      private void LoadContext()
+      {
+         Initer.Start();
+         Initer = null;
+      }
+
+      private void CheckInit()
+      {
+         lock (_key)
+         {
+
+            if (InitRuns)
+            {
+               Initer?.Join();
+
+               Trace.WriteLine("[DB] WARN: Zugriff auf Context obwohl er NICHT GELADEN ist! Stack:\r\n" + Environment.StackTrace.ToString());
+            }
+            //falls checkinit aufgerufen bevor, der Thread gestartet wird...
+            while(InitRuns)
+            {
+               Thread.Sleep(500);
+               Initer?.Join();
+            }
+         }
       }
 
       /// <summary>
@@ -101,6 +156,8 @@ namespace Notenmanager.Model
       /// <exception cref="Exception"></exception>
       public void Loeschen<T>(T obj, bool autoSyncDb = true) where T : class, IDBable
       {
+         CheckInit();
+
          try
          {
             //DbSet<T> dbset = GetDbSetFromContext<T>();
@@ -129,6 +186,8 @@ namespace Notenmanager.Model
       /// <param name="obj">Das Objekt</param>
       public void Reload<T>(T obj) where T : class, IDBable
       {
+         CheckInit();
+
          Context.Entry<T>(obj)?.Reload();
       }
 
@@ -194,6 +253,8 @@ namespace Notenmanager.Model
 
       public DbSet<T> GetDbSetFromContext<T>() where T : class, IDBable
       {
+         CheckInit();
+
          return Context.GetDbSet<T>();
       }
 
@@ -204,6 +265,8 @@ namespace Notenmanager.Model
       /// <returns>Transaktions-Objekt</returns>
       public DbContextTransaction BeginTransaction()
       {
+         CheckInit();
+
          return Context.Database.BeginTransaction();
       }
 
@@ -211,6 +274,7 @@ namespace Notenmanager.Model
       //TEMP: async = false : Bessere Fehlernachvollziehbarkeit
       public void Save(bool async = false)
       {
+         CheckInit();
          try
          {
             if (async)
@@ -225,28 +289,6 @@ namespace Notenmanager.Model
                Trace.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
                foreach (var ve in eve.ValidationErrors)
                   Trace.WriteLine($"- Property: \"{ ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
-
-               //Trace.WriteLine("Reloading entity!");
-
-               //try
-               //{
-               //   if (eve.Entry.State == EntityState.Added)
-               //   {
-               //      if (!(eve.Entry.Entity is IDBable))
-               //         throw new Exception("Nicht löschbar: Unbekannter Objekttyp für Datenbank!");
-               //      eve.Entry.State = EntityState.Deleted;
-               //   }
-               //   else if (eve.Entry.State == EntityState.Modified)
-               //      eve.Entry.Reload();
-               //   else
-               //      throw new Exception("Unbehandelbarer Status");
-               //}
-               //catch (Exception ex2)
-               //{
-               //   Trace.WriteLine("Fatal: " + ex2.ToString());
-               //   Trace.WriteLine("Lade Context KOMPLETT neu!");
-               //}
-               //Trace.WriteLine("Repariert!");
 
             }
 
@@ -272,23 +314,9 @@ namespace Notenmanager.Model
             throw new Exception("Already opened a session!");
          Current = new DBZugriff();
 
-         Trace.WriteLine("Inited DB!");
-
-         LoadContext();
       }
 
-      private static void LoadContext()
-      {
-         Thread t = new Thread(() =>
-         {
-            DBZugriff.Current.SelectFirstOrDefault<Schule>();
-
-            Navigator.Instance.StartUpDone();
-
-            Trace.WriteLine("Startup done!");
-         });
-         t.Start();
-      }
+      
 
       public static void CloseDB()
       {
@@ -306,7 +334,7 @@ namespace Notenmanager.Model
          }
          finally
          {
-            Trace.WriteLine("Closed DB!");
+            Trace.WriteLine("[DB] Closed DB!");
          }
       }
 
