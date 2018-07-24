@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -34,6 +35,7 @@ namespace Notenmanager.ViewModel
         #region Commands
         public ICommand BeendenCmd { get; set; }
         public ICommand StartCmd { get; set; }
+        public ICommand CreditsCmd { get; set; }
         #endregion
         #endregion
 
@@ -43,6 +45,7 @@ namespace Notenmanager.ViewModel
             CurrentPage = App.Current.FindResource("MainPage") as Page;
             BeendenCmd = new ActionCommand(OnBeenden);
             StartCmd = new ActionCommand(OnStart);
+            CreditsCmd = new ActionCommand(OnCredits);
         }
         #endregion
 
@@ -62,7 +65,19 @@ namespace Notenmanager.ViewModel
         /// <param name="obj">nicht verwendet</param>
         private void OnBeenden(object obj)
         {
+            MessageBoxResult mbr = MessageBox.Show("Notenmanager Beenden?", "Wirklich schließen?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if(mbr == MessageBoxResult.Yes)
             App.Current.Shutdown();
+        }
+
+        /// <summary>
+        /// Navigiert zur Credits-Page
+        /// </summary>
+        /// <param name="obj"></param>
+        private void OnCredits(object obj)
+        {
+            Navigator.Instance.NavigateTo("CreditsPage");
         }
         #endregion
     }

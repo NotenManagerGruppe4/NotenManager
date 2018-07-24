@@ -14,6 +14,7 @@
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
+        <vm:CreditsPageVM x:Key="CreditsPageVM"/>
         <vm:MainWindowVM x:Key="MainWindowVM"/>
         <vm:MainPageVM x:Key="MainPageVM"/>
         <vm:ZeugnisFachBearbeitenPageVM x:Key="ZFBearbeitenVM"/>
@@ -22,6 +23,7 @@
         <vm:KlassenPageVM x:Key="KlassenPageVM"/>
         <vm:LehrerAuswahlWindowVM x:Key="LehrerAuswahlVM"/>
         <vm:NotenPageVM x:Key="NotenPageVM"/>
+        <view:CreditsPage x:Key="CreditsPage"/>
         <view:MainPage x:Key="MainPage"/>
         <view:DateiImportPage x:Key="DateiImportPage"/>
         <view:FachAnlegenPage x:Key="FachAnlegenPage"/>

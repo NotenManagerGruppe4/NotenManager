@@ -35,6 +35,7 @@
                             <MenuItem Header="Klassen"></MenuItem>
                             <MenuItem Header="Schüler"></MenuItem>
                         </MenuItem>
+                        <MenuItem Header="Credits" Width="Auto" Background="DarkCyan" Command="{Binding CreditsCmd}"/>
 
                     </Menu>
 
