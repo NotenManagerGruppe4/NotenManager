@@ -104,6 +104,7 @@
     <Compile Include="ViewModel\FaecherVerwaltenPageVM.cs" />
     <Compile Include="ViewModel\CreditsPageVM.cs" />
     <Compile Include="ViewModel\LehrerAuswahlWindowVM.cs" />
+    <Compile Include="ViewModel\LeistungMassenerfassungWindowVM.cs" />
     <Compile Include="ViewModel\LeistungsEditorVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\NotenPageVM.cs" />
@@ -136,6 +137,9 @@
     </Compile>
     <Compile Include="View\LehrerAuswahlWindow.xaml.cs">
       <DependentUpon>LehrerAuswahlWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LeistungMassenerfassungWindow.xaml.cs">
+      <DependentUpon>LeistungMassenerfassungWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LeistungsEditor.xaml.cs">
       <DependentUpon>LeistungsEditor.xaml</DependentUpon>
@@ -209,6 +213,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LehrerAuswahlWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LeistungMassenerfassungWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
