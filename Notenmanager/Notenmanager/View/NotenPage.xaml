@@ -50,8 +50,17 @@
         <Button x:Name="btnMassenErfassung" Content="Massenerfassung" Command="{Binding MassenErfassungClickCmd}" HorizontalAlignment="Left" Margin="574,136,0,0" VerticalAlignment="Top" Width="126"/>
         <Border BorderBrush="Black" BorderThickness="1" Margin="20,163,16,61">
             <Grid>
-                <ScrollViewer Margin="10">
-                    <Grid x:Name="gNoten" Height="339" Width="658"/>
+                <ScrollViewer Margin="10" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <Grid x:Name="gNoten" Height="339" Width="658" VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="16" />
+                            </Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="FontSize" Value="38" />
+                            </Style>
+                        </Grid.Resources>
+                    </Grid>
                 </ScrollViewer>
             </Grid>
         </Border>

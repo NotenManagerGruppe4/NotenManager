@@ -41,8 +41,11 @@ namespace Notenmanager.ViewModel.Tools
         /// <param name="resourceKey">Schlüssel aus dem ResourceDictionary der Seite, zu der navigiert werden soll</param>
         public void NavigateTo(string resourceKey)
         {
-            (App.Current.FindResource("MainWindowVM") as MainWindowVM).CurrentPage = App.Current.FindResource(resourceKey) as Page;
-            PageChanged?.Invoke(this, new EventArgs());
+            if(!resourceKey.Equals(String.Empty))
+            {
+                (App.Current.FindResource("MainWindowVM") as MainWindowVM).CurrentPage = App.Current.FindResource(resourceKey) as Page;
+                PageChanged?.Invoke(this, new EventArgs());
+            }
         }
     }
 }

@@ -74,6 +74,10 @@ namespace Notenmanager.ViewModel
         public ICommand AbbrechenCmd { get; set; }
         public ICommand DateiAuswaehlenCmd { get; set; }
         #endregion
+
+        /// <summary>
+        /// Pfad der zu Importierenden Datei
+        /// </summary>
         public string DateiPfad
         {
             get
@@ -87,6 +91,9 @@ namespace Notenmanager.ViewModel
             }
         }
 
+        /// <summary>
+        /// Legt fest, um welche Art von Stammdatendatei(Schüler-, Lehrer- oder Klassendatei) es sich handelt
+        /// </summary>
         public ComboBoxItem DateiTyp
         {
             get
@@ -100,6 +107,9 @@ namespace Notenmanager.ViewModel
             }
         }
 
+        /// <summary>
+        /// Liste aller in der Datenbank angelegten Schulen für die ComboBox zur Auswahl einer Schule
+        /// </summary>
         public ObservableCollection<Schule> Schulen
         {
             get
@@ -113,6 +123,9 @@ namespace Notenmanager.ViewModel
             }
         }
 
+        /// <summary>
+        /// In der ComboBox zur Auswahl einer Schule selektierte Schule
+        /// </summary>
         public Schule SelektierteSchule
         {
             get
@@ -126,6 +139,9 @@ namespace Notenmanager.ViewModel
             }
         }
 
+        /// <summary>
+        /// Legt fest, ob die ComboBox zur Auswahl der Schulen gebraucht wird und (de)aktiviert diese 
+        /// </summary>
         public bool CbSchulenEnabled
         {
             get
@@ -139,6 +155,9 @@ namespace Notenmanager.ViewModel
             }
         }
 
+        /// <summary>
+        /// Hinweistext der ausgegeben wird, wenn man eine Schülerdatei importieren will
+        /// </summary>
         public string Hinweis
         {
             get
@@ -164,7 +183,7 @@ namespace Notenmanager.ViewModel
             fileDialog.Filter = "CSV files (*.csv)|*.csv|All files(*.*)|*.*";
             fileDialog.ShowDialog();
             // Dateipfad der ausgewählten Datei anzeigen und zwischenspeichern
-            DateiPfad = fileDialog.FileName;    
+            DateiPfad = fileDialog.FileName;
         }
 
         private void OnDateiImportieren(object obj)

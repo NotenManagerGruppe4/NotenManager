@@ -6,9 +6,10 @@
       xmlns:local="clr-namespace:Notenmanager.View"
       xmlns:util="clr-namespace:Notenmanager.View.Util"
       mc:Ignorable="d"
-      Title="FachAnlegenPage" MinHeight="500" Width="350">
+      Title="FachAnlegenPage" MinHeight="500" Width="350"
+      DataContext="{StaticResource ZFBearbeitenVM}">
 
-    <Grid Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded" Unloaded="Grid_Unloaded">
+    <Grid Background="White" Margin="0,0,10,10" Loaded="Grid_Loaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="160"/>
             <RowDefinition Height="*"/>
@@ -32,7 +33,7 @@
         <!-- Grid Row 2 (Border mit weiterem Grid) -->
         <Label x:Name="lblUFach" Content="Unterrichtsfächer:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Height="30" Margin="20,0,0,0" VerticalAlignment="Top" Width="146" FontWeight="Bold"/>
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" HorizontalAlignment="Left" Height="Auto" Margin="20,20,20,30" Width="300" Opacity="1" VerticalAlignment="Stretch">
-            <Grid Name="gridInBorder" Background="White" DataContext="{StaticResource ZFBearbeitenVM}" Margin="10,10,10,10" Loaded="Grid_Loaded" Unloaded="Grid_Unloaded">
+            <Grid Name="gridInBorder" Background="White" Margin="10,10,10,10" Loaded="Grid_Loaded">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="40"/>
@@ -52,15 +53,15 @@
 
                 <!-- Inneres Grid Row 2 (Buttons für DataGrid Fächer) -->
                 <Button x:Name="btnAnlegen" Command="{Binding OnBtnAnlegenCmd}" Grid.Row="1" IsEnabled="{Binding ZFachSaveAble}" Content="Anlegen" HorizontalAlignment="Left" Height="25" Margin="5,5,0,0" VerticalAlignment="Top" Width="Auto"/>
-                <Button x:Name="btnAendern" Command="{Binding OnBtnAendernCmd}" Grid.Row="1" Content="Ändern" HorizontalAlignment="Center" Height="25" Margin="0,5,0,0" VerticalAlignment="Top" Width="Auto"/>
+                <Button x:Name="btnAendern" Command="{Binding OnBtnAendernCmd}" IsEnabled="{Binding SelFach}" Grid.Row="1" Content="Ändern" HorizontalAlignment="Center" Height="25" Margin="0,5,0,0" VerticalAlignment="Top" Width="Auto"/>
                 <Button x:Name="btnEntfernen" Command="{Binding OnBtnEntfernenCmd}" Grid.Row="1" Content="Entfernen" HorizontalAlignment="Right" Height="25" Margin="0,5,5,0" VerticalAlignment="Top" Width="Auto"/>
 
                 <!-- Inneres Grid Row 3 (DataGrid Lehrer) -->
                 <DataGrid ItemsSource="{Binding LstULehrer}" SelectedItem="{Binding SelULehrer}" Grid.Row="2" x:Name="LehrerDataGrid" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Height="Auto" Width="Auto" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ToolTip="Zuständige Lehrer">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
-                        <DataGridTextColumn Binding="{Binding Vorname}" Header="Vorname"/>
-                        <DataGridTextColumn Binding="{Binding Kürzel}" Header="Kürzel"/>
+                        <DataGridTextColumn Binding="{Binding Lehrer.Nachname}" Header="Name"/>
+                        <DataGridTextColumn Binding="{Binding Lehrer.Vorname}" Header="Vorname"/>
+                        <DataGridTextColumn Binding="{Binding Lehrer.Kuerzel}" Header="Kürzel"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 
@@ -73,8 +74,9 @@
         </Border>
         
         <!-- Buttons für Page-Steuerung am Ende der Page und außerhalb des Borders -->
-        <Button x:Name="btnSpeichern" Content="Speichern" Command ="{Binding OnBtnSpeichernCmd}" IsEnabled="{Binding ZFachSaveAble}" Grid.Row="1" HorizontalAlignment="Right" Height="25" Margin="0,0,25,0" VerticalAlignment="Bottom" Width="Auto"/>
-        <Button x:Name="btnAbbrechen" Content="Abbrechen" Command="{Binding OnBtnAbbrechenCmd}" Grid.Row="1" HorizontalAlignment="Left" Height="25" Margin="25,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
+        <Button x:Name="btnSpeichern" Content="Speichern" Command ="{Binding OnBtnSpeichernCmd}" CommandParameter="FaecherVerwaltenPage" IsEnabled="{Binding ZFachSaveAble}" Grid.Row="1" HorizontalAlignment="Left" Height="25" Margin="25,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
+        <Button x:Name="btnAbbrechen" Content="Abbrechen" Command="{Binding OnBtnAbbrechenCmd}" CommandParameter="FaecherVerwaltenPage" Grid.Row="1" HorizontalAlignment="Right" Height="25" Margin="0,0,25,0" VerticalAlignment="Bottom" Width="Auto"/>
 
+        
     </Grid>
 </Page>

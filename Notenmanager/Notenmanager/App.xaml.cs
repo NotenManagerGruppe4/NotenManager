@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,15 +40,18 @@ namespace Notenmanager
             }
          };
 
+         //Start EF
+         DBZugriff.Current.SelectFirstOrDefault<Schule>();
 
-         #if DEBUG
+
+#if DEBUG
          Tests s = new Tests();
          if (Environment.GetCommandLineArgs().Contains("-test"))
             s.Test2();
          if (Environment.GetCommandLineArgs().Contains("-valtest"))
             s.ValTest();
 
-         #endif
+#endif
       }
 
       private void Application_Exit(object sender, ExitEventArgs e)
@@ -102,6 +107,7 @@ namespace Notenmanager
             
 
 
+
             Schule schule = new Schule()
             {
                Bez = "TestSchule",
@@ -136,6 +142,16 @@ namespace Notenmanager
                Klasse = kl,
             };
             zf.Speichern();
+            Zeugnisfach zf2 = new Zeugnisfach()
+            {
+               Bez = "TestAbschlussFach2",
+               Fachart = Fachart.Wahlpflichtfach,
+               Pos = 2,
+               Vorrueckungsfach = true,
+               AbschliessendesFach = true,
+               Klasse = kl,
+            };
+            zf2.Speichern();
 
             Unterrichtsfach uf = new Unterrichtsfach()
             {
@@ -153,6 +169,14 @@ namespace Notenmanager
                Zeugnisfach = zf,
             };
             uf2.Speichern();
+            Unterrichtsfach uf2B = new Unterrichtsfach()
+            {
+               Bez = "TestUnterichtsFach2B",
+               Pos = 1,
+               Stunden = 4,
+               Zeugnisfach = zf2,
+            };
+            uf2B.Speichern();
 
             UFachLehrer ufl = new UFachLehrer()
             {
@@ -168,6 +192,13 @@ namespace Notenmanager
                Stunden = uf.Stunden
             };
             ufl2.Speichern();
+            UFachLehrer ufl2B = new UFachLehrer()
+            {
+               Lehrer = leh,
+               Unterrichtsfach = uf2B,
+               Stunden = uf.Stunden
+            };
+            ufl2B.Speichern();
 
 
             Schueler s = new Schueler()
@@ -282,6 +313,28 @@ namespace Notenmanager
                UFachLehrer = ufl2
             };
             leiB.Speichern();
+            Leistung lei2B = new Leistung()
+            {
+               Erhebungsdatum = DateTime.Now,
+               Notenstufe = 1,
+               Tendenz = Tendenz.UP,
+               LetzteÄnderung = DateTime.Now,
+               Leistungsart = la,
+               SchuelerKlasse = sk,
+               UFachLehrer = ufl2B
+            };
+            lei2B.Speichern();
+            Leistung lei2C = new Leistung()
+            {
+               Erhebungsdatum = DateTime.Now,
+               Notenstufe = 3,
+               Tendenz = Tendenz.UP,
+               LetzteÄnderung = DateTime.Now,
+               Leistungsart = la,
+               SchuelerKlasse = sk,
+               UFachLehrer = ufl2B
+            };
+            lei2C.Speichern();
 
 
          }

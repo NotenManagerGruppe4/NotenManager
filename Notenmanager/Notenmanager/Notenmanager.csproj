@@ -101,10 +101,13 @@
     <Compile Include="Model\DBZugriff.cs" />
     <Compile Include="Model\IDBable.cs" />
     <Compile Include="Persistenz\Importstatistik.cs" />
+    <Compile Include="ViewModel\FaecherVerwaltenPageVM.cs" />
     <Compile Include="ViewModel\CreditsPageVM.cs" />
     <Compile Include="ViewModel\LehrerAuswahlWindowVM.cs" />
+    <Compile Include="ViewModel\LeistungsEditorVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\NotenPageVM.cs" />
+    <Compile Include="ViewModel\Tools\CellEditorTag.cs" />
     <Compile Include="ViewModel\Tools\Command.cs" />
     <Compile Include="ViewModel\Tools\MessageBoxEventArgs.cs" />
     <Compile Include="Persistenz\DateiZugriff.cs" />
@@ -128,8 +131,14 @@
     <Compile Include="View\DateiImportPage.xaml.cs">
       <DependentUpon>DateiImportPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FaecherVerwaltenPage.xaml.cs">
+      <DependentUpon>FaecherVerwaltenPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LehrerAuswahlWindow.xaml.cs">
       <DependentUpon>LehrerAuswahlWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LeistungsEditor.xaml.cs">
+      <DependentUpon>LeistungsEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NotenPage.xaml.cs">
       <DependentUpon>NotenPage.xaml</DependentUpon>
@@ -187,6 +196,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="View\FaecherVerwaltenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CreditsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -196,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LehrerAuswahlWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LeistungsEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
