@@ -185,7 +185,7 @@ namespace Notenmanager.View
                         continue;
                      }
 
-                     AddNotenTextBox(l.Notenstufe, currentrow, cs.ColumnIndex, false, new CellEditorTag()
+                     AddNotenTextBox(l, currentrow, cs.ColumnIndex, false, new CellEditorTag()
                      {
                         Mode = DialogMode.Aendern,
                         Leistung = l,
@@ -249,13 +249,17 @@ namespace Notenmanager.View
          Grid.SetColumnSpan(obj, columnspan);
       }
 
-      private void AddNotenTextBox(int? note, int row, int column, bool italic = false, CellEditorTag tag = null, bool useeditor = false)
+      private void AddNotenTextBox(Leistung l, int row, int column, bool italic = false, CellEditorTag tag = null, bool useeditor = false)
       {
          TextBox tb = new TextBox();
-         if (note == null)
+         if (l == null)
             tb.Text = "";
          else
-            tb.Text = note.ToString();
+         {
+            tb.Text = l.Notenstufe.ToString();
+            tb.ToolTip = $"Erhoben am: {l.Erhebungsdatum} \r\n" +
+               (l.LetzteÄnderung != null ? $"Letzte Änderung: {l.LetzteÄnderung} \r\n" : "");
+         }
          tb.TextAlignment = TextAlignment.Center;
          tb.VerticalAlignment = VerticalAlignment.Center;
          tb.Margin = new Thickness(MARGIN);
@@ -275,7 +279,7 @@ namespace Notenmanager.View
                   if (ctag == null)
                      return;
 
-                  if(new LeistungsEditor(ctag).ShowDialog()==true);
+                  if(new LeistungsEditor(ctag).ShowDialog()==true)
                      UpdateNotenGrid();
                };
          }

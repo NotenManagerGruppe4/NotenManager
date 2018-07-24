@@ -23,7 +23,6 @@ namespace Notenmanager.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainPageVM _viewModel;
         private ZeugnisFachBearbeitenPageVM _ZFviewmodel;
         private MainWindowVM _mwVM;
 
@@ -36,7 +35,14 @@ namespace Notenmanager.View
             //_viewModel.NavigateToPageRequest += OnNavigateToPageRequest;
             _mwVM = DataContext as MainWindowVM;
             Navigator.Instance.PageChanged += Instance_PageChanged;
+            (FindResource("FaecherVerwaltenPageVM") as FaecherVerwaltenPageVM).MessageBoxRequest += MainWindow_MessageBoxRequest;
             _ZFviewmodel.MessageBoxRequest += OnMessageBoxRequest;
+        }
+
+        private void MainWindow_MessageBoxRequest(object sender, Model.MessageBoxEventArgs e)
+        {
+            var result = MessageBox.Show(e.MessageBoxText, e.Caption, e.MessageBoxButton, e.MessageBoxImage, MessageBoxResult.No);
+            e.ResultAction?.Invoke(result);
         }
 
         private void Instance_PageChanged(object sender, EventArgs e)

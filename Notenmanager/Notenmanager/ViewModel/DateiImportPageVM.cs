@@ -194,7 +194,7 @@ namespace Notenmanager.ViewModel
                 DateiPfad.ToString(); 
             }
 
-            catch(Exception e)
+            catch(Exception)
             {
                 // Fehlermeldung, wenn keine Datei gefunden oder falscher Dateipfad angegeben.
                 MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs()
