@@ -36,6 +36,7 @@ namespace Notenmanager.ViewModel
         /// <param name="key">Schlüssel der Seite zu der navigiert werden soll aus dem ResourceDictionary der App.xaml </param>
         private static void OnNavigation(string key)
         {
+            //MainWindow
             Navigator.Instance.NavigateTo(key);
         }
         #endregion
