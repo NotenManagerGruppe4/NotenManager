@@ -41,7 +41,7 @@ namespace Notenmanager.ViewModel
                 List<Lehrer> alle = DBZugriff.Current.Select<Lehrer>();
 
                 List<Lehrer> vorhanden = new List<Lehrer>();
-                foreach(UFachLehrer ufl in SelUF?.UFaecherLehrer)
+                foreach(UFachLehrer ufl in SelUF?.UFaecherLehrer?.Where(x => x.Active == true).ToList())
                 {
                     if (!vorhanden.Contains(ufl.Lehrer) && ufl.Lehrer.Active)
                         vorhanden.Add(ufl.Lehrer);

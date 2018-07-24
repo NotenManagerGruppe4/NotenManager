@@ -99,7 +99,7 @@ namespace Notenmanager.ViewModel
                 OnPropertyChanged("EnableButton");
             }
         }
-        public UFachLehrer SelLehrer
+        public UFachLehrer SelULehrer
         {
             get
             {
@@ -109,6 +109,7 @@ namespace Notenmanager.ViewModel
             {
                 _selULehrer = value;
                 OnPropertyChanged();
+                OnPropertyChanged("EnableLehrerEntfernenButton");
             }
         }
 
@@ -258,7 +259,6 @@ namespace Notenmanager.ViewModel
 
         private void OnBtnEntfernen(object obj)
         {
-
             MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(DoEntfernen, "Wirklich löschen?", "Sind Sie sicher?", MessageBoxButton.YesNo, MessageBoxImage.Question));
         }
 
@@ -291,13 +291,33 @@ namespace Notenmanager.ViewModel
         }
         private void OnBtnLehrerEntfernen(object obj)
         {
-            
+            MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(DoLehrerEntfernen, "Wirklich entfernen?", "Sind Sie sicher?", MessageBoxButton.YesNo, MessageBoxImage.Question));
+        }
+        private void DoLehrerEntfernen(MessageBoxResult obj)
+        {
+            if(obj == MessageBoxResult.Yes)
+            {
+                UFachLehrer ufl = DBZugriff.Current.SelectFirstOrDefault<UFachLehrer>(x => x.Lehrer == SelULehrer.Lehrer && x.Unterrichtsfach == SelULehrer.Unterrichtsfach);
+                ufl.Loeschen();   
+                this.LstULehrer.Remove(SelULehrer);
+            }
+            OnPropertyChanged("LstULehrer");
         }
         public bool EnableButton
         {
             get
             {
                 if (SelFach != null)
+                    return true;
+
+                return false;
+            }
+        }
+        public bool EnableLehrerEntfernenButton
+        {
+            get
+            {
+                if (SelULehrer != null)
                     return true;
 
                 return false;
