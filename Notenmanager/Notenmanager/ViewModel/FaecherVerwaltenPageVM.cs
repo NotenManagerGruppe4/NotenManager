@@ -1,4 +1,5 @@
 ﻿using Notenmanager.Model;
+using Notenmanager.View;
 using Notenmanager.ViewModel.Tools;
 using System;
 using System.Collections.Generic;
@@ -31,13 +32,29 @@ namespace Notenmanager.ViewModel
             CBoxSchulenChangedCmd = new ActionCommand(OnCBoxSchulenChanged);
             CBoxKlassenChangedCmd = new ActionCommand(OnCBoxKlassenChanged);
             LoeschenCmd = new ActionCommand(OnLoeschen);
+            BearbeitenCmd = new Command<string>(OnBearbeiten);
+            NeuCmd = new Command<string>(OnNeu);
+            Navigator.Instance.PageChanged += OnPageChanged;
 
+            InitialisiereElemente();
+        }
+
+        private void OnPageChanged(object sender, NavigationEventArgs e)
+        {
+            if(e.ZielPage.GetType() == new FaecherVerwaltenPage().GetType())
+            {
+                InitialisiereElemente();
+            }
+        }
+
+        private void InitialisiereElemente()
+        {
             // Initiales Befüllen der ComboBoxen aus der Datenbank und der Zeugnisfächerliste
-            Schulen = new ObservableCollection<Schule>(DBZugriff.Current.Select<Schule>(x => x.Active == true));
+            Schulen = new ObservableCollection<Schule>(DBZugriff.Current.Select<Schule>());
             SelectedSchule = Schulen[0];
             Klassen = new ObservableCollection<Klasse>(DBZugriff.Current.Select<Klasse>(x => x.Schule == SelectedSchule));
             SelectedKlasse = Klassen[0];
-            Zfaecher = new ObservableCollection<Zeugnisfach>(DBZugriff.Current.Select<Zeugnisfach>(x => x.Klasse == SelectedKlasse && x.Active == true));
+            Zfaecher = new ObservableCollection<Zeugnisfach>(DBZugriff.Current.Select<Zeugnisfach>(x => x.Klasse == SelectedKlasse));
         }
         #endregion
 
@@ -45,6 +62,8 @@ namespace Notenmanager.ViewModel
 
         #region Commands
         public Command<string> NavigationCmd { get; set; }
+        public Command<string> BearbeitenCmd { get; set; }
+        public Command<string> NeuCmd { get; set; }
         public ICommand CBoxKlassenChangedCmd { get; set; }
         public ICommand CBoxSchulenChangedCmd { get; set; }
         public ICommand LoeschenCmd { get; set; }
@@ -194,7 +213,7 @@ namespace Notenmanager.ViewModel
         /// <param name="obj"></param>
         private void OnCBoxKlassenChanged(object obj)
         {
-            Zfaecher = new ObservableCollection<Zeugnisfach>(DBZugriff.Current.Select<Zeugnisfach>(x => x.Klasse == SelectedKlasse && x.Active == true));
+            Zfaecher = new ObservableCollection<Zeugnisfach>(DBZugriff.Current.Select<Zeugnisfach>(x => x.Klasse == SelectedKlasse));
             Ufaecher.Clear();
         }
 
@@ -205,6 +224,24 @@ namespace Notenmanager.ViewModel
         private void OnCBoxSchulenChanged(object obj)
         {
             Klassen = new ObservableCollection<Klasse>(DBZugriff.Current.Select<Klasse>(x => x.Schule == SelectedSchule));
+        }
+
+        private void OnNeu(string key)
+        {
+            var viewModel = App.Current.FindResource("ZFBearbeitenVM") as ZeugnisFachBearbeitenPageVM;
+            viewModel.Modus = DialogMode.Neu;
+            viewModel.ZF.Klasse = SelectedKlasse;
+
+            Navigator.Instance.NavigateTo(key);
+        }
+
+        private void OnBearbeiten(string key)
+        {
+            var viewModel = App.Current.FindResource("ZFBearbeitenVM") as ZeugnisFachBearbeitenPageVM;
+            viewModel.Modus = DialogMode.Aendern;
+            viewModel.ZF = SelectedZFach;
+
+            Navigator.Instance.NavigateTo(key);
         }
 
         /// <summary>

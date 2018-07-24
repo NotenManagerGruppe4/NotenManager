@@ -23,6 +23,7 @@ namespace Notenmanager.ViewModel
         private Unterrichtsfach _selFach;
         private UFachLehrer _selULehrer;
         private Zeugnisfach _zf;
+        private DialogMode _modus;
 
         private UnterrichtsfachBearbeitenVM ufvm;
         private LehrerAuswahlWindowVM lavm;
@@ -42,8 +43,6 @@ namespace Notenmanager.ViewModel
         #endregion Commands
         public ZeugnisFachBearbeitenPageVM()
         {
-            ZF = DBZugriff.Current.SelectFirstOrDefault<Zeugnisfach>(x => x.Id == 1);
-
             OnBtnAnlegenCmd = new ActionCommand(OnBtnAnlegen);
             OnBtnAendernCmd = new ActionCommand(OnBtnAendern);
             OnBtnSpeichernCmd = new Command<string>(OnBtnSpeichern);
@@ -197,6 +196,21 @@ namespace Notenmanager.ViewModel
                 ZF.Vorrueckungsfach = value;
                 OnPropertyChanged();
             }
+        }
+
+        public DialogMode Modus
+        {
+            get
+            {
+                return _modus;
+            }
+            set
+            {
+                if (value == DialogMode.Neu)
+                    ZF = new Zeugnisfach();
+
+                _modus = value;    
+            } 
         }
         #endregion Properties
 
