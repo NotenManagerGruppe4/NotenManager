@@ -26,6 +26,21 @@ namespace Notenmanager.View
         private ZeugnisFachBearbeitenPageVM _ZFviewmodel;
         private MainWindowVM _mwVM;
 
+        private ProgressBar pb;
+
+        public ProgressBar Pb
+        {
+            get
+            {
+                return pb;
+            }
+
+            set
+            {
+                pb = value;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -73,6 +88,19 @@ namespace Notenmanager.View
                 mainPanelBorder.Margin = new Thickness();
             }
         }
+
+        public void showProgressBar(bool b)
+        {
+            if (b)
+            {
+                pbLoading.Visibility = Visibility.Visible;
+            }
+                
+            
+            else
+                pbLoading.Visibility = Visibility.Hidden;
+        }
+        
 
         private void OnMessageBoxRequest(object sender, MessageBoxEventArgs e)
         {

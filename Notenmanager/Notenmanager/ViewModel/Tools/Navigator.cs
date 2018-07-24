@@ -20,6 +20,7 @@ namespace Notenmanager.ViewModel.Tools
 
         private Navigator() { }
 
+        public event EventHandler PageChangedFinished;
         public event EventHandler<NavigationEventArgs> PageChanged; 
 
         public static Navigator Instance
@@ -44,21 +45,22 @@ namespace Notenmanager.ViewModel.Tools
             if(!resourceKey.Equals(String.Empty))
             {
                 var page = App.Current.FindResource(resourceKey) as Page;
-                (App.Current.FindResource("MainWindowVM") as MainWindowVM).CurrentPage = page;
-                PageChanged?.Invoke(this, new NavigationEventArgs()
+				PageChanged?.Invoke(this, new NavigationEventArgs()
                 {
                     ZielPage = page,
                 });
+                (App.Current.FindResource("MainWindowVM") as MainWindowVM).CurrentPage = page;
+                PageChangedFinished?.Invoke(this, new EventArgs());
+                
+                
             }
         }
 
-        public void NavigateTo(Page page)
+
+        //DB fertig
+        public void StartUpDone()
         {
-            PageChanged?.Invoke(this, new NavigationEventArgs()
-            {
-                ZielPage = page,
-            });
-            (App.Current.FindResource("MainWindowVM") as MainWindowVM).CurrentPage = page;
+            PageChangedFinished?.Invoke(this, new EventArgs());
         }
     }
 }

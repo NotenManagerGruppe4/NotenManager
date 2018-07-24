@@ -38,4 +38,5 @@
         <Button x:Name="btnNiten" Command="{Binding NavigationCmd}" CommandParameter="NotenPage" Content="NotenPage" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,0,0" FontSize="15"/>
 
     </Grid>
+    
 </Page>

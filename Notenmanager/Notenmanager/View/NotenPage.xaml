@@ -26,6 +26,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+        
+        <ComboBox x:Name="cbPeriode" ItemsSource="{Binding LstPerioden}" SelectedItem="{Binding CurrentPeriode}" HorizontalAlignment="Left" Margin="20,136,0,0" VerticalAlignment="Top" Width="120"/>
+        
         <Grid HorizontalAlignment="Left" Height="49" Margin="527,37,0,0" VerticalAlignment="Top" Width="101">
             <Label x:Name="lblKL" Content="Klassenleiter" VerticalAlignment="Top"/>
             <Label x:Name="lblStvKL" Content="Stv. Klassenleiter" Margin="0,26,0,0" VerticalAlignment="Top"/>
@@ -45,8 +48,8 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Button x:Name="btnSchuelerZuweisen" Content="Schüler zuweisen" Command="{Binding SchuelerZuweisenClickCmd}" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="126"/>
-        <Button x:Name="btnZeugnisfaecher" Content="Zeugnisfächer editieren" Command="{Binding ZeugnisFaecherClickCmd}" HorizontalAlignment="Left" Margin="158,88,0,0" VerticalAlignment="Top" Width="152"/>
+        <!--<Button x:Name="btnSchuelerZuweisen" Content="Schüler zuweisen" Command="{Binding SchuelerZuweisenClickCmd}" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="126"/>-->
+        <Button x:Name="btnZeugnisfaecher" Content="Zeugnisfächer editieren" Command="{Binding ZeugnisFaecherClickCmd}" HorizontalAlignment="Left" Margin="20,88,0,0" VerticalAlignment="Top" Width="152"/>
         <Button x:Name="btnMassenErfassung" Content="Massenerfassung" Command="{Binding MassenErfassungClickCmd}" HorizontalAlignment="Left" Margin="574,136,0,0" VerticalAlignment="Top" Width="126"/>
         <Border BorderBrush="Black" BorderThickness="1" Margin="20,163,16,61">
             <Grid>
