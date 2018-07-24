@@ -67,7 +67,7 @@
                 
                 <!-- Inneres Grid Row 4 (Buttons für DataGrid Lehrer) -->
                 <Button x:Name="btnHinzufuegen" Command="{Binding OnBtnHinzufuegenCmd}" IsEnabled="{Binding EnableButton}" Grid.Row="3" Content="Hinzufügen" HorizontalAlignment="Left" Height="25" Margin="5,5,0,0" VerticalAlignment="Top" Width="Auto" RenderTransformOrigin="0.954,1.412"/>
-                <Button x:Name="btnEntferneLehrer" Command="{Binding OnBtnEntfernenCmd}" Grid.Row="3" Content="Entfernen" HorizontalAlignment="Right" Height="25" Margin="0,5,5,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.954,1.412"/>
+                <Button x:Name="btnEntferneLehrer" Command="{Binding OnBtnLehrerEntfernenCmd}" Grid.Row="3" Content="Entfernen" HorizontalAlignment="Right" Height="25" Margin="0,5,5,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.954,1.412"/>
 
             </Grid>
             
