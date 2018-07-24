@@ -32,6 +32,13 @@ namespace Notenmanager.View
             //_viewModel.NavigateToPageRequest += OnNavigateToPageRequest;
             _mwVM = DataContext as MainWindowVM;
             Navigator.Instance.PageChanged += Instance_PageChanged;
+            (FindResource("FaecherVerwaltenPageVM") as FaecherVerwaltenPageVM).MessageBoxRequest += MainWindow_MessageBoxRequest;
+        }
+
+        private void MainWindow_MessageBoxRequest(object sender, Model.MessageBoxEventArgs e)
+        {
+            var result = MessageBox.Show(e.MessageBoxText, e.Caption, e.MessageBoxButton, e.MessageBoxImage, MessageBoxResult.No);
+            e.ResultAction?.Invoke(result);
         }
 
         private void Instance_PageChanged(object sender, EventArgs e)
