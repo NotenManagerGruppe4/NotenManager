@@ -14,8 +14,6 @@ namespace Notenmanager.ViewModel
    public class FaecherVerwaltenPageVM : BaseViewModel
    {
       #region Instanzvariablen
-      private ObservableCollection<Klasse> _klassen;
-      private ObservableCollection<Zeugnisfach> _zfaecher;
       private ObservableCollection<Unterrichtsfach> _ufaecher;
       private Schule _selectedSchule;
       private Klasse _selectedKlasse;
@@ -34,6 +32,7 @@ namespace Notenmanager.ViewModel
          BearbeitenCmd = new Command<string>(OnBearbeiten);
          NeuCmd = new Command<string>(OnNeu);
 
+         
       }
 
       #endregion
