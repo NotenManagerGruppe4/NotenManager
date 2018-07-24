@@ -36,7 +36,7 @@ namespace Notenmanager.View
          if (_vm == null)
             throw new Exception("Konnte VM nicht finden!");
 
-         _vm.CurrentKlasseChanged += (s, e) =>
+         _vm.CurrentSelectionChanged += (s, e) =>
          {
             UpdateNotenGrid();
          };

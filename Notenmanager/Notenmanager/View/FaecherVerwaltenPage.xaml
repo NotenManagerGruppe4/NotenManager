@@ -68,8 +68,8 @@
                 <DataGridTextColumn Header="Unterrichtsfächer" Binding="{Binding Bez}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Neu" Command="{Binding NavigationCmd}" CommandParameter="FachAnlegenPage" Grid.Row="8" Grid.Column="0" Margin="3, 0"/>
-        <Button Content="Bearbeiten" Command="{Binding NavigationCmd}" CommandParameter="FachAnlegenPage" IsEnabled="{Binding ButtonsEnabled}" Grid.Row="8" Grid.Column="1" Margin="3, 0"/>
+        <Button Content="Neu" Command="{Binding NeuCmd}" CommandParameter="FachAnlegenPage" Grid.Row="8" Grid.Column="0" Margin="3, 0"/>
+        <Button Content="Bearbeiten" Command="{Binding BearbeitenCmd}" CommandParameter="FachAnlegenPage" IsEnabled="{Binding ButtonsEnabled}" Grid.Row="8" Grid.Column="1" Margin="3, 0"/>
         <Button Content="Löschen" Command="{Binding LoeschenCmd}" IsEnabled="{Binding ButtonsEnabled}" Grid.Row="8" Grid.Column="2" Margin="3, 0"/>
         <Button Content="Abbrechen" Command="{Binding NavigationCmd}" CommandParameter="MainPage" Grid.Row="8" Grid.Column="3" Margin="3, 0"/>
     </Grid>

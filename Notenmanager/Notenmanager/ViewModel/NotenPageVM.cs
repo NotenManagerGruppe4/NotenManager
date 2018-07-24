@@ -10,8 +10,14 @@ using System.Windows.Input;
 
 namespace Notenmanager.ViewModel
 {
+   public enum Periode { Gesamt, Halbjahr1, Halbjahr2 };
+
+
    public class NotenPageVM : BaseViewModel
    {
+      //Muss genau, wie der NotenSchluss irgendwo gespeichert sein (--> DB)
+      [Obsolete]
+      public static readonly DateTime HALBJAHRESDATUM = new DateTime(2017, 04, 28, 23, 59, 59);
 
       #region Properties
 
@@ -70,7 +76,7 @@ namespace Notenmanager.ViewModel
             OnPropertyChanged();
 
             if (changed)
-               CurrentKlasseChanged?.Invoke(this,new EventArgs());
+               CurrentSelectionChanged?.Invoke(this, new EventArgs());
          }
       }
       public List<Lehrer> LstLehrer
@@ -78,6 +84,31 @@ namespace Notenmanager.ViewModel
          get
          {
             return DBZugriff.Current.Select<Lehrer>();
+         }
+      }
+
+      public List<Periode> LstPerioden
+      {
+         get
+         {
+            return Enum.GetValues(typeof(Periode)).OfType<Periode>().ToList();
+         }
+      }
+      private Periode _currentPeriode = Periode.Gesamt;
+      public Periode CurrentPeriode
+      {
+         get
+         {
+            return _currentPeriode;
+         }
+         set
+         {
+            bool changed = (_currentPeriode != value);
+            _currentPeriode = value;
+            OnPropertyChanged();
+
+            if (changed)
+               CurrentSelectionChanged?.Invoke(this, new EventArgs());
          }
       }
 
@@ -93,7 +124,7 @@ namespace Notenmanager.ViewModel
 
       #endregion Commands
 
-      public event EventHandler CurrentKlasseChanged; 
+      public event EventHandler CurrentSelectionChanged;
       public NotenPageVM()
       {
          LstSchulen = DBZugriff.Current.Select<Schule>();
@@ -132,7 +163,7 @@ namespace Notenmanager.ViewModel
          {
             CurrentKlasse.Speichern();
          }
-         catch(Exception e)
+         catch (Exception e)
          {
             Trace.WriteLine("[NotenPage] Speichern: " + e.ToString());
          }
@@ -149,7 +180,7 @@ namespace Notenmanager.ViewModel
          {
             DBZugriff.Current.Reload(CurrentKlasse);
          }
-         catch(Exception e)
+         catch (Exception e)
          {
             Trace.WriteLine("[NotenPage] Reload: " + e.ToString());
          }
@@ -158,6 +189,29 @@ namespace Notenmanager.ViewModel
       #endregion UIMethods
 
       #region Noten
+
+      public bool CheckIfIsInCurrentPeriod(Leistung l)
+      {
+         if (l.Erhebungsdatum == null)
+         {
+            Trace.WriteLine("[CheckIfIsInCu...] WARN: Erhebungsdatum null!");
+            return false;
+         }
+
+         if (GetSJ(l.Erhebungsdatum) != CURRENTSJ) //Nicht im SJ
+            return false;
+
+         if (CurrentPeriode == Periode.Gesamt)
+            return true;
+
+         if (CurrentPeriode == Periode.Halbjahr1) //1. HJ
+            return l.Erhebungsdatum <= HALBJAHRESDATUM;
+         else //2. HJ
+            return l.Erhebungsdatum > HALBJAHRESDATUM;
+
+
+      }
+
       public List<GridColumHelperClass> BuildGridColumns()
       {
 
@@ -179,7 +233,7 @@ namespace Notenmanager.ViewModel
          }
 
          //Hauptaufbau
-         foreach (Leistung l in DBZugriff.Current.Select<Leistung>(x => x.SchuelerKlasse.Klasse == CurrentKlasse))
+         foreach (Leistung l in DBZugriff.Current.Select<Leistung>(x => x.SchuelerKlasse.Klasse == CurrentKlasse && CheckIfIsInCurrentPeriod(x)))
          {
             Tuple<Unterrichtsfach, Leistungsart, int> tmp = lstufleicount.Find(x => x.Item1 == l.UFachLehrer.Unterrichtsfach && x.Item2 == l.Leistungsart);
             if (tmp == null)
@@ -246,7 +300,7 @@ namespace Notenmanager.ViewModel
          return summe / teiler;
       }
 
-      public double CalcNoteDoubleZF(List<Tuple<Unterrichtsfach,double>> ufNoten)
+      public double CalcNoteDoubleZF(List<Tuple<Unterrichtsfach, double>> ufNoten)
       {
          double sum = 0, teiler = 0;
          foreach (Tuple<Unterrichtsfach, double> t in ufNoten)
@@ -267,12 +321,15 @@ namespace Notenmanager.ViewModel
             sum += n;
             teiler++;
          }
+         if (sum == 0 || teiler == 0)
+            return 0;
+
          return sum / teiler;
       }
 
       public List<Leistung> GetNoten(Schueler s)
       {
-         return DBZugriff.Current.Select<Leistung>().Where(x => x.SchuelerKlasse.Klasse == CurrentKlasse && x.SchuelerKlasse.Schueler == s).ToList();
+         return DBZugriff.Current.Select<Leistung>().Where(x => x.SchuelerKlasse.Klasse == CurrentKlasse && x.SchuelerKlasse.Schueler == s && CheckIfIsInCurrentPeriod(x)).ToList();
       }
 
       #endregion Noten
@@ -281,12 +338,18 @@ namespace Notenmanager.ViewModel
       public static readonly int CURRENTSJ = GetCurrentSJ();
       private static int GetCurrentSJ()
       {
-         int re = DateTime.Now.Year;
-         if (DateTime.Now.Month >= 9) //ab September
+         return GetSJ(DateTime.Now);
+      }
+
+      public static int GetSJ(DateTime d)
+      {
+         int re = d.Year;
+         if (d.Month >= 9) //ab September
             return re;
          else
             return --re;
       }
+
 
       public class GridColumHelperClass
       {

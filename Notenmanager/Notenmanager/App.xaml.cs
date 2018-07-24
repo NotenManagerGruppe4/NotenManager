@@ -1,5 +1,6 @@
 ﻿using Notenmanager.Model;
 using Notenmanager.View.UIComp;
+using Notenmanager.ViewModel.Tools;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,6 +9,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -40,8 +42,15 @@ namespace Notenmanager
             }
          };
 
-         //Start EF
-         DBZugriff.Current.SelectFirstOrDefault<Schule>();
+            //Start EF
+            Thread t = new Thread(() =>
+            {
+                DBZugriff.Current.SelectFirstOrDefault<Schule>();
+                Navigator.Instance.StartUpDone();
+                Trace.WriteLine("DB Verbindung hergestellt und geladen!");
+            });
+            t.IsBackground = false;
+            t.Start();
 
 
 #if DEBUG

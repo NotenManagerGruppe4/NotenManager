@@ -13,7 +13,9 @@ namespace Notenmanager.ViewModel
     class MainWindowVM : BaseViewModel
     {
         #region Instanzvariablen
-        public Page _currentPage;
+        private Page _currentPage;
+
+        private Visibility _pBarVisibility = Visibility.Visible;
         #endregion
 
         #region Public Properties
@@ -31,11 +33,37 @@ namespace Notenmanager.ViewModel
                 SetValue(ref _currentPage, value);
             }
         }
+        
 
         #region Commands
         public ICommand BeendenCmd { get; set; }
         public ICommand StartCmd { get; set; }
         public ICommand CreditsCmd { get; set; }
+
+        public Visibility PBarVisibility
+        {
+            get
+            {
+                return _pBarVisibility;
+            }
+
+            set
+            {
+                _pBarVisibility = value;
+                OnPropertyChanged();
+                OnPropertyChanged("IsMWEnabled");
+            }
+        }
+
+        public bool IsMWEnabled
+        {
+            get
+            {
+                return PBarVisibility != Visibility.Visible;
+            }
+        }
+
+
         #endregion
         #endregion
 
@@ -46,7 +74,17 @@ namespace Notenmanager.ViewModel
             BeendenCmd = new ActionCommand(OnBeenden);
             StartCmd = new ActionCommand(OnStart);
             CreditsCmd = new ActionCommand(OnCredits);
+
+            Navigator.Instance.PageChanged += (s, e) =>
+            {
+                PBarVisibility = Visibility.Visible;
+            };
+            Navigator.Instance.PageChangedFinished += (s, e) =>
+            {
+                PBarVisibility = Visibility.Hidden;
+            };
         }
+
         #endregion
 
         #region HandlerMethoden
@@ -68,7 +106,7 @@ namespace Notenmanager.ViewModel
             MessageBoxResult mbr = MessageBox.Show("Notenmanager Beenden?", "Wirklich schließen?", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if(mbr == MessageBoxResult.Yes)
-            App.Current.Shutdown();
+                App.Current.Shutdown();
         }
 
         /// <summary>

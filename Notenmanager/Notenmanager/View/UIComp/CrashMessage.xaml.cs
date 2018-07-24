@@ -36,6 +36,12 @@ namespace Notenmanager.View.UIComp
          this.Width += 20;
          this.Height += 20;
 
+         this.Closing += (s, ev) =>
+         {
+            Thread.Sleep(100);
+            Environment.Exit(0);
+         };
+
          txtTitle.Text ="Error: " + e.GetType().Name;
          txtSDesc.Text = e.Message;
 
@@ -47,6 +53,7 @@ namespace Notenmanager.View.UIComp
             _crashreppath = crashreppath;
 
          btnRestart.IsEnabled = canRestart;
+
       }
 
       private void InitLang()
@@ -80,8 +87,6 @@ namespace Notenmanager.View.UIComp
       private void btnExit_Click(object sender, RoutedEventArgs e)
       {
          this.Close();
-         Thread.Sleep(100);
-         Environment.Exit(0);
       }
    }
 }
