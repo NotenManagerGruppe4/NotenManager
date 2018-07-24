@@ -53,5 +53,9 @@ namespace Notenmanager.View
             Close();
         }
 
+        private void txtPos_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

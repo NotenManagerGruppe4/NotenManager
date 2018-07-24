@@ -12,7 +12,7 @@
         <Label x:Name="lblPosition" Content="Fachposition:" HorizontalAlignment="Left" Height="29" Margin="10,84,0,0" VerticalAlignment="Top" Width="86"/>
         <TextBox x:Name="txtBezeichnung" Text="{Binding Bez}" HorizontalAlignment="Left" Height="21" Margin="96,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" ToolTip="Bezeichnung des Unterrichtsfachs" MaxLength="45"/>
         <TextBox x:Name="txtStunden" Text="{Binding Stunden}" HorizontalAlignment="Left" Height="21" Margin="96,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" ToolTip="z.B. 2 "/>
-        <TextBox x:Name="txtPos" Text="{Binding Pos}" HorizontalAlignment="Left" Height="21" Margin="96,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" RenderTransformOrigin="0.517,-0.907" ToolTip="z.B. 1"/>
+        <TextBox x:Name="txtPos" Text="{Binding Pos}" HorizontalAlignment="Left" Height="21" Margin="96,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" RenderTransformOrigin="0.517,-0.907" ToolTip="z.B. 1" KeyUp="txtPos_KeyUp"/>
         <Button x:Name="btnSpeichern" IsEnabled="{Binding UFachSaveAble}" Content="Speichern" HorizontalAlignment="Left" Height="24" Margin="30,129,0,0" VerticalAlignment="Top" Width="104"/>
         <Button x:Name="btnAbbrechen" Content="Abbrechen" HorizontalAlignment="Left" Height="24" Margin="154,129,0,0" VerticalAlignment="Top" Width="104"/>
 

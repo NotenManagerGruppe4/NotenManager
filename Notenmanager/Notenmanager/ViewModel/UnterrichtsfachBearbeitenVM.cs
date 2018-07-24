@@ -5,16 +5,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Notenmanager.ViewModel
 {
     public class UnterrichtsfachBearbeitenVM : BaseViewModel
     {
-        public UnterrichtsfachBearbeitenVM()
-        {
-
-        }
-
         //Connector zum Parent (ZeugnisFachVM)
         private Unterrichtsfach uf;
         public Unterrichtsfach UF
@@ -87,11 +83,6 @@ namespace Notenmanager.ViewModel
         {
             get
             {
-                //if (UF == null)
-                //{
-                //    Trace.WriteLine("Unterrichtsfach NULL!");
-                //    return false;
-                //}
                 return (UF.Stunden >= 0 && UF.Pos > 0 && !string.IsNullOrWhiteSpace(UF.Bez));
             }
         }
