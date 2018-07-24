@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:local="clr-namespace:Notenmanager.View"
-      mc:Ignorable="d" d:DesignWidth="700"
-      MinHeight="500" MinWidth="700"
+      mc:Ignorable="d" d:DesignWidth="720"
+      MinHeight="500" MinWidth="720"
       
       Title="Noten"
-      DataContext="{StaticResource NotenPageVM}" Height="585">
+      DataContext="{StaticResource NotenPageVM}">
 
-    <Grid Background="White" Margin="0,0,-16,0">
+    <Grid Background="White">
         <ComboBox x:Name="cbSchule" ItemsSource="{Binding LstSchulen}" SelectedItem="{Binding CurrentSchule}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="300">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -54,16 +54,18 @@
                     <Grid x:Name="gNoten" Height="339" Width="658" VerticalAlignment="Top" HorizontalAlignment="Left">
                         <Grid.Resources>
                             <Style TargetType="TextBlock">
-                                <Setter Property="FontSize" Value="16" />
+                                <Setter Property="FontSize" Value="14" />
                             </Style>
                             <Style TargetType="TextBox">
-                                <Setter Property="FontSize" Value="38" />
+                                <Setter Property="FontSize" Value="14" />
                             </Style>
                         </Grid.Resources>
                     </Grid>
                 </ScrollViewer>
             </Grid>
         </Border>
+        <Button x:Name="btnSpeichern" Command="{Binding SaveClickCmd}" Content="Speichern" HorizontalAlignment="Left" Margin="20,555,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnAbbruch" Command="{Binding BeendenClickCmd}" Content="Abbrechen" HorizontalAlignment="Left" Margin="625,555,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Page>

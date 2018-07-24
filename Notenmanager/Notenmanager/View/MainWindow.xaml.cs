@@ -22,14 +22,12 @@ namespace Notenmanager.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainPageVM _viewModel;
         private MainWindowVM _mwVM;
 
         public MainWindow()
         {
             InitializeComponent();
-            //_viewModel = DataContext as MainPageVM;
-            //_viewModel.NavigateToPageRequest += OnNavigateToPageRequest;
+            
             _mwVM = DataContext as MainWindowVM;
             Navigator.Instance.PageChanged += Instance_PageChanged;
             (FindResource("FaecherVerwaltenPageVM") as FaecherVerwaltenPageVM).MessageBoxRequest += MainWindow_MessageBoxRequest;
@@ -48,10 +46,11 @@ namespace Notenmanager.View
         
         private void SetSizeProperties(Page p)
         {
-            MinHeight = p.MinHeight+120;
+            // Sollte die Größe des Fensters auf den Inhalt anpassen
+           /* MinHeight = p.MinHeight+120;
             MinWidth = p.MinWidth+20;
             MaxWidth = p.MaxWidth;
-            MaxHeight = p.MaxHeight;
+            MaxHeight = p.MaxHeight;*/
         }
 
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)

@@ -44,6 +44,11 @@ namespace Notenmanager.View
          {
             UpdateNotenGrid();
          };
+         this.Unloaded += (s, e) =>
+         {
+            if (_vm.BeendenCmd.CanExecute(null))
+               _vm.BeendenCmd.Execute(null);
+         };
       }
 
       private void UpdateNotenGrid()
@@ -180,7 +185,7 @@ namespace Notenmanager.View
                         continue;
                      }
 
-                     AddNotenTextBox(l.Notenstufe, currentrow, cs.ColumnIndex, false, new CellEditorTag()
+                     AddNotenTextBox(l, currentrow, cs.ColumnIndex, false, new CellEditorTag()
                      {
                         Mode = DialogMode.Aendern,
                         Leistung = l,
@@ -220,7 +225,7 @@ namespace Notenmanager.View
          }
       }
 
-
+      public const int MARGIN = 3;
 
       private void AddTextBlock(object text, int row, int column, int rowspan = 1, int columnspan = 1)
       {
@@ -228,7 +233,7 @@ namespace Notenmanager.View
          tb.Text = text.ToString();
          tb.TextAlignment = TextAlignment.Center;
          tb.VerticalAlignment = VerticalAlignment.Center;
-         tb.Margin = new Thickness(2);
+         tb.Margin = new Thickness(MARGIN);
 
 
          Border obj = new Border();
@@ -244,16 +249,20 @@ namespace Notenmanager.View
          Grid.SetColumnSpan(obj, columnspan);
       }
 
-      private void AddNotenTextBox(int? note, int row, int column, bool italic = false, CellEditorTag tag = null, bool useeditor = false)
+      private void AddNotenTextBox(Leistung l, int row, int column, bool italic = false, CellEditorTag tag = null, bool useeditor = false)
       {
          TextBox tb = new TextBox();
-         if (note == null)
+         if (l == null)
             tb.Text = "";
          else
-            tb.Text = note.ToString();
+         {
+            tb.Text = l.Notenstufe.ToString();
+            tb.ToolTip = $"Erhoben am: {l.Erhebungsdatum} \r\n" +
+               (l.LetzteÄnderung != null ? $"Letzte Änderung: {l.LetzteÄnderung} \r\n" : "");
+         }
          tb.TextAlignment = TextAlignment.Center;
          tb.VerticalAlignment = VerticalAlignment.Center;
-         tb.Margin = new Thickness(1);
+         tb.Margin = new Thickness(MARGIN);
          tb.IsReadOnly = true;
 
          if (tag != null)
@@ -270,7 +279,7 @@ namespace Notenmanager.View
                   if (ctag == null)
                      return;
 
-                  if(new LeistungsEditor(ctag).ShowDialog()==true);
+                  if(new LeistungsEditor(ctag).ShowDialog()==true)
                      UpdateNotenGrid();
                };
          }
