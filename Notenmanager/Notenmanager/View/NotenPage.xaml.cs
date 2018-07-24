@@ -275,7 +275,7 @@ namespace Notenmanager.View
                   if (ctag == null)
                      return;
 
-                  if(new LeistungsEditor(ctag).ShowDialog()==true);
+                  if(new LeistungsEditor(ctag).ShowDialog()==true)
                      UpdateNotenGrid();
                };
          }

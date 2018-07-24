@@ -22,14 +22,12 @@ namespace Notenmanager.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainPageVM _viewModel;
         private MainWindowVM _mwVM;
 
         public MainWindow()
         {
             InitializeComponent();
-            //_viewModel = DataContext as MainPageVM;
-            //_viewModel.NavigateToPageRequest += OnNavigateToPageRequest;
+            
             _mwVM = DataContext as MainWindowVM;
             Navigator.Instance.PageChanged += Instance_PageChanged;
         }
