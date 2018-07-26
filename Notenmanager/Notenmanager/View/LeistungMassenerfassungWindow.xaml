@@ -5,18 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Notenmanager.View"
         mc:Ignorable="d"
-        Title="LeistungMassenerfassungWindow" Height="300" Width="300">
+        Title="LeistungMassenerfassungWindow" Height="300" Width="400"
+        DataContext="{StaticResource LeistungMassenerfassungWindowVM}">
     <Grid>
-        <Label x:Name="lblSK" Content="SchülerKlasse" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbSk" ItemsSource="{Binding LstSchuelerKlassen}" SelectedItem="{Binding SchuelerKlasse}" HorizontalAlignment="Left" Margin="173,14,0,0" VerticalAlignment="Top" Width="209">
+        <Label x:Name="lblKL" Content="Klasse" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbSk" ItemsSource="{Binding LstKlassen}" SelectedItem="{Binding CurrentKlasse}" HorizontalAlignment="Left" Margin="173,14,0,0" VerticalAlignment="Top" Width="209">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
                         <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0}: {1} {2}">
-                                <Binding Path="Klasse.Bez"/>
-                                <Binding Path="Schueler.Nachname"/>
-                                <Binding Path="Schueler.Vorname"/>
+                            <MultiBinding StringFormat="{}{0} ({1})">
+                                <Binding Path="Bez"/>
+                                <Binding Path="SJ"/>
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
@@ -49,12 +49,12 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Label x:Name="lblDatum" Content="Datum" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" SelectedDate="{Binding Erhebungsdatum}" Margin="173,139,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="9,168,0,0" VerticalAlignment="Top" Height="62" Width="273">
+        <Label x:Name="lblDatum" Content="Datum" HorizontalAlignment="Left" Margin="9,103,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" SelectedDate="{Binding Erhebungsdatum}" Margin="173,112,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="dgSchueler" HorizontalAlignment="Left" Margin="9,168,0,0" VerticalAlignment="Top" Height="62" Width="373">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Schüler"/>
-                <DataGridTextColumn Header="Note"/>
+                <DataGridTextColumn Width="Auto" Header="Schüler"/>
+                <DataGridTextColumn Width="Auto" Header="Note"/>
             </DataGrid.Columns>
         </DataGrid>
 
