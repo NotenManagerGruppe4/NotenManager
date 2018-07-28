@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Notenmanager.Model
 {
@@ -65,6 +66,17 @@ namespace Notenmanager.Model
          catch (Exception e)
          {
             Trace.WriteLine("ERROR: LOADING CONTEXT: " + e.ToString());
+
+            string exmsgre = "";
+            Exception ce = e;
+            while (ce.InnerException != null)
+            {
+               exmsgre += "\t->" + ce.InnerException.Message + "\r\n";
+               ce = ce.InnerException;
+            }
+
+            MessageBox.Show("Fehler beim Starten von EF:\r\n" + exmsgre, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+            throw e;
          }
          finally
          {
@@ -80,16 +92,15 @@ namespace Notenmanager.Model
          Init();
          Trace.WriteLine("[DB] Inited Context");
 
-         LoadContext();
+         PreLoadContext();
       }
       private void Init()
       {
          Context = new Context();
-
       }
 
-      //Lädt eine
-      private void LoadContext()
+      //Lädt Context im Vorrsaus
+      private void PreLoadContext()
       {
          Initer.Start();
          Initer = null;
@@ -107,7 +118,7 @@ namespace Notenmanager.Model
                Trace.WriteLine("[DB] WARN: Zugriff auf Context obwohl er NICHT GELADEN ist! Stack:\r\n" + Environment.StackTrace.ToString());
             }
             //falls checkinit aufgerufen bevor, der Thread gestartet wird...
-            while(InitRuns)
+            while (InitRuns)
             {
                Thread.Sleep(500);
                Initer?.Join();
@@ -316,7 +327,7 @@ namespace Notenmanager.Model
 
       }
 
-      
+
 
       public static void CloseDB()
       {

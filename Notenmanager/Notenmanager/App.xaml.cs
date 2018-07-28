@@ -24,8 +24,6 @@ namespace Notenmanager
       {
          base.OnStartup(e);
 
-         
-
          AppDomain.CurrentDomain.UnhandledException += (sender, e2) =>
          {
             try
@@ -34,11 +32,19 @@ namespace Notenmanager
 
                Exception ex = e2.ExceptionObject as Exception;
                if (ex != null)
-                  CrashMessage.ShowErrorMessage(ex);
+               {
+                  this.Dispatcher.Invoke(() =>
+                  {
+                     CrashMessage.ShowErrorMessage(ex);
+                  });
+               }
+               else
+                  throw new Exception("Sender: " + sender);
             }
             catch (Exception exx)
             {
-               MessageBox.Show(exx.ToString(), "Fataler Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+               MessageBox.Show(exx.ToString(), "Fatal", MessageBoxButton.OK, MessageBoxImage.Error);
+               Environment.Exit(-1);
             }
          };
 
@@ -92,6 +98,10 @@ namespace Notenmanager
             {
                //DBZugriff.InitDB();
 
+               //Warte bis DB-ready
+               Thread.Sleep(5000);
+
+
                InsertTest();
             }
             catch (Exception e)
@@ -105,8 +115,6 @@ namespace Notenmanager
 
          private static void InsertTest()
          {
-
-
 
 
             Schule schule = new Schule()

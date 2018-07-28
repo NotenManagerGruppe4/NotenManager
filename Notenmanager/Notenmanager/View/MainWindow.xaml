@@ -33,14 +33,14 @@
                     <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True" Background="DarkCyan" Loaded="ToolBar_Loaded" HorizontalContentAlignment="Stretch" Height="30">
                         <Menu Name="Datei" Background="DarkCyan">
                             <MenuItem Header="Datei" Background="DarkCyan">
-                                <MenuItem Header="Start" Command="{Binding StartCmd}"></MenuItem>
+                                <MenuItem Header="Startseite" Command="{Binding StartCmd}"></MenuItem>
                                 <MenuItem Header="Beenden" Command="{Binding BeendenCmd}"></MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Stammdaten" Width="auto" Background="DarkCyan">
+                            <!--<MenuItem Header="Stammdaten" Width="auto" Background="DarkCyan">
                                 <MenuItem Header="Lehrer"></MenuItem>
                                 <MenuItem Header="Klassen"></MenuItem>
                                 <MenuItem Header="Schüler"></MenuItem>
-                            </MenuItem>
+                            </MenuItem>-->
                             <MenuItem Header="Credits" Width="Auto" Background="DarkCyan" Command="{Binding CreditsCmd}"/>
 
                         </Menu>

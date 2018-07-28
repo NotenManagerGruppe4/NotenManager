@@ -117,6 +117,7 @@
     <Compile Include="ViewModel\DateiImportPageVM.cs" />
     <Compile Include="ViewModel\Tools\DialogEventArgs.cs" />
     <Compile Include="ViewModel\Tools\Navigator.cs" />
+    <Compile Include="ViewModel\Tools\Tools.cs" />
     <Compile Include="ViewModel\ZeugnisFachBearbeitenPageVM.cs" />
     <Compile Include="ViewModel\KlassenPageVM.cs" />
     <Compile Include="ViewModel\MainPageVM.cs" />
@@ -162,7 +163,6 @@
     <Compile Include="View\UIComp\CrashMessage.xaml.cs">
       <DependentUpon>CrashMessage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Util\GridViewSort.cs" />
     <Compile Include="View\UnterrichtsfachBearbeitenWindow.xaml.cs">
       <DependentUpon>UnterrichtsfachBearbeitenWindow.xaml</DependentUpon>
     </Compile>
@@ -198,7 +198,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="View\Util\" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="View\FaecherVerwaltenPage.xaml">
       <SubType>Designer</SubType>

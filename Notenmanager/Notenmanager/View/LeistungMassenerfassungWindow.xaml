@@ -3,13 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:Notenmanager.View"
         mc:Ignorable="d"
-        Title="LeistungMassenerfassungWindow" Height="300" Width="400"
+        Title="LeistungMassenerfassungWindow" Height="408.737" Width="400"
         DataContext="{StaticResource LeistungMassenerfassungWindowVM}">
     <Grid>
         <Label x:Name="lblKL" Content="Klasse" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbSk" ItemsSource="{Binding LstKlassen}" SelectedItem="{Binding CurrentKlasse}" HorizontalAlignment="Left" Margin="173,14,0,0" VerticalAlignment="Top" Width="209">
+        <ComboBox x:Name="cbKL" ItemsSource="{Binding LstKlassen}" SelectedItem="{Binding Klasse}" Margin="173,14,10,0" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -25,7 +26,7 @@
         </ComboBox>
 
         <Label x:Name="lblLA" Content="Leistungsart" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbLa" ItemsSource="{Binding LstLeistungsarten}" SelectedItem="{Binding Leistungsart}" HorizontalAlignment="Left" Margin="173,45,0,0" VerticalAlignment="Top" Width="209">
+        <ComboBox x:Name="cbLa" ItemsSource="{Binding LstLeistungsarten}" SelectedItem="{Binding Leistungsart}" Margin="173,45,10,0" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding Bez}"/>
@@ -34,7 +35,7 @@
         </ComboBox>
 
         <Label x:Name="lblUFA" Content="UnterrichtsfachLehrer" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbUfa" ItemsSource="{Binding LstUnterrichtsfachLehrer}" SelectedItem="{Binding UFachLehrer}" HorizontalAlignment="Left" Margin="173,76,0,0" VerticalAlignment="Top" Width="209">
+        <ComboBox x:Name="cbUfa" ItemsSource="{Binding LstUnterrichtsfachLehrer}" SelectedItem="{Binding UFachLehrer}" Margin="173,76,10,0" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -49,17 +50,33 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Label x:Name="lblDatum" Content="Datum" HorizontalAlignment="Left" Margin="9,103,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" SelectedDate="{Binding Erhebungsdatum}" Margin="173,112,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dgSchueler" HorizontalAlignment="Left" Margin="9,168,0,0" VerticalAlignment="Top" Height="62" Width="373">
+        <Label x:Name="lblDatum" Content="Datum" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" SelectedDate="{Binding Erhebungsdatum}" Margin="173,103,0,0" VerticalAlignment="Top"/>
+        <!--DataGrid darf NICHT readonly sein da sonst 'DataGridComboBoxColumn(obwohl IsReadonly=False)' nicht mehr arbeitet; MS-Bug?-->
+        <DataGrid x:Name="dgSchueler" ItemsSource="{Binding LstLeistungen}" Margin="9,161,10,46" IsReadOnly="False" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="Auto" Header="Schüler"/>
-                <DataGridTextColumn Width="Auto" Header="Note"/>
+                <DataGridTextColumn Width="*" Header="Schüler" IsReadOnly="True">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="SchuelerKlasse.Schueler.Nachname"/>
+                            <Binding Path="SchuelerKlasse.Schueler.Vorname"/>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridComboBoxColumn x:Name="dgCbNote" Header="Note" SelectedItemBinding="{Binding Notenstufe}">
+                    <DataGridComboBoxColumn.EditingElementStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="ItemsSource" Value="{Binding Path=Notenstufen}" />
+                        </Style>
+                    </DataGridComboBoxColumn.EditingElementStyle>
+                </DataGridComboBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="btnSave" IsEnabled="{Binding SaveAble}" Command="{Binding SpeichernCMD}" Content="Speichern" HorizontalAlignment="Left" Margin="9,337,0,0" VerticalAlignment="Top" Width="75" />
-        <Button x:Name="btnExit" Content="Abbrechen" HorizontalAlignment="Left" Margin="307,337,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnSave" IsEnabled="True" Command="{Binding SpeichernCMD}" Content="Speichern" HorizontalAlignment="Left" Margin="9,0,0,19" Width="75" Height="22" VerticalAlignment="Bottom" />
+        <Button x:Name="btnExit" Click="btnExit_Click" Content="Abbrechen" Margin="0,0,10,19" HorizontalAlignment="Right" Width="75" Height="22" VerticalAlignment="Bottom"/>
+        
+        <Label x:Name="lblHinweis" Content="Hinweis: Zum Ändern/Anlegen der Note Zelle doppelklicken" Foreground="Red" HorizontalAlignment="Left" Margin="14,130,0,0" VerticalAlignment="Top" Width="368" FontSize="11"/>
 
     </Grid>
 </Window>

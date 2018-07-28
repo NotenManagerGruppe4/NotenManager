@@ -18,8 +18,8 @@ using System.Windows.Shapes;
 
 namespace Notenmanager.View.UIComp
 {
-   public partial class CrashMessage : Window
-   {
+   public partial class CrashMessage : Window { 
+
       internal static void ShowErrorMessage(Exception e)
       {
          new CrashMessage(e, null, null, false).ShowDialog();
@@ -38,8 +38,12 @@ namespace Notenmanager.View.UIComp
 
          this.Closing += (s, ev) =>
          {
-            Thread.Sleep(100);
-            Environment.Exit(0);
+            //Programm soll weiterlaufen
+            if (this.DialogResult != false)
+            {
+               Thread.Sleep(100);
+               Environment.Exit(0);
+            }
          };
 
          txtTitle.Text ="Error: " + e.GetType().Name;
@@ -58,10 +62,11 @@ namespace Notenmanager.View.UIComp
 
       private void InitLang()
       {
-         //btnShowReport.Content = "Bericht anzeigen";
-         //btnCopyToClipboard.Content = "In Zwischenablage kopieren";
-         //btnRestart.Content = "Neustarten";
-         //btnExit.Content = "Programm beenden";
+         btnShowReport.Content = "Bericht anzeigen";
+         btnCopyToClipboard.Content = "In Zwischenablage kopieren";
+         btnRestart.Content = "Neustarten";
+         btnExit.Content = "Programm beenden";
+         btnGoOn.Content = "Trotzdem weiterhin ausführen";
 
          //btnShowReport.Content = LangLib_Global.CrashMessage.ShowReport;
          //btnCopyToClipboard.Content = LangLib_Global.CrashMessage.CopyToClipboard;
@@ -78,6 +83,11 @@ namespace Notenmanager.View.UIComp
       {
          Clipboard.SetText(txtDesc.Text);
       }
+      private void btnGoOn_Click(object sender, RoutedEventArgs e)
+      {
+         this.DialogResult = false;
+         this.Close();
+      }
 
       private void btnRestart_Click(object sender, RoutedEventArgs e)
       {
@@ -86,7 +96,9 @@ namespace Notenmanager.View.UIComp
 
       private void btnExit_Click(object sender, RoutedEventArgs e)
       {
-         this.Close();
+         this.DialogResult = true;
+         this.Close(); 
       }
+
    }
 }

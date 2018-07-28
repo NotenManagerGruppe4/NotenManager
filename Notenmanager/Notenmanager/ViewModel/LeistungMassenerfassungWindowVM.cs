@@ -11,8 +11,10 @@ namespace Notenmanager.ViewModel
 {
    public class LeistungMassenerfassungWindowVM : BaseViewModel
    {
+      #region Commands
       public ICommand SpeichernCMD { get; set; }
       public ICommand BeendenCMD { get; set; }
+      #endregion Commands
 
       public LeistungMassenerfassungWindowVM()
       {
@@ -21,13 +23,22 @@ namespace Notenmanager.ViewModel
       }
 
       public event EventHandler CloseAfterSaveRequesting;
+      public event EventHandler<MessageBoxEventArgs> MessageBoxRequest;
+
 
       private void Speichern(object obj)
       {
          try
          {
-            CLeistung.LetzteÄnderung = DateTime.Now;
-            CLeistung.Speichern();
+            NotenSaveAble();
+
+
+            foreach (Leistung l in LstLeistungen)
+            {
+               l.LetzteÄnderung = DateTime.Now;
+               DBZugriff.Current.Speichern(l, false);
+            }
+            DBZugriff.Current.Save();
 
             try
             {
@@ -40,39 +51,79 @@ namespace Notenmanager.ViewModel
          }
          catch (Exception e)
          {
+            MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(new Action<System.Windows.MessageBoxResult>((MessageBoxResult) => { }),
+
+               "Fehler beim Speichern:" + e.Message,
+               "Fehler",
+               System.Windows.MessageBoxButton.OK,
+               System.Windows.MessageBoxImage.Error));
+
             Trace.WriteLine("[LeiEdit] Speichern: " + e.ToString());
          }
       }
 
       private void Beenden(object obj)
       {
-         try
-         {
-            if (Mode == DialogMode.Aendern)
-               DBZugriff.Current.Reload(CLeistung);
-         }
-         catch (Exception e)
-         {
-            Trace.WriteLine("[LeiEdit] Beenden: " + e.ToString());
-         }
       }
 
       //Config
-      public void Init(Klasse k, Leistungsart la, UFachLehrer ufl)
+      bool init = true;
+      public void Init(Klasse k)
       {
+         //Set
+         init = true;
+
          Erhebungsdatum = DateTime.Now;
          Klasse = k;
-         Leistungsart = la;
-         UFachLehrer = ufl;
 
+         init = false;
 
-         OnPropertyChanged("LstUnterrichtsfachLehrer");
-         OnPropertyChanged("LstKlassen");
+         //Build
+         ReBuildLstLeistungenHard();
 
-
+         //Refresh
+         LstUnterrichtsfachLehrer = null;
       }
 
-      //Lists
+      //Nur wenn andere Klasse selektiert
+      private void ReBuildLstLeistungenHard()
+      {
+         if (init)
+            return;
+
+         List<Leistung> lsttmp = new List<Leistung>();
+         foreach (SchuelerKlasse sk in DBZugriff.Current.Select<SchuelerKlasse>(x => x.Klasse == Klasse && x.Klasse.SJ == Tool.CURRENTSJ).OrderBy(x => x.Schueler.Nachname).ThenBy(x => x.Schueler.Vorname).ToList())
+         {
+            lsttmp.Add(new Leistung()
+            {
+               Erhebungsdatum = Erhebungsdatum,
+               Leistungsart = Leistungsart,
+               UFachLehrer = UFachLehrer,
+               LetzteÄnderung = DateTime.Now,
+               SchuelerKlasse = sk,
+               Notenstufe = 0,
+            });
+         }
+         LstLeistungen = lsttmp;
+      }
+
+      //Nur wenn NICHT andere Klasse selektiert
+      private void ReBuildLstLeistungenSoft()
+      {
+         if (init)
+            return;
+
+         foreach (Leistung l in LstLeistungen)
+         {
+            l.Erhebungsdatum = Erhebungsdatum;
+            l.Leistungsart = Leistungsart;
+            l.UFachLehrer = UFachLehrer;
+            l.LetzteÄnderung = DateTime.Now;
+         }
+         OnPropertyChanged("LstLeistungen");
+      }
+
+      #region Properties
       public List<Klasse> LstKlassen
       {
          get
@@ -95,15 +146,16 @@ namespace Notenmanager.ViewModel
          {
             List<UFachLehrer> lstuf = DBZugriff.Current.Select<UFachLehrer>();
 
-            if (CLeistung?.UFachLehrer?.Unterrichtsfach?.Zeugnisfach == null)
-               return lstuf;
-
-            return lstuf.Where(x => x.Unterrichtsfach.Zeugnisfach == CLeistung.UFachLehrer.Unterrichtsfach.Zeugnisfach).ToList();
+            return lstuf.Where(x => x.Unterrichtsfach.Zeugnisfach.Klasse == Klasse).ToList();
+         }
+         private set
+         {
+            OnPropertyChanged();
          }
       }
 
 
-      //Props
+
       private Klasse _klasse;
       public Klasse Klasse
       {
@@ -116,8 +168,9 @@ namespace Notenmanager.ViewModel
          set
          {
             _klasse = value;
+            ReBuildLstLeistungenHard();
+
             OnPropertyChanged();
-            SaveAbleChanged();
          }
       }
 
@@ -133,8 +186,9 @@ namespace Notenmanager.ViewModel
          set
          {
             _la = value;
+            ReBuildLstLeistungenSoft();
+
             OnPropertyChanged();
-            SaveAbleChanged();
          }
       }
 
@@ -150,11 +204,27 @@ namespace Notenmanager.ViewModel
          set
          {
             _uf = value;
+            ReBuildLstLeistungenSoft();
+
             OnPropertyChanged();
-            SaveAbleChanged();
          }
       }
 
+      private DateTime _erhebungsdatum = DateTime.Now;
+      public DateTime Erhebungsdatum
+      {
+         get
+         {
+            return _erhebungsdatum;
+         }
+         set
+         {
+            _erhebungsdatum = value;
+            ReBuildLstLeistungenSoft();
+
+            OnPropertyChanged();
+         }
+      }
 
       public List<int> Notenstufen
       {
@@ -167,41 +237,53 @@ namespace Notenmanager.ViewModel
          }
       }
 
-
-      private DateTime _erhebungsdatum = DateTime.Now;
-      public DateTime Erhebungsdatum
+      private List<Leistung> _lstLeistungen = new List<Leistung>();
+      public List<Leistung> LstLeistungen
       {
          get
          {
-            return _erhebungsdatum;
+            return _lstLeistungen;
          }
          set
          {
-            _erhebungsdatum = value;
+            _lstLeistungen = value;
             OnPropertyChanged();
-            SaveAbleChanged();
          }
       }
+      #endregion Properties
 
-
-      private void SaveAbleChanged()
+      //true = OK, false = Nicht OK
+      private void NotenSaveAble()
       {
-         OnPropertyChanged("SaveAble");
-      }
-
-      public bool SaveAble
-      {
-         get
+         try
          {
-            if (CLeistung == null)
-               return false;
+            foreach (Leistung l in LstLeistungen)
+            {
+               if (l.Notenstufe < 1 || l.Notenstufe > 6)
+                  InternalThrowEx(l, "Notenstufe", l.Notenstufe);
+               else
+                  if (l.SchuelerKlasse?.Klasse != Klasse)
+                  InternalThrowEx(l, "Klasse", l.SchuelerKlasse?.Klasse);
+               else if (l.UFachLehrer != UFachLehrer)
+                  InternalThrowEx(l, "UFachLehrer", l.UFachLehrer);
+               else if (l.Leistungsart != Leistungsart)
+                  InternalThrowEx(l, "Leistungsart", l.Leistungsart);
+               else if (l.Erhebungsdatum != Erhebungsdatum)
+                  InternalThrowEx(l, "Erhebungsdatum", l.Erhebungsdatum);
 
-            return (CLeistung.Leistungsart != null &&
-               CLeistung.SchuelerKlasse != null &&
-               CLeistung.UFachLehrer != null &&
-               CLeistung.Notenstufe >= 1 && CLeistung.Notenstufe <= 6 &&
-               CLeistung.Erhebungsdatum != null);
+            }
+         }
+         catch (Exception e)
+         {
+            throw e;
          }
       }
+
+      private void InternalThrowEx(Leistung l, string attr, object attrvalue)
+      {
+         throw new ArgumentException($"Fehler der Codierung von Leistung SchülerName['{l?.SchuelerKlasse?.Schueler?.Nachname} {l?.SchuelerKlasse?.Schueler?.Vorname}']: Fehlerhaftes Attribut '{attr}'='{attrvalue}'");
+      }
+
+
    }
 }

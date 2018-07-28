@@ -11,7 +11,8 @@
         <TextBox x:Name="txtSDesc" HorizontalAlignment="Left" Height="33" Margin="10,65,0,0" TextWrapping="Wrap" Text="&lt;Short Desc&gt;" VerticalAlignment="Top" Width="574" IsReadOnly="True" BorderThickness="0"/>
         <TextBox x:Name="txtDesc" HorizontalAlignment="Left" Height="220" Margin="10,103,0,0" TextWrapping="Wrap" Text="&lt;Desc&gt;" VerticalAlignment="Top" Width="574" IsReadOnly="True" BorderThickness="1"/>
         <Button x:Name="btnExit" Content="Exit program" HorizontalAlignment="Left" Margin="459,400,0,0" VerticalAlignment="Top" Width="125" Click="btnExit_Click"/>
-        <Button x:Name="btnRestart" Content="Restart" HorizontalAlignment="Left" Margin="241,400,0,0" VerticalAlignment="Top" Width="90" Click="btnRestart_Click"/>
+        <Button x:Name="btnGoOn" Content="Go on" HorizontalAlignment="Left" Margin="10,399,0,0" VerticalAlignment="Top" Width="191" Click="btnGoOn_Click"/>
+        <Button x:Name="btnRestart" Content="Restart" HorizontalAlignment="Left" Margin="275,399,0,0" VerticalAlignment="Top" Width="90" Click="btnRestart_Click"/>
         <Button x:Name="btnShowReport" Content="Show Report" HorizontalAlignment="Left" Margin="10,328,0,0" VerticalAlignment="Top" Width="118" Click="btnShowReport_Click"/>
         <Button x:Name="btnCopyToClipboard" Content="Copy to clipboard" HorizontalAlignment="Left" Margin="404,328,0,0" VerticalAlignment="Top" Width="180" Click="btnCopyToClipboard_Click"/>
     </Grid>

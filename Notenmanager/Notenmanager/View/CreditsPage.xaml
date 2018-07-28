@@ -6,13 +6,14 @@
       xmlns:local="clr-namespace:Notenmanager.View"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
+      MinWidth="300" MinHeight="300"
       Title="CreditsPage"
       DataContext ="{StaticResource CreditsPageVM}">
 
     <Grid Background="White">
         <Label x:Name="lblCredits" Content="Credits" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="280" FontFamily="Segoe UI Black" FontSize="16"/>
-        <Label x:Name="lblCreditsText" Content="Im Zuge des schulischen Projekts, programmiert von&#xA;&#x9;Christoph Koehler&#xA;&#x9;Julia Stich&#xA;&#x9;Alexander Bierler&#xA;&#x9;Sabrina Sammet&#xA;&#x9;Jonas Ducheck&#xA;&#xA;© 2018, alle Rechte vorbehalten." HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,41,0,0" Height="232" Width="300"/>
-        <Button x:Name="btnBack" Command="{Binding CreditsAbbrechenCmd}" Content="Ok, mir egal." HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Margin="0,278,0,0"/>
+        <Label x:Name="lblCreditsText" Content="Im Zuge des schulischen Projekts, programmiert von&#xA;&#x9;Christoph Köhler&#xA;&#x9;Julia Stich&#xA;&#x9;Alexander Bierler&#xA;&#x9;Sabrina Sammet&#xA;&#x9;Jonas Ducheck&#xA;&#xA;© 2018, alle Rechte vorbehalten." HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,41,0,0" Height="232" Width="300"/>
+        <Button x:Name="btnBack" Command="{Binding CreditsAbbrechenCmd}" Content="Ok, mir egal." Margin="10,0,10,5" Height="22" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Page>

@@ -15,9 +15,7 @@ namespace Notenmanager.ViewModel
 
    public class NotenPageVM : BaseViewModel
    {
-      //Muss genau, wie der NotenSchluss irgendwo gespeichert sein (--> DB)
-      [Obsolete]
-      public static readonly DateTime HALBJAHRESDATUM = new DateTime(2017, 04, 28, 23, 59, 59);
+      
 
       #region Properties
 
@@ -57,7 +55,7 @@ namespace Notenmanager.ViewModel
       {
          get
          {
-            return DBZugriff.Current.Select<Klasse>(x => x.Schule == CurrentSchule && x.SJ == CURRENTSJ);
+            return DBZugriff.Current.Select<Klasse>(x => x.Schule == CurrentSchule && x.SJ == Tool.CURRENTSJ);
          }
       }
       public Klasse CurrentKlasse
@@ -115,7 +113,7 @@ namespace Notenmanager.ViewModel
       #endregion Properties
 
       #region Commands
-      public ICommand SchuelerZuweisenClickCmd { get; set; }
+      //public ICommand SchuelerZuweisenClickCmd { get; set; }
       public ICommand ZeugnisFaecherClickCmd { get; set; }
       public ICommand MassenErfassungClickCmd { get; set; }
       public ICommand SaveClickCmd { get; set; }
@@ -125,11 +123,13 @@ namespace Notenmanager.ViewModel
       #endregion Commands
 
       public event EventHandler CurrentSelectionChanged;
+      public event EventHandler RunMassenerfassung;
+
       public NotenPageVM()
       {
          LstSchulen = DBZugriff.Current.Select<Schule>();
 
-         SchuelerZuweisenClickCmd = new ActionCommand(OnSchuelerZuweisenClick);
+         //SchuelerZuweisenClickCmd = new ActionCommand(OnSchuelerZuweisenClick);
          ZeugnisFaecherClickCmd = new ActionCommand(OnZeugnisFaecherClick);
          MassenErfassungClickCmd = new ActionCommand(OnMassenErfassungClick);
          SaveClickCmd = new ActionCommand(OnSaveClick);
@@ -142,10 +142,9 @@ namespace Notenmanager.ViewModel
 
 
       #region UIMethods
-      private void OnSchuelerZuweisenClick(object obj)
-      {
-
-      }
+      //private void OnSchuelerZuweisenClick(object obj)
+      //{
+      //}
 
       private void OnZeugnisFaecherClick(object obj)
       {
@@ -154,7 +153,7 @@ namespace Notenmanager.ViewModel
 
       private void OnMassenErfassungClick(object obj)
       {
-
+         RunMassenerfassung?.Invoke(this,new EventArgs());
       }
 
       private void OnSaveClick(object obj)
@@ -198,16 +197,16 @@ namespace Notenmanager.ViewModel
             return false;
          }
 
-         if (GetSJ(l.Erhebungsdatum) != CURRENTSJ) //Nicht im SJ
+         if (Tool.GetSJ(l.Erhebungsdatum) != Tool.CURRENTSJ) //Nicht im SJ
             return false;
 
          if (CurrentPeriode == Periode.Gesamt)
             return true;
 
          if (CurrentPeriode == Periode.Halbjahr1) //1. HJ
-            return l.Erhebungsdatum <= HALBJAHRESDATUM;
+            return l.Erhebungsdatum <= Tool.HALBJAHRESDATUM;
          else //2. HJ
-            return l.Erhebungsdatum > HALBJAHRESDATUM;
+            return l.Erhebungsdatum > Tool.HALBJAHRESDATUM;
 
 
       }
@@ -334,21 +333,7 @@ namespace Notenmanager.ViewModel
 
       #endregion Noten
 
-      //von 2017/18 --> 17
-      public static readonly int CURRENTSJ = GetCurrentSJ();
-      private static int GetCurrentSJ()
-      {
-         return GetSJ(DateTime.Now);
-      }
-
-      public static int GetSJ(DateTime d)
-      {
-         int re = d.Year;
-         if (d.Month >= 9) //ab September
-            return re;
-         else
-            return --re;
-      }
+      
 
 
       public class GridColumHelperClass

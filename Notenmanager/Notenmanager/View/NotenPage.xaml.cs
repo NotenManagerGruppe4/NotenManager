@@ -40,6 +40,11 @@ namespace Notenmanager.View
          {
             UpdateNotenGrid();
          };
+         _vm.RunMassenerfassung += (s, e) =>
+         {
+            new LeistungMassenerfassungWindow().ShowDialog();
+            UpdateNotenGrid();
+         };
          this.Loaded += (s, e) =>
          {
             UpdateNotenGrid();
