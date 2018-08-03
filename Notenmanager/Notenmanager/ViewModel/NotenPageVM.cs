@@ -15,11 +15,10 @@ namespace Notenmanager.ViewModel
 
    public class NotenPageVM : BaseViewModel
    {
-      
+
 
       #region Properties
 
-      private List<Schule> _lstSchulen;
       private Schule _currentSchule;
       private Klasse _currentKlasse;
 
@@ -27,12 +26,11 @@ namespace Notenmanager.ViewModel
       {
          get
          {
-            return _lstSchulen;
+            return DBZugriff.Current.Select<Schule>();
          }
 
-         set
+         private set
          {
-            _lstSchulen = value;
             OnPropertyChanged();
          }
       }
@@ -49,6 +47,9 @@ namespace Notenmanager.ViewModel
          {
             _currentSchule = value;
             OnPropertyChanged();
+
+            //Updaten
+            LstKlassen = null;
          }
       }
       public List<Klasse> LstKlassen
@@ -56,6 +57,10 @@ namespace Notenmanager.ViewModel
          get
          {
             return DBZugriff.Current.Select<Klasse>(x => x.Schule == CurrentSchule && x.SJ == Tool.CURRENTSJ);
+         }
+         private set
+         {
+            OnPropertyChanged();
          }
       }
       public Klasse CurrentKlasse
@@ -127,8 +132,6 @@ namespace Notenmanager.ViewModel
 
       public NotenPageVM()
       {
-         LstSchulen = DBZugriff.Current.Select<Schule>();
-
          //SchuelerZuweisenClickCmd = new ActionCommand(OnSchuelerZuweisenClick);
          ZeugnisFaecherClickCmd = new ActionCommand(OnZeugnisFaecherClick);
          MassenErfassungClickCmd = new ActionCommand(OnMassenErfassungClick);
@@ -136,8 +139,6 @@ namespace Notenmanager.ViewModel
          BeendenClickCmd = new ActionCommand(OnBeendenClick);
          BeendenCmd = new ActionCommand(OnBeenden);
       }
-
-
 
 
 
@@ -153,7 +154,7 @@ namespace Notenmanager.ViewModel
 
       private void OnMassenErfassungClick(object obj)
       {
-         RunMassenerfassung?.Invoke(this,new EventArgs());
+         RunMassenerfassung?.Invoke(this, new EventArgs());
       }
 
       private void OnSaveClick(object obj)
@@ -332,8 +333,6 @@ namespace Notenmanager.ViewModel
       }
 
       #endregion Noten
-
-      
 
 
       public class GridColumHelperClass

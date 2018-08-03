@@ -73,8 +73,9 @@ namespace Notenmanager.ViewModel
          //Set
          init = true;
 
-         Erhebungsdatum = DateTime.Now;
-         Klasse = k;
+         CurrentErhebungsdatum = DateTime.Now;
+         CurrentKlasse = k;
+         CurrentSchule = CurrentKlasse.Schule;
 
          init = false;
 
@@ -92,13 +93,13 @@ namespace Notenmanager.ViewModel
             return;
 
          List<Leistung> lsttmp = new List<Leistung>();
-         foreach (SchuelerKlasse sk in DBZugriff.Current.Select<SchuelerKlasse>(x => x.Klasse == Klasse && x.Klasse.SJ == Tool.CURRENTSJ).OrderBy(x => x.Schueler.Nachname).ThenBy(x => x.Schueler.Vorname).ToList())
+         foreach (SchuelerKlasse sk in DBZugriff.Current.Select<SchuelerKlasse>(x => x.Klasse == CurrentKlasse && x.Klasse.SJ == Tool.CURRENTSJ).OrderBy(x => x.Schueler.Nachname).ThenBy(x => x.Schueler.Vorname).ToList())
          {
             lsttmp.Add(new Leistung()
             {
-               Erhebungsdatum = Erhebungsdatum,
-               Leistungsart = Leistungsart,
-               UFachLehrer = UFachLehrer,
+               Erhebungsdatum = CurrentErhebungsdatum,
+               Leistungsart = CurrentLeistungsart,
+               UFachLehrer = CurrentUFachLehrer,
                LetzteÄnderung = DateTime.Now,
                SchuelerKlasse = sk,
                Notenstufe = 0,
@@ -115,20 +116,40 @@ namespace Notenmanager.ViewModel
 
          foreach (Leistung l in LstLeistungen)
          {
-            l.Erhebungsdatum = Erhebungsdatum;
-            l.Leistungsart = Leistungsart;
-            l.UFachLehrer = UFachLehrer;
+            l.Erhebungsdatum = CurrentErhebungsdatum;
+            l.Leistungsart = CurrentLeistungsart;
+            l.UFachLehrer = CurrentUFachLehrer;
             l.LetzteÄnderung = DateTime.Now;
          }
-         OnPropertyChanged("LstLeistungen");
+
+         OnPropertyChanged(nameof(LstLeistungen));
       }
 
       #region Properties
+
+      private Schule _currentSchule;
+      private Schule CurrentSchule
+      {
+         get
+         {
+            return _currentSchule;
+         }
+         set
+         {
+            _currentSchule = value;
+            LstKlassen = null;
+         }
+      }
+
       public List<Klasse> LstKlassen
       {
          get
          {
-            return DBZugriff.Current.Select<Klasse>();
+            return DBZugriff.Current.Select<Klasse>(x => x.Schule == CurrentSchule);
+         }
+         private set
+         {
+            OnPropertyChanged();
          }
       }
 
@@ -146,7 +167,7 @@ namespace Notenmanager.ViewModel
          {
             List<UFachLehrer> lstuf = DBZugriff.Current.Select<UFachLehrer>();
 
-            return lstuf.Where(x => x.Unterrichtsfach.Zeugnisfach.Klasse == Klasse).ToList();
+            return lstuf.Where(x => x.Unterrichtsfach.Zeugnisfach.Klasse == CurrentKlasse).ToList();
          }
          private set
          {
@@ -157,12 +178,12 @@ namespace Notenmanager.ViewModel
 
 
       private Klasse _klasse;
-      public Klasse Klasse
+      public Klasse CurrentKlasse
       {
          get
          {
             if (_klasse == null && LstKlassen.Count > 0)
-               Klasse = LstKlassen[0];
+               CurrentKlasse = LstKlassen[0];
             return _klasse;
          }
          set
@@ -175,12 +196,12 @@ namespace Notenmanager.ViewModel
       }
 
       private Leistungsart _la;
-      public Leistungsart Leistungsart
+      public Leistungsart CurrentLeistungsart
       {
          get
          {
             if (_la == null && LstLeistungsarten.Count > 0)
-               Leistungsart = LstLeistungsarten[0];
+               CurrentLeistungsart = LstLeistungsarten[0];
             return _la;
          }
          set
@@ -193,12 +214,12 @@ namespace Notenmanager.ViewModel
       }
 
       private UFachLehrer _uf;
-      public UFachLehrer UFachLehrer
+      public UFachLehrer CurrentUFachLehrer
       {
          get
          {
             if (_uf == null && LstUnterrichtsfachLehrer.Count > 0)
-               UFachLehrer = LstUnterrichtsfachLehrer[0];
+               CurrentUFachLehrer = LstUnterrichtsfachLehrer[0];
             return _uf;
          }
          set
@@ -211,7 +232,7 @@ namespace Notenmanager.ViewModel
       }
 
       private DateTime _erhebungsdatum = DateTime.Now;
-      public DateTime Erhebungsdatum
+      public DateTime CurrentErhebungsdatum
       {
          get
          {
@@ -262,13 +283,13 @@ namespace Notenmanager.ViewModel
                if (l.Notenstufe < 1 || l.Notenstufe > 6)
                   InternalThrowEx(l, "Notenstufe", l.Notenstufe);
                else
-                  if (l.SchuelerKlasse?.Klasse != Klasse)
+                  if (l.SchuelerKlasse?.Klasse != CurrentKlasse)
                   InternalThrowEx(l, "Klasse", l.SchuelerKlasse?.Klasse);
-               else if (l.UFachLehrer != UFachLehrer)
+               else if (l.UFachLehrer != CurrentUFachLehrer)
                   InternalThrowEx(l, "UFachLehrer", l.UFachLehrer);
-               else if (l.Leistungsart != Leistungsart)
+               else if (l.Leistungsart != CurrentLeistungsart)
                   InternalThrowEx(l, "Leistungsart", l.Leistungsart);
-               else if (l.Erhebungsdatum != Erhebungsdatum)
+               else if (l.Erhebungsdatum != CurrentErhebungsdatum)
                   InternalThrowEx(l, "Erhebungsdatum", l.Erhebungsdatum);
 
             }

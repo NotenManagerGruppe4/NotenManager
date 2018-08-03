@@ -86,8 +86,9 @@ namespace Notenmanager.ViewModel
             Notenstufe = 1;
             Erhebungsdatum = DateTime.Now;
 
-            OnPropertyChanged("LstUnterrichtsfachLehrer");
-            OnPropertyChanged("LstSchuelerKlassen");
+            //Updaten
+            LstUnterrichtsfachLehrer = null;
+            LstSchuelerKlassen = null;
          }
             
       }
@@ -103,6 +104,10 @@ namespace Notenmanager.ViewModel
                return re;
             else
                return re.Where(x => x.Klasse == CLeistung.SchuelerKlasse.Klasse).ToList();
+         }
+         private set
+         {
+            OnPropertyChanged();
          }
       }
 
@@ -125,6 +130,10 @@ namespace Notenmanager.ViewModel
 
             return lstuf.Where(x => x.Unterrichtsfach.Zeugnisfach == CLeistung.UFachLehrer.Unterrichtsfach.Zeugnisfach).ToList();
          }
+         private set
+         {
+            OnPropertyChanged();
+         }
       }
 
 
@@ -141,11 +150,11 @@ namespace Notenmanager.ViewModel
          {
             _leistung = value;
             OnPropertyChanged();
-            OnPropertyChanged("SchuelerKlasse");
-            OnPropertyChanged("Leistungsart");
-            OnPropertyChanged("UFachLehrer");
-            OnPropertyChanged("Notenstufe");
-            OnPropertyChanged("Erhebungsdatum");
+            OnPropertyChanged(nameof(SchuelerKlasse));
+            OnPropertyChanged(nameof(Leistungsart));
+            OnPropertyChanged(nameof(UFachLehrer));
+            OnPropertyChanged(nameof(Notenstufe));
+            OnPropertyChanged(nameof(Erhebungsdatum));
             SaveAbleChanged();
          }
       }
@@ -240,7 +249,7 @@ namespace Notenmanager.ViewModel
 
       private void SaveAbleChanged()
       {
-         OnPropertyChanged("SaveAble");
+         OnPropertyChanged(nameof(SaveAble));
       }
 
       public bool SaveAble

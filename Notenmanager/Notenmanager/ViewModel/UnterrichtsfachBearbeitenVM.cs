@@ -24,11 +24,11 @@ namespace Notenmanager.ViewModel
                 uf = value;
                 if (uf != null)
                 {
-                    OnPropertyChanged("Pos");
-                    OnPropertyChanged("Bez");
-                    OnPropertyChanged("Stunden");
+                    OnPropertyChanged(nameof(Pos));
+                    OnPropertyChanged(nameof(Bez));
+                    OnPropertyChanged(nameof(Stunden));
                 }
-                OnPropertyChanged("UFachSaveAble");
+                OnPropertyChanged(nameof(UFachSaveAble));
             }
         }
 
@@ -77,7 +77,7 @@ namespace Notenmanager.ViewModel
 
         private void SaveAbleChanged()
         {
-            OnPropertyChanged("UFachSaveAble");
+            OnPropertyChanged(nameof(UFachSaveAble));
         }
         public bool UFachSaveAble
         {

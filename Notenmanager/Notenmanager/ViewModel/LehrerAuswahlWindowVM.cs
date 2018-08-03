@@ -24,7 +24,7 @@ namespace Notenmanager.ViewModel
             set
             {
                 _selUF = value;
-                OnPropertyChanged("LehrerListe");
+                OnPropertyChanged(nameof(LehrerListe));
             }
         }
 

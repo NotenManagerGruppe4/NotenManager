@@ -95,7 +95,7 @@ namespace Notenmanager.ViewModel
                 _selFach = value;
                 LstULehrer = new ObservableCollection<UFachLehrer>(DBZugriff.Current.Select<UFachLehrer>(x => x.Unterrichtsfach == SelFach));
                 OnPropertyChanged();
-                OnPropertyChanged("EnableButton");
+                OnPropertyChanged(nameof(EnableButton));
             }
         }
         public UFachLehrer SelULehrer
@@ -108,7 +108,7 @@ namespace Notenmanager.ViewModel
             {
                 _selULehrer = value;
                 OnPropertyChanged();
-                OnPropertyChanged("EnableLehrerEntfernenButton");
+                OnPropertyChanged(nameof(EnableLehrerEntfernenButton));
             }
         }
 
@@ -125,11 +125,11 @@ namespace Notenmanager.ViewModel
                 LstUFach = new ObservableCollection<Unterrichtsfach>(DBZugriff.Current.Select<Unterrichtsfach>(x => x.Zeugnisfach == ZF));
 
                 OnPropertyChanged();
-                OnPropertyChanged("Bez");
-                OnPropertyChanged("Pos");
-                OnPropertyChanged("Fachart");
-                OnPropertyChanged("AbschliessendesFach");
-                OnPropertyChanged("Vorrueckungsfach");
+                OnPropertyChanged(nameof(Bez));
+                OnPropertyChanged(nameof(Pos));
+                OnPropertyChanged(nameof(Fachart));
+                OnPropertyChanged(nameof(AbschliessendesFach));
+                OnPropertyChanged(nameof(Vorrueckungsfach));
                 SaveAbleChanged();
             }
         }
@@ -283,7 +283,7 @@ namespace Notenmanager.ViewModel
                 this.SelFach.Loeschen();
                 this.LstUFach.Remove(SelFach);
             }
-            OnPropertyChanged("LstUFach");
+            OnPropertyChanged(nameof(LstUFach));
         }
         private void OnBtnAbbrechen(string obj)
         {
@@ -315,7 +315,7 @@ namespace Notenmanager.ViewModel
                 ufl.Loeschen();   
                 this.LstULehrer.Remove(SelULehrer);
             }
-            OnPropertyChanged("LstULehrer");
+            OnPropertyChanged(nameof(LstULehrer));
         }
         public bool EnableButton
         {
@@ -340,7 +340,7 @@ namespace Notenmanager.ViewModel
 
         private void SaveAbleChanged()
         {
-            OnPropertyChanged("ZFachSaveAble");
+            OnPropertyChanged(nameof(ZFachSaveAble));
         }
 
         public bool ZFachSaveAble

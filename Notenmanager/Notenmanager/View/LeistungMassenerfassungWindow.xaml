@@ -10,7 +10,7 @@
         DataContext="{StaticResource LeistungMassenerfassungWindowVM}">
     <Grid>
         <Label x:Name="lblKL" Content="Klasse" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbKL" ItemsSource="{Binding LstKlassen}" SelectedItem="{Binding Klasse}" Margin="173,14,10,0" VerticalAlignment="Top">
+        <ComboBox x:Name="cbKL" ItemsSource="{Binding LstKlassen}" SelectedItem="{Binding CurrentKlasse}" Margin="173,14,10,0" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -26,7 +26,7 @@
         </ComboBox>
 
         <Label x:Name="lblLA" Content="Leistungsart" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbLa" ItemsSource="{Binding LstLeistungsarten}" SelectedItem="{Binding Leistungsart}" Margin="173,45,10,0" VerticalAlignment="Top">
+        <ComboBox x:Name="cbLa" ItemsSource="{Binding LstLeistungsarten}" SelectedItem="{Binding CurrentLeistungsart}" Margin="173,45,10,0" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding Bez}"/>
@@ -35,7 +35,7 @@
         </ComboBox>
 
         <Label x:Name="lblUFA" Content="UnterrichtsfachLehrer" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbUfa" ItemsSource="{Binding LstUnterrichtsfachLehrer}" SelectedItem="{Binding UFachLehrer}" Margin="173,76,10,0" VerticalAlignment="Top">
+        <ComboBox x:Name="cbUfa" ItemsSource="{Binding LstUnterrichtsfachLehrer}" SelectedItem="{Binding CurrentUFachLehrer}" Margin="173,76,10,0" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -51,7 +51,7 @@
         </ComboBox>
 
         <Label x:Name="lblDatum" Content="Datum" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" SelectedDate="{Binding Erhebungsdatum}" Margin="173,103,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" SelectedDate="{Binding CurrentErhebungsdatum}" Margin="173,103,0,0" VerticalAlignment="Top"/>
         <!--DataGrid darf NICHT readonly sein da sonst 'DataGridComboBoxColumn(obwohl IsReadonly=False)' nicht mehr arbeitet; MS-Bug?-->
         <DataGrid x:Name="dgSchueler" ItemsSource="{Binding LstLeistungen}" Margin="9,161,10,46" IsReadOnly="False" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>

@@ -51,7 +51,7 @@ namespace Notenmanager.ViewModel
             {
                 _pBarVisibility = value;
                 OnPropertyChanged();
-                OnPropertyChanged("IsMWEnabled");
+                OnPropertyChanged(nameof(IsMWEnabled));
             }
         }
 
