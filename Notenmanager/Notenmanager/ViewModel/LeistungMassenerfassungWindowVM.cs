@@ -66,65 +66,6 @@ namespace Notenmanager.ViewModel
       {
       }
 
-      //Config
-      bool init = true;
-      public void Init(Klasse k)
-      {
-         //Set
-         init = true;
-
-         CurrentErhebungsdatum = DateTime.Now;
-         CurrentKlasse = k;
-         CurrentSchule = CurrentKlasse.Schule;
-
-         init = false;
-
-         //Build
-         ReBuildLstLeistungenHard();
-
-         //Refresh
-         LstUnterrichtsfachLehrer = null;
-      }
-
-      //Nur wenn andere Klasse selektiert
-      private void ReBuildLstLeistungenHard()
-      {
-         if (init)
-            return;
-
-         List<Leistung> lsttmp = new List<Leistung>();
-         foreach (SchuelerKlasse sk in DBZugriff.Current.Select<SchuelerKlasse>(x => x.Klasse == CurrentKlasse && x.Klasse.SJ == Tool.CURRENTSJ).OrderBy(x => x.Schueler.Nachname).ThenBy(x => x.Schueler.Vorname).ToList())
-         {
-            lsttmp.Add(new Leistung()
-            {
-               Erhebungsdatum = CurrentErhebungsdatum,
-               Leistungsart = CurrentLeistungsart,
-               UFachLehrer = CurrentUFachLehrer,
-               LetzteÄnderung = DateTime.Now,
-               SchuelerKlasse = sk,
-               Notenstufe = 0,
-            });
-         }
-         LstLeistungen = lsttmp;
-      }
-
-      //Nur wenn NICHT andere Klasse selektiert
-      private void ReBuildLstLeistungenSoft()
-      {
-         if (init)
-            return;
-
-         foreach (Leistung l in LstLeistungen)
-         {
-            l.Erhebungsdatum = CurrentErhebungsdatum;
-            l.Leistungsart = CurrentLeistungsart;
-            l.UFachLehrer = CurrentUFachLehrer;
-            l.LetzteÄnderung = DateTime.Now;
-         }
-
-         OnPropertyChanged(nameof(LstLeistungen));
-      }
-
       #region Properties
 
       private Schule _currentSchule;
@@ -137,7 +78,8 @@ namespace Notenmanager.ViewModel
          set
          {
             _currentSchule = value;
-            LstKlassen = null;
+
+            OnPropertyChanged(nameof(LstKlassen));
          }
       }
 
@@ -146,10 +88,6 @@ namespace Notenmanager.ViewModel
          get
          {
             return DBZugriff.Current.Select<Klasse>(x => x.Schule == CurrentSchule);
-         }
-         private set
-         {
-            OnPropertyChanged();
          }
       }
 
@@ -168,10 +106,6 @@ namespace Notenmanager.ViewModel
             List<UFachLehrer> lstuf = DBZugriff.Current.Select<UFachLehrer>();
 
             return lstuf.Where(x => x.Unterrichtsfach.Zeugnisfach.Klasse == CurrentKlasse).ToList();
-         }
-         private set
-         {
-            OnPropertyChanged();
          }
       }
 
@@ -273,7 +207,75 @@ namespace Notenmanager.ViewModel
       }
       #endregion Properties
 
-      //true = OK, false = Nicht OK
+      //Config
+      bool init = true;
+      public void Init(Klasse k)
+      {
+         //Set
+         init = true;
+
+         CurrentErhebungsdatum = DateTime.Now;
+         CurrentKlasse = k;
+         CurrentSchule = CurrentKlasse.Schule;
+
+         init = false;
+
+         //Build
+         ReBuildLstLeistungenHard();
+
+         //Refresh
+         OnPropertyChanged(nameof(LstUnterrichtsfachLehrer));
+      }
+
+      //Nur wenn andere Klasse selektiert wird
+      /// <summary>
+      /// Baut LstLeistungen KOMPLETT neu auf
+      /// </summary>
+      private void ReBuildLstLeistungenHard()
+      {
+         if (init)
+            return;
+
+         List<Leistung> lsttmp = new List<Leistung>();
+         foreach (SchuelerKlasse sk in DBZugriff.Current.Select<SchuelerKlasse>(x => x.Klasse == CurrentKlasse && x.Klasse.SJ == Tool.CURRENTSJ).OrderBy(x => x.Schueler.Nachname).ThenBy(x => x.Schueler.Vorname).ToList())
+         {
+            lsttmp.Add(new Leistung()
+            {
+               SchuelerKlasse = sk,
+               Erhebungsdatum = CurrentErhebungsdatum,
+               Leistungsart = CurrentLeistungsart,
+               UFachLehrer = CurrentUFachLehrer,
+               LetzteÄnderung = DateTime.Now,
+               Notenstufe = 0,
+            });
+         }
+         LstLeistungen = lsttmp;
+      }
+
+      //Nur wenn NICHT andere Klasse selektiert wird
+      /// <summary>
+      /// Updatet LstLeistungen teilweise (siehe Code)
+      /// </summary>
+      private void ReBuildLstLeistungenSoft()
+      {
+         if (init)
+            return;
+
+         foreach (Leistung l in LstLeistungen)
+         {
+            l.Erhebungsdatum = CurrentErhebungsdatum;
+            l.Leistungsart = CurrentLeistungsart;
+            l.UFachLehrer = CurrentUFachLehrer;
+            l.LetzteÄnderung = DateTime.Now;
+         }
+
+         OnPropertyChanged(nameof(LstLeistungen));
+      }
+
+      /// <summary>
+      /// Prüft ob alle Leistungen in LstLeistungen speicherbar sind
+      /// </summary>
+      /// <exception cref="Exception">Wird geworfen falls mindestens ein Attribut nicht speicherbar</exception>
       private void NotenSaveAble()
       {
          try
@@ -282,8 +284,7 @@ namespace Notenmanager.ViewModel
             {
                if (l.Notenstufe < 1 || l.Notenstufe > 6)
                   InternalThrowEx(l, "Notenstufe", l.Notenstufe);
-               else
-                  if (l.SchuelerKlasse?.Klasse != CurrentKlasse)
+               else if (l.SchuelerKlasse?.Klasse != CurrentKlasse)
                   InternalThrowEx(l, "Klasse", l.SchuelerKlasse?.Klasse);
                else if (l.UFachLehrer != CurrentUFachLehrer)
                   InternalThrowEx(l, "UFachLehrer", l.UFachLehrer);

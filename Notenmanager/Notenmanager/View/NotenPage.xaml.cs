@@ -56,6 +56,7 @@ namespace Notenmanager.View
          };
       }
 
+      //Eventuell irgendwann async?
       private void UpdateNotenGrid()
       {
          gNoten.Children.Clear();
@@ -64,6 +65,9 @@ namespace Notenmanager.View
          BuildContent();
       }
 
+      /// <summary>
+      /// Baut die Spaltenköpfe des Notengrids
+      /// </summary>
       private void BuildHeader()
       {
          //GColumns
@@ -139,6 +143,10 @@ namespace Notenmanager.View
          gNoten.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(10,GridUnitType.Auto) });
       }
 
+      /// <summary>
+      /// Baut den Inhalt des Notengrids auf
+      /// WARNUNG: Methode ist nicht optimiert! Bei vielen Einträgen kann es eventl zu UI-Verzögerungen kommen, da nur der UI-Thread genutzt wird
+      /// </summary>
       private void BuildContent()
       {
          List<Zeugnisfach> lstzfs = _vm.GetZFs();
@@ -320,7 +328,7 @@ namespace Notenmanager.View
       {
          public int ColumnIndex { get; set; }
 
-         public int? ColumnBez { get; set; } //1,2,3.. G
+         public int? ColumnBez { get; set; } //1,2,3.. null=G
 
          public Leistungsart La { get; set; }
 

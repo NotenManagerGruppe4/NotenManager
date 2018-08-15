@@ -76,6 +76,7 @@ namespace Notenmanager.ViewModel
 
             SchuelerKlasse = LstSchuelerKlassen.FirstOrDefault();
             UFachLehrer = LstUnterrichtsfachLehrer.FirstOrDefault();
+
             if (tag.Unterrichtsfach != null)
             {
                UFachLehrer ufl = DBZugriff.Current.SelectFirstOrDefault<UFachLehrer>(x => x.Unterrichtsfach == tag.Unterrichtsfach);
@@ -87,8 +88,8 @@ namespace Notenmanager.ViewModel
             Erhebungsdatum = DateTime.Now;
 
             //Updaten
-            LstUnterrichtsfachLehrer = null;
-            LstSchuelerKlassen = null;
+            OnPropertyChanged(nameof(LstUnterrichtsfachLehrer));
+            OnPropertyChanged(nameof(LstSchuelerKlassen));
          }
             
       }
@@ -104,10 +105,6 @@ namespace Notenmanager.ViewModel
                return re;
             else
                return re.Where(x => x.Klasse == CLeistung.SchuelerKlasse.Klasse).ToList();
-         }
-         private set
-         {
-            OnPropertyChanged();
          }
       }
 
@@ -130,14 +127,10 @@ namespace Notenmanager.ViewModel
 
             return lstuf.Where(x => x.Unterrichtsfach.Zeugnisfach == CLeistung.UFachLehrer.Unterrichtsfach.Zeugnisfach).ToList();
          }
-         private set
-         {
-            OnPropertyChanged();
-         }
       }
 
 
-      //Props
+      #region Properties
       private Leistung _leistung;
       public Leistung CLeistung
       {
@@ -266,5 +259,7 @@ namespace Notenmanager.ViewModel
                CLeistung.Erhebungsdatum != null);
          }
       }
+
+#endregion Properties
    }
 }

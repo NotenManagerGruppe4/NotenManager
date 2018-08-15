@@ -8,7 +8,7 @@ namespace Notenmanager.ViewModel
 {
    public class Tool
    {
-      //Muss genau, wie der NotenSchluss irgendwo gespeichert sein (--> DB)
+      //Muss genau, wie der NotenSchluss irgendwo in einer Tabelle gespeichert sein (--> DB; spezielle ENUM-Tabelle)
       [Obsolete]
       public static readonly DateTime HALBJAHRESDATUM = new DateTime(2017, 04, 28, 23, 59, 59);
 

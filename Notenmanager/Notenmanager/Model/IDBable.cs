@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Notenmanager.Model
 {
    ///<summary>
-   ///Interface für Standardmethoden einer datenbankfähigen Fachklasse
+   ///Interface für eine datenbankfähige Fachklasse
    ///</summary>
    public interface IDBable
    {

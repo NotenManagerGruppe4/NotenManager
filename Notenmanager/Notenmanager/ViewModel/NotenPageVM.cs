@@ -188,7 +188,7 @@ namespace Notenmanager.ViewModel
 
       #endregion UIMethods
 
-      #region Noten
+      #region Notenbau
 
       public bool CheckIfIsInCurrentPeriod(Leistung l)
       {
@@ -212,6 +212,7 @@ namespace Notenmanager.ViewModel
 
       }
 
+      //Baut die Spalten des Notengrids
       public List<GridColumHelperClass> BuildGridColumns()
       {
 
@@ -332,7 +333,7 @@ namespace Notenmanager.ViewModel
          return DBZugriff.Current.Select<Leistung>().Where(x => x.SchuelerKlasse.Klasse == CurrentKlasse && x.SchuelerKlasse.Schueler == s && CheckIfIsInCurrentPeriod(x)).ToList();
       }
 
-      #endregion Noten
+      #endregion Notenbau
 
 
       public class GridColumHelperClass

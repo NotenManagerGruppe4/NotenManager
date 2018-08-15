@@ -90,22 +90,27 @@ namespace Notenmanager.Model
          DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
 
          Init();
-         Trace.WriteLine("[DB] Inited Context");
 
          PreLoadContext();
       }
       private void Init()
       {
          Context = new Context();
+         Trace.WriteLine("[DB] Inited Context");
       }
 
-      //Lädt Context im Vorrsaus
+      /// <summary>
+      /// Lädt Context im Vorraus
+      /// </summary>
       private void PreLoadContext()
       {
          Initer.Start();
          Initer = null;
       }
 
+      /// <summary>
+      /// Prüft ob System initzialisert ist
+      /// </summary>
       private void CheckInit()
       {
          lock (_key)
@@ -117,7 +122,7 @@ namespace Notenmanager.Model
 
                Trace.WriteLine("[DB] WARN: Zugriff auf Context obwohl er NICHT GELADEN ist! Stack:\r\n" + Environment.StackTrace.ToString());
             }
-            //falls checkinit aufgerufen bevor, der Thread gestartet wird...
+            //falls CheckInit aufgerufen bevor, der Thread gestartet wird...
             while (InitRuns)
             {
                Thread.Sleep(500);
@@ -261,7 +266,9 @@ namespace Notenmanager.Model
             return Select<T>(false).Where(pred).ToList();
       }
 
-
+      /// <summary>
+      /// Alias Klasse für Context.GetDbSet
+      /// </summary>
       public DbSet<T> GetDbSetFromContext<T>() where T : class, IDBable
       {
          CheckInit();
@@ -319,6 +326,7 @@ namespace Notenmanager.Model
       }
 
 
+
       public static void InitDB()
       {
          if (Current != null)
@@ -326,8 +334,6 @@ namespace Notenmanager.Model
          Current = new DBZugriff();
 
       }
-
-
 
       public static void CloseDB()
       {

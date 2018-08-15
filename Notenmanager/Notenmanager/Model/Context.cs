@@ -26,6 +26,12 @@ namespace Notenmanager.Model
       public virtual DbSet<Leistungsart> LeistungsartSet { get; set; }
       public virtual DbSet<Leistungsgruppe> LeistungsgruppeSet { get; set; }
 
+      //Muss manuell erweitert werden!
+      //Keine Reflection, da häufig genutzt --> Hohe CPU-Last
+      /// <summary>
+      /// Ruft das DbSet des angegebenen Typs ab
+      /// </summary>
+      /// <exception cref="NullReferenceException">Falls keine passende Klasse gefunden; muss nicht abgefangen werden</exception>
       public DbSet<T> GetDbSet<T>() where T : class, IDBable
       {
          Type t = typeof(T);
@@ -57,6 +63,9 @@ namespace Notenmanager.Model
          return re.Cast<T>();
       }
 
+      /// <summary>
+      /// BUGFIX für 1:n Beziehung von Klasse<->(Stv-)Klassenleiter (da Fehler beim AutoMapping)
+      /// </summary>
       protected override void OnModelCreating(DbModelBuilder modelBuilder)
       {
          base.OnModelCreating(modelBuilder);
