@@ -274,7 +274,7 @@ namespace Notenmanager.ViewModel
       {
          List<Schueler> re = new List<Schueler>();
 
-         foreach (SchuelerKlasse sk in CurrentKlasse?.SchuelerKlassen.Where(x => x.Active == true).ToList())
+         foreach (SchuelerKlasse sk in CurrentKlasse?.SchuelerKlassen.Where(x => x.Active == true).ToList() ?? new List<SchuelerKlasse>())
             re.Add(sk.Schueler);
 
 
