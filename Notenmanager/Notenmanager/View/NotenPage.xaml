@@ -26,9 +26,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        
+
         <ComboBox x:Name="cbPeriode" ItemsSource="{Binding LstPerioden}" SelectedItem="{Binding CurrentPeriode}" HorizontalAlignment="Left" Margin="20,136,0,0" VerticalAlignment="Top" Width="120"/>
-        
+
         <Grid HorizontalAlignment="Left" Height="49" Margin="527,37,0,0" VerticalAlignment="Top" Width="101">
             <Label x:Name="lblKL" Content="Klassenleiter" VerticalAlignment="Top"/>
             <Label x:Name="lblStvKL" Content="Stv. Klassenleiter" Margin="0,26,0,0" VerticalAlignment="Top"/>
@@ -54,7 +54,7 @@
         <Border BorderBrush="Black" BorderThickness="1" Margin="20,163,16,61">
             <Grid>
                 <ScrollViewer Margin="10" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <Grid x:Name="gNoten" Height="339" Width="658" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Grid x:Name="gNoten" Height="Auto" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
                         <Grid.Resources>
                             <Style TargetType="TextBlock">
                                 <Setter Property="FontSize" Value="14" />
@@ -67,8 +67,8 @@
                 </ScrollViewer>
             </Grid>
         </Border>
-        <Button x:Name="btnSpeichern" Command="{Binding SaveClickCmd}" Content="Speichern" HorizontalAlignment="Left" Margin="20,555,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnAbbruch" Command="{Binding BeendenClickCmd}" Content="Abbrechen" HorizontalAlignment="Left" Margin="625,555,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnSpeichern" Command="{Binding SaveClickCmd}" Content="Speichern" HorizontalAlignment="Left" Margin="20,0,0,8" Width="75" Height="22" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnAbbruch" Command="{Binding BeendenClickCmd}" Content="Abbrechen" Margin="0,0,20,8" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
 
     </Grid>
 </Page>
