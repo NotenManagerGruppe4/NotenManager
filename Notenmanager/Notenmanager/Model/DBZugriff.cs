@@ -48,7 +48,7 @@ namespace Notenmanager.Model
       protected Context Context { get; private set; }
 
       //wenn initizialisiert wird
-      private static bool InitRuns { get; set; } = true;
+      public static bool InitRuns { get; private set; } = true;
       private Thread Initer = new Thread(() =>
       {
          try
@@ -56,8 +56,8 @@ namespace Notenmanager.Model
             Trace.WriteLine("[DB] Loading Context...");
             DateTime start = DateTime.Now;
 
-            //Manuell
-            DBZugriff.Current.Context.GetDbSet<Klasse>().SingleOrDefault();
+            //Manuell eins lesen um Verbindung zu aktivieren
+            DBZugriff.Current.Context.GetDbSet<Schule>().FirstOrDefault();
 
             Navigator.Instance.StartUpDone();
 

@@ -28,11 +28,6 @@ namespace Notenmanager.ViewModel
          {
             return DBZugriff.Current.Select<Schule>();
          }
-
-         private set
-         {
-            OnPropertyChanged();
-         }
       }
       public Schule CurrentSchule
       {
@@ -49,7 +44,7 @@ namespace Notenmanager.ViewModel
             OnPropertyChanged();
 
             //Updaten
-            LstKlassen = null;
+            OnPropertyChanged(nameof(LstKlassen));
          }
       }
       public List<Klasse> LstKlassen
@@ -57,10 +52,6 @@ namespace Notenmanager.ViewModel
          get
          {
             return DBZugriff.Current.Select<Klasse>(x => x.Schule == CurrentSchule && x.SJ == Tool.CURRENTSJ);
-         }
-         private set
-         {
-            OnPropertyChanged();
          }
       }
       public Klasse CurrentKlasse

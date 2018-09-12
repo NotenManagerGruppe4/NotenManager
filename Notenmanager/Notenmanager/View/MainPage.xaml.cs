@@ -16,27 +16,28 @@ using System.Windows.Shapes;
 
 namespace Notenmanager.View
 {
-    /// <summary>
-    /// Interaktionslogik für MainPage.xaml
-    /// </summary>
-    public partial class MainPage : Page
-    {
-        private MainPageVM _viewModel;
+   /// <summary>
+   /// Interaktionslogik für MainPage.xaml
+   /// </summary>
+   public partial class MainPage : Page
+   {
+      private MainPageVM _viewModel;
 
-        public MainPage()
-        {
-            InitializeComponent();
-            _viewModel = DataContext as MainPageVM;
+      public MainPage()
+      {
+         InitializeComponent();
+         _viewModel = DataContext as MainPageVM;
 
-            SetBackground();
-        }
+         SetBackground();
+      }
 
-        private void SetBackground()
-        {
-            var brush = new ImageBrush();
-            brush.ImageSource = new BitmapImage(new Uri("../../Resources/Add_Icon.PNG", UriKind.Relative));
-            btnFachAnlegen.Background = brush;
-            btnFachAnlegen.Background.Opacity = 0.25;
-        }
-    }
+      private void SetBackground()
+      {
+         var brush = new ImageBrush();
+         brush.ImageSource = new BitmapImage(new Uri("../../Resources/Add_Icon.PNG", UriKind.Relative));
+         brush.Stretch = Stretch.Uniform;
+         btnFachAnlegen.Background = brush;
+         btnFachAnlegen.Background.Opacity = 0.25;
+      }
+   }
 }

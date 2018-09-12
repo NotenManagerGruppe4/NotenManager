@@ -52,13 +52,36 @@ namespace Notenmanager
          DBZugriff.InitDB();
 
 #if DEBUG
-         Tests s = new Tests();
          if (Environment.GetCommandLineArgs().Contains("-test"))
-            s.Test2();
-         if (Environment.GetCommandLineArgs().Contains("-valtest"))
-            s.ValTest();
+            Test();
+         //if (Environment.GetCommandLineArgs().Contains("-valtest"))
+         //   s.ValTest();
 
 #endif
+      }
+      private static void Test()
+      {
+         try
+         {
+            //DBZugriff.InitDB();
+
+            Trace.WriteLine("Warte auf DB Verbindung...");
+            //Warte bis DB-ready
+            while (DBZugriff.InitRuns)
+               Thread.Sleep(500);
+
+            Trace.WriteLine("Verbindung hergestellt! Starte Test!");
+
+            Tests t = new Tests();
+            t.InsertTest();
+         }
+         catch (Exception e)
+         {
+            Trace.WriteLine(e.ToString());
+         }
+         Trace.WriteLine("Test beendet!");
+
+         Navigator.Instance.StartUpDone();
       }
 
       private void Application_Exit(object sender, ExitEventArgs e)
@@ -67,56 +90,10 @@ namespace Notenmanager
       }
 
       //[TestClass()]
-      public class Tests
+      internal class Tests
       {
-
-         public void ValTest()
+         internal void InsertTest()
          {
-            //Lehrer leh = new Lehrer()
-            //{
-            //   Vorname = "KAPUTT"
-            //};
-            //leh.Speichern();
-
-            //Lehrer leh2 = new Lehrer()
-            //{
-            //   Vorname = "TEST",
-            //   Nachname = "Test",
-            //   Kuerzel="TTTT",
-            //};
-            //leh2.Speichern();
-
-
-            //foreach (Lehrer l in DBZugriff.Current.Context.LehrerSet)
-            //   Trace.WriteLine(l.Vorname);
-
-         }
-         //[TestMethod()]
-         public void Test2()
-         {
-            try
-            {
-               //DBZugriff.InitDB();
-
-               //Warte bis DB-ready
-               Thread.Sleep(5000);
-
-
-               InsertTest();
-            }
-            catch (Exception e)
-            {
-               Trace.WriteLine(e.ToString());
-               //Assert.Fail();
-            }
-            //DBZugriff.CloseDB();
-         }
-
-
-         private static void InsertTest()
-         {
-
-
             Schule schule = new Schule()
             {
                Bez = "TestSchule",
@@ -125,8 +102,8 @@ namespace Notenmanager
 
             Lehrer leh = new Lehrer()
             {
-               Vorname = "VorTest",
-               Nachname = "NachTest",
+               Vorname = "VornameLehrer",
+               Nachname = "NachnameLehrer",
                Kuerzel = "TL",
             };
             leh.Speichern();
@@ -134,7 +111,7 @@ namespace Notenmanager
             Klasse kl = new Klasse()
             {
                Bez = "TKL1A",
-               SJ = 2017,
+               SJ = ViewModel.Tool.CURRENTSJ,
                Schule = schule,
                Klassenleiter = leh,
                StellvertretenderKlassenleiter = leh,
@@ -212,8 +189,8 @@ namespace Notenmanager
 
             Schueler s = new Schueler()
             {
-               Vorname = "VorTestS",
-               Nachname = "NachTestS",
+               Vorname = "VornameSchüler",
+               Nachname = "NachnameSchüler",
                Geburtsdatum = new DateTime(2000, 1, 1),
                Geschlecht = Geschlecht.M,
                Konfession = Konfession.BL,
@@ -346,6 +323,27 @@ namespace Notenmanager
             lei2C.Speichern();
 
 
+         }
+
+         internal void ValidierungsTest()
+         {
+            //Lehrer leh = new Lehrer()
+            //{
+            //   Vorname = "KAPUTT"
+            //};
+            //leh.Speichern();
+
+            //Lehrer leh2 = new Lehrer()
+            //{
+            //   Vorname = "TEST",
+            //   Nachname = "Test",
+            //   Kuerzel="TTTT",
+            //};
+            //leh2.Speichern();
+
+
+            //foreach (Lehrer l in DBZugriff.Current.Context.LehrerSet)
+            //   Trace.WriteLine(l.Vorname);
          }
       }
    }
