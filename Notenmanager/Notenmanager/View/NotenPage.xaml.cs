@@ -66,11 +66,11 @@ namespace Notenmanager.View
       }
 
       /// <summary>
-      /// Baut die Spaltenköpfe des Notengrids
+      /// Baut die Spaltenköpfe des Notengrids und befüllt "ColumSpecifiation"-Liste
       /// </summary>
       private void BuildHeader()
       {
-         //GColumns
+         //Rücksetzten
          gNoten.ColumnDefinitions.Clear();
          gNoten.RowDefinitions.Clear();
          lstcspec.Clear();
@@ -79,13 +79,14 @@ namespace Notenmanager.View
 
          int currentcolumn = 0;
 
+         //ersten Zeilendefinitionen für die Kopfzeile
          for (int i = 0; i < HEADER_ROWS; i++)
             gNoten.RowDefinitions.Add(new RowDefinition()
             {
                Height = new GridLength(1, GridUnitType.Auto)
             });
 
-         //Einrückungen für Basis
+         //Einrückungen für die Basis links oben
          for (int i = 0; i < DESC_COLUMNS; i++)
             gNoten.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(10, GridUnitType.Auto), MinWidth = 10 });
          AddTextBlock("", 0, 0, HEADER_ROWS, DESC_COLUMNS);
@@ -98,6 +99,7 @@ namespace Notenmanager.View
          foreach (NotenPageVM.GridColumHelperClass gchc in _vm.BuildGridColumns())
          {
             lastlacolumn = currentcolumn;
+            //Leistungsgruppe-Textblock
             if (lastlg != gchc.Leistungsart.Gruppe)
             {
                if (lastlg != null)
@@ -105,6 +107,7 @@ namespace Notenmanager.View
                lastlg = gchc.Leistungsart.Gruppe;
                lastlgcolumn = currentcolumn;
             }
+            //Anzahl an max. Leistungen - Spalten + Textblock
             for (int i = 0; i < gchc.Anz; i++)
             {
                AddDefaultColumnDef();
@@ -118,6 +121,7 @@ namespace Notenmanager.View
                AddTextBlock(i + 1, HEADER_ROWS - 1, currentcolumn);
                currentcolumn++;
             }
+            //Gesamt-Leistungsart-Spalte + Textblock
             AddDefaultColumnDef();
             AddTextBlock("G", HEADER_ROWS - 1, currentcolumn);
             lstcspec.Add(new ColumnSpecification()
@@ -129,18 +133,21 @@ namespace Notenmanager.View
             });
             currentcolumn++;
 
+            //Leistungsart-Textblock
             AddTextBlock(gchc.Leistungsart.Bez + " (" + gchc.Leistungsart.Gewichtung + ")", 1, lastlacolumn, 1, currentcolumn - lastlacolumn);
          }
+         //Abschließender Leistungsgruppe-Textblock
          if (lastlg != null)
             AddTextBlock(lastlg.Bez + " (" + lastlg.Gewicht + ")", 0, lastlgcolumn, 1, currentcolumn - lastlgcolumn);
 
+         //Endgültige Gesamt-Spalte
          AddDefaultColumnDef();
          AddTextBlock("G", 0, currentcolumn, HEADER_ROWS);
          currentcolumn++;
       }
       private void AddDefaultColumnDef()
       {
-         gNoten.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(10,GridUnitType.Auto) });
+         gNoten.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(10, GridUnitType.Auto) });
       }
 
       /// <summary>
@@ -171,7 +178,7 @@ namespace Notenmanager.View
                int currentrowzf = currentrow;
                List<Tuple<Unterrichtsfach, double>> ufNoten = new List<Tuple<Unterrichtsfach, double>>();
 
-               foreach (Unterrichtsfach uf in zf.Unterrichtsfaecher.Where(x => x.Active == true).ToList())
+               foreach (Unterrichtsfach uf in zf.Unterrichtsfaecher.Where(x => x.Active == true).OrderBy(x => x.Bez).ToList())
                {
                   gNoten.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
                   currentrow++;
@@ -233,10 +240,11 @@ namespace Notenmanager.View
                   zfNoten.Add((int)Math.Round(zfgesnote));
             }
 
-            //Ungenau
+            //GesamtNote Schüler
             AddNotenTextBox(_vm.CalcNoteDoubleSchueler(zfNoten), currentrowschueler, gNoten.ColumnDefinitions.Count - 1, true);
          }
       }
+
 
       public const int MARGIN = 3;
 
@@ -292,7 +300,7 @@ namespace Notenmanager.View
                   if (ctag == null)
                      return;
 
-                  if(new LeistungsEditor(ctag).ShowDialog()==true)
+                  if (new LeistungsEditor(ctag).ShowDialog() == true)
                      UpdateNotenGrid();
                };
          }
@@ -335,6 +343,6 @@ namespace Notenmanager.View
          public Leistungsgruppe Lg { get; set; }
       }
 
-      
+
    }
 }

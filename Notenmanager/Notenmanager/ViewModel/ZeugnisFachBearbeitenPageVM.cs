@@ -375,7 +375,7 @@ namespace Notenmanager.ViewModel
             {
                 if (ZF == null)
                 {
-                    Trace.WriteLine("Unterrichtsfach NULL!");
+                    Trace.WriteLine("Zeugnisfach NULL!");
                     return false;
                 }
                 return (ZF.Pos > 0 && !string.IsNullOrWhiteSpace(ZF.Bez));

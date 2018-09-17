@@ -214,6 +214,7 @@ namespace Notenmanager.ViewModel
          var viewModel = App.Current.FindResource("ZFBearbeitenVM") as ZeugnisFachBearbeitenPageVM;
          viewModel.Modus = DialogMode.Neu;
          viewModel.ZF.Klasse = SelectedKlasse;
+         viewModel.ZF.Fachart = Fachart.Pflichtfach;
 
          Navigator.Instance.NavigateTo(key);
       }

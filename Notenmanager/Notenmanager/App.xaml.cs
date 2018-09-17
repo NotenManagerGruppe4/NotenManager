@@ -39,7 +39,7 @@ namespace Notenmanager
                   });
                }
                else
-                  throw new Exception("Sender: " + sender);
+                  throw new Exception("Ungültige Exception von Sender: " + sender);
             }
             catch (Exception exx)
             {
