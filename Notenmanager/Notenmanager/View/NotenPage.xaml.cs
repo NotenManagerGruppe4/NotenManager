@@ -178,7 +178,7 @@ namespace Notenmanager.View
                int currentrowzf = currentrow;
                List<Tuple<Unterrichtsfach, double>> ufNoten = new List<Tuple<Unterrichtsfach, double>>();
 
-               foreach (Unterrichtsfach uf in zf.Unterrichtsfaecher.Where(x => x.Active == true).ToList())
+               foreach (Unterrichtsfach uf in zf.Unterrichtsfaecher.Where(x => x.Active == true).OrderBy(x => x.Bez).ToList())
                {
                   gNoten.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
                   currentrow++;
