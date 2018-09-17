@@ -79,6 +79,8 @@ namespace Notenmanager.ViewModel
         {
             OnPropertyChanged(nameof(UFachSaveAble));
         }
+
+        // Prüfung der "Mussfelder" 
         public bool UFachSaveAble
         {
             get

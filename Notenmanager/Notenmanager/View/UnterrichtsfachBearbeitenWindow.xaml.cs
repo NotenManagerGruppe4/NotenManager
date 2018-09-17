@@ -27,7 +27,6 @@ namespace Notenmanager.View
             this._dm = dm;
 
             this.Loaded += UnterrichtsfachAnlegen_Loaded;
-            
         }
 
         private void UnterrichtsfachAnlegen_Loaded(object sender, RoutedEventArgs e)
@@ -51,11 +50,6 @@ namespace Notenmanager.View
         {
             this.DialogResult = true;
             Close();
-        }
-
-        private void txtPos_KeyUp(object sender, KeyEventArgs e)
-        {
-
         }
     }
 }
