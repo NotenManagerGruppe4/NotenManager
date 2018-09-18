@@ -1,11 +1,14 @@
 ﻿using Notenmanager.Model;
 using Notenmanager.ViewModel.Tools;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Notenmanager.ViewModel
@@ -21,6 +24,9 @@ namespace Notenmanager.ViewModel
 
       private Schule _currentSchule;
       private Klasse _currentKlasse;
+      private Schueler _currentSchueler;
+
+      private bool _alleSchueler = true;
 
       public List<Schule> LstSchulen
       {
@@ -40,11 +46,15 @@ namespace Notenmanager.ViewModel
 
          set
          {
+            bool changed = (_currentSchule != value);
             _currentSchule = value;
             OnPropertyChanged();
 
-            //Updaten
-            OnPropertyChanged(nameof(LstKlassen));
+            if (changed)
+            {
+               //Updaten
+               ResetKlasse();
+            }
          }
       }
       public List<Klasse> LstKlassen
@@ -70,9 +80,91 @@ namespace Notenmanager.ViewModel
             OnPropertyChanged();
 
             if (changed)
+            {
+               //Updaten
+               ResetSchueler();
+
+               //CurrentSelectionChanged?.Invoke(this, new EventArgs());
+            }
+         }
+      }
+
+      public void ResetKlasse()
+      {
+         OnPropertyChanged(nameof(LstKlassen));
+         if (LstKlassen.Count > 0)
+            CurrentKlasse = LstKlassen[0];
+         else
+            CurrentKlasse = null;
+
+         ResetSchueler();
+      }
+
+      public List<Schueler> LstSchueler
+      {
+         get
+         {
+            List<Schueler> re = new List<Schueler>();
+
+            foreach (SchuelerKlasse sk in CurrentKlasse?.SchuelerKlassen?.Where(x => x.Active == true).ToList() ?? new List<SchuelerKlasse>())
+               re.Add(sk.Schueler);
+
+
+            return re.OrderBy(x => x.Nachname).ThenBy(x => x.Vorname).ToList();
+         }
+      }
+
+      public Schueler CurrentSchueler
+      {
+         get
+         {
+            if (_currentSchueler == null && LstSchueler.Count > 0)
+               CurrentSchueler = LstSchueler[0];
+            return _currentSchueler;
+         }
+         set
+         {
+            bool changed = (_currentSchueler != value);
+            _currentSchueler = value;
+            OnPropertyChanged();
+
+            if (changed)
                CurrentSelectionChanged?.Invoke(this, new EventArgs());
          }
       }
+
+      private void ResetSchueler()
+      {
+         OnPropertyChanged(nameof(LstSchueler));
+         if (LstSchueler.Count > 0)
+            CurrentSchueler = LstSchueler[0];
+         else
+            CurrentSchueler = null;
+      }
+
+      public bool AlleSchueler
+      {
+         get
+         {
+            return _alleSchueler;
+         }
+         set
+         {
+            bool changed = (_alleSchueler != value);
+            _alleSchueler = value;
+
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(NurEinSchueler));
+
+            if(changed)
+               CurrentSelectionChanged?.Invoke(this, new EventArgs());
+         }
+      }
+      public bool NurEinSchueler { get => !AlleSchueler; }
+
+
+
+
       public List<Lehrer> LstLehrer
       {
          get
@@ -254,8 +346,6 @@ namespace Notenmanager.ViewModel
       }
 
 
-
-
       public List<Zeugnisfach> GetZFs()
       {
          return DBZugriff.Current.Select<Zeugnisfach>(x => x.Klasse == CurrentKlasse);
@@ -263,13 +353,10 @@ namespace Notenmanager.ViewModel
 
       public List<Schueler> GetSchueler()
       {
-         List<Schueler> re = new List<Schueler>();
-
-         foreach (SchuelerKlasse sk in CurrentKlasse?.SchuelerKlassen.Where(x => x.Active == true).ToList() ?? new List<SchuelerKlasse>())
-            re.Add(sk.Schueler);
-
-
-         return re.OrderBy(x => x.Nachname).ThenBy(x => x.Vorname).ToList();
+         if (AlleSchueler)
+            return LstSchueler;
+         else
+            return new List<Schueler>() { CurrentSchueler };
       }
 
 
@@ -333,4 +420,5 @@ namespace Notenmanager.ViewModel
          public int Anz { get; set; } = 0;
       }
    }
+
 }

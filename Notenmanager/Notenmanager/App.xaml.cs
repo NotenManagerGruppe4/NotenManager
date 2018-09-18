@@ -81,7 +81,15 @@ namespace Notenmanager
          }
          Trace.WriteLine("Test beendet!");
 
-         Navigator.Instance.StartUpDone();
+         Thread th = new Thread(() =>
+         {
+            Thread.Sleep(2000); //Warte bis Fenster hoffentlich geladen
+
+            Navigator.Instance.StartUpDone();
+         });
+         th.IsBackground = true;
+         th.Name = "Test:AktiviereGUI-Thread";
+         th.Start();
       }
 
       private void Application_Exit(object sender, ExitEventArgs e)
@@ -92,11 +100,12 @@ namespace Notenmanager
       //[TestClass()]
       internal class Tests
       {
+
          internal void InsertTest()
          {
             Schule schule = new Schule()
             {
-               Bez = "TestSchule",
+               Bez = "TestSchule"+DateTime.Now.Millisecond,
             };
             schule.Speichern();
 
@@ -110,7 +119,7 @@ namespace Notenmanager
 
             Klasse kl = new Klasse()
             {
-               Bez = "TKL1A",
+               Bez = "TKL1A"+ DateTime.Now.Millisecond,
                SJ = ViewModel.Tool.CURRENTSJ,
                Schule = schule,
                Klassenleiter = leh,
@@ -189,7 +198,7 @@ namespace Notenmanager
 
             Schueler s = new Schueler()
             {
-               Vorname = "VornameSchüler",
+               Vorname = "VornameSchüler"+DateTime.Now.Millisecond,
                Nachname = "NachnameSchüler",
                Geburtsdatum = new DateTime(2000, 1, 1),
                Geschlecht = Geschlecht.M,
@@ -203,6 +212,22 @@ namespace Notenmanager
                Schueler = s,
             };
             sk.Speichern();
+
+            Schueler s2 = new Schueler()
+            {
+               Vorname = "VornameSchüler" + (DateTime.Now.Millisecond+10),
+               Nachname = "NachnameSchüler",
+               Geburtsdatum = new DateTime(2001, 1, 1),
+               Geschlecht = Geschlecht.M,
+               Konfession = Konfession.BL,
+            };
+            s2.Speichern();
+            SchuelerKlasse sk2 = new SchuelerKlasse()
+            {
+               Klasse = kl,
+               Schueler = s2,
+            };
+            sk2.Speichern();
 
 
             Leistungsgruppe lg = new Leistungsgruppe()

@@ -343,6 +343,9 @@ namespace Notenmanager.View
          public Leistungsgruppe Lg { get; set; }
       }
 
+      private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
+      {
 
+      }
    }
 }

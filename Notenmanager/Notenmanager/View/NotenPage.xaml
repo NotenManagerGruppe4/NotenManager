@@ -19,28 +19,46 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox x:Name="cbKlasse" ItemsSource="{Binding LstKlassen}" SelectedItem="{Binding CurrentKlasse}" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="300">
+        <ComboBox x:Name="cbKlasse" ItemsSource="{Binding LstKlassen}" SelectedValue="{Binding CurrentKlasse}" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="300">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding Bez}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+        <ComboBox x:Name="cbSchueler" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="300"
+            ItemsSource="{Binding LstSchueler}" 
+            SelectedValue="{Binding CurrentSchueler}" IsEnabled="{Binding NurEinSchueler}"
+        >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Nachname"/>
+                                <Binding Path="Vorname"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <CheckBox x:Name="cbAlle" IsChecked="{Binding AlleSchueler}" Content="Alle" HorizontalAlignment="Left" Margin="315,73,0,0" VerticalAlignment="Top"/>
 
         <ComboBox x:Name="cbPeriode" ItemsSource="{Binding LstPerioden}" SelectedItem="{Binding CurrentPeriode}" HorizontalAlignment="Left" Margin="20,136,0,0" VerticalAlignment="Top" Width="120"/>
 
-        <Grid Height="49" Margin="0,37,92,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="101">
+        <Grid Height="49" Margin="0,50,94,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="101">
             <Label x:Name="lblKL" Content="Klassenleiter" VerticalAlignment="Top"/>
             <Label x:Name="lblStvKL" Content="Stv. Klassenleiter" Margin="0,26,0,0" VerticalAlignment="Top"/>
         </Grid>
-        <ComboBox x:Name="cbKL" ItemsSource="{Binding LstLehrer}" SelectedItem="{Binding CurrentKlasse.Klassenleiter}" Margin="0,37,14,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="73">
+        <ComboBox x:Name="cbKL" ItemsSource="{Binding LstLehrer}" SelectedItem="{Binding CurrentKlasse.Klassenleiter}" Margin="0,50,16,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="73">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding Kuerzel}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox x:Name="cbStvKL" ItemsSource="{Binding LstLehrer}" SelectedItem="{Binding CurrentKlasse.StellvertretenderKlassenleiter}" Margin="0,64,14,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="73">
+        <ComboBox x:Name="cbStvKL" ItemsSource="{Binding LstLehrer}" SelectedItem="{Binding CurrentKlasse.StellvertretenderKlassenleiter}" Margin="0,77,16,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="73">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding Kuerzel}"/>
@@ -49,7 +67,7 @@
         </ComboBox>
 
         <!--<Button x:Name="btnSchuelerZuweisen" Content="Schüler zuweisen" Command="{Binding SchuelerZuweisenClickCmd}" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="126"/>-->
-        <Button x:Name="btnZeugnisfaecher" Content="Zeugnisfächer editieren" Command="{Binding ZeugnisFaecherClickCmd}" HorizontalAlignment="Left" Margin="20,88,0,0" VerticalAlignment="Top" Width="152"/>
+        <Button x:Name="btnZeugnisfaecher" Content="Zeugnisfächer editieren" Command="{Binding ZeugnisFaecherClickCmd}" Margin="0,16,10,0" Height="22" VerticalAlignment="Top" HorizontalAlignment="Right" Width="152"/>
         <Button x:Name="btnMassenErfassung" Content="Massenerfassung" Command="{Binding MassenErfassungClickCmd}" Margin="0,136,16,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="126"/>
         <Border BorderBrush="Black" BorderThickness="1" Margin="20,163,16,61">
             <Grid>
@@ -69,6 +87,7 @@
         </Border>
         <Button x:Name="btnSpeichern" Command="{Binding SaveClickCmd}" Content="Speichern" HorizontalAlignment="Left" Margin="20,0,0,8" Width="75" Height="22" VerticalAlignment="Bottom"/>
         <Button x:Name="btnAbbruch" Command="{Binding BeendenClickCmd}" Content="Abbrechen" Margin="0,0,20,8" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+
 
     </Grid>
 </Page>
