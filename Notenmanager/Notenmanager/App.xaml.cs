@@ -52,25 +52,32 @@ namespace Notenmanager
          DBZugriff.InitDB();
 
 #if DEBUG
+         //Aufruf durch Projekt>Eigenschaften>Debugging>Parameter: -test (Danach aber wieder entfernen;)
          if (Environment.GetCommandLineArgs().Contains("-test"))
             Test();
-         //if (Environment.GetCommandLineArgs().Contains("-valtest"))
-         //   s.ValTest();
-
 #endif
       }
+
+      private void Application_Exit(object sender, ExitEventArgs e)
+      {
+         DBZugriff.CloseDB();
+      }
+
       private static void Test()
       {
          try
          {
-            //DBZugriff.InitDB();
-
-            Trace.WriteLine("Warte auf DB Verbindung...");
+            Trace.WriteLine("Test: Warte auf DB Verbindung...");
+            
+            int timeout = 20; //20 Zyklen Timeout
             //Warte bis DB-ready
-            while (DBZugriff.InitRuns)
+            for (; timeout >= 0 && DBZugriff.InitRuns; timeout--)
                Thread.Sleep(500);
 
-            Trace.WriteLine("Verbindung hergestellt! Starte Test!");
+            if (timeout < 0)
+               throw new TimeoutException("Test: Datenbank-TIMEOUT!");
+
+            Trace.WriteLine("Test: Verbindung hergestellt! Starte Test!");
 
             Tests t = new Tests();
             t.InsertTest();
@@ -79,23 +86,21 @@ namespace Notenmanager
          {
             Trace.WriteLine(e.ToString());
          }
-         Trace.WriteLine("Test beendet!");
+         Trace.WriteLine("Test: Tests beendet!");
 
          Thread th = new Thread(() =>
          {
-            Thread.Sleep(2000); //Warte bis Fenster hoffentlich geladen
+            Thread.Sleep(2000); //Warte bis Fenster hoffentlich fertig geladen
 
             Navigator.Instance.StartUpDone();
+            Trace.WriteLine("Test: Versuche GUI zu aktivieren...");
          });
          th.IsBackground = true;
          th.Name = "Test:AktiviereGUI-Thread";
          th.Start();
       }
 
-      private void Application_Exit(object sender, ExitEventArgs e)
-      {
-         DBZugriff.CloseDB();
-      }
+      
 
       //[TestClass()]
       internal class Tests

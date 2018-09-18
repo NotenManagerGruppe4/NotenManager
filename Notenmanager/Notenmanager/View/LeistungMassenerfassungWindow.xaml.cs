@@ -33,10 +33,20 @@ namespace Notenmanager.View
          if (_parentvm == null)
             throw new Exception("NotenPageVM nicht gefunden!");
          _vm.Init(_parentvm.CurrentKlasse);
-         _vm.MessageBoxRequest += OnMessageBoxRequest;
-         _vm.CloseAfterSaveRequesting += (s, e) =>
+
+         EventHandler<Model.MessageBoxEventArgs> msghandler = OnMessageBoxRequest;
+         _vm.MessageBoxRequest += msghandler;
+
+         EventHandler closer = null;
+         _vm.CloseAfterSaveRequesting += closer = (s, e) =>
          {
             this.Close();
+         };
+         //Eventhandler abtrennen (sonst falls Fenster 2 mal hintereinander geöffnet und geschlossen --> beim 3ten mal 3 MessageBoxen die auf Event reagieren und aufgehen!)
+         this.Closing += (s, e) =>
+         {
+            _vm.MessageBoxRequest -= msghandler;
+            _vm.CloseAfterSaveRequesting -= closer;
          };
 
          dgCbNote.ItemsSource = _vm.Notenstufen;

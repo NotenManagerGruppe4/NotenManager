@@ -18,8 +18,6 @@ namespace Notenmanager.ViewModel
 
    public class NotenPageVM : BaseViewModel
    {
-
-
       #region Properties
 
       private Schule _currentSchule;
@@ -83,8 +81,6 @@ namespace Notenmanager.ViewModel
             {
                //Updaten
                ResetSchueler();
-
-               //CurrentSelectionChanged?.Invoke(this, new EventArgs());
             }
          }
       }
@@ -96,8 +92,6 @@ namespace Notenmanager.ViewModel
             CurrentKlasse = LstKlassen[0];
          else
             CurrentKlasse = null;
-
-         ResetSchueler();
       }
 
       public List<Schueler> LstSchueler

@@ -15,6 +15,6 @@ namespace Notenmanager.ViewModel
 
       public Leistungsart Leistungsart { get; set; } = null;
       public Unterrichtsfach Unterrichtsfach { get; set; } = null;
-      public Klasse Klasse { get; set; } = null;
+      public SchuelerKlasse SchuelerKlasse { get; set; } = null;
    }
 }

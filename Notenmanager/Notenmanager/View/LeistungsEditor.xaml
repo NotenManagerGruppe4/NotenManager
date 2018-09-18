@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="LeistungsEditor"
         DataContext="{StaticResource LeistungsEditorVM}"
-        Height="400" Width="400">
+        Height="320" Width="450">
     <Grid>
         <Label x:Name="lblSK" Content="SchülerKlasse" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbSk" ItemsSource="{Binding LstSchuelerKlassen}" SelectedItem="{Binding SchuelerKlasse}" HorizontalAlignment="Left" Margin="173,14,0,0" VerticalAlignment="Top" Width="209">
+        <ComboBox x:Name="cbSk" ItemsSource="{Binding LstSchuelerKlassen}" SelectedItem="{Binding SchuelerKlasse}" Margin="173,14,10,0" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -25,9 +25,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        
+
         <Label x:Name="lblLA" Content="Leistungsart" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbLa" ItemsSource="{Binding LstLeistungsarten}" SelectedItem="{Binding Leistungsart}" HorizontalAlignment="Left" Margin="173,45,0,0" VerticalAlignment="Top" Width="209">
+        <ComboBox x:Name="cbLa" ItemsSource="{Binding LstLeistungsarten}" SelectedItem="{Binding Leistungsart}" Margin="173,45,10,0" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <ContentControl Content="{Binding Bez}"/>
@@ -36,7 +36,7 @@
         </ComboBox>
 
         <Label x:Name="lblUFA" Content="UnterrichtsfachLehrer" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbUfa" ItemsSource="{Binding LstUnterrichtsfachLehrer}" SelectedItem="{Binding UFachLehrer}" HorizontalAlignment="Left" Margin="173,76,0,0" VerticalAlignment="Top" Width="209">
+        <ComboBox x:Name="cbUfa" ItemsSource="{Binding LstUnterrichtsfachLehrer}" SelectedItem="{Binding UFachLehrer}" Margin="173,76,10,0" VerticalAlignment="Top">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -54,11 +54,11 @@
         <Label x:Name="lblNote" Content="Note" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="comboBox" ItemsSource="{Binding Notenstufen}" SelectedItem="{Binding Notenstufe}" HorizontalAlignment="Left" Margin="173,115,0,0" VerticalAlignment="Top" Width="62"/>
 
-        <Label x:Name="lblDatum" Content="Datum" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" SelectedDate="{Binding Erhebungsdatum}" Margin="173,139,0,0" VerticalAlignment="Top"/>
-        
-        <Button x:Name="btnSave" IsEnabled="{Binding SaveAble}" Command="{Binding SpeichernCMD}" Content="Speichern" HorizontalAlignment="Left" Margin="9,337,0,0" VerticalAlignment="Top" Width="75" />
-        <Button x:Name="btnExit" Click="btnExit_Click" Content="Abbrechen" HorizontalAlignment="Left" Margin="307,337,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label x:Name="lblDatum" Content="Datum" HorizontalAlignment="Left" Margin="9,142,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" SelectedDate="{Binding Erhebungsdatum}" Margin="173,144,0,0" VerticalAlignment="Top"/>
+
+        <Button x:Name="btnSave" IsEnabled="{Binding SaveAble}" Command="{Binding SpeichernCMD}" Content="Speichern" HorizontalAlignment="Left" Margin="9,0,0,10" Width="75" Height="22" VerticalAlignment="Bottom" />
+        <Button x:Name="btnExit" Click="btnExit_Click" Content="Abbrechen" Margin="0,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
 
 
 
