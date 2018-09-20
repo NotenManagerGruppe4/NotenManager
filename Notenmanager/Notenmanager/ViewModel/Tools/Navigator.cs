@@ -16,7 +16,7 @@ namespace Notenmanager.ViewModel.Tools
         /// <summary>
         /// einmalige Instanz
         /// </summary>
-        private static Navigator _instance = new Navigator();
+        private static Navigator _instance = null;
 
         private Navigator() { }
 
@@ -27,7 +27,7 @@ namespace Notenmanager.ViewModel.Tools
         {
             get
             {
-                return _instance;
+                return _instance == null?new Navigator():_instance;
             }
 
             private set
