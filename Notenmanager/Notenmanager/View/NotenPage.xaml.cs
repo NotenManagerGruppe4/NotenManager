@@ -2,6 +2,7 @@
 using Notenmanager.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,10 +60,15 @@ namespace Notenmanager.View
       //Eventuell irgendwann async?
       private void UpdateNotenGrid()
       {
+         //DateTime start = DateTime.Now;
          gNoten.Children.Clear();
 
          BuildHeader();
          BuildContent();
+
+         //Trace.WriteLine("GUIBauzeit: "+(DateTime.Now - start).Milliseconds + "ms");
+
+         // *** DURCHSCHNITTLICHE GUIBauzeit(2 Schüler, ~10 Noten): 22ms *** 
       }
 
       /// <summary>
@@ -200,7 +206,7 @@ namespace Notenmanager.View
                            Mode = DialogMode.Neu,
                            Leistungsart = cs.La,
                            Unterrichtsfach = uf,
-                           Klasse = _vm.CurrentKlasse,
+                           SchuelerKlasse = s.SchuelerKlassen.Where(x => x.Active == true && x.Klasse == _vm.CurrentKlasse).FirstOrDefault(),
                         }, true);
                         continue;
                      }
@@ -209,7 +215,7 @@ namespace Notenmanager.View
                      {
                         Mode = DialogMode.Aendern,
                         Leistung = l,
-                        Klasse = _vm.CurrentKlasse,
+                        SchuelerKlasse = s.SchuelerKlassen.Where(x => x.Active == true && x.Klasse == _vm.CurrentKlasse).FirstOrDefault(),
                      }, true);
 
 
@@ -343,6 +349,9 @@ namespace Notenmanager.View
          public Leistungsgruppe Lg { get; set; }
       }
 
+      private void ComboBoxItem_Selected(object sender, RoutedEventArgs e)
+      {
 
+      }
    }
 }

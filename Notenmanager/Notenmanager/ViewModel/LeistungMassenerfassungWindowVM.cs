@@ -53,7 +53,7 @@ namespace Notenmanager.ViewModel
          {
             MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(new Action<System.Windows.MessageBoxResult>((MessageBoxResult) => { }),
 
-               "Fehler beim Speichern:" + e.Message,
+               "Fehler beim Speichern: " + e.Message,
                "Fehler",
                System.Windows.MessageBoxButton.OK,
                System.Windows.MessageBoxImage.Error));

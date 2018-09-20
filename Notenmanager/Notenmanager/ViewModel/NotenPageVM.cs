@@ -1,11 +1,14 @@
 ﻿using Notenmanager.Model;
 using Notenmanager.ViewModel.Tools;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Notenmanager.ViewModel
@@ -15,12 +18,13 @@ namespace Notenmanager.ViewModel
 
    public class NotenPageVM : BaseViewModel
    {
-
-
       #region Properties
 
       private Schule _currentSchule;
       private Klasse _currentKlasse;
+      private Schueler _currentSchueler;
+
+      private bool _alleSchueler = false;
 
       public List<Schule> LstSchulen
       {
@@ -40,11 +44,15 @@ namespace Notenmanager.ViewModel
 
          set
          {
+            bool changed = (_currentSchule != value);
             _currentSchule = value;
             OnPropertyChanged();
 
-            //Updaten
-            OnPropertyChanged(nameof(LstKlassen));
+            if (changed)
+            {
+               //Updaten
+               ResetKlasse();
+            }
          }
       }
       public List<Klasse> LstKlassen
@@ -70,9 +78,87 @@ namespace Notenmanager.ViewModel
             OnPropertyChanged();
 
             if (changed)
+            {
+               //Updaten
+               ResetSchueler();
+            }
+         }
+      }
+
+      public void ResetKlasse()
+      {
+         OnPropertyChanged(nameof(LstKlassen));
+         if (LstKlassen.Count > 0)
+            CurrentKlasse = LstKlassen[0];
+         else
+            CurrentKlasse = null;
+      }
+
+      public List<Schueler> LstSchueler
+      {
+         get
+         {
+            List<Schueler> re = new List<Schueler>();
+
+            foreach (SchuelerKlasse sk in CurrentKlasse?.SchuelerKlassen?.Where(x => x.Active == true).ToList() ?? new List<SchuelerKlasse>())
+               re.Add(sk.Schueler);
+
+
+            return re.OrderBy(x => x.Nachname).ThenBy(x => x.Vorname).ToList();
+         }
+      }
+
+      public Schueler CurrentSchueler
+      {
+         get
+         {
+            if (_currentSchueler == null && LstSchueler.Count > 0)
+               CurrentSchueler = LstSchueler[0];
+            return _currentSchueler;
+         }
+         set
+         {
+            bool changed = (_currentSchueler != value);
+            _currentSchueler = value;
+            OnPropertyChanged();
+
+            if (changed)
                CurrentSelectionChanged?.Invoke(this, new EventArgs());
          }
       }
+
+      private void ResetSchueler()
+      {
+         OnPropertyChanged(nameof(LstSchueler));
+         if (LstSchueler.Count > 0)
+            CurrentSchueler = LstSchueler[0];
+         else
+            CurrentSchueler = null;
+      }
+
+      public bool AlleSchueler
+      {
+         get
+         {
+            return _alleSchueler;
+         }
+         set
+         {
+            bool changed = (_alleSchueler != value);
+            _alleSchueler = value;
+
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(NurEinSchueler));
+
+            if(changed)
+               CurrentSelectionChanged?.Invoke(this, new EventArgs());
+         }
+      }
+      public bool NurEinSchueler { get => !AlleSchueler; }
+
+
+
+
       public List<Lehrer> LstLehrer
       {
          get
@@ -213,7 +299,7 @@ namespace Notenmanager.ViewModel
 
          //alle Kombinationen von UFach, LA, anz
          List<Unterrichtsfach> lstcufs = DBZugriff.Current.Select<Unterrichtsfach>(x => x.Zeugnisfach.Klasse == CurrentKlasse);
-         List<Tuple<Unterrichtsfach, Leistungsart, int>> lstufleicount = new List<Tuple<Unterrichtsfach, Leistungsart, int>>();
+         List<Tuple<Schueler,Unterrichtsfach, Leistungsart, int>> lstufleicount = new List<Tuple<Schueler,Unterrichtsfach, Leistungsart, int>>();
          foreach (Leistungsart la in DBZugriff.Current.Select<Leistungsart>())
          {
             lstlaanz.Add(new GridColumHelperClass()
@@ -221,30 +307,31 @@ namespace Notenmanager.ViewModel
                Leistungsart = la,
             });
             foreach (Unterrichtsfach uf in lstcufs)
-               lstufleicount.Add(new Tuple<Unterrichtsfach, Leistungsart, int>(uf, la, 0));
+               foreach(Schueler s in LstSchueler)
+                  lstufleicount.Add(new Tuple<Schueler,Unterrichtsfach, Leistungsart, int>(s, uf, la, 0));
          }
 
          //Hauptaufbau
-         foreach (Leistung l in DBZugriff.Current.Select<Leistung>(x => x.SchuelerKlasse.Klasse == CurrentKlasse && CheckIfIsInCurrentPeriod(x)))
+         foreach (Leistung l in DBZugriff.Current.Select<Leistung>(x => x.SchuelerKlasse.Klasse == CurrentKlasse && CheckIfIsInCurrentPeriod(x) && (AlleSchueler==true ? true : x.SchuelerKlasse.Schueler == CurrentSchueler)))
          {
-            Tuple<Unterrichtsfach, Leistungsart, int> tmp = lstufleicount.Find(x => x.Item1 == l.UFachLehrer.Unterrichtsfach && x.Item2 == l.Leistungsart);
+            Tuple<Schueler,Unterrichtsfach, Leistungsart, int> tmp = lstufleicount.Find(x => x.Item1 == l.SchuelerKlasse.Schueler && x.Item2 == l.UFachLehrer.Unterrichtsfach && x.Item3 == l.Leistungsart);
             if (tmp == null)
                continue;
 
             int i = lstufleicount.IndexOf(tmp);
-            lstufleicount[i] = new Tuple<Unterrichtsfach, Leistungsart, int>(tmp.Item1, tmp.Item2, tmp.Item3 + 1);
+            lstufleicount[i] = new Tuple<Schueler,Unterrichtsfach, Leistungsart, int>(tmp.Item1 ,tmp.Item2, tmp.Item3, tmp.Item4 + 1);
          }
 
          //Extrahieren und vergleichen
-         foreach (Tuple<Unterrichtsfach, Leistungsart, int> t in lstufleicount)
+         foreach (Tuple<Schueler,Unterrichtsfach, Leistungsart, int> t in lstufleicount)
          {
-            GridColumHelperClass tmp = lstlaanz.Find(x => x.Leistungsart == t.Item2);
+            GridColumHelperClass tmp = lstlaanz.Find(x => x.Leistungsart == t.Item3);
             if (tmp == null)
                continue;
 
             //Vergleichen und ggf vergrößeren
-            if (t.Item3 > tmp.Anz)
-               tmp.Anz = t.Item3;
+            if (t.Item4 > tmp.Anz)
+               tmp.Anz = t.Item4;
          }
 
          lstlaanz.ForEach(x => x.Anz += 1);
@@ -254,8 +341,6 @@ namespace Notenmanager.ViewModel
       }
 
 
-
-
       public List<Zeugnisfach> GetZFs()
       {
          return DBZugriff.Current.Select<Zeugnisfach>(x => x.Klasse == CurrentKlasse);
@@ -263,13 +348,10 @@ namespace Notenmanager.ViewModel
 
       public List<Schueler> GetSchueler()
       {
-         List<Schueler> re = new List<Schueler>();
-
-         foreach (SchuelerKlasse sk in CurrentKlasse?.SchuelerKlassen.Where(x => x.Active == true).ToList() ?? new List<SchuelerKlasse>())
-            re.Add(sk.Schueler);
-
-
-         return re.OrderBy(x => x.Nachname).ThenBy(x => x.Vorname).ToList();
+         if (AlleSchueler)
+            return LstSchueler;
+         else
+            return new List<Schueler>() { CurrentSchueler };
       }
 
 
@@ -333,4 +415,5 @@ namespace Notenmanager.ViewModel
          public int Anz { get; set; } = 0;
       }
    }
+
 }

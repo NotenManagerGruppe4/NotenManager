@@ -29,13 +29,9 @@ namespace Notenmanager.View
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-           
-
             //Ansonsten geht das Binding verloren!
             if(comboxFachart.ItemsSource == null)
-                comboxFachart.ItemsSource = Enum.GetValues(typeof(Fachart));
-
-           
+                comboxFachart.ItemsSource = Enum.GetValues(typeof(Fachart));           
         }
 
     }

@@ -30,10 +30,16 @@ namespace Notenmanager.View
          _vm = FindResource("LeistungsEditorVM") as LeistungsEditorVM;
          _vm.SetMode(tag);
 
-         _vm.CloseAfterSaveRequesting += (s, e) =>
+         EventHandler closer = null;
+         _vm.CloseAfterSaveRequesting += closer = (s, e) =>
          {
             this.DialogResult = true;
             this.Close();
+         };
+         //Eventhandler abtrennen (sonst falls Fenster 2 mal hintereinander geöffnet und geschlossen --> beim 3ten mal 3 MessageBoxen die auf Event reagieren und aufgehen!)
+         this.Closing += (s, e) =>
+         {
+            _vm.CloseAfterSaveRequesting -= closer;
          };
 
          this.Closing += LeistungsEditor_Closing;

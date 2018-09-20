@@ -74,7 +74,12 @@ namespace Notenmanager.ViewModel
             else
                Leistungsart = LstLeistungsarten.FirstOrDefault();
 
-            SchuelerKlasse = LstSchuelerKlassen.FirstOrDefault();
+
+            if (tag.SchuelerKlasse != null)
+               SchuelerKlasse = tag.SchuelerKlasse;
+            else
+               SchuelerKlasse = LstSchuelerKlassen.FirstOrDefault();
+
             UFachLehrer = LstUnterrichtsfachLehrer.FirstOrDefault();
 
             if (tag.Unterrichtsfach != null)

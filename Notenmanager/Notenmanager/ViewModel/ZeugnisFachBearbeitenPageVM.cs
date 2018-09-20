@@ -57,6 +57,7 @@ namespace Notenmanager.ViewModel
         }
 
         #region Properties
+
         public ObservableCollection<Unterrichtsfach> LstUFach
         {
             get
@@ -214,6 +215,8 @@ namespace Notenmanager.ViewModel
         }
         #endregion Properties
 
+        #region Methoden fuer Unterrichtsfaecher
+        // um neues Unterrichtsfach anzulegen
         private void OnBtnAnlegen(object obj)
         {
             ufvm.UF = new Unterrichtsfach();
@@ -238,6 +241,8 @@ namespace Notenmanager.ViewModel
             LstUFach.Add(ufvm.UF);
             SelFach = ufvm.UF;
         }
+
+        // um bestehendes Unterrichtsfach zu ändern
         private void OnBtnAendern(object obj)
         {
             ufvm.UF = SelFach;
@@ -254,23 +259,19 @@ namespace Notenmanager.ViewModel
                 ufvm.UF.Reload();
                 return;
             }
-
+ 
             int index = LstUFach.IndexOf(ufvm.UF);
 
+            // Index löschen und neu hinzufügen 
             LstUFach.RemoveAt(index);
             LstUFach.Insert(index, ufvm.UF);
 
+            // Selektiertes Fach setzen
             SelFach = ufvm.UF;
             SelFach.Speichern();
         }
-        private void OnBtnSpeichern(string obj)
-        {
-            
-            ZF.Speichern();
 
-            Navigator.Instance.NavigateTo(obj);
-        }
-
+        // um Unterrichtsfach zu entfehrnen 
         private void OnBtnEntfernen(object obj)
         {
             MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(DoEntfernen, "Wirklich löschen?", "Sind Sie sicher?", MessageBoxButton.YesNo, MessageBoxImage.Question));
@@ -285,38 +286,8 @@ namespace Notenmanager.ViewModel
             }
             OnPropertyChanged(nameof(LstUFach));
         }
-        private void OnBtnAbbrechen(string obj)
-        {
-            Navigator.Instance.NavigateTo(obj);
-        }
-        private void OnBtnHinzufuegen(object obj)
-        {
-            LehrerAuswahlWindow dlg = new LehrerAuswahlWindow(SelFach);
-            bool? e = dlg.ShowDialog();
-            if (e != null)
-                DoHinzufuegen(e);
-        }
-        private void DoHinzufuegen(bool? obj)
-        {
-            if (obj != true)
-                return;
 
-            LstULehrer = new ObservableCollection<UFachLehrer>(DBZugriff.Current.Select<UFachLehrer>(x => x.Unterrichtsfach == SelFach));
-        }
-        private void OnBtnLehrerEntfernen(object obj)
-        {
-            MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(DoLehrerEntfernen, "Wirklich entfernen?", "Sind Sie sicher?", MessageBoxButton.YesNo, MessageBoxImage.Question));
-        }
-        private void DoLehrerEntfernen(MessageBoxResult obj)
-        {
-            if(obj == MessageBoxResult.Yes)
-            {
-                UFachLehrer ufl = DBZugriff.Current.SelectFirstOrDefault<UFachLehrer>(x => x.Lehrer == SelULehrer.Lehrer && x.Unterrichtsfach == SelULehrer.Unterrichtsfach);
-                ufl.Loeschen();   
-                this.LstULehrer.Remove(SelULehrer);
-            }
-            OnPropertyChanged(nameof(LstULehrer));
-        }
+        // Aktivierung Buttons wenn ein Fach selektiert wurde
         public bool EnableButton
         {
             get
@@ -327,6 +298,45 @@ namespace Notenmanager.ViewModel
                 return false;
             }
         }
+        #endregion
+
+        #region Methoden fuer Lehrerauswahl
+
+        // um Lehrer hinzuzufügen
+        private void OnBtnHinzufuegen(object obj)
+        {
+            // Übergabe des gewählten Unterrichtsfach -> Lehrer kann nicht ohne UFach bestehen
+            LehrerAuswahlWindow dlg = new LehrerAuswahlWindow(SelFach);
+            bool? e = dlg.ShowDialog();
+            if (e != null)
+                DoHinzufuegen(e);
+        }
+        private void DoHinzufuegen(bool? obj)
+        {
+            if (obj != true)
+                return;
+
+            // Liste Lehrer, die aus der DB gelesen werden zum selektierten Unterrichtsfach
+            LstULehrer = new ObservableCollection<UFachLehrer>(DBZugriff.Current.Select<UFachLehrer>(x => x.Unterrichtsfach == SelFach));
+        }
+
+        // um Lehrer zu entfernen
+        private void OnBtnLehrerEntfernen(object obj)
+        {
+            MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(DoLehrerEntfernen, "Wirklich entfernen?", "Sind Sie sicher?", MessageBoxButton.YesNo, MessageBoxImage.Question));
+        }
+        private void DoLehrerEntfernen(MessageBoxResult obj)
+        {
+            if(obj == MessageBoxResult.Yes)
+            {
+                // Löschen der Eintragung in der Relationstabelle UFachLehrer
+                UFachLehrer ufl = DBZugriff.Current.SelectFirstOrDefault<UFachLehrer>(x => x.Lehrer == SelULehrer.Lehrer && x.Unterrichtsfach == SelULehrer.Unterrichtsfach);
+                ufl.Loeschen();   
+                this.LstULehrer.Remove(SelULehrer);
+            }
+            OnPropertyChanged(nameof(LstULehrer));
+        }
+        // Aktivierung der Buttons wenn ein Lehrer selektiert wurde
         public bool EnableLehrerEntfernenButton
         {
             get
@@ -337,12 +347,28 @@ namespace Notenmanager.ViewModel
                 return false;
             }
         }
+        #endregion
 
+        // Zeugnisfach speichern und auf vorherige Seite zurückkehren
+        private void OnBtnSpeichern(string obj)
+        {
+            ZF.Speichern();
+
+            Navigator.Instance.NavigateTo(obj);
+        } 
+
+        // auf vorherige Seite zurückkehren 
+        private void OnBtnAbbrechen(string obj)
+        {
+            Navigator.Instance.NavigateTo(obj);
+        }
+       
         private void SaveAbleChanged()
         {
             OnPropertyChanged(nameof(ZFachSaveAble));
         }
 
+        // Überprüfung der "Mussfelder"
         public bool ZFachSaveAble
         {
             get
