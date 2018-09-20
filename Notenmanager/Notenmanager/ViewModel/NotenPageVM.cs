@@ -299,7 +299,7 @@ namespace Notenmanager.ViewModel
 
          //alle Kombinationen von UFach, LA, anz
          List<Unterrichtsfach> lstcufs = DBZugriff.Current.Select<Unterrichtsfach>(x => x.Zeugnisfach.Klasse == CurrentKlasse);
-         List<Tuple<Unterrichtsfach, Leistungsart, int>> lstufleicount = new List<Tuple<Unterrichtsfach, Leistungsart, int>>();
+         List<Tuple<Schueler,Unterrichtsfach, Leistungsart, int>> lstufleicount = new List<Tuple<Schueler,Unterrichtsfach, Leistungsart, int>>();
          foreach (Leistungsart la in DBZugriff.Current.Select<Leistungsart>())
          {
             lstlaanz.Add(new GridColumHelperClass()
@@ -307,30 +307,31 @@ namespace Notenmanager.ViewModel
                Leistungsart = la,
             });
             foreach (Unterrichtsfach uf in lstcufs)
-               lstufleicount.Add(new Tuple<Unterrichtsfach, Leistungsart, int>(uf, la, 0));
+               foreach(Schueler s in LstSchueler)
+                  lstufleicount.Add(new Tuple<Schueler,Unterrichtsfach, Leistungsart, int>(s, uf, la, 0));
          }
 
          //Hauptaufbau
-         foreach (Leistung l in DBZugriff.Current.Select<Leistung>(x => x.SchuelerKlasse.Klasse == CurrentKlasse && CheckIfIsInCurrentPeriod(x)))
+         foreach (Leistung l in DBZugriff.Current.Select<Leistung>(x => x.SchuelerKlasse.Klasse == CurrentKlasse && CheckIfIsInCurrentPeriod(x) && (AlleSchueler==true ? true : x.SchuelerKlasse.Schueler == CurrentSchueler)))
          {
-            Tuple<Unterrichtsfach, Leistungsart, int> tmp = lstufleicount.Find(x => x.Item1 == l.UFachLehrer.Unterrichtsfach && x.Item2 == l.Leistungsart);
+            Tuple<Schueler,Unterrichtsfach, Leistungsart, int> tmp = lstufleicount.Find(x => x.Item1 == l.SchuelerKlasse.Schueler && x.Item2 == l.UFachLehrer.Unterrichtsfach && x.Item3 == l.Leistungsart);
             if (tmp == null)
                continue;
 
             int i = lstufleicount.IndexOf(tmp);
-            lstufleicount[i] = new Tuple<Unterrichtsfach, Leistungsart, int>(tmp.Item1, tmp.Item2, tmp.Item3 + 1);
+            lstufleicount[i] = new Tuple<Schueler,Unterrichtsfach, Leistungsart, int>(tmp.Item1 ,tmp.Item2, tmp.Item3, tmp.Item4 + 1);
          }
 
          //Extrahieren und vergleichen
-         foreach (Tuple<Unterrichtsfach, Leistungsart, int> t in lstufleicount)
+         foreach (Tuple<Schueler,Unterrichtsfach, Leistungsart, int> t in lstufleicount)
          {
-            GridColumHelperClass tmp = lstlaanz.Find(x => x.Leistungsart == t.Item2);
+            GridColumHelperClass tmp = lstlaanz.Find(x => x.Leistungsart == t.Item3);
             if (tmp == null)
                continue;
 
             //Vergleichen und ggf vergrößeren
-            if (t.Item3 > tmp.Anz)
-               tmp.Anz = t.Item3;
+            if (t.Item4 > tmp.Anz)
+               tmp.Anz = t.Item4;
          }
 
          lstlaanz.ForEach(x => x.Anz += 1);
