@@ -24,7 +24,7 @@ namespace Notenmanager.ViewModel
       private Klasse _currentKlasse;
       private Schueler _currentSchueler;
 
-      private bool _alleSchueler = true;
+      private bool _alleSchueler = false;
 
       public List<Schule> LstSchulen
       {
