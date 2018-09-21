@@ -33,12 +33,6 @@ namespace Notenmanager.ViewModel
                 SetValue(ref _currentPage, value);
             }
         }
-        
-
-        #region Commands
-        public ICommand BeendenCmd { get; set; }
-        public ICommand StartCmd { get; set; }
-        public ICommand CreditsCmd { get; set; }
 
         public Visibility PBarVisibility
         {
@@ -62,6 +56,12 @@ namespace Notenmanager.ViewModel
                 return PBarVisibility != Visibility.Visible;
             }
         }
+
+        #region Commands
+        public ICommand BeendenCmd { get; set; }
+        public ICommand StartCmd { get; set; }
+        public ICommand CreditsCmd { get; set; }
+
 
 
         #endregion
