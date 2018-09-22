@@ -7,60 +7,63 @@ using System.Windows.Controls;
 
 namespace Notenmanager.ViewModel.Tools
 {
-    /// <summary>
-    /// Klasse zum Vereinfachen der Navigation zwischen Pages dieser WPF-Anwendung.
-    /// Diese Klasse ist nach dem Singleton-Pattern codiert.
-    /// </summary>
-    public class Navigator
-    {
-        /// <summary>
-        /// einmalige Instanz
-        /// </summary>
-        private static Navigator _instance = null;
+   /// <summary>
+   /// Klasse zum Vereinfachen der Navigation zwischen Pages dieser WPF-Anwendung.
+   /// Diese Klasse ist nach dem Singleton-Pattern codiert.
+   /// </summary>
+   public class Navigator
+   {
+      /// <summary>
+      /// einmalige Instanz
+      /// </summary>
+      //private static Navigator _instance = null;
 
-        private Navigator() { }
+      private Navigator() { }
 
-        public event EventHandler PageChangedFinished;
-        public event EventHandler<NavigationEventArgs> PageChanged; 
+      public event EventHandler PageChangedFinished;
+      public event EventHandler<NavigationEventArgs> PageChanged;
 
-        public static Navigator Instance
-        {
-            get
+      //public static Navigator Instance
+      //{
+      //   get
+      //   {
+      //      if (_instance == null)
+      //         _instance = new Navigator();
+      //      return _instance;
+      //   }
+
+      //   private set
+      //   {
+      //      _instance = value;
+      //   }
+      //}
+      public static Navigator Instance { get; } = new Navigator();
+
+      /// <summary>
+      /// Navigiert zu einer Seite. 
+      /// </summary>
+      /// <param name="resourceKey">Schlüssel aus dem ResourceDictionary der Seite, zu der navigiert werden soll</param>
+      public void NavigateTo(string resourceKey)
+      {
+         if (!resourceKey.Equals(String.Empty))
+         {
+            var page = App.Current.FindResource(resourceKey) as Page;
+            PageChanged?.Invoke(this, new NavigationEventArgs()
             {
-                return _instance == null?new Navigator():_instance;
-            }
-
-            private set
-            {
-                _instance = value;
-            }
-        }
-
-        /// <summary>
-        /// Navigiert zu einer Seite. 
-        /// </summary>
-        /// <param name="resourceKey">Schlüssel aus dem ResourceDictionary der Seite, zu der navigiert werden soll</param>
-        public void NavigateTo(string resourceKey)
-        {
-            if(!resourceKey.Equals(String.Empty))
-            {
-                var page = App.Current.FindResource(resourceKey) as Page;
-				PageChanged?.Invoke(this, new NavigationEventArgs()
-                {
-                    ZielPage = page,
-                });
-                (App.Current.FindResource("MainWindowVM") as MainWindowVM).CurrentPage = page;
-                PageChangedFinished?.Invoke(this, new EventArgs());
-                
-                
-            }
-        }
-
-
-        //DB fertig
-        public void StartUpDone()
-        {
+               ZielPage = page,
+            });
+            (App.Current.FindResource("MainWindowVM") as MainWindowVM).CurrentPage = page;
             PageChangedFinished?.Invoke(this, new EventArgs());
-        }
-    }
+
+
+         }
+      }
+
+
+      //DB fertig
+      public void StartUpDone()
+      {
+         PageChangedFinished?.Invoke(this, new EventArgs());
+      }
+   }
 }
