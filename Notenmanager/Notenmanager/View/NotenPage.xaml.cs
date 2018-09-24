@@ -227,7 +227,7 @@ namespace Notenmanager.View
                      List<Leistung> lstlei = schuelerleistungen.FindAll(x => x.Leistungsart == cs.La && x.UFachLehrer.Unterrichtsfach == uf).ToList();
                      if (lstlei.Count == 0)
                         continue;
-                     AddNotenTextBox(_vm.CalcNote(lstlei), currentrow, cs.ColumnIndex, true);
+                     AddNotenTextBox(_vm.CalcNoteDouble(lstlei), currentrow, cs.ColumnIndex, true);
                   }
 
                   //GesamtNote UF
