@@ -6,7 +6,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:Notenmanager.View"
         mc:Ignorable="d"
-        Title="LeistungMassenerfassungWindow" Height="408.737" Width="400"
+        Title="Massenerfassung" Height="408.737" Width="400"
         DataContext="{StaticResource LeistungMassenerfassungWindowVM}">
     <Grid>
         <Label x:Name="lblKL" Content="Klasse" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>

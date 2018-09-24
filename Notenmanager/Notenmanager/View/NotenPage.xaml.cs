@@ -247,7 +247,7 @@ namespace Notenmanager.View
             }
 
             //GesamtNote Schüler
-            AddNotenTextBox(_vm.CalcNoteDoubleSchueler(zfNoten), currentrowschueler, gNoten.ColumnDefinitions.Count - 1, true);
+            AddNotenTextBox(_vm.CalcNoteDoubleSchueler(zfNoten), currentrowschueler, gNoten.ColumnDefinitions.Count - 1, true,true);
          }
       }
 
@@ -320,7 +320,7 @@ namespace Notenmanager.View
          Grid.SetColumn(tb, column);
       }
 
-      private void AddNotenTextBox(double note, int row, int column, bool bold = false)
+      private void AddNotenTextBox(double note, int row, int column, bool bold = false, bool underline = false)
       {
          TextBox tb = new TextBox();
          tb.Text = note.ToString("#0.00");
@@ -331,6 +331,8 @@ namespace Notenmanager.View
 
          if (bold)
             tb.FontWeight = FontWeights.Bold;
+         if (underline)
+            tb.TextDecorations = TextDecorations.Underline;
 
          gNoten.Children.Add(tb);
 
