@@ -36,7 +36,7 @@
         <Button x:Name="btnFachAnlegen" Command="{Binding NavigationCmd}" CommandParameter="FaecherVerwaltenPage" Content="Fachverwaltung" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,0,0" FontSize="15"/>
 
         <!-- <Image x:Name="imgAdd" Source="Notenmanager/Resources/Add_Icon.png" Grid.Column="1" Grid.Row="0" Height="80" HorizontalAlignment="Right" Margin="0,0,10,0" Opacity="0.3"/> -->
-        <Button x:Name="btnNoten" Command="{Binding NavigationCmd}" CommandParameter="Notenverwaltung" Content="Notenverwaltung" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,0,0" FontSize="15"/>
+        <Button x:Name="btnNoten" Command="{Binding NavigationCmd}" CommandParameter="NotenPage" Content="Notenverwaltung" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Margin="0,0,0,0" FontSize="15"/>
 
     </Grid>
     
