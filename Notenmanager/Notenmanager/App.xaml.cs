@@ -110,21 +110,21 @@ namespace Notenmanager
          {
             Schule schule = new Schule()
             {
-               Bez = "TestSchule"+DateTime.Now.Millisecond,
+               Bez = "EDV-Schule",//"TestSchule"+DateTime.Now.Millisecond,
             };
             schule.Speichern();
 
             Lehrer leh = new Lehrer()
             {
-               Vorname = "VornameLehrer",
-               Nachname = "NachnameLehrer",
+               Vorname = "Klaus",
+               Nachname = "Reuther",
                Kuerzel = "TL",
             };
             leh.Speichern();
 
             Klasse kl = new Klasse()
             {
-               Bez = "TKL1A"+ DateTime.Now.Millisecond,
+               Bez = "BFI12A",//"TKL1A"+ DateTime.Now.Millisecond,
                SJ = ViewModel.Tool.CURRENTSJ,
                Schule = schule,
                Klassenleiter = leh,
@@ -134,7 +134,7 @@ namespace Notenmanager
 
             Zeugnisfach zf = new Zeugnisfach()
             {
-               Bez = "TestAbschlussFach",
+               Bez = "TFBAN",
                Fachart = Fachart.Pflichtfach,
                Pos = 1,
                Vorrueckungsfach = true,
@@ -144,7 +144,7 @@ namespace Notenmanager
             zf.Speichern();
             Zeugnisfach zf2 = new Zeugnisfach()
             {
-               Bez = "TestAbschlussFach2",
+               Bez = "Anwendungsentwicklung",
                Fachart = Fachart.Wahlpflichtfach,
                Pos = 2,
                Vorrueckungsfach = true,
@@ -155,7 +155,7 @@ namespace Notenmanager
 
             Unterrichtsfach uf = new Unterrichtsfach()
             {
-               Bez = "TestUnterichtsFach",
+               Bez = "TFBAN1",
                Pos = 1,
                Stunden = 6,
                Zeugnisfach = zf,
@@ -163,7 +163,7 @@ namespace Notenmanager
             uf.Speichern();
             Unterrichtsfach uf2 = new Unterrichtsfach()
             {
-               Bez = "TestUnterichtsFach2",
+               Bez = "TFBAN2",
                Pos = 1,
                Stunden = 4,
                Zeugnisfach = zf,
@@ -171,7 +171,7 @@ namespace Notenmanager
             uf2.Speichern();
             Unterrichtsfach uf2B = new Unterrichtsfach()
             {
-               Bez = "TestUnterichtsFach2B",
+               Bez = "C#",
                Pos = 1,
                Stunden = 4,
                Zeugnisfach = zf2,
@@ -203,8 +203,8 @@ namespace Notenmanager
 
             Schueler s = new Schueler()
             {
-               Vorname = "VornameSchüler"+DateTime.Now.Millisecond,
-               Nachname = "NachnameSchüler",
+               Vorname = "Hans",//"VornameSchüler"+DateTime.Now.Millisecond,
+               Nachname = "Bauer",
                Geburtsdatum = new DateTime(2000, 1, 1),
                Geschlecht = Geschlecht.M,
                Konfession = Konfession.BL,
@@ -220,8 +220,8 @@ namespace Notenmanager
 
             Schueler s2 = new Schueler()
             {
-               Vorname = "VornameSchüler" + (DateTime.Now.Millisecond+10),
-               Nachname = "NachnameSchüler",
+               Vorname = "Harry",//"VornameSchüler" + (DateTime.Now.Millisecond+10),
+               Nachname = "Müller",
                Geburtsdatum = new DateTime(2001, 1, 1),
                Geschlecht = Geschlecht.M,
                Konfession = Konfession.BL,
@@ -258,7 +258,7 @@ namespace Notenmanager
             la.Speichern();
             Leistungsart la2 = new Leistungsart()
             {
-               Bez = "Ex",
+               Bez = "Stegreifaufgabe",
                Gewichtung = 1,
                Gruppe = lg,
 
