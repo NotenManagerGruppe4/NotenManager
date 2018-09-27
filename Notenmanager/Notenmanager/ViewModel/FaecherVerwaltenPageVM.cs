@@ -14,7 +14,8 @@ namespace Notenmanager.ViewModel
    public class FaecherVerwaltenPageVM : BaseViewModel
    {
       #region Instanzvariablen
-      private ObservableCollection<Unterrichtsfach> _ufaecher;
+      private ObservableCollection<Unterrichtsfach> _ufaecher = new ObservableCollection<Unterrichtsfach>();
+        private ObservableCollection<Zeugnisfach> _zfaecher = new ObservableCollection<Zeugnisfach>();
       private Schule _selectedSchule;
       private Klasse _selectedKlasse;
       private Zeugnisfach _selectedZFach;
@@ -85,11 +86,11 @@ namespace Notenmanager.ViewModel
       {
          get
          {
-            return new ObservableCollection<Zeugnisfach>(DBZugriff.Current.Select<Zeugnisfach>(x => x.Klasse == SelectedKlasse));
+                return _zfaecher; 
          }
          set
          {
-            OnPropertyChanged();
+                SetValue(ref _zfaecher, value);
          }
       }
 
@@ -160,6 +161,7 @@ namespace Notenmanager.ViewModel
          set
          {
             SetValue(ref _selectedKlasse, value);
+            Zfaecher = new ObservableCollection<Zeugnisfach>(DBZugriff.Current.Select<Zeugnisfach>(x => x.Klasse == SelectedKlasse));
          }
       }
 
@@ -196,8 +198,7 @@ namespace Notenmanager.ViewModel
       private void OnCBoxKlassenChanged(object obj)
       {
          //nur Updaten
-         Zfaecher = null;
-         Ufaecher.Clear();
+         Ufaecher = new ObservableCollection<Unterrichtsfach>();
       }
 
       /// <summary>
