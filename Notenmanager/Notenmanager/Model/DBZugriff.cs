@@ -15,16 +15,21 @@ namespace Notenmanager.Model
 {
    //Hauptklasse für den Datenbankzugriff
    //
-   // !- Falls etwas hier nicht beschrieben sein sollte, einfach im Projekt danach suchen ;)
+   // !- Falls etwas hier nicht beschrieben sein sollte, einfach im Projekt danach suchen... ist hoffentlich vorhanden ;)
    // Vorgehensweise bei Erstellen/Ändern des DB-Modells:
    // 0. falls das Projekt das erste Mal EF nutzt: 
    //     * NuGet-Manager folgende Pakete installieren:
-   //       - EntityFramewrok
+   //       - EntityFramework
    //       - MySql.Data.Entity (enthält/benötigt die GLEICHE!!! Version vom normalen MySql-Konnektor)
+   //       - ggf wird später in der Paket-Manager-Konsole (siehe unten) gefragt ob ein Skript (init.ps1) ausgeführt werden soll, da es eventl. ungültig ist --> Immer ausführen wählen!!! 
+   //          Da ansonsten das Skipt von Windows als nicht vertrauenswürdig eingestuft wird und keine EF-Kommandos genutzt werden
    //     * App.config konfigurieren
-   //       - <connectionStrings> hinzufügen
+   //       - <connectionString> hinzufügen:
+   //         <connectionStrings>
+   //            <add name = "MySQLSchuleNoma4" providerName="MySql.Data.MySqlClient" connectionString="server=mysql.schule;userid=noma;password=nomasecret;database=a_noma4;persistsecurityinfo=True" />
+   //         </connectionStrings>
    //     * Context.cs (DB-Darstellung)
-   //       - [DbConfigurationType(typeof(MySqlEFConfiguration))] über die Klasse schreiben
+   //       - [DbConfigurationType(typeof(MySqlEFConfiguration))] über die Klasse schreiben (Annotation)
    //       - : base("name=<NameEinesConnectionStrings>") am Standardkonstruktor anhängen
    //     * Main-Methode
    //       -  DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
@@ -216,7 +221,7 @@ namespace Notenmanager.Model
       /// <exception cref="InvalidOperationException">Mehrer Elemente gefunden</exception>
       public T SelectSingleOrDefault<T>(Func<T, bool> pred) where T : class, IDBable
       {
-         return GetDbSetFromContext<T>().SingleOrDefault(pred);
+         return Select<T>(pred).SingleOrDefault(pred);
       }
 
       /// <summary>
@@ -227,12 +232,10 @@ namespace Notenmanager.Model
       /// <returns>Objekt vom Typ T, default(T) (meistens null) falls nichts gefunden</returns>
       public T SelectFirstOrDefault<T>(Func<T, bool> pred = null) where T : class, IDBable
       {
-         DbSet<T> tmp = GetDbSetFromContext<T>();
-
          if (pred == null)
-            return tmp.FirstOrDefault();
+            return Select<T>().FirstOrDefault();
          else
-            return tmp.FirstOrDefault(pred);
+            return Select<T>(pred).FirstOrDefault(pred);
       }
 
 
@@ -259,6 +262,12 @@ namespace Notenmanager.Model
       /// <returns>Liste mit Elementen</returns>
       public List<T> Select<T>(Func<T, bool> pred, bool showDeActive = false) where T : class, IDBable
       {
+         if (pred == null)
+         {
+            Trace.Write("[DB] Warum nutzt du einen Select MIT Einschränkungen, obwohl du KEINE hast!");
+            return Select<T>(showDeActive);
+         }
+         
 
          if (showDeActive)
             return GetDbSetFromContext<T>().Where(pred).ToList();

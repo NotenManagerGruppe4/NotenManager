@@ -52,6 +52,7 @@ namespace Notenmanager
          DBZugriff.InitDB();
 
 #if DEBUG
+         //Testaufruf
          //Aufruf durch Projekt>Eigenschaften>Debugging>Parameter: -test (Danach aber wieder entfernen;)
          if (Environment.GetCommandLineArgs().Contains("-test"))
             Test();
@@ -79,8 +80,11 @@ namespace Notenmanager
 
             Trace.WriteLine("Test: Verbindung hergestellt! Starte Test!");
 
+
+            //Test hier ausführen
+
             Tests t = new Tests();
-            t.InsertTest();
+            //t.InsertTest(); //<-- Test für Beispieldaten
          }
          catch (Exception e)
          {
@@ -118,7 +122,7 @@ namespace Notenmanager
             {
                Vorname = "Klaus",
                Nachname = "Reuther",
-               Kuerzel = "TL",
+               Kuerzel = "BAR",
             };
             leh.Speichern();
 
