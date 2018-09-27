@@ -21,8 +21,10 @@ namespace Notenmanager.Model
    //     * NuGet-Manager folgende Pakete installieren:
    //       - EntityFramework
    //       - MySql.Data.Entity (enthält/benötigt die GLEICHE!!! Version vom normalen MySql-Konnektor)
-   //       - ggf wird später in der Paket-Manager-Konsole (siehe unten) gefragt ob ein Skript (init.ps1) ausgeführt werden soll, da es eventl. ungültig ist --> Immer ausführen wählen!!! 
+   //       - ggf wird später in der Paket-Manager-Konsole (siehe unten) gefragt ob ein Skript (init.ps1) ausgeführt werden soll, da es eventl. ungültig ist --> IMMER AUSFÜHREN wählen!!! 
    //          Da ansonsten das Skipt von Windows als nicht vertrauenswürdig eingestuft wird und keine EF-Kommandos genutzt werden
+   //          Sollte man versehentlich "ablehnen" gewählt haben muss man das Zertifikat aus Zertifikate - Aktueller Benutzer>Nicht vertrauenswürdige Zertifikate löschen;
+   //          Vorgehensweise: https://docs.microsoft.com/de-de/dotnet/framework/wcf/feature-details/how-to-view-certificates-with-the-mmc-snap-in
    //     * App.config konfigurieren
    //       - <connectionString> hinzufügen:
    //         <connectionStrings>
