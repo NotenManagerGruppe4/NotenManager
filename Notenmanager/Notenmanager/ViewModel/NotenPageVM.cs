@@ -350,8 +350,10 @@ namespace Notenmanager.ViewModel
       {
          if (AlleSchueler)
             return LstSchueler;
-         else
+         else if (CurrentSchueler != null)
             return new List<Schueler>() { CurrentSchueler };
+         else
+            return new List<Schueler>();
       }
 
 
