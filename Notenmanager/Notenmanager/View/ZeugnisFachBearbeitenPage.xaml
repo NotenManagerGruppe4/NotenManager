@@ -51,7 +51,7 @@
                 </DataGrid>
 
                 <!-- Inneres Grid Row 2 (Buttons für DataGrid Fächer) -->
-                <Button x:Name="btnAnlegen" Command="{Binding OnBtnAnlegenCmd}" Grid.Row="1" IsEnabled="{Binding ZFachSaveAble}" Content="Anlegen" HorizontalAlignment="Left" Height="25" Margin="5,5,0,0" VerticalAlignment="Top" Width="Auto"/>
+                <Button x:Name="btnAnlegen" Command="{Binding OnBtnAnlegenCmd}" Grid.Row="1"  Content="Anlegen" HorizontalAlignment="Left" Height="25" Margin="5,5,0,0" VerticalAlignment="Top" Width="Auto"/>
                 <Button x:Name="btnAendern" Command="{Binding OnBtnAendernCmd}" IsEnabled="{Binding EnableButton}" Grid.Row="1" Content="Ändern" HorizontalAlignment="Center" Height="25" Margin="0,5,0,0" VerticalAlignment="Top" Width="Auto"/>
                 <Button x:Name="btnEntfernen" Command="{Binding OnBtnEntfernenCmd}" IsEnabled="{Binding EnableButton}" Grid.Row="1" Content="Entfernen" HorizontalAlignment="Right" Height="25" Margin="0,5,5,0" VerticalAlignment="Top" Width="Auto"/>
 

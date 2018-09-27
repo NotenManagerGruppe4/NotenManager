@@ -27,6 +27,7 @@ namespace Notenmanager.ViewModel
 
         private UnterrichtsfachBearbeitenVM ufvm;
         private LehrerAuswahlWindowVM lavm;
+        private FaecherVerwaltenPageVM fvvm;
 
         public event EventHandler<MessageBoxEventArgs> MessageBoxRequest;
 
@@ -53,6 +54,7 @@ namespace Notenmanager.ViewModel
 
             ufvm = App.Current.FindResource("UFBearbeitenVM") as UnterrichtsfachBearbeitenVM;
             lavm = App.Current.FindResource("LehrerAuswahlVM") as LehrerAuswahlWindowVM;
+            fvvm = App.Current.FindResource("FaecherVerwaltenPageVM") as FaecherVerwaltenPageVM;
 
         }
 
@@ -240,6 +242,8 @@ namespace Notenmanager.ViewModel
             ufvm.UF.Speichern();
             LstUFach.Add(ufvm.UF);
             SelFach = ufvm.UF;
+            // Liste der Unterrichtsfächer im VM der FaecherVerwaltenPage aktualisieren 
+            fvvm.Ufaecher.Add(ufvm.UF);
         }
 
         // um bestehendes Unterrichtsfach zu ändern
@@ -269,6 +273,11 @@ namespace Notenmanager.ViewModel
             // Selektiertes Fach setzen
             SelFach = ufvm.UF;
             SelFach.Speichern();
+
+            // Liste der Unterrichtsfächer im VM der FaecherVerwaltenPage aktualisieren
+            int i = (App.Current.FindResource("FaecherVerwaltenPageVM") as FaecherVerwaltenPageVM).Ufaecher.IndexOf(ufvm.UF);
+            fvvm.Ufaecher.RemoveAt(i);
+            fvvm.Ufaecher.Insert(i, ufvm.UF);
         }
 
         // um Unterrichtsfach zu entfehrnen 
@@ -281,6 +290,8 @@ namespace Notenmanager.ViewModel
         {
             if (obj == MessageBoxResult.Yes)
             {
+                // Liste der Unterrichtsfächer im VM der FaecherVerwaltenPage aktualisieren 
+                fvvm.Ufaecher.Remove(SelFach);
                 this.SelFach.Loeschen();
                 this.LstUFach.Remove(SelFach);
             }
@@ -353,6 +364,16 @@ namespace Notenmanager.ViewModel
         private void OnBtnSpeichern(string obj)
         {
             ZF.Speichern();
+
+            // Zeugnisfachliste im FaecherVerwaltenVM aktualisieren
+            if (Modus == DialogMode.Neu)
+                fvvm.Zfaecher.Add(ZF);
+            else if (Modus == DialogMode.Aendern)
+            {
+                int ind = fvvm.Zfaecher.IndexOf(ZF);
+                fvvm.Zfaecher.RemoveAt(ind);
+                fvvm.Zfaecher.Insert(ind, ZF);
+            }
 
             Navigator.Instance.NavigateTo(obj);
         } 
