@@ -367,12 +367,16 @@ namespace Notenmanager.ViewModel
 
             // Zeugnisfachliste im FaecherVerwaltenVM aktualisieren
             if (Modus == DialogMode.Neu)
+            {
                 fvvm.Zfaecher.Add(ZF);
+                fvvm.SelectedZFach = ZF;
+            }
             else if (Modus == DialogMode.Aendern)
             {
                 int ind = fvvm.Zfaecher.IndexOf(ZF);
                 fvvm.Zfaecher.RemoveAt(ind);
                 fvvm.Zfaecher.Insert(ind, ZF);
+                fvvm.SelectedZFach = ZF;
             }
 
             Navigator.Instance.NavigateTo(obj);
