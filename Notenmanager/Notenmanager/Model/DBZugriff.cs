@@ -26,21 +26,22 @@ namespace Notenmanager.Model
    //          Sollte man versehentlich "ablehnen" gewählt haben muss man das Zertifikat aus Zertifikate - Aktueller Benutzer>Nicht vertrauenswürdige Zertifikate löschen;
    //          Vorgehensweise: https://docs.microsoft.com/de-de/dotnet/framework/wcf/feature-details/how-to-view-certificates-with-the-mmc-snap-in
    //     * App.config konfigurieren
-   //       - <connectionString> hinzufügen:
+   //       - connectionString hinzufügen / anpassen: z.B.
    //         <connectionStrings>
-   //            <add name = "MySQLSchuleNoma4" providerName="MySql.Data.MySqlClient" connectionString="server=mysql.schule;userid=noma;password=nomasecret;database=a_noma4;persistsecurityinfo=True" />
+   //            <add name = "<NameDesConnectionStrings>" providerName="MySql.Data.MySqlClient" connectionString="server=<Server>;userid=<User>;password=<Password>;database=<Datenbank>;persistsecurityinfo=True" />
    //         </connectionStrings>
    //     * Context.cs (DB-Darstellung)
    //       - [DbConfigurationType(typeof(MySqlEFConfiguration))] über die Klasse schreiben (Annotation)
-   //       - : base("name=<NameEinesConnectionStrings>") am Standardkonstruktor anhängen
+   //       - : base("name=<NameDesConnectionStrings>") am Standardkonstruktor anhängen
    //     * Main-Methode
    //       -  DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
    //     * Paket-Manager-Konsole> Enable-Migrations (falls bereits vorhanden: Enable-Migrations -Force)
-   // 1. falls vorhanden, Datenbank zurücksetzen (alle bestehenden Tabellen löschen)
-   // 2. falls vorhanden, alle Migrationsberichte im Ordner "Migrations" löschen
+   //       -  Prüft, ob das Projekt EF-fähig ist und meldet Fehler zurück
+   // 1. Falls vorhanden, Datenbank zurücksetzen (alle bestehenden Tabellen löschen ggf mehrmals, da Fremdschlüsselbeziehungen)
+   // 2. Falls vorhanden, alle Migrationsberichte im Ordner "Migrations" löschen
    // 3. Neue Migration via 
    //       Paket-Manager-Konsole> Add-Migration <IrgendeinPassenderName>
-   //    erstellen und ggf auf Fehler prüfen
+   //    erstellen und ggf auf Fehler prüfen (ist C# Code)
    // 4. Datenbank Updaten via
    //       Paket-Manager-Konsole> Update-Database -Verbose
 
@@ -72,7 +73,7 @@ namespace Notenmanager.Model
          }
          catch (Exception e)
          {
-            Trace.WriteLine("ERROR: LOADING CONTEXT: " + e.ToString());
+            Trace.WriteLine("[DB] [ERR] LOADING CONTEXT: " + e.ToString());
 
             string exmsgre = "";
             Exception ce = e;
@@ -82,6 +83,7 @@ namespace Notenmanager.Model
                ce = ce.InnerException;
             }
 
+            //Service-Meldung
             MessageBox.Show("Fehler beim Starten von EF:\r\n" + exmsgre, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             throw e;
          }
@@ -127,7 +129,8 @@ namespace Notenmanager.Model
             {
                Initer?.Join();
 
-               Trace.WriteLine("[DB] WARN: Zugriff auf Context obwohl er NICHT GELADEN ist! Stack:\r\n" + Environment.StackTrace.ToString());
+               Trace.WriteLine("[DB] [WARN/ERR] Zugriff auf Context obwohl er NICHT GELADEN ist! Stack:\r\n" + Environment.StackTrace.ToString());
+               Trace.WriteLine("[DB] --> Führe erst deine Operation aus wenn sie benötigt wird, also, z.B. wenn das Property mit get abgefragt wird!");
             }
             //falls CheckInit aufgerufen bevor, der Thread gestartet wird...
             while (InitRuns)
@@ -164,7 +167,7 @@ namespace Notenmanager.Model
          }
          catch (Exception e)
          {
-            Trace.WriteLine($"[DBZ] Fehler beim Speichern von '{obj}'\r\n" + e.ToString());
+            Trace.WriteLine($"[DB] [ERR] Fehler beim Speichern von '{obj}'\r\n" + e.ToString());
             throw e;
          }
 
@@ -197,7 +200,7 @@ namespace Notenmanager.Model
          }
          catch (Exception e)
          {
-            Trace.WriteLine($"[DBZ] Fehler bei Löschen von '{obj}'\r\n" + e.ToString());
+            Trace.WriteLine($"[DB] [ERR] Fehler bei Löschen von '{obj}'\r\n" + e.ToString());
             throw e;
          }
       }
@@ -266,7 +269,7 @@ namespace Notenmanager.Model
       {
          if (pred == null)
          {
-            Trace.Write("[DB] Warum nutzt du einen Select MIT Einschränkungen, obwohl du KEINE hast!");
+            Trace.Write("[DB] [WARB] Warum nutzt du einen Select MIT Einschränkungen, obwohl du KEINE hast!");
             return Select<T>(showDeActive);
          }
          
@@ -321,7 +324,7 @@ namespace Notenmanager.Model
 
             }
 
-            Trace.WriteLine("[DBZ] Reloading COMPLETE Context from DB!");
+            Trace.WriteLine("[DB] [ERR] Lade KOMPLETTE Komplette Context-Klasse!");
 
             //Context neu laden
             Dispose();

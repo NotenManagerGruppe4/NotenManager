@@ -68,7 +68,7 @@ namespace Notenmanager
       {
          try
          {
-            Trace.WriteLine("Test: Warte auf DB Verbindung...");
+            Trace.WriteLine("[Test] Warte auf DB Verbindung...");
             
             int timeout = 20; //20 Zyklen Timeout
             //Warte bis DB-ready
@@ -76,31 +76,32 @@ namespace Notenmanager
                Thread.Sleep(500);
 
             if (timeout < 0)
-               throw new TimeoutException("Test: Datenbank-TIMEOUT!");
+               throw new TimeoutException("[Test] [ERR] Datenbank-TIMEOUT!");
 
-            Trace.WriteLine("Test: Verbindung hergestellt! Starte Test!");
+            Trace.WriteLine("[Test] Verbindung hergestellt! Starte Test!");
 
 
-            //Test hier ausführen
+            //Tests hier ausführen
 
             Tests t = new Tests();
             //t.InsertTest(); //<-- Test für Beispieldaten
          }
          catch (Exception e)
          {
-            Trace.WriteLine(e.ToString());
+            Trace.WriteLine("[Test] [ERR] " + e.ToString());
          }
-         Trace.WriteLine("Test: Tests beendet!");
+         Trace.WriteLine("[Test] Tests beendet!");
 
          Thread th = new Thread(() =>
          {
-            Thread.Sleep(2000); //Warte bis Fenster hoffentlich fertig geladen
+            Thread.Sleep(2000); //Warte bis GUI-Fenster hoffentlich fertig geladen
+
+            Trace.WriteLine("[Test] Versuche GUI zu aktivieren...");
 
             Navigator.Instance.StartUpDone();
-            Trace.WriteLine("Test: Versuche GUI zu aktivieren...");
          });
          th.IsBackground = true;
-         th.Name = "Test:AktiviereGUI-Thread";
+         th.Name = "Test->AktiviereGUI-Thread";
          th.Start();
       }
 
