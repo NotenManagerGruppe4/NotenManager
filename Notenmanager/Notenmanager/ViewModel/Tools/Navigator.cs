@@ -13,30 +13,15 @@ namespace Notenmanager.ViewModel.Tools
    /// </summary>
    public class Navigator
    {
-      /// <summary>
-      /// einmalige Instanz
-      /// </summary>
-      //private static Navigator _instance = null;
 
       private Navigator() { }
 
       public event EventHandler PageChangedFinished;
       public event EventHandler<NavigationEventArgs> PageChanged;
 
-      //public static Navigator Instance
-      //{
-      //   get
-      //   {
-      //      if (_instance == null)
-      //         _instance = new Navigator();
-      //      return _instance;
-      //   }
-
-      //   private set
-      //   {
-      //      _instance = value;
-      //   }
-      //}
+      /// <summary>
+      /// einmalige Instanz
+      /// </summary>
       public static Navigator Instance { get; } = new Navigator();
 
       /// <summary>

@@ -15,25 +15,33 @@ namespace Notenmanager.Model
 {
    //Hauptklasse für den Datenbankzugriff
    //
-   // !- Falls etwas hier nicht beschrieben sein sollte, einfach im Projekt danach suchen ;)
+   // !- Falls etwas hier nicht beschrieben sein sollte, einfach im Projekt danach suchen... ist hoffentlich vorhanden ;)
    // Vorgehensweise bei Erstellen/Ändern des DB-Modells:
    // 0. falls das Projekt das erste Mal EF nutzt: 
    //     * NuGet-Manager folgende Pakete installieren:
-   //       - EntityFramewrok
+   //       - EntityFramework
    //       - MySql.Data.Entity (enthält/benötigt die GLEICHE!!! Version vom normalen MySql-Konnektor)
+   //       - ggf wird später in der Paket-Manager-Konsole (siehe unten) gefragt ob ein Skript (init.ps1) ausgeführt werden soll, da es eventl. ungültig ist --> IMMER AUSFÜHREN wählen!!! 
+   //          Da ansonsten das Skipt von Windows als nicht vertrauenswürdig eingestuft wird und keine EF-Kommandos genutzt werden
+   //          Sollte man versehentlich "ablehnen" gewählt haben muss man das Zertifikat aus Zertifikate - Aktueller Benutzer>Nicht vertrauenswürdige Zertifikate löschen;
+   //          Vorgehensweise: https://docs.microsoft.com/de-de/dotnet/framework/wcf/feature-details/how-to-view-certificates-with-the-mmc-snap-in
    //     * App.config konfigurieren
-   //       - <connectionStrings> hinzufügen
+   //       - connectionString hinzufügen / anpassen: z.B.
+   //         <connectionStrings>
+   //            <add name = "<NameDesConnectionStrings>" providerName="MySql.Data.MySqlClient" connectionString="server=<Server>;userid=<User>;password=<Password>;database=<Datenbank>;persistsecurityinfo=True" />
+   //         </connectionStrings>
    //     * Context.cs (DB-Darstellung)
-   //       - [DbConfigurationType(typeof(MySqlEFConfiguration))] über die Klasse schreiben
-   //       - : base("name=<NameEinesConnectionStrings>") am Standardkonstruktor anhängen
+   //       - [DbConfigurationType(typeof(MySqlEFConfiguration))] über die Klasse schreiben (Annotation)
+   //       - : base("name=<NameDesConnectionStrings>") am Standardkonstruktor anhängen
    //     * Main-Methode
    //       -  DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
    //     * Paket-Manager-Konsole> Enable-Migrations (falls bereits vorhanden: Enable-Migrations -Force)
-   // 1. falls vorhanden, Datenbank zurücksetzen (alle bestehenden Tabellen löschen)
-   // 2. falls vorhanden, alle Migrationsberichte im Ordner "Migrations" löschen
+   //       -  Prüft, ob das Projekt EF-fähig ist und meldet Fehler zurück
+   // 1. Falls vorhanden, Datenbank zurücksetzen (alle bestehenden Tabellen löschen ggf mehrmals, da Fremdschlüsselbeziehungen)
+   // 2. Falls vorhanden, alle Migrationsberichte im Ordner "Migrations" löschen
    // 3. Neue Migration via 
    //       Paket-Manager-Konsole> Add-Migration <IrgendeinPassenderName>
-   //    erstellen und ggf auf Fehler prüfen
+   //    erstellen und ggf auf Fehler prüfen (ist C# Code)
    // 4. Datenbank Updaten via
    //       Paket-Manager-Konsole> Update-Database -Verbose
 
@@ -65,7 +73,7 @@ namespace Notenmanager.Model
          }
          catch (Exception e)
          {
-            Trace.WriteLine("ERROR: LOADING CONTEXT: " + e.ToString());
+            Trace.WriteLine("[DB] [ERR] LOADING CONTEXT: " + e.ToString());
 
             string exmsgre = "";
             Exception ce = e;
@@ -75,6 +83,7 @@ namespace Notenmanager.Model
                ce = ce.InnerException;
             }
 
+            //Service-Meldung
             MessageBox.Show("Fehler beim Starten von EF:\r\n" + exmsgre, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             throw e;
          }
@@ -120,7 +129,8 @@ namespace Notenmanager.Model
             {
                Initer?.Join();
 
-               Trace.WriteLine("[DB] WARN: Zugriff auf Context obwohl er NICHT GELADEN ist! Stack:\r\n" + Environment.StackTrace.ToString());
+               Trace.WriteLine("[DB] [WARN/ERR] Zugriff auf Context obwohl er NICHT GELADEN ist! Stack:\r\n" + Environment.StackTrace.ToString());
+               Trace.WriteLine("[DB] --> Führe erst deine Operation aus wenn sie benötigt wird, also, z.B. wenn das Property mit get abgefragt wird!");
             }
             //falls CheckInit aufgerufen bevor, der Thread gestartet wird...
             while (InitRuns)
@@ -157,7 +167,7 @@ namespace Notenmanager.Model
          }
          catch (Exception e)
          {
-            Trace.WriteLine($"[DBZ] Fehler beim Speichern von '{obj}'\r\n" + e.ToString());
+            Trace.WriteLine($"[DB] [ERR] Fehler beim Speichern von '{obj}'\r\n" + e.ToString());
             throw e;
          }
 
@@ -190,7 +200,7 @@ namespace Notenmanager.Model
          }
          catch (Exception e)
          {
-            Trace.WriteLine($"[DBZ] Fehler bei Löschen von '{obj}'\r\n" + e.ToString());
+            Trace.WriteLine($"[DB] [ERR] Fehler bei Löschen von '{obj}'\r\n" + e.ToString());
             throw e;
          }
       }
@@ -216,7 +226,7 @@ namespace Notenmanager.Model
       /// <exception cref="InvalidOperationException">Mehrer Elemente gefunden</exception>
       public T SelectSingleOrDefault<T>(Func<T, bool> pred) where T : class, IDBable
       {
-         return GetDbSetFromContext<T>().SingleOrDefault(pred);
+         return Select<T>(pred).SingleOrDefault(pred);
       }
 
       /// <summary>
@@ -227,12 +237,10 @@ namespace Notenmanager.Model
       /// <returns>Objekt vom Typ T, default(T) (meistens null) falls nichts gefunden</returns>
       public T SelectFirstOrDefault<T>(Func<T, bool> pred = null) where T : class, IDBable
       {
-         DbSet<T> tmp = GetDbSetFromContext<T>();
-
          if (pred == null)
-            return tmp.FirstOrDefault();
+            return Select<T>().FirstOrDefault();
          else
-            return tmp.FirstOrDefault(pred);
+            return Select<T>(pred).FirstOrDefault(pred);
       }
 
 
@@ -259,6 +267,12 @@ namespace Notenmanager.Model
       /// <returns>Liste mit Elementen</returns>
       public List<T> Select<T>(Func<T, bool> pred, bool showDeActive = false) where T : class, IDBable
       {
+         if (pred == null)
+         {
+            Trace.Write("[DB] [WARB] Warum nutzt du einen Select MIT Einschränkungen, obwohl du KEINE hast!");
+            return Select<T>(showDeActive);
+         }
+         
 
          if (showDeActive)
             return GetDbSetFromContext<T>().Where(pred).ToList();
@@ -310,7 +324,7 @@ namespace Notenmanager.Model
 
             }
 
-            Trace.WriteLine("[DBZ] Reloading COMPLETE Context from DB!");
+            Trace.WriteLine("[DB] [ERR] Lade KOMPLETTE Komplette Context-Klasse!");
 
             //Context neu laden
             Dispose();

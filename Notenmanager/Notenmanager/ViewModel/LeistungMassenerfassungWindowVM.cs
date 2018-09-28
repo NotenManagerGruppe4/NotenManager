@@ -103,9 +103,7 @@ namespace Notenmanager.ViewModel
       {
          get
          {
-            List<UFachLehrer> lstuf = DBZugriff.Current.Select<UFachLehrer>();
-
-            return lstuf.Where(x => x.Unterrichtsfach.Zeugnisfach.Klasse == CurrentKlasse).ToList();
+            return DBZugriff.Current.Select<UFachLehrer>(x => x.Unterrichtsfach.Zeugnisfach.Klasse == CurrentKlasse && x.Unterrichtsfach.Active == true).ToList();
          }
       }
 

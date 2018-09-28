@@ -44,9 +44,8 @@ namespace Notenmanager.Persistenz
                int sid = Convert.ToInt32(tmp[0]);
 
                Schueler schueler = DBZugriff.Current.SelectFirstOrDefault<Schueler>(x => x.SID == sid);
-               bool neu = (schueler == null);
-               if (neu)
-                  schueler = new Schueler();
+
+               schueler = schueler ?? new Schueler();
 
                schueler.SID = sid;
                schueler.Nachname = tmp[1];
@@ -159,8 +158,8 @@ namespace Notenmanager.Persistenz
 
 
                Klasse klasse = DBZugriff.Current.SelectFirstOrDefault<Klasse>(x => x.SID == sid);
-               if (klasse == null)
-                  klasse = new Klasse();
+
+               klasse = klasse ?? new Klasse();
 
 
                klasse.SID = sid;
@@ -188,6 +187,7 @@ namespace Notenmanager.Persistenz
 
          return new Importstatistik()
          {
+            Bez = "Klassen",
             OkCount = ok,
             Fehler = fehler,
          };
@@ -212,8 +212,8 @@ namespace Notenmanager.Persistenz
 
                int sid = Convert.ToInt32(tmp[0]);
                Lehrer lehrer = DBZugriff.Current.SelectFirstOrDefault<Lehrer>(x => x.SID == sid);
-               if (lehrer == null)
-                  lehrer = new Lehrer();
+
+               lehrer = lehrer ?? new Lehrer();
 
                if (tmp[3].Length > 5)
                   throw new FileFormatException("Die Datei hat das falsche Format für den angegebenen Dateityp!");
